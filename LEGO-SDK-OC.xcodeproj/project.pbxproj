@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
 		90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCD21D470892005F4746 /* AppDelegate.m */; };
-		90E8CCD61D470892005F4746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCD51D470892005F4746 /* ViewController.m */; };
-		90E8CCD91D470892005F4746 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCD71D470892005F4746 /* Main.storyboard */; };
 		90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCDA1D470892005F4746 /* Assets.xcassets */; };
 		90E8CCDE1D470892005F4746 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCDC1D470892005F4746 /* LaunchScreen.storyboard */; };
 		90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCFE1D470AB7005F4746 /* LGOWebView.m */; };
@@ -39,6 +37,10 @@
 		90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD4A1D473BB5005F4746 /* LGOProtocols.m */; };
 		90E8CD501D473C22005F4746 /* LGOBuildFailed.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD4F1D473C22005F4746 /* LGOBuildFailed.m */; };
 		90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD521D474353005F4746 /* LGOWatchDog.m */; };
+		90E8CD561D474EC1005F4746 /* SDKSample.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD551D474EC1005F4746 /* SDKSample.Storyboard */; };
+		90E8CD591D474F06005F4746 /* LGOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD581D474F06005F4746 /* LGOWebViewController.m */; };
+		90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */; };
+		90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */; };
 		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; };
 /* End PBXBuildFile section */
 
@@ -63,9 +65,6 @@
 		90E8CCCF1D470892005F4746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90E8CCD11D470892005F4746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		90E8CCD21D470892005F4746 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		90E8CCD41D470892005F4746 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		90E8CCD51D470892005F4746 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		90E8CCD81D470892005F4746 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90E8CCDA1D470892005F4746 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90E8CCDD1D470892005F4746 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90E8CCDF1D470892005F4746 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -103,6 +102,13 @@
 		90E8CD4F1D473C22005F4746 /* LGOBuildFailed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOBuildFailed.m; sourceTree = "<group>"; };
 		90E8CD511D474353005F4746 /* LGOWatchDog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOWatchDog.h; sourceTree = "<group>"; };
 		90E8CD521D474353005F4746 /* LGOWatchDog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOWatchDog.m; sourceTree = "<group>"; };
+		90E8CD551D474EC1005F4746 /* SDKSample.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SDKSample.Storyboard; sourceTree = "<group>"; };
+		90E8CD571D474F06005F4746 /* LGOWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOWebViewController.h; sourceTree = "<group>"; };
+		90E8CD581D474F06005F4746 /* LGOWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOWebViewController.m; sourceTree = "<group>"; };
+		90E8CD5A1D475293005F4746 /* SDKSampleJavaScriptListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKSampleJavaScriptListViewController.h; sourceTree = "<group>"; };
+		90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKSampleJavaScriptListViewController.m; sourceTree = "<group>"; };
+		90E8CD5D1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKSampleJavaScriptItemViewController.h; sourceTree = "<group>"; };
+		90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKSampleJavaScriptItemViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,9 +165,6 @@
 				90E8CD061D47341B005F4746 /* Files */,
 				90E8CCD11D470892005F4746 /* AppDelegate.h */,
 				90E8CCD21D470892005F4746 /* AppDelegate.m */,
-				90E8CCD41D470892005F4746 /* ViewController.h */,
-				90E8CCD51D470892005F4746 /* ViewController.m */,
-				90E8CCD71D470892005F4746 /* Main.storyboard */,
 				90E8CCDA1D470892005F4746 /* Assets.xcassets */,
 				90E8CCDC1D470892005F4746 /* LaunchScreen.storyboard */,
 				90E8CCDF1D470892005F4746 /* Info.plist */,
@@ -200,6 +203,8 @@
 		90E8CCFA1D470A7A005F4746 /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
+				90E8CD571D474F06005F4746 /* LGOWebViewController.h */,
+				90E8CD581D474F06005F4746 /* LGOWebViewController.m */,
 			);
 			path = WebViewController;
 			sourceTree = "<group>";
@@ -228,7 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				90E8CD071D47341B005F4746 /* JavaScript */,
-				90E8CD1A1D47341B005F4746 /* Supporting Files */,
+				90E8CD541D474EAF005F4746 /* Supporting Files */,
 			);
 			path = Files;
 			sourceTree = "<group>";
@@ -258,13 +263,6 @@
 			path = JavaScript;
 			sourceTree = "<group>";
 		};
-		90E8CD1A1D47341B005F4746 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		90E8CD441D473BB5005F4746 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +278,18 @@
 				90E8CD521D474353005F4746 /* LGOWatchDog.m */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		90E8CD541D474EAF005F4746 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD551D474EC1005F4746 /* SDKSample.Storyboard */,
+				90E8CD5A1D475293005F4746 /* SDKSampleJavaScriptListViewController.h */,
+				90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */,
+				90E8CD5D1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.h */,
+				90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,9 +369,9 @@
 				90E8CD2B1D47341B005F4746 /* UI.AlertView.html in Resources */,
 				90E8CD311D47341B005F4746 /* UI.ViewController.html in Resources */,
 				90E8CD251D47341B005F4746 /* Native.FileManager.html in Resources */,
+				90E8CD561D474EC1005F4746 /* SDKSample.Storyboard in Resources */,
 				90E8CD2C1D47341B005F4746 /* UI.AppFrame.html in Resources */,
 				90E8CD2F1D47341B005F4746 /* UI.IndicatorView.html in Resources */,
-				90E8CCD91D470892005F4746 /* Main.storyboard in Resources */,
 				90E8CD2A1D47341B005F4746 /* UI.ActionSheet.html in Resources */,
 				90E8CD211D47341B005F4746 /* Native.CanOpenURL.html in Resources */,
 				90E8CD231D47341B005F4746 /* Native.DataModel.html in Resources */,
@@ -424,30 +434,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				90E8CD051D47115D005F4746 /* JSContext+LGOProps.m in Sources */,
-				90E8CCD61D470892005F4746 /* ViewController.m in Sources */,
 				90E8CD501D473C22005F4746 /* LGOBuildFailed.m in Sources */,
 				90E8CD4C1D473BB5005F4746 /* LGOModules.m in Sources */,
 				90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */,
 				90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */,
 				90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */,
 				90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */,
+				90E8CD591D474F06005F4746 /* LGOWebViewController.m in Sources */,
 				90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */,
 				90E8CD021D470ACF005F4746 /* LGOJavaScriptBridge.m in Sources */,
 				90E8CCD01D470892005F4746 /* main.m in Sources */,
+				90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */,
+				90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		90E8CCD71D470892005F4746 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				90E8CCD81D470892005F4746 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		90E8CCDC1D470892005F4746 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

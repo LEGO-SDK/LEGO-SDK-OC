@@ -30,7 +30,7 @@ typedef void(^LGOJSMessageCallCompletionBlock)(NSDictionary<NSString *, id> * _N
 
 + (nonnull NSString *)bridgeScript;
 
-+ (void)exec:(nonnull NSString *)JSONString;
++ (void)exec:(nonnull JSValue *)JSONString;
 
 + (void)log:(nonnull NSString *)text;
 

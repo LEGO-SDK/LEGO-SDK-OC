@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LGOCore.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [[LGOCore whiteList] addObject:@"127.0.0.1"];
     return YES;
 }
 
