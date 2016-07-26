@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    </head>
+    <body>
+        <img width="100%" id="anImageView" />
+        <button onclick="download()">Download Image &amp; Save Image</button>
+        <button onclick="read()">Read Image</button>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function download() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.HTTPRequest"
+        message.requestParams = {URL: "http://www.huanju.cn/s/v1206/HuanJu-LOGO-PNG.png"}
+        message.call(function(result){
+                     showAndSave(result.responseData)
+                     })
+    }
+
+    function showAndSave(imageData) {
+        document.getElementById("anImageView").src = "data:image/png;base64,"+imageData
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.FileManager"
+        message.requestParams = {suite: "Caches", opt: "Write", filePath: "test.png",
+            fileContents: imageData}
+        message.call(null)
+    }
+
+    function read() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.FileManager"
+        message.requestParams = {suite: "Caches", opt: "Read", filePath: "test.png"}
+        message.call(function(result){
+                     document.getElementById("anImageView").src = "data:image/png;base64,"+result.fileContents
+                     })
+    }
+    
+</script>

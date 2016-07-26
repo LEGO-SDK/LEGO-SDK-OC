@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p>设备信息</p>
+        <p id="deviceInfo"></p>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    var apiList = []
+    
+    function device() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.Device"
+        message.call(function(result) {
+                     document.getElementById('deviceInfo').innerHTML = JSON.stringify(result)
+                     })
+    }
+
+    device()
+
+    </script>

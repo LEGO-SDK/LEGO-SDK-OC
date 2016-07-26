@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p>微信<span id="wechat-installed"></span></p>
+        <p><button onclick="openWechat()">打开微信</button></p>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function wechat() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.CanOpenURL"
+        message.requestParams = {URL: "wechat://"}
+        message.call(function(result){
+                     document.getElementById('wechat-installed').innerHTML = result.canOpen ? '已安装' : '未安装'
+                     })
+    }
+
+    function openWechat() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.OpenURL"
+        message.requestParams = {URL: "wechat://"}
+        message.call(null)
+    }
+
+    wechat()
+
+</script>

@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="show()">Show</button></p>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function show() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.AlertView"
+        message.requestParams = {
+            title: "即将毁灭地球，请确认。",
+            buttonTitles: ["马上毁灭", "稍后再试"]
+        }
+        message.call(function(result) {
+                         if (result.buttonIndex == 0) {
+                             JSConsole.log("正在发射核弹...");
+                         }
+                         else {
+                             JSConsole.log("太迟了......");
+                         }
+                     })
+    }
+
+</script>

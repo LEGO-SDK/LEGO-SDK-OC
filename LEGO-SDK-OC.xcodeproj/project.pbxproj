@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
+		90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCD21D470892005F4746 /* AppDelegate.m */; };
+		90E8CCD61D470892005F4746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCD51D470892005F4746 /* ViewController.m */; };
+		90E8CCD91D470892005F4746 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCD71D470892005F4746 /* Main.storyboard */; };
+		90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCDA1D470892005F4746 /* Assets.xcassets */; };
+		90E8CCDE1D470892005F4746 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCDC1D470892005F4746 /* LaunchScreen.storyboard */; };
+		90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCFE1D470AB7005F4746 /* LGOWebView.m */; };
+		90E8CD021D470ACF005F4746 /* LGOJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD011D470ACF005F4746 /* LGOJavaScriptBridge.m */; };
+		90E8CD051D47115D005F4746 /* JSContext+LGOProps.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD041D47115D005F4746 /* JSContext+LGOProps.m */; };
+		90E8CD201D47341B005F4746 /* Native.Call.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD081D47341B005F4746 /* Native.Call.html */; };
+		90E8CD211D47341B005F4746 /* Native.CanOpenURL.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD091D47341B005F4746 /* Native.CanOpenURL.html */; };
+		90E8CD221D47341B005F4746 /* Native.Check.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD0A1D47341B005F4746 /* Native.Check.html */; };
+		90E8CD231D47341B005F4746 /* Native.DataModel.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD0B1D47341B005F4746 /* Native.DataModel.html */; };
+		90E8CD241D47341B005F4746 /* Native.Device.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD0C1D47341B005F4746 /* Native.Device.html */; };
+		90E8CD251D47341B005F4746 /* Native.FileManager.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD0D1D47341B005F4746 /* Native.FileManager.html */; };
+		90E8CD261D47341B005F4746 /* Native.HTTPRequest.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD0E1D47341B005F4746 /* Native.HTTPRequest.html */; };
+		90E8CD271D47341B005F4746 /* Native.Notification.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD0F1D47341B005F4746 /* Native.Notification.html */; };
+		90E8CD281D47341B005F4746 /* Native.Pasteboard.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD101D47341B005F4746 /* Native.Pasteboard.html */; };
+		90E8CD291D47341B005F4746 /* Native.UserDefaults.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD111D47341B005F4746 /* Native.UserDefaults.html */; };
+		90E8CD2A1D47341B005F4746 /* UI.ActionSheet.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD121D47341B005F4746 /* UI.ActionSheet.html */; };
+		90E8CD2B1D47341B005F4746 /* UI.AlertView.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD131D47341B005F4746 /* UI.AlertView.html */; };
+		90E8CD2C1D47341B005F4746 /* UI.AppFrame.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD141D47341B005F4746 /* UI.AppFrame.html */; };
+		90E8CD2D1D47341B005F4746 /* UI.Bounce.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD151D47341B005F4746 /* UI.Bounce.html */; };
+		90E8CD2E1D47341B005F4746 /* UI.ImagePreviewer.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD161D47341B005F4746 /* UI.ImagePreviewer.html */; };
+		90E8CD2F1D47341B005F4746 /* UI.IndicatorView.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD171D47341B005F4746 /* UI.IndicatorView.html */; };
+		90E8CD301D47341B005F4746 /* UI.Refresh.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD181D47341B005F4746 /* UI.Refresh.html */; };
+		90E8CD311D47341B005F4746 /* UI.ViewController.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD191D47341B005F4746 /* UI.ViewController.html */; };
+		90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD461D473BB5005F4746 /* LGOCore.m */; };
+		90E8CD4C1D473BB5005F4746 /* LGOModules.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD481D473BB5005F4746 /* LGOModules.m */; };
+		90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD4A1D473BB5005F4746 /* LGOProtocols.m */; };
+		90E8CD501D473C22005F4746 /* LGOBuildFailed.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD4F1D473C22005F4746 /* LGOBuildFailed.m */; };
+		90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD521D474353005F4746 /* LGOWatchDog.m */; };
+		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		90E8CCF41D4708C0005F4746 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		05CB2CC77EAAA6917F37215A /* libPods-Sample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A12488A39AF61C14C802E57 /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
+		8CE4102F338A29E34675421B /* Pods-Sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.release.xcconfig"; sourceTree = "<group>"; };
+		90E8CCCC1D470892005F4746 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90E8CCCF1D470892005F4746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		90E8CCD11D470892005F4746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		90E8CCD21D470892005F4746 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		90E8CCD41D470892005F4746 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		90E8CCD51D470892005F4746 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		90E8CCD81D470892005F4746 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		90E8CCDA1D470892005F4746 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		90E8CCDD1D470892005F4746 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		90E8CCDF1D470892005F4746 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90E8CCFD1D470AB7005F4746 /* LGOWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOWebView.h; sourceTree = "<group>"; };
+		90E8CCFE1D470AB7005F4746 /* LGOWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOWebView.m; sourceTree = "<group>"; };
+		90E8CD001D470ACF005F4746 /* LGOJavaScriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOJavaScriptBridge.h; sourceTree = "<group>"; };
+		90E8CD011D470ACF005F4746 /* LGOJavaScriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOJavaScriptBridge.m; sourceTree = "<group>"; };
+		90E8CD031D47115D005F4746 /* JSContext+LGOProps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSContext+LGOProps.h"; sourceTree = "<group>"; };
+		90E8CD041D47115D005F4746 /* JSContext+LGOProps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSContext+LGOProps.m"; sourceTree = "<group>"; };
+		90E8CD081D47341B005F4746 /* Native.Call.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.Call.html; sourceTree = "<group>"; };
+		90E8CD091D47341B005F4746 /* Native.CanOpenURL.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.CanOpenURL.html; sourceTree = "<group>"; };
+		90E8CD0A1D47341B005F4746 /* Native.Check.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.Check.html; sourceTree = "<group>"; };
+		90E8CD0B1D47341B005F4746 /* Native.DataModel.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.DataModel.html; sourceTree = "<group>"; };
+		90E8CD0C1D47341B005F4746 /* Native.Device.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.Device.html; sourceTree = "<group>"; };
+		90E8CD0D1D47341B005F4746 /* Native.FileManager.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.FileManager.html; sourceTree = "<group>"; };
+		90E8CD0E1D47341B005F4746 /* Native.HTTPRequest.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.HTTPRequest.html; sourceTree = "<group>"; };
+		90E8CD0F1D47341B005F4746 /* Native.Notification.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.Notification.html; sourceTree = "<group>"; };
+		90E8CD101D47341B005F4746 /* Native.Pasteboard.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.Pasteboard.html; sourceTree = "<group>"; };
+		90E8CD111D47341B005F4746 /* Native.UserDefaults.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.UserDefaults.html; sourceTree = "<group>"; };
+		90E8CD121D47341B005F4746 /* UI.ActionSheet.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.ActionSheet.html; sourceTree = "<group>"; };
+		90E8CD131D47341B005F4746 /* UI.AlertView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.AlertView.html; sourceTree = "<group>"; };
+		90E8CD141D47341B005F4746 /* UI.AppFrame.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.AppFrame.html; sourceTree = "<group>"; };
+		90E8CD151D47341B005F4746 /* UI.Bounce.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.Bounce.html; sourceTree = "<group>"; };
+		90E8CD161D47341B005F4746 /* UI.ImagePreviewer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.ImagePreviewer.html; sourceTree = "<group>"; };
+		90E8CD171D47341B005F4746 /* UI.IndicatorView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.IndicatorView.html; sourceTree = "<group>"; };
+		90E8CD181D47341B005F4746 /* UI.Refresh.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.Refresh.html; sourceTree = "<group>"; };
+		90E8CD191D47341B005F4746 /* UI.ViewController.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.ViewController.html; sourceTree = "<group>"; };
+		90E8CD451D473BB5005F4746 /* LGOCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOCore.h; sourceTree = "<group>"; };
+		90E8CD461D473BB5005F4746 /* LGOCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOCore.m; sourceTree = "<group>"; };
+		90E8CD471D473BB5005F4746 /* LGOModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOModules.h; sourceTree = "<group>"; };
+		90E8CD481D473BB5005F4746 /* LGOModules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOModules.m; sourceTree = "<group>"; };
+		90E8CD491D473BB5005F4746 /* LGOProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOProtocols.h; sourceTree = "<group>"; };
+		90E8CD4A1D473BB5005F4746 /* LGOProtocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOProtocols.m; sourceTree = "<group>"; };
+		90E8CD4E1D473C22005F4746 /* LGOBuildFailed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOBuildFailed.h; sourceTree = "<group>"; };
+		90E8CD4F1D473C22005F4746 /* LGOBuildFailed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOBuildFailed.m; sourceTree = "<group>"; };
+		90E8CD511D474353005F4746 /* LGOWatchDog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOWatchDog.h; sourceTree = "<group>"; };
+		90E8CD521D474353005F4746 /* LGOWatchDog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOWatchDog.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		90E8CCC91D470892005F4746 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2CB4D4E5EE71BD634467B90F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05CB2CC77EAAA6917F37215A /* libPods-Sample.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6AF2DA465EB844D5EEC62EB4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7A12488A39AF61C14C802E57 /* Pods-Sample.debug.xcconfig */,
+				8CE4102F338A29E34675421B /* Pods-Sample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		90E8CCA51D4707E8005F4746 = {
+			isa = PBXGroup;
+			children = (
+				90E8CCF51D4708E4005F4746 /* SDK */,
+				90E8CCCD1D470892005F4746 /* Sample */,
+				90E8CCAF1D4707E8005F4746 /* Products */,
+				6AF2DA465EB844D5EEC62EB4 /* Pods */,
+				2CB4D4E5EE71BD634467B90F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		90E8CCAF1D4707E8005F4746 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CCCC1D470892005F4746 /* Sample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		90E8CCCD1D470892005F4746 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD061D47341B005F4746 /* Files */,
+				90E8CCD11D470892005F4746 /* AppDelegate.h */,
+				90E8CCD21D470892005F4746 /* AppDelegate.m */,
+				90E8CCD41D470892005F4746 /* ViewController.h */,
+				90E8CCD51D470892005F4746 /* ViewController.m */,
+				90E8CCD71D470892005F4746 /* Main.storyboard */,
+				90E8CCDA1D470892005F4746 /* Assets.xcassets */,
+				90E8CCDC1D470892005F4746 /* LaunchScreen.storyboard */,
+				90E8CCDF1D470892005F4746 /* Info.plist */,
+				90E8CCCE1D470892005F4746 /* Supporting Files */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		90E8CCCE1D470892005F4746 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CCCF1D470892005F4746 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		90E8CCF51D4708E4005F4746 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD441D473BB5005F4746 /* Core */,
+				90E8CCF91D470A7A005F4746 /* WebView */,
+				90E8CCFA1D470A7A005F4746 /* WebViewController */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
+		90E8CCF91D470A7A005F4746 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CCFB1D470A94005F4746 /* UIWebView */,
+				90E8CCFC1D470A94005F4746 /* WKWebView */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		90E8CCFA1D470A7A005F4746 /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WebViewController;
+			sourceTree = "<group>";
+		};
+		90E8CCFB1D470A94005F4746 /* UIWebView */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD001D470ACF005F4746 /* LGOJavaScriptBridge.h */,
+				90E8CD011D470ACF005F4746 /* LGOJavaScriptBridge.m */,
+				90E8CCFD1D470AB7005F4746 /* LGOWebView.h */,
+				90E8CCFE1D470AB7005F4746 /* LGOWebView.m */,
+				90E8CD031D47115D005F4746 /* JSContext+LGOProps.h */,
+				90E8CD041D47115D005F4746 /* JSContext+LGOProps.m */,
+			);
+			path = UIWebView;
+			sourceTree = "<group>";
+		};
+		90E8CCFC1D470A94005F4746 /* WKWebView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WKWebView;
+			sourceTree = "<group>";
+		};
+		90E8CD061D47341B005F4746 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD071D47341B005F4746 /* JavaScript */,
+				90E8CD1A1D47341B005F4746 /* Supporting Files */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
+		90E8CD071D47341B005F4746 /* JavaScript */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD081D47341B005F4746 /* Native.Call.html */,
+				90E8CD091D47341B005F4746 /* Native.CanOpenURL.html */,
+				90E8CD0A1D47341B005F4746 /* Native.Check.html */,
+				90E8CD0B1D47341B005F4746 /* Native.DataModel.html */,
+				90E8CD0C1D47341B005F4746 /* Native.Device.html */,
+				90E8CD0D1D47341B005F4746 /* Native.FileManager.html */,
+				90E8CD0E1D47341B005F4746 /* Native.HTTPRequest.html */,
+				90E8CD0F1D47341B005F4746 /* Native.Notification.html */,
+				90E8CD101D47341B005F4746 /* Native.Pasteboard.html */,
+				90E8CD111D47341B005F4746 /* Native.UserDefaults.html */,
+				90E8CD121D47341B005F4746 /* UI.ActionSheet.html */,
+				90E8CD131D47341B005F4746 /* UI.AlertView.html */,
+				90E8CD141D47341B005F4746 /* UI.AppFrame.html */,
+				90E8CD151D47341B005F4746 /* UI.Bounce.html */,
+				90E8CD161D47341B005F4746 /* UI.ImagePreviewer.html */,
+				90E8CD171D47341B005F4746 /* UI.IndicatorView.html */,
+				90E8CD181D47341B005F4746 /* UI.Refresh.html */,
+				90E8CD191D47341B005F4746 /* UI.ViewController.html */,
+			);
+			path = JavaScript;
+			sourceTree = "<group>";
+		};
+		90E8CD1A1D47341B005F4746 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		90E8CD441D473BB5005F4746 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD451D473BB5005F4746 /* LGOCore.h */,
+				90E8CD461D473BB5005F4746 /* LGOCore.m */,
+				90E8CD471D473BB5005F4746 /* LGOModules.h */,
+				90E8CD481D473BB5005F4746 /* LGOModules.m */,
+				90E8CD491D473BB5005F4746 /* LGOProtocols.h */,
+				90E8CD4A1D473BB5005F4746 /* LGOProtocols.m */,
+				90E8CD4E1D473C22005F4746 /* LGOBuildFailed.h */,
+				90E8CD4F1D473C22005F4746 /* LGOBuildFailed.m */,
+				90E8CD511D474353005F4746 /* LGOWatchDog.h */,
+				90E8CD521D474353005F4746 /* LGOWatchDog.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		90E8CCCB1D470892005F4746 /* Sample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90E8CCE01D470892005F4746 /* Build configuration list for PBXNativeTarget "Sample" */;
+			buildPhases = (
+				0312E0E8C00D0C822B443226 /* [CP] Check Pods Manifest.lock */,
+				90E8CCC81D470892005F4746 /* Sources */,
+				90E8CCC91D470892005F4746 /* Frameworks */,
+				90E8CCCA1D470892005F4746 /* Resources */,
+				90E8CCF41D4708C0005F4746 /* Embed Frameworks */,
+				A1ED2E77265429D6BF66B995 /* [CP] Embed Pods Frameworks */,
+				64A2A1D273A4444C7D4E6049 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sample;
+			productName = Sample;
+			productReference = 90E8CCCC1D470892005F4746 /* Sample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		90E8CCA61D4707E8005F4746 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = LGO;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "UED Center";
+				TargetAttributes = {
+					90E8CCCB1D470892005F4746 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = 90E8CCA91D4707E8005F4746 /* Build configuration list for PBXProject "LEGO-SDK-OC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 90E8CCA51D4707E8005F4746;
+			productRefGroup = 90E8CCAF1D4707E8005F4746 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				90E8CCCB1D470892005F4746 /* Sample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		90E8CCCA1D470892005F4746 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90E8CD201D47341B005F4746 /* Native.Call.html in Resources */,
+				90E8CD301D47341B005F4746 /* UI.Refresh.html in Resources */,
+				90E8CD271D47341B005F4746 /* Native.Notification.html in Resources */,
+				90E8CD221D47341B005F4746 /* Native.Check.html in Resources */,
+				90E8CD241D47341B005F4746 /* Native.Device.html in Resources */,
+				90E8CCDE1D470892005F4746 /* LaunchScreen.storyboard in Resources */,
+				90E8CD291D47341B005F4746 /* Native.UserDefaults.html in Resources */,
+				90E8CD261D47341B005F4746 /* Native.HTTPRequest.html in Resources */,
+				90E8CD2E1D47341B005F4746 /* UI.ImagePreviewer.html in Resources */,
+				90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */,
+				90E8CD2D1D47341B005F4746 /* UI.Bounce.html in Resources */,
+				90E8CD281D47341B005F4746 /* Native.Pasteboard.html in Resources */,
+				90E8CD2B1D47341B005F4746 /* UI.AlertView.html in Resources */,
+				90E8CD311D47341B005F4746 /* UI.ViewController.html in Resources */,
+				90E8CD251D47341B005F4746 /* Native.FileManager.html in Resources */,
+				90E8CD2C1D47341B005F4746 /* UI.AppFrame.html in Resources */,
+				90E8CD2F1D47341B005F4746 /* UI.IndicatorView.html in Resources */,
+				90E8CCD91D470892005F4746 /* Main.storyboard in Resources */,
+				90E8CD2A1D47341B005F4746 /* UI.ActionSheet.html in Resources */,
+				90E8CD211D47341B005F4746 /* Native.CanOpenURL.html in Resources */,
+				90E8CD231D47341B005F4746 /* Native.DataModel.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0312E0E8C00D0C822B443226 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		64A2A1D273A4444C7D4E6049 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sample/Pods-Sample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1ED2E77265429D6BF66B995 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sample/Pods-Sample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		90E8CCC81D470892005F4746 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90E8CD051D47115D005F4746 /* JSContext+LGOProps.m in Sources */,
+				90E8CCD61D470892005F4746 /* ViewController.m in Sources */,
+				90E8CD501D473C22005F4746 /* LGOBuildFailed.m in Sources */,
+				90E8CD4C1D473BB5005F4746 /* LGOModules.m in Sources */,
+				90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */,
+				90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */,
+				90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */,
+				90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */,
+				90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */,
+				90E8CD021D470ACF005F4746 /* LGOJavaScriptBridge.m in Sources */,
+				90E8CCD01D470892005F4746 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		90E8CCD71D470892005F4746 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90E8CCD81D470892005F4746 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		90E8CCDC1D470892005F4746 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90E8CCDD1D470892005F4746 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		90E8CCC31D4707E8005F4746 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		90E8CCC41D4707E8005F4746 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		90E8CCE11D470892005F4746 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A12488A39AF61C14C802E57 /* Pods-Sample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Sample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		90E8CCE21D470892005F4746 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CE4102F338A29E34675421B /* Pods-Sample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Sample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		90E8CCA91D4707E8005F4746 /* Build configuration list for PBXProject "LEGO-SDK-OC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90E8CCC31D4707E8005F4746 /* Debug */,
+				90E8CCC41D4707E8005F4746 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		90E8CCE01D470892005F4746 /* Build configuration list for PBXNativeTarget "Sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90E8CCE11D470892005F4746 /* Debug */,
+				90E8CCE21D470892005F4746 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 90E8CCA61D4707E8005F4746 /* Project object */;
+}

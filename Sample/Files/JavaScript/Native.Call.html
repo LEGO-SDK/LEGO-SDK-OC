@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p>Call</p>
+        <p><button style="width: 280px; height: 44px; font-size:18px; " onclick="tap()">Tap me.</button></p>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function tap() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.Call"
+        message.requestParams = {
+            selectorName: "testCall:",
+            firstObject: "Pony"
+        }
+        message.call(null)
+    }
+
+</script>

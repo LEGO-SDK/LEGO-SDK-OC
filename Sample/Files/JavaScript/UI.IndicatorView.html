@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        IndicatorView 滚动条控制
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function configureIndicatorView() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.IndicatorView"
+        message.requestParams = {
+            hidden: false,
+            insets: {top: 44}
+        }
+        message.call()
+    }
+
+    configureIndicatorView()
+    
+</script>

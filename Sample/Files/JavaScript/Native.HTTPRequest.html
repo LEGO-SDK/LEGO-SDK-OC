@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    var message = JSMessage.newMessage()
+    message.moduleName = "Native.HTTPRequest"
+    message.requestParams = {
+        URL: "https://status.github.com/api.json",
+        showActivityIndicator: true,
+        headers: {aKey: "aValue"}
+    }
+    message.call(function(result) {
+                 document.body.innerHTML = result.responseText
+                 JSConsole.log(result.responseText)
+                 })
+                 
+</script>

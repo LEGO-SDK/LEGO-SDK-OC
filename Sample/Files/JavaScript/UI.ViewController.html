@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body style="padding-top: 44px">
+        <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="pop()">Pop</button></p>
+        <p style="padding-top: 44px"></p>
+        <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="push_duowan()">Push Duowan</button></p>
+        <p style="padding-top: 44px"></p>
+        <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="push_github()">Push GitHub</button></p>
+        <p style="padding-top: 44px"></p>
+        <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="present_github()">Present GitHub</button></p>
+        <p style="padding-top: 44px"></p>
+        <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="present_github_edge()">Present GitHub(edge)</button></p>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function setTitle() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.NavigationItem"
+        message.requestParams = {title: "Hello"}
+        message.call(null)
+    }
+
+    setTimeout(setTitle, 1000)
+    
+    function setRightButton() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.NavigationItem"
+        message.requestParams = {rightItem: "https://raw.githubusercontent.com/Redtory/Product-Roadmap/master/barbuttonicon_addfriends%403x.png"}
+        message.call(handleRightButtonTapped)
+    }
+
+    function handleRightButtonTapped(result) {
+        if (result.rightTapped) {
+            JSConsole.log("Done button tapped.")
+        }
+    }
+
+    function setBackButton() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.NavigationItem"
+        message.requestParams = {backItem: "https://raw.githubusercontent.com/Redtory/Product-Roadmap/master/barbuttonicon_addfriends%403x.png"}
+        message.call(handleRightButtonTapped)
+    }
+
+    setRightButton()
+    setBackButton()
+    
+    function pop() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.NavigationController"
+        message.requestParams = {opt: "pop"}
+        message.call(null)
+    }
+
+    function push_duowan() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.NavigationController"
+        message.requestParams = {
+            opt: "push",
+            path: "http://duowan.cn/",
+            args: {
+                title: "多玩游戏",
+                customID: 8888,
+                statusBarHidden: false
+            }
+        }
+        message.call(null)
+    }
+
+    function push_github() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.NavigationController"
+        message.requestParams = {
+            opt: "push",
+            path: "https://github.com/index.html",
+            args: {
+                customID: 8888,
+                statusBarHidden: true,
+                navigationBarHidden: true
+            }
+        }
+        message.call(null)
+    }
+
+    function present_github() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.ModalController"
+        message.requestParams = {
+            opt: "present",
+            path: "https://github.com/index.html",
+            args: {
+                title: "GitHub",
+                customID: 8888,
+                statusBarHidden: true
+            }
+        }
+        message.call(null)
+    }
+
+    function present_github_edge() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.ModalController"
+        message.requestParams = {
+            opt: "present",
+            path: "https://github.com/index.html",
+            edgeInsets: "0,0,-414,0",
+            withNavigationController: false,
+            args: {
+                title: "GitHub",
+                customID: 8888
+            }
+        }
+        message.call(null)
+    }
+
+    function changeStatusBarStyle() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.StatusBar"
+        message.requestParams = {
+            style: "default",
+        }
+        message.call(null)
+    }
+
+    setTimeout(changeStatusBarStyle, 2000)
+
+</script>

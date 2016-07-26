@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    </head>
+    <body onload="init()">
+        <p>Date = <span id="dataModel_date"></span></p>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    var JSDataModel = {
+        date: "",
+        word: ""
+    }
+    
+    function init() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.DataModel"
+        message.call(function(dataModel){
+                         JSDataModel = dataModel
+                         updateName()
+                     })
+    }
+
+    function JSDataModelDidChanged(dataKey) {
+        if (dataKey == "date") {
+            updateName()
+        }
+    }
+
+    function updateName() {
+        if (JSDataModel.date != undefined) {
+            document.getElementById("dataModel_date").innerHTML = JSDataModel.date
+        }
+    }
+
+    function updateDataModel() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.DataModel"
+        message.requestParams = {
+            opt: "update",
+            dataKey: "word",
+            dataValue: "Hello, World!"
+        }
+        message.call(null)
+    }
+
+    setTimeout(updateDataModel, 5000)
+
+</script>

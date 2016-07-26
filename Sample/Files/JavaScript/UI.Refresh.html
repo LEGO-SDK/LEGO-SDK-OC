@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        Hello
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function configureRefresh() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.Refresh"
+        message.requestParams = {
+            opt: "add"
+        }
+        message.call(nowRefresh)
+    }
+
+    function nowRefresh() {
+        setTimeout(function(){
+                   var message = JSMessage.newMessage()
+                   message.moduleName = "UI.Refresh"
+                   message.requestParams = {
+                       opt: "complete"
+                   }
+                   message.call(null)
+                   }, 2000)
+        JSConsole.log("Now refreshing...")
+    }
+
+    configureRefresh()
+    
+</script>

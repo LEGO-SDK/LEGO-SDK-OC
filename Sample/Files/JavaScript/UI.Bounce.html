@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        The Bounce is not allow.
+        功能：禁用回弹效果。
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function configureBounce() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.Bounce"
+        message.requestParams = {
+            allow: false
+        }
+        message.call()
+    }
+
+    configureBounce()
+    
+</script>

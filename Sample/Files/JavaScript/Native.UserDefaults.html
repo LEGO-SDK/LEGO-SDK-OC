@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <input id="anInput" /><button onclick="save()">Save</button><button onclick="read()">Read</button>
+    </body>
+</html>
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function save() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.UserDefaults"
+        message.requestParams = {opt: "update", key: "test", value: document.getElementById('anInput').value}
+        message.call(null)
+    }
+
+    function read() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.UserDefaults"
+        message.requestParams = {opt: "read", key: "test"}
+        message.call(function(result){
+                     document.getElementById('anInput').value = result.value
+                     })
+    }
+
+</script>

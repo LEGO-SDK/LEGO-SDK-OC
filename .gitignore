@@ -1,0 +1,5 @@
+*.swp
+Podfile.lock
+Pods/*
+*.xcworkspace
+*.xcodeproj/xcuserdata/*

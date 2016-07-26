@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="show()">Show</button></p>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function show() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.ActionSheet"
+        message.requestParams = {
+            title: "请问，罗老板隐婚了多久？",
+            buttonTitles: ["一年", "两年", "三年", "五年"],
+            dangerButton: 3,
+            cancelButton: "我选择死亡"
+        }
+        message.call(function(result) {
+                     JSConsole.log(result.buttonIndex);
+                     })
+    }
+
+    </script>

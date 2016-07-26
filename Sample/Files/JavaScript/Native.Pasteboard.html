@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p>剪贴板</p>
+        <p>当你按下下方的按钮的时候，一件神奇的事件就会发生。</p>
+        <p><button style="width: 280px; height: 44px; font-size:18px; " onclick="tap()">Tap me!</button></p>
+        <p><button style="width: 280px; height: 44px; font-size:18px; " onclick="del()">Delete me!</button></p>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function tap() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.Pasteboard"
+        message.requestParams = {
+            opt: "update",
+            string: "罗老板，还是你！"
+        }
+        message.call(null)
+        setTimeout(read, 2000)
+    }
+
+    function read() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.Pasteboard"
+        message.requestParams = {
+            opt: "read"
+        }
+        message.call(function(result){
+                     JSConsole.log(result.string)
+                     })
+    }
+
+    function del() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.Pasteboard"
+        message.requestParams = {
+            opt: "delete"
+        }
+        message.call(null)
+    }
+
+</script>

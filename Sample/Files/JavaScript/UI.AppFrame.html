@@ -1,0 +1,23 @@
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    var message = JSMessage.newMessage()
+    message.moduleName = "UI.AppFrame"
+    message.requestParams = {
+        items: [
+            {
+                icon: "https://www.surefiresocial.com/wp-content/uploads/2014/12/GoogleLogo.png",
+                framePath: "https://www.google.com.hk/",
+                frameArgs: {title: "Google"}
+            },
+            {
+                icon: "http://juliengdt.github.io/content/images/static/github_icon.png",
+                framePath: "https://www.github.com/",
+                frameArgs: {title: "GitHub"}
+            }
+        ]
+    }
+    message.call()
+    
+</script>

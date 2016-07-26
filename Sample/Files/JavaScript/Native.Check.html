@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p>API可用状态</p>
+        <p id="status"></p>
+    </body>
+</html>
+<script src="http://127.0.0.1:8080/dist/js/sdk.js" ></script>
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    var apiList = []
+    
+    function check() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.Check"
+        message.requestParams = {moduleList: apiList}
+        message.call(function(result) {
+                     document.getElementById('status').innerHTML = JSON.stringify(result)
+                     })
+    }
+
+    check()
+    
+</script>

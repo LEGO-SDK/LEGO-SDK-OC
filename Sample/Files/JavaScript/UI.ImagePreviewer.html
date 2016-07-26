@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p><img width="100%" onclick="viewImage(this)" src="http://s1.dwstatic.com/group1/M00/5D/7B/6efd4050b5dc9269f6576e2c67e1abdd.jpg" /></p>
+        <p><img width="100%" onclick="viewImage(this)" src="http://s1.dwstatic.com/group1/M00/48/0A/84fd8208a2e519d9678d58f55cf15d02.jpg" /></p>
+        <p><img width="100%" onclick="viewImage(this)" src="http://s1.dwstatic.com/group1/M00/99/7C/b588c7bb9978650f195d77102e3c8b99.jpg" /></p>
+        <p><img width="100%" onclick="viewImage(this)" src="http://s1.dwstatic.com/group1/M00/0C/B9/75fac5cd0a03ad69be4e5c0e67248b87.jpg" /></p>
+    </body>
+</html>
+
+<script>
+    
+    JSBridge && eval(JSBridge.bridgeScript())
+    
+    function viewImage(imgObject) {
+        var URLs = [
+            "http://s1.dwstatic.com/group1/M00/5D/7B/6efd4050b5dc9269f6576e2c67e1abdd.jpg",
+            "http://s1.dwstatic.com/group1/M00/48/0A/84fd8208a2e519d9678d58f55cf15d02.jpg",
+            "http://s1.dwstatic.com/group1/M00/99/7C/b588c7bb9978650f195d77102e3c8b99.jpg",
+            "http://s1.dwstatic.com/group1/M00/0C/B9/75fac5cd0a03ad69be4e5c0e67248b87.jpg"
+        ]
+        var currentURL = imgObject.src
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.ImagePreviewer"
+        message.requestParams = {
+            URLs: URLs,
+            currentURL: currentURL
+        }
+        message.call(null)
+    }
+    
+</script>
