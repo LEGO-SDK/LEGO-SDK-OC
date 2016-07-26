@@ -10,7 +10,7 @@
 
 <script>
     
-    JSBridge && eval(JSBridge.bridgeScript())
+    window.JSBridge && eval(window.JSBridge.bridgeScript())
     
     function wechat() {
         var message = JSMessage.newMessage()

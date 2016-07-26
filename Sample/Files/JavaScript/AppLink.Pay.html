@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p>Pay SDK</p>
+        <p><button style="width: 280px; height: 44px; font-size:18px; " onclick="payViaWeChat()">Pay via WeChat</button></p>
+        <p id="tips"></p>
+    </body>
+</html>
+
+<script>
+    
+    window.JSBridge && eval(window.JSBridge.bridgeScript())
+    
+    function payViaWeChat() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "AppLink.Pay.WeChat"
+        requestWeChatOrderInformations(function(obj){
+                                       message.requestParams = {
+                                           nonceStr: obj.noncestr,
+                                           package: obj.package,
+                                           partnerId: obj.partnerid,
+                                           prepayId: obj.prepayid,
+                                           sign: obj.sign,
+                                           timeStamp: obj.timestamp
+                                       }
+                                       message.call(didReceivedPayViaWeChatResult)
+                                       })
+    }
+
+    function requestWeChatOrderInformations(callback) {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.HTTPRequest"
+        message.requestParams = {
+            URL: "http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=ios"
+        }
+        message.call(function(result){
+                     var obj = JSON.parse(result.responseText)
+                     callback(obj)
+                     })
+    }
+
+    function didReceivedPayViaWeChatResult(result) {
+        if (result.code == "0") {
+            document.getElementById("tips").innerHTML = "微信支付完成，请使用订单号配合服务器验证支付结果。"
+        }
+        else {
+            document.getElementById("tips").innerHTML = "微信支付失败"
+        }
+    }
+    
+</script>

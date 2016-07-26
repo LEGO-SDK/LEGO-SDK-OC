@@ -9,7 +9,7 @@
 
 <script>
     
-    JSBridge && eval(JSBridge.bridgeScript())
+    window.JSBridge && eval(window.JSBridge.bridgeScript())
     
     function configureRefresh() {
         var message = JSMessage.newMessage()

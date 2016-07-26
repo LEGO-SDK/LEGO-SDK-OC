@@ -42,13 +42,21 @@
 
 @implementation LGORequest
 
+- (instancetype)initWithContext:(LGORequestContext *)context {
+    self = [super init];
+    if (self) {
+        _context = context;
+    }
+    return self;
+}
+
 @end
 
 @implementation LGOResponse
 
 - (NSDictionary *)toDictionary {
     return @{
-             @"succeed": @(self.succeed)
+             @"succeed": [NSNumber numberWithBool:self.succeed]
              };
 }
 

@@ -8,7 +8,7 @@
 </html>
 <script>
     
-    JSBridge && eval(JSBridge.bridgeScript())
+    window.JSBridge && eval(window.JSBridge.bridgeScript())
     
     function save() {
         var message = JSMessage.newMessage()

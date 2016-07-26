@@ -7,6 +7,7 @@
 //
 
 #import "LGOModules.h"
+#import "LGOCheck.h"
 
 @implementation LGOModules
 
@@ -14,7 +15,9 @@
 {
     self = [super init];
     if (self) {
-        _items = [NSMutableDictionary dictionary];
+        _items = [@{
+                    @"Native.Check": [LGOCheck new]
+                   } mutableCopy];
     }
     return self;
 }

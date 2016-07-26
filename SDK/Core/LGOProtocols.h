@@ -27,6 +27,8 @@ typedef void(^LGORequestableAsynchronizeBlock)(LGOResponse * _Nonnull response);
 
 @property (nonatomic, strong) LGORequestContext  * _Nullable context;
 
+- (nonnull instancetype)initWithContext:(nullable LGORequestContext *)context;
+
 @end
 
 @interface LGOResponse : NSObject
@@ -51,6 +53,6 @@ typedef void(^LGORequestableAsynchronizeBlock)(LGOResponse * _Nonnull response);
 
 - (nonnull LGORequestable *)buildWithRequest:(nonnull LGORequest *)request;
 
-- (nonnull LGORequestable *)buildWithDictionary:(nonnull NSDictionary *)dictionary context:(LGORequestContext *)context;
+- (nonnull LGORequestable *)buildWithDictionary:(nonnull NSDictionary *)dictionary context:(nonnull LGORequestContext *)context;
 
 @end

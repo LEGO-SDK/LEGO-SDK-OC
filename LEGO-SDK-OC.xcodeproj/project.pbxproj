@@ -41,6 +41,7 @@
 		90E8CD591D474F06005F4746 /* LGOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD581D474F06005F4746 /* LGOWebViewController.m */; };
 		90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */; };
 		90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */; };
+		90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD641D4760D7005F4746 /* LGOCheck.m */; };
 		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,8 @@
 		90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKSampleJavaScriptListViewController.m; sourceTree = "<group>"; };
 		90E8CD5D1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKSampleJavaScriptItemViewController.h; sourceTree = "<group>"; };
 		90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKSampleJavaScriptItemViewController.m; sourceTree = "<group>"; };
+		90E8CD631D4760D7005F4746 /* LGOCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOCheck.h; sourceTree = "<group>"; };
+		90E8CD641D4760D7005F4746 /* LGOCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOCheck.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +187,7 @@
 		90E8CCF51D4708E4005F4746 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				90E8CD601D4760BB005F4746 /* Modules */,
 				90E8CD441D473BB5005F4746 /* Core */,
 				90E8CCF91D470A7A005F4746 /* WebView */,
 				90E8CCFA1D470A7A005F4746 /* WebViewController */,
@@ -290,6 +294,31 @@
 				90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		90E8CD601D4760BB005F4746 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD611D4760BB005F4746 /* Native */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		90E8CD611D4760BB005F4746 /* Native */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD621D4760BB005F4746 /* Check */,
+			);
+			path = Native;
+			sourceTree = "<group>";
+		};
+		90E8CD621D4760BB005F4746 /* Check */ = {
+			isa = PBXGroup;
+			children = (
+				90E8CD631D4760D7005F4746 /* LGOCheck.h */,
+				90E8CD641D4760D7005F4746 /* LGOCheck.m */,
+			);
+			path = Check;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,6 +469,7 @@
 				90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */,
 				90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */,
 				90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */,
+				90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */,
 				90E8CD591D474F06005F4746 /* LGOWebViewController.m in Sources */,
 				90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */,
 				90E8CD021D470ACF005F4746 /* LGOJavaScriptBridge.m in Sources */,

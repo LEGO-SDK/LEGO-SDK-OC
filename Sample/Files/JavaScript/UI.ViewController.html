@@ -17,7 +17,7 @@
 
 <script>
     
-    JSBridge && eval(JSBridge.bridgeScript())
+    window.JSBridge && eval(window.JSBridge.bridgeScript())
     
     function setTitle() {
         var message = JSMessage.newMessage()

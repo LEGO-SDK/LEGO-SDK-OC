@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <p>SSO SDK</p>
+        <p><button style="width: 280px; height: 44px; font-size:18px; " onclick="loginViaWeChat()">Login via WeChat</button></p>
+        <p><button style="width: 280px; height: 44px; font-size:18px; " onclick="loginViaWeibo()">Login via Weibo</button></p>
+        <p><button style="width: 280px; height: 44px; font-size:18px; " onclick="loginViaQQ()">Login via QQ</button></p>
+        <p id="nickname"></p>
+        <p><img width="120px" height="120px" id="avatar" /></p>
+    </body>
+</html>
+
+<script>
+    
+    window.JSBridge && eval(window.JSBridge.bridgeScript())
+    
+    function loginViaWeChat() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "AppLink.SSO.WeChat"
+        message.call(didLoginedWeChat)
+    }
+
+    function didLoginedWeChat(result) {
+        var message = JSMessage.newMessage()
+        message.moduleName = "Native.HTTPRequest"
+        message.requestParams = {
+            URL: "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx4868b35061f87885&secret=64020361b8ec4c99936c0e3999a9f249&code="+result.code+"&grant_type=authorization_code"
+        }
+        message.call(function(result){
+                     var accessItem = JSON.parse(result.responseText)
+                     requestWeChatUserInfo(accessItem.access_token, accessItem.openid)
+                     })
+    }
+
+    function requestWeChatUserInfo(accessToken, openID) {
+        var message = JSMessage.newMessage()
+        message.moduleName = "AppLink.SSO.WeChat.UserInfo"
+        message.requestParams = {
+            accessToken: accessToken,
+            openID: openID
+        }
+        message.call(function(result){
+                     document.getElementById("nickname").innerHTML = result.userName
+                     document.getElementById("avatar").src = result.userAvatar
+                     })
+    }
+
+    function loginViaWeibo() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "AppLink.SSO.Weibo"
+        message.call(didLoginedWeibo)
+    }
+
+    function didLoginedWeibo(result) {
+        var message = JSMessage.newMessage()
+        message.moduleName = "AppLink.SSO.Weibo.UserInfo"
+        message.requestParams = {
+            accessToken: result.accessToken,
+            uid: result.uid
+        }
+        message.call(function(result){
+                     document.getElementById("nickname").innerHTML = result.userName
+                     document.getElementById("avatar").src = result.userAvatar
+                     })
+    }
+
+    function loginViaQQ() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "AppLink.SSO.QQ"
+        message.call(didLoginedQQ)
+    }
+
+    function didLoginedQQ(result) {
+        var message = JSMessage.newMessage()
+        message.moduleName = "AppLink.SSO.QQ.UserInfo"
+        message.requestParams = {
+            accessToken: result.accessToken,
+            openID: result.openID
+        }
+        message.call(function(result){
+                     document.getElementById("nickname").innerHTML = result.userName
+                     document.getElementById("avatar").src = result.userAvatar
+                     })
+    }
+
+</script>

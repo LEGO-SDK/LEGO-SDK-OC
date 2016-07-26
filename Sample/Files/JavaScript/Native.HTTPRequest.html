@@ -8,7 +8,7 @@
 
 <script>
     
-    JSBridge && eval(JSBridge.bridgeScript())
+    window.JSBridge && eval(window.JSBridge.bridgeScript())
     
     var message = JSMessage.newMessage()
     message.moduleName = "Native.HTTPRequest"
