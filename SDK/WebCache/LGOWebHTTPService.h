@@ -10,4 +10,8 @@
 
 @interface LGOWebHTTPService : NSObject
 
++ (NSURLRequest *)proxyRequest:(NSURLRequest *)originRequest;
+
+- (void)startService;
+
 @end

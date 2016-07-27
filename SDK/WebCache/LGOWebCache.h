@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LGOWebHTTPService.h"
 #import "LGOWebService.h"
 
 @interface LGOWebCache : NSObject
 
 @property (nonatomic, readonly) NSDictionary *cacheConfiguration;
+@property (nonatomic, readonly) LGOWebHTTPService *HTTPService;
 @property (nonatomic, readonly) LGOWebService *webService;
 
 - (void)startService;

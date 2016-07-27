@@ -22,6 +22,7 @@
 {
     self = [super init];
     if (self) {
+        _HTTPService = [[LGOWebHTTPService alloc] init];
         _webService = [[LGOWebService alloc] init];
     }
     return self;
