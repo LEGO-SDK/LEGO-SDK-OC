@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="P4R-Zd-hky">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="P4R-Zd-hky">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -120,93 +120,10 @@
                             </constraints>
                         </view>
                         <sections>
-                            <tableViewSection headerTitle="AppLink" id="fwY-ak-Ja2">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="OkK-JD-MtM">
-                                        <rect key="frame" x="0.0" y="72" width="600" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OkK-JD-MtM" id="yuP-rf-gbT">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IyD-2D-WhD">
-                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
-                                                    <accessibility key="accessibilityConfiguration" label="AppLink.SSO"/>
-                                                    <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" image="icon_nav_heart"/>
-                                                    <connections>
-                                                        <action selector="handleButtonTapped:" destination="o9g-i1-X6Z" eventType="touchUpInside" id="L4k-ke-8Wt"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SSO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IH4-rg-rkN">
-                                                    <rect key="frame" x="287" y="48" width="25" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJ0-gp-kff">
-                                                    <rect key="frame" x="400" y="0.0" width="200" height="75"/>
-                                                    <accessibility key="accessibilityConfiguration" label="AppLink.Pay"/>
-                                                    <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" image="icon_nav_pay"/>
-                                                    <connections>
-                                                        <action selector="handleButtonTapped:" destination="o9g-i1-X6Z" eventType="touchUpInside" id="W7s-H1-ecA"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdB-z0-EOE">
-                                                    <rect key="frame" x="489" y="48" width="21" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXk-Ej-M8a">
-                                                    <rect key="frame" x="84" y="48" width="33" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahf-CU-pzQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
-                                                    <accessibility key="accessibilityConfiguration" label="AppLink.Share"/>
-                                                    <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" image="icon_nav_share"/>
-                                                    <connections>
-                                                        <action selector="handleButtonTapped:" destination="o9g-i1-X6Z" eventType="touchUpInside" id="Hlm-ot-vO3"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="HXk-Ej-M8a" firstAttribute="centerY" secondItem="ahf-CU-pzQ" secondAttribute="centerY" constant="18" id="Aiw-fb-QMc"/>
-                                                <constraint firstItem="IyD-2D-WhD" firstAttribute="width" secondItem="yuP-rf-gbT" secondAttribute="width" multiplier="1/3" id="EE5-YD-9Gu"/>
-                                                <constraint firstItem="EJ0-gp-kff" firstAttribute="height" secondItem="yuP-rf-gbT" secondAttribute="height" id="IJI-Fp-3pg"/>
-                                                <constraint firstItem="ahf-CU-pzQ" firstAttribute="centerY" secondItem="yuP-rf-gbT" secondAttribute="centerY" id="JiG-ZY-qOu"/>
-                                                <constraint firstItem="EJ0-gp-kff" firstAttribute="centerX" secondItem="yuP-rf-gbT" secondAttribute="centerX" multiplier="5/3" id="Ovl-VP-fq6"/>
-                                                <constraint firstItem="IyD-2D-WhD" firstAttribute="centerY" secondItem="yuP-rf-gbT" secondAttribute="centerY" id="Rhv-13-COd"/>
-                                                <constraint firstItem="EJ0-gp-kff" firstAttribute="centerY" secondItem="yuP-rf-gbT" secondAttribute="centerY" id="Scn-tb-4CH"/>
-                                                <constraint firstItem="IH4-rg-rkN" firstAttribute="centerY" secondItem="IyD-2D-WhD" secondAttribute="centerY" constant="18" id="Wrj-sb-z5M"/>
-                                                <constraint firstItem="fdB-z0-EOE" firstAttribute="centerX" secondItem="EJ0-gp-kff" secondAttribute="centerX" id="dLM-L2-RjA"/>
-                                                <constraint firstItem="ahf-CU-pzQ" firstAttribute="centerX" secondItem="yuP-rf-gbT" secondAttribute="centerX" multiplier="1/3" id="dxx-Xm-lvu"/>
-                                                <constraint firstItem="fdB-z0-EOE" firstAttribute="centerY" secondItem="EJ0-gp-kff" secondAttribute="centerY" constant="18" id="epx-Qe-bFq"/>
-                                                <constraint firstItem="IyD-2D-WhD" firstAttribute="centerX" secondItem="yuP-rf-gbT" secondAttribute="centerX" id="hyb-Dr-T4W"/>
-                                                <constraint firstItem="ahf-CU-pzQ" firstAttribute="height" secondItem="yuP-rf-gbT" secondAttribute="height" id="i6S-hd-02D"/>
-                                                <constraint firstItem="IH4-rg-rkN" firstAttribute="centerX" secondItem="IyD-2D-WhD" secondAttribute="centerX" id="jvp-87-D9G"/>
-                                                <constraint firstItem="HXk-Ej-M8a" firstAttribute="centerX" secondItem="ahf-CU-pzQ" secondAttribute="centerX" id="pCX-EX-Lm5"/>
-                                                <constraint firstItem="IyD-2D-WhD" firstAttribute="height" secondItem="yuP-rf-gbT" secondAttribute="height" id="pZA-98-veh"/>
-                                                <constraint firstItem="EJ0-gp-kff" firstAttribute="width" secondItem="yuP-rf-gbT" secondAttribute="width" multiplier="1/3" id="zFW-r7-S9C"/>
-                                                <constraint firstItem="ahf-CU-pzQ" firstAttribute="width" secondItem="yuP-rf-gbT" secondAttribute="width" multiplier="1/3" id="zlj-Ch-vyc"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="Native" id="mdO-RH-7YV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="168-jg-Ncq">
-                                        <rect key="frame" x="0.0" y="175" width="600" height="75"/>
+                                        <rect key="frame" x="0.0" y="72" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="168-jg-Ncq" id="AtM-Tu-CCj">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
@@ -285,7 +202,7 @@
                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="IJQ-8y-YFO">
-                                        <rect key="frame" x="0.0" y="250" width="600" height="75"/>
+                                        <rect key="frame" x="0.0" y="147" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IJQ-8y-YFO" id="Erc-1Q-hPo">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
@@ -364,7 +281,7 @@
                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="OHa-8h-Bzu">
-                                        <rect key="frame" x="0.0" y="325" width="600" height="75"/>
+                                        <rect key="frame" x="0.0" y="222" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OHa-8h-Bzu" id="cU3-C1-hGa">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
@@ -443,7 +360,7 @@
                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="aNg-fu-QEY">
-                                        <rect key="frame" x="0.0" y="400" width="600" height="75"/>
+                                        <rect key="frame" x="0.0" y="297" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aNg-fu-QEY" id="JzY-0R-59n">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
@@ -523,93 +440,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Media" id="bEL-T3-LhS">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="z6r-jW-0TN">
-                                        <rect key="frame" x="0.0" y="503" width="600" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z6r-jW-0TN" id="MxU-lU-tvk">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Jw-mz-l3y">
-                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
-                                                    <accessibility key="accessibilityConfiguration" label="Media.Voice"/>
-                                                    <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" image="icon_nav_voice"/>
-                                                    <connections>
-                                                        <action selector="handleButtonTapped:" destination="o9g-i1-X6Z" eventType="touchUpInside" id="0VH-Qq-JIW"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Voice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Zr-4o-LcU">
-                                                    <rect key="frame" x="285" y="49" width="31" height="14"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0f-xc-R8q">
-                                                    <rect key="frame" x="400" y="0.0" width="200" height="75"/>
-                                                    <accessibility key="accessibilityConfiguration" label="AppLink.Pay"/>
-                                                    <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" image="icon_nav_pay"/>
-                                                    <connections>
-                                                        <action selector="handleButtonTapped:" destination="o9g-i1-X6Z" eventType="touchUpInside" id="P6t-ni-UZd"/>
-                                                    </connections>
-                                                </button>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isz-3g-Df0">
-                                                    <rect key="frame" x="489" y="48" width="21" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tep-gq-gqB">
-                                                    <rect key="frame" x="91" y="48" width="18" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3CR-LV-YfK">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
-                                                    <accessibility key="accessibilityConfiguration" label="Media.QR"/>
-                                                    <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" image="icon_nav_qr"/>
-                                                    <connections>
-                                                        <action selector="handleButtonTapped:" destination="o9g-i1-X6Z" eventType="touchUpInside" id="MOW-m3-Trk"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="9Jw-mz-l3y" firstAttribute="centerY" secondItem="MxU-lU-tvk" secondAttribute="centerY" id="AiC-2w-zyQ"/>
-                                                <constraint firstItem="k0f-xc-R8q" firstAttribute="width" secondItem="MxU-lU-tvk" secondAttribute="width" multiplier="1/3" id="BKq-h1-Trg"/>
-                                                <constraint firstItem="isz-3g-Df0" firstAttribute="centerY" secondItem="k0f-xc-R8q" secondAttribute="centerY" constant="18" id="CAx-EH-jhA"/>
-                                                <constraint firstItem="k0f-xc-R8q" firstAttribute="height" secondItem="MxU-lU-tvk" secondAttribute="height" id="EdJ-ff-iWk"/>
-                                                <constraint firstItem="3CR-LV-YfK" firstAttribute="centerX" secondItem="MxU-lU-tvk" secondAttribute="centerX" multiplier="1/3" id="N66-MU-ndv"/>
-                                                <constraint firstItem="9Jw-mz-l3y" firstAttribute="height" secondItem="MxU-lU-tvk" secondAttribute="height" id="Z3a-ui-Ycn"/>
-                                                <constraint firstItem="3CR-LV-YfK" firstAttribute="width" secondItem="MxU-lU-tvk" secondAttribute="width" multiplier="1/3" id="bVv-BX-aWk"/>
-                                                <constraint firstItem="3CR-LV-YfK" firstAttribute="height" secondItem="MxU-lU-tvk" secondAttribute="height" id="erF-Sk-ZDc"/>
-                                                <constraint firstItem="2Zr-4o-LcU" firstAttribute="centerX" secondItem="9Jw-mz-l3y" secondAttribute="centerX" id="fCC-wb-71Q"/>
-                                                <constraint firstItem="3CR-LV-YfK" firstAttribute="centerY" secondItem="MxU-lU-tvk" secondAttribute="centerY" id="jXG-gP-bD8"/>
-                                                <constraint firstItem="k0f-xc-R8q" firstAttribute="centerX" secondItem="MxU-lU-tvk" secondAttribute="centerX" multiplier="5/3" id="jnK-0h-xNk"/>
-                                                <constraint firstItem="9Jw-mz-l3y" firstAttribute="centerX" secondItem="MxU-lU-tvk" secondAttribute="centerX" id="lAj-ex-Ccp"/>
-                                                <constraint firstItem="k0f-xc-R8q" firstAttribute="centerY" secondItem="MxU-lU-tvk" secondAttribute="centerY" id="oX5-X9-E9h"/>
-                                                <constraint firstItem="isz-3g-Df0" firstAttribute="centerX" secondItem="k0f-xc-R8q" secondAttribute="centerX" id="ozh-zA-9xt"/>
-                                                <constraint firstItem="tep-gq-gqB" firstAttribute="centerX" secondItem="3CR-LV-YfK" secondAttribute="centerX" id="rWq-1y-4g5"/>
-                                                <constraint firstItem="2Zr-4o-LcU" firstAttribute="centerY" secondItem="9Jw-mz-l3y" secondAttribute="centerY" constant="18" id="veK-en-3yH"/>
-                                                <constraint firstItem="tep-gq-gqB" firstAttribute="centerY" secondItem="3CR-LV-YfK" secondAttribute="centerY" constant="18" id="yMW-M5-oa6"/>
-                                                <constraint firstItem="9Jw-mz-l3y" firstAttribute="width" secondItem="MxU-lU-tvk" secondAttribute="width" multiplier="1/3" id="zks-1p-4PJ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="UI" id="gh2-RK-Ghz">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="UW9-Z5-EXd">
-                                        <rect key="frame" x="0.0" y="606" width="600" height="75"/>
+                                        <rect key="frame" x="0.0" y="400" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UW9-Z5-EXd" id="KoM-ms-zj3">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
@@ -688,7 +522,7 @@
                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="Dvx-Gs-9wX">
-                                        <rect key="frame" x="0.0" y="681" width="600" height="75"/>
+                                        <rect key="frame" x="0.0" y="475" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dvx-Gs-9wX" id="p4B-js-0FR">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
@@ -767,7 +601,7 @@
                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="9F7-3L-ia6">
-                                        <rect key="frame" x="0.0" y="756" width="600" height="75"/>
+                                        <rect key="frame" x="0.0" y="550" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9F7-3L-ia6" id="es7-j2-SMb">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
@@ -914,9 +748,6 @@
         <image name="icon_nav_js" width="28" height="28"/>
         <image name="icon_nav_notification" width="26" height="18"/>
         <image name="icon_nav_pay" width="23" height="23"/>
-        <image name="icon_nav_qr" width="24" height="22"/>
-        <image name="icon_nav_share" width="24" height="25"/>
         <image name="icon_nav_userdefaults" width="22" height="22"/>
-        <image name="icon_nav_voice" width="18" height="24"/>
     </resources>
 </document>

@@ -10,6 +10,12 @@
 		9050A4F51D484B2700306F9E /* LGOWebViewController+Basic.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4F41D484B2700306F9E /* LGOWebViewController+Basic.m */; };
 		9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4F71D484D2600306F9E /* LGOWKWebView.m */; };
 		9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4FA1D4850F700306F9E /* LGOJavaScriptUserContentController.m */; };
+		9050A5141D488AE800306F9E /* LGOWebViewController+Title.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A5131D488AE800306F9E /* LGOWebViewController+Title.m */; };
+		9050A5171D488FE700306F9E /* LGOWebViewController+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A5161D488FE700306F9E /* LGOWebViewController+StatusBar.m */; };
+		9050A5191D48914A00306F9E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9050A5181D48914A00306F9E /* WebKit.framework */; };
+		9050A51C1D48927400306F9E /* LGOWebViewController+RefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A51B1D48927400306F9E /* LGOWebViewController+RefreshControl.m */; };
+		9050A51F1D48939E00306F9E /* LGOWebViewController+ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A51E1D48939E00306F9E /* LGOWebViewController+ProgressView.m */; };
+		9050A5221D489A1F00306F9E /* LGOWebViewController+NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A5211D489A1F00306F9E /* LGOWebViewController+NavigationBar.m */; };
 		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
 		90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCD21D470892005F4746 /* AppDelegate.m */; };
 		90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCDA1D470892005F4746 /* Assets.xcassets */; };
@@ -45,7 +51,7 @@
 		90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */; };
 		90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */; };
 		90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD641D4760D7005F4746 /* LGOCheck.m */; };
-		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; };
+		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +77,17 @@
 		9050A4F71D484D2600306F9E /* LGOWKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOWKWebView.m; sourceTree = "<group>"; };
 		9050A4F91D4850F700306F9E /* LGOJavaScriptUserContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOJavaScriptUserContentController.h; sourceTree = "<group>"; };
 		9050A4FA1D4850F700306F9E /* LGOJavaScriptUserContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOJavaScriptUserContentController.m; sourceTree = "<group>"; };
+		9050A5121D488AE800306F9E /* LGOWebViewController+Title.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+Title.h"; sourceTree = "<group>"; };
+		9050A5131D488AE800306F9E /* LGOWebViewController+Title.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+Title.m"; sourceTree = "<group>"; };
+		9050A5151D488FE700306F9E /* LGOWebViewController+StatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+StatusBar.h"; sourceTree = "<group>"; };
+		9050A5161D488FE700306F9E /* LGOWebViewController+StatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+StatusBar.m"; sourceTree = "<group>"; };
+		9050A5181D48914A00306F9E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		9050A51A1D48927400306F9E /* LGOWebViewController+RefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+RefreshControl.h"; sourceTree = "<group>"; };
+		9050A51B1D48927400306F9E /* LGOWebViewController+RefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+RefreshControl.m"; sourceTree = "<group>"; };
+		9050A51D1D48939E00306F9E /* LGOWebViewController+ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+ProgressView.h"; sourceTree = "<group>"; };
+		9050A51E1D48939E00306F9E /* LGOWebViewController+ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+ProgressView.m"; sourceTree = "<group>"; };
+		9050A5201D489A1F00306F9E /* LGOWebViewController+NavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+NavigationBar.h"; sourceTree = "<group>"; };
+		9050A5211D489A1F00306F9E /* LGOWebViewController+NavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+NavigationBar.m"; sourceTree = "<group>"; };
 		90E8CCCC1D470892005F4746 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E8CCCF1D470892005F4746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90E8CCD11D470892005F4746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -128,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9050A5191D48914A00306F9E /* WebKit.framework in Frameworks */,
 				F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +156,7 @@
 		2CB4D4E5EE71BD634467B90F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9050A5181D48914A00306F9E /* WebKit.framework */,
 				05CB2CC77EAAA6917F37215A /* libPods-Sample.a */,
 			);
 			name = Frameworks;
@@ -220,6 +239,16 @@
 				90E8CD581D474F06005F4746 /* LGOWebViewController.m */,
 				9050A4F31D484B2700306F9E /* LGOWebViewController+Basic.h */,
 				9050A4F41D484B2700306F9E /* LGOWebViewController+Basic.m */,
+				9050A5121D488AE800306F9E /* LGOWebViewController+Title.h */,
+				9050A5131D488AE800306F9E /* LGOWebViewController+Title.m */,
+				9050A5151D488FE700306F9E /* LGOWebViewController+StatusBar.h */,
+				9050A5161D488FE700306F9E /* LGOWebViewController+StatusBar.m */,
+				9050A51A1D48927400306F9E /* LGOWebViewController+RefreshControl.h */,
+				9050A51B1D48927400306F9E /* LGOWebViewController+RefreshControl.m */,
+				9050A51D1D48939E00306F9E /* LGOWebViewController+ProgressView.h */,
+				9050A51E1D48939E00306F9E /* LGOWebViewController+ProgressView.m */,
+				9050A5201D489A1F00306F9E /* LGOWebViewController+NavigationBar.h */,
+				9050A5211D489A1F00306F9E /* LGOWebViewController+NavigationBar.m */,
 			);
 			path = WebViewController;
 			sourceTree = "<group>";
@@ -477,14 +506,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9050A5221D489A1F00306F9E /* LGOWebViewController+NavigationBar.m in Sources */,
 				9050A4F51D484B2700306F9E /* LGOWebViewController+Basic.m in Sources */,
 				90E8CD051D47115D005F4746 /* JSContext+LGOProps.m in Sources */,
 				90E8CD501D473C22005F4746 /* LGOBuildFailed.m in Sources */,
 				90E8CD4C1D473BB5005F4746 /* LGOModules.m in Sources */,
 				90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */,
 				90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */,
+				9050A5171D488FE700306F9E /* LGOWebViewController+StatusBar.m in Sources */,
 				9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */,
+				9050A5141D488AE800306F9E /* LGOWebViewController+Title.m in Sources */,
 				90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */,
+				9050A51C1D48927400306F9E /* LGOWebViewController+RefreshControl.m in Sources */,
 				90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */,
 				90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */,
 				9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */,
@@ -494,6 +527,7 @@
 				90E8CCD01D470892005F4746 /* main.m in Sources */,
 				90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */,
 				90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */,
+				9050A51F1D48939E00306F9E /* LGOWebViewController+ProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +633,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Sample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -611,6 +646,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Sample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -16,4 +16,6 @@
 
 @property (nonatomic, copy) NSDictionary *initializeContext;
 
+- (void)callWithMethodName:(NSString *)methodName userInfo:(NSDictionary<NSString *, id> *)userInfo;
+
 @end

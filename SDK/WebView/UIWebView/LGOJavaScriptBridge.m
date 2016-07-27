@@ -68,7 +68,7 @@
 @implementation LGOJSBridge
 
 + (NSString *)bridgeScript {
-    return @"var JSMessageCallbacks=[];var JSMessage={newMessage:function(){return{messageID:'',moduleName:'',requestParams:{},callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON.stringify(this))},log:function(){console.log(this);JSConsole.log(JSON.stringify(this))}}}}";
+    return @"var JSMessageCallbacks=[];var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON.stringify(this))},log:function(){console.log(this);JSConsole.log(JSON.stringify(this))}}}}";
 }
 
 + (void)exec:(JSValue *)JSONString {

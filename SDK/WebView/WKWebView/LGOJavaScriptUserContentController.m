@@ -82,7 +82,7 @@
 }
 
 - (void)addBridgeScript {
-    [self addUserScript:[[WKUserScript alloc] initWithSource:@"var JSMessageCallbacks=[];var JSMessage={newMessage:function(){return{messageID:'',moduleName:'',requestParams:{},callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}window.webkit.messageHandlers.JSMessage.postMessage(JSON.stringify(this))},log:function(){JSConsole.log(JSON.stringify(this))}}}}" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO]];
+    [self addUserScript:[[WKUserScript alloc] initWithSource:@"var JSMessageCallbacks=[];var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}window.webkit.messageHandlers.JSMessage.postMessage(JSON.stringify(this))},log:function(){JSConsole.log(JSON.stringify(this))}}}}" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO]];
     [self addUserScript:[[WKUserScript alloc] initWithSource:@"var JSConsole={log:function(text){window.webkit.messageHandlers.JSLog.postMessage(btoa(encodeURIComponent(text)))}}" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO]];
     [self addUserScript:[[WKUserScript alloc] initWithSource:@"window.addEventListener('load', function(){window.webkit.messageHandlers.JSLoaded.postMessage('')})" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
 }
