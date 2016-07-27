@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSURL *URL;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 @end

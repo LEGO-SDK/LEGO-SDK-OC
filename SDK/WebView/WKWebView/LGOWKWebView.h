@@ -10,4 +10,6 @@
 
 @interface LGOWKWebView : WKWebView
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 @end
