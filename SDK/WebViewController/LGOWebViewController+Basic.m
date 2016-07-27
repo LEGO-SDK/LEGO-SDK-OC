@@ -7,6 +7,7 @@
 //
 
 #import "LGOWebViewController+Basic.h"
+@import WebKit;
 
 @implementation LGOWebViewController (Basic)
 
@@ -16,6 +17,9 @@
     }
     if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView *)self.webView loadRequest:self.initializeRequest];
+    }
+    else if ([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView *)self.webView loadRequest:self.initializeRequest];
     }
 }
 

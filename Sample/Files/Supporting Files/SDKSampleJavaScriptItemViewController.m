@@ -7,6 +7,7 @@
 //
 
 #import "SDKSampleJavaScriptItemViewController.h"
+@import WebKit;
 
 @implementation SDKSampleJavaScriptItemViewController
 
@@ -16,6 +17,9 @@
     NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView *)self.webView loadHTMLString:content baseURL:[NSURL URLWithString:@"http://127.0.0.1/"]];
+    }
+    else if ([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView *)self.webView loadHTMLString:content baseURL:[NSURL URLWithString:@"http://127.0.0.1/"]];
     }
 }
 

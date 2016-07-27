@@ -8,8 +8,8 @@
 
 #import "LGOWebViewController.h"
 #import "LGOWebView.h"
+#import "LGOWKWebView.h"
 #import "LGOWebViewController+Basic.h"
-@import WebKit;
 
 @implementation LGOWebViewController
 

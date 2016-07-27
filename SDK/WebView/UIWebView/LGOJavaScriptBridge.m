@@ -118,7 +118,7 @@
 }
 
 + (void)callbackWithID:(NSNumber *)callbackID result:(NSDictionary *)result webView:(UIWebView *)webView {
-    if (callbackID >= 0 && [NSJSONSerialization isValidJSONObject:result] && webView != nil) {
+    if (callbackID.integerValue >= 0 && [NSJSONSerialization isValidJSONObject:result] && webView != nil) {
         NSError *err;
         NSData *JSONData = [NSJSONSerialization dataWithJSONObject:result options:kNilOptions error:&err];
         if (err == nil && JSONData != nil) {
@@ -127,7 +127,7 @@
             NSString *base64String = [[JSONString dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:kNilOptions];
             if (base64String != nil) {
                 [webView stringByEvaluatingJavaScriptFromString:
-                 [NSString stringWithFormat:@"(function(){var JSONString = decodeURIComponent(atob('%@'));var JSCallbackParams = JSON.parse(JSONString);JSMessageCallbacks[%@].call(null, JSCallbackParams)})()", base64String, callbackID]
+                 [NSString stringWithFormat:@"(function(){var JSONString = decodeURIComponent(atob('%@'));var JSCallbackParams = JSON.parse(JSONString);JSMessageCallbacks[%ld].call(null, JSCallbackParams)})()", base64String, (long)callbackID.integerValue]
                  ];
             }
         }
