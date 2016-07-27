@@ -8,13 +8,8 @@
 
 #import "LGOWebViewController.h"
 #import "LGOWebView.h"
+#import "LGOWebViewController+Basic.h"
 @import WebKit;
-
-@interface LGOWebViewController (Basic)
-
-- (void)configureWebViewInitializeRequest;
-
-@end
 
 @implementation LGOWebViewController
 
@@ -55,19 +50,6 @@
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return _webView;
-}
-
-@end
-
-@implementation LGOWebViewController (Basic)
-
-- (void)configureWebViewInitializeRequest {
-    if (self.initializeRequest == nil) {
-        return;
-    }
-    if ([self.webView isKindOfClass:[UIWebView class]]) {
-        [(UIWebView *)self.webView loadRequest:self.initializeRequest];
-    }
 }
 
 @end
