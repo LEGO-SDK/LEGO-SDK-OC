@@ -50,4 +50,13 @@
     return modules;
 }
 
++ (LGOWebCache *)webCache {
+    static LGOWebCache *webCache;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        webCache = [[LGOWebCache alloc] init];
+    });
+    return webCache;
+}
+
 @end
