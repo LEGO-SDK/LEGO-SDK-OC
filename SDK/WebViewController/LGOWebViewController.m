@@ -16,7 +16,7 @@
 #import "LGOWebViewController+ProgressView.h"
 #import "LGOWebViewController+NavigationBar.h"
 
-@interface LGOWebViewController () <UIWebViewDelegate>
+@interface LGOWebViewController () <UIWebViewDelegate, WKNavigationDelegate>
 
 @property (nonatomic, assign) BOOL titleObserverConfigured;
 
