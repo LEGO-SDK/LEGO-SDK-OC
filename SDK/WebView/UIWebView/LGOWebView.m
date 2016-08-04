@@ -9,6 +9,7 @@
 #import "LGOWebView.h"
 #import "LGOJavaScriptBridge.h"
 #import "JSContext+LGOProps.h"
+#import "LGONotification.h"
 @import JavaScriptCore;
 
 @interface LGOWebViewDelegate: NSObject <UIWebViewDelegate>
@@ -30,6 +31,7 @@
 {
     self.delegate = nil;
     self.context.lgo_webView = nil;
+    [LGONotification LGONotificationGC];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame

@@ -93,7 +93,7 @@
     [self navigationBar_viewDidDisappear];
 }
 
-- (void)callWithMethodName:(NSString *)methodName userInfo:(NSDictionary<NSString *, id> *)userInfo { }
+- (void)callWithMethodName:(NSString *)methodName userInfo:(NSDictionary<NSString *, id> *)userInfo {}
 
 #pragma mark - Components
 

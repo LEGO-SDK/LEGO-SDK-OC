@@ -12,5 +12,15 @@
 @interface LGOBuildFailed : LGORequestable
 
 @property (nonatomic, copy) NSString *error;
+- (id) initWithErrorString:(NSString *)errorString;
+
+@end
+
+
+
+@interface LGOBuildFailedResponse : LGOResponse
+
+@property (nonatomic, copy) NSString *error;
+- (id) initWithErrorString:(NSString *)errorString;
 
 @end

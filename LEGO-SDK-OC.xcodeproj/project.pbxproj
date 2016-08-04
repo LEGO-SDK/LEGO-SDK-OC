@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		402EA9BE1D4B39B500E01F88 /* LGOCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EA9BD1D4B39B500E01F88 /* LGOCall.m */; };
+		402EA9C21D4F010200E01F88 /* LGODataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EA9C11D4F010200E01F88 /* LGODataModel.m */; };
+		402EA9C61D4F278B00E01F88 /* LGODevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EA9C51D4F278B00E01F88 /* LGODevice.m */; };
+		402EA9CA1D4F3B9700E01F88 /* LGOFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EA9C91D4F3B9700E01F88 /* LGOFileManager.m */; };
+		402EA9CE1D4F964000E01F88 /* LGOHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EA9CD1D4F964000E01F88 /* LGOHTTPRequest.m */; };
+		406089FD1D5192E700219874 /* LGOPasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 406089FC1D5192E700219874 /* LGOPasteboard.m */; };
+		40608A011D51A23000219874 /* LGOUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A001D51A23000219874 /* LGOUserDefaults.m */; };
+		40608A041D51C3D900219874 /* LGOOpenURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A031D51C3D900219874 /* LGOOpenURL.m */; };
+		40608A071D51C99400219874 /* LGOCanOpenURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A061D51C99400219874 /* LGOCanOpenURL.m */; };
+		40608A0B1D51CC2800219874 /* LGONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A0A1D51CC2800219874 /* LGONotification.m */; };
 		9050A4F51D484B2700306F9E /* LGOWebViewController+Basic.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4F41D484B2700306F9E /* LGOWebViewController+Basic.m */; };
 		9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4F71D484D2600306F9E /* LGOWKWebView.m */; };
 		9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4FA1D4850F700306F9E /* LGOJavaScriptUserContentController.m */; };
@@ -58,7 +68,7 @@
 		90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */; };
 		90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */; };
 		90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD641D4760D7005F4746 /* LGOCheck.m */; };
-		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -76,6 +86,26 @@
 
 /* Begin PBXFileReference section */
 		05CB2CC77EAAA6917F37215A /* libPods-Sample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		402EA9BC1D4B39B500E01F88 /* LGOCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOCall.h; sourceTree = "<group>"; };
+		402EA9BD1D4B39B500E01F88 /* LGOCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOCall.m; sourceTree = "<group>"; };
+		402EA9C01D4F010200E01F88 /* LGODataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGODataModel.h; sourceTree = "<group>"; };
+		402EA9C11D4F010200E01F88 /* LGODataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGODataModel.m; sourceTree = "<group>"; };
+		402EA9C41D4F278B00E01F88 /* LGODevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGODevice.h; sourceTree = "<group>"; };
+		402EA9C51D4F278B00E01F88 /* LGODevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGODevice.m; sourceTree = "<group>"; };
+		402EA9C81D4F3B9700E01F88 /* LGOFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOFileManager.h; sourceTree = "<group>"; };
+		402EA9C91D4F3B9700E01F88 /* LGOFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOFileManager.m; sourceTree = "<group>"; };
+		402EA9CC1D4F964000E01F88 /* LGOHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOHTTPRequest.h; sourceTree = "<group>"; };
+		402EA9CD1D4F964000E01F88 /* LGOHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOHTTPRequest.m; sourceTree = "<group>"; };
+		406089FB1D5192E700219874 /* LGOPasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPasteboard.h; sourceTree = "<group>"; };
+		406089FC1D5192E700219874 /* LGOPasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPasteboard.m; sourceTree = "<group>"; };
+		406089FF1D51A23000219874 /* LGOUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOUserDefaults.h; sourceTree = "<group>"; };
+		40608A001D51A23000219874 /* LGOUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOUserDefaults.m; sourceTree = "<group>"; };
+		40608A021D51C3D900219874 /* LGOOpenURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOOpenURL.h; sourceTree = "<group>"; };
+		40608A031D51C3D900219874 /* LGOOpenURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOOpenURL.m; sourceTree = "<group>"; };
+		40608A051D51C99400219874 /* LGOCanOpenURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOCanOpenURL.h; sourceTree = "<group>"; };
+		40608A061D51C99400219874 /* LGOCanOpenURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOCanOpenURL.m; sourceTree = "<group>"; };
+		40608A091D51CC2800219874 /* LGONotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGONotification.h; sourceTree = "<group>"; };
+		40608A0A1D51CC2800219874 /* LGONotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGONotification.m; sourceTree = "<group>"; };
 		7A12488A39AF61C14C802E57 /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
 		8CE4102F338A29E34675421B /* Pods-Sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.release.xcconfig"; sourceTree = "<group>"; };
 		9050A4F31D484B2700306F9E /* LGOWebViewController+Basic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+Basic.h"; sourceTree = "<group>"; };
@@ -181,6 +211,89 @@
 				05CB2CC77EAAA6917F37215A /* libPods-Sample.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		402EA9BB1D4B39B500E01F88 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				402EA9BC1D4B39B500E01F88 /* LGOCall.h */,
+				402EA9BD1D4B39B500E01F88 /* LGOCall.m */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		402EA9BF1D4F00E800E01F88 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				402EA9C01D4F010200E01F88 /* LGODataModel.h */,
+				402EA9C11D4F010200E01F88 /* LGODataModel.m */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		402EA9C31D4F272D00E01F88 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				402EA9C41D4F278B00E01F88 /* LGODevice.h */,
+				402EA9C51D4F278B00E01F88 /* LGODevice.m */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		402EA9C71D4F3B8A00E01F88 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				402EA9C81D4F3B9700E01F88 /* LGOFileManager.h */,
+				402EA9C91D4F3B9700E01F88 /* LGOFileManager.m */,
+			);
+			path = FileManager;
+			sourceTree = "<group>";
+		};
+		402EA9CB1D4F962E00E01F88 /* HTTPRequest */ = {
+			isa = PBXGroup;
+			children = (
+				402EA9CC1D4F964000E01F88 /* LGOHTTPRequest.h */,
+				402EA9CD1D4F964000E01F88 /* LGOHTTPRequest.m */,
+			);
+			path = HTTPRequest;
+			sourceTree = "<group>";
+		};
+		406089F91D5192AE00219874 /* OpenURL */ = {
+			isa = PBXGroup;
+			children = (
+				40608A021D51C3D900219874 /* LGOOpenURL.h */,
+				40608A031D51C3D900219874 /* LGOOpenURL.m */,
+				40608A051D51C99400219874 /* LGOCanOpenURL.h */,
+				40608A061D51C99400219874 /* LGOCanOpenURL.m */,
+			);
+			path = OpenURL;
+			sourceTree = "<group>";
+		};
+		406089FA1D5192D200219874 /* Pasteboard */ = {
+			isa = PBXGroup;
+			children = (
+				406089FB1D5192E700219874 /* LGOPasteboard.h */,
+				406089FC1D5192E700219874 /* LGOPasteboard.m */,
+			);
+			path = Pasteboard;
+			sourceTree = "<group>";
+		};
+		406089FE1D51A21700219874 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				406089FF1D51A23000219874 /* LGOUserDefaults.h */,
+				40608A001D51A23000219874 /* LGOUserDefaults.m */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		40608A081D51CC0F00219874 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				40608A091D51CC2800219874 /* LGONotification.h */,
+				40608A0A1D51CC2800219874 /* LGONotification.m */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		6AF2DA465EB844D5EEC62EB4 /* Pods */ = {
@@ -394,7 +507,16 @@
 		90E8CD611D4760BB005F4746 /* Native */ = {
 			isa = PBXGroup;
 			children = (
+				40608A081D51CC0F00219874 /* Notification */,
+				402EA9BB1D4B39B500E01F88 /* Call */,
 				90E8CD621D4760BB005F4746 /* Check */,
+				402EA9BF1D4F00E800E01F88 /* DataModel */,
+				402EA9C31D4F272D00E01F88 /* Device */,
+				402EA9C71D4F3B8A00E01F88 /* FileManager */,
+				402EA9CB1D4F962E00E01F88 /* HTTPRequest */,
+				406089F91D5192AE00219874 /* OpenURL */,
+				406089FA1D5192D200219874 /* Pasteboard */,
+				406089FE1D51A21700219874 /* UserDefaults */,
 			);
 			path = Native;
 			sourceTree = "<group>";
@@ -422,6 +544,7 @@
 				90E8CCF41D4708C0005F4746 /* Embed Frameworks */,
 				A1ED2E77265429D6BF66B995 /* [CP] Embed Pods Frameworks */,
 				64A2A1D273A4444C7D4E6049 /* [CP] Copy Pods Resources */,
+				4A41CF737A2DD69FC9002B12 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -512,6 +635,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		4A41CF737A2DD69FC9002B12 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sample/Pods-Sample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		64A2A1D273A4444C7D4E6049 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -554,11 +692,17 @@
 				90E8CD051D47115D005F4746 /* JSContext+LGOProps.m in Sources */,
 				90E8CD501D473C22005F4746 /* LGOBuildFailed.m in Sources */,
 				90E8CD4C1D473BB5005F4746 /* LGOModules.m in Sources */,
+				40608A071D51C99400219874 /* LGOCanOpenURL.m in Sources */,
+				40608A011D51A23000219874 /* LGOUserDefaults.m in Sources */,
 				9050A52E1D48AA5D00306F9E /* LGOWebViewController+Render.m in Sources */,
 				9050A5321D48B26300306F9E /* LGOWebCache.m in Sources */,
+				402EA9CA1D4F3B9700E01F88 /* LGOFileManager.m in Sources */,
+				40608A0B1D51CC2800219874 /* LGONotification.m in Sources */,
 				9050A5381D48B63200306F9E /* LGOWebService.m in Sources */,
+				406089FD1D5192E700219874 /* LGOPasteboard.m in Sources */,
 				90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */,
 				90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */,
+				402EA9BE1D4B39B500E01F88 /* LGOCall.m in Sources */,
 				9050A5171D488FE700306F9E /* LGOWebViewController+StatusBar.m in Sources */,
 				9050A5281D489FA500306F9E /* LGOWKWebView+RefreshControl.m in Sources */,
 				9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */,
@@ -572,11 +716,15 @@
 				90E8CD591D474F06005F4746 /* LGOWebViewController.m in Sources */,
 				90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */,
 				90E8CD021D470ACF005F4746 /* LGOJavaScriptBridge.m in Sources */,
+				402EA9C61D4F278B00E01F88 /* LGODevice.m in Sources */,
+				402EA9CE1D4F964000E01F88 /* LGOHTTPRequest.m in Sources */,
 				90E8CCD01D470892005F4746 /* main.m in Sources */,
 				90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */,
 				90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */,
 				9050A51F1D48939E00306F9E /* LGOWebViewController+ProgressView.m in Sources */,
+				402EA9C21D4F010200E01F88 /* LGODataModel.m in Sources */,
 				9050A5251D489E4E00306F9E /* LGOWebView+RefreshControl.m in Sources */,
+				40608A041D51C3D900219874 /* LGOOpenURL.m in Sources */,
 				9050A53B1D48C06C00306F9E /* LGOMIMETypes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,10 +8,25 @@
 
 #import "LGOCheck.h"
 #import "LGOCore.h"
+#import "LGOBuildFailed.h"
+
+// - Request
+
+@interface LGOCheckRequest : LGORequest
+
+@property (nonatomic, copy) NSArray *moduleList;
+
+@end
+
+@implementation LGOCheckRequest
+
+@end
+
+// - Response
 
 @interface LGOCheckResponse : LGOResponse
 
-@property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> *checkResult;
+@property (nonatomic, retain) NSDictionary<NSString *, NSNumber *> *checkResult;
 
 @end
 
@@ -19,22 +34,24 @@
 
 - (NSDictionary *)toDictionary {
     return @{
-             @"succeed": [NSNumber numberWithBool:YES],
+             @"SDKVersion": [LGOCore SDKVersion],
              @"checkResult": self.checkResult
              };
 }
 
 @end
 
-@interface LGOCheckOperation : LGORequestable
+// - Operation
 
+@interface LGOCheckOperation : LGORequestable
+@property (nonatomic, strong) LGOCheckRequest *request;
 @end
 
 @implementation LGOCheckOperation
 
 - (LGOResponse *)requestSynchronize {
     NSMutableDictionary *checkResult = [NSMutableDictionary dictionary];
-    for (NSString *module in [[LGOCore modules] allModules]) {
+    for (NSString *module in self.request.moduleList) {
         [checkResult setObject:[NSNumber numberWithBool:YES] forKey:module];
     }
     LGOCheckResponse *response = [[LGOCheckResponse alloc] init];
@@ -44,14 +61,32 @@
 
 @end
 
+// - Module
+
 @implementation LGOCheck
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
-    return [[LGOCheckOperation alloc] init];
+    if ( [request isKindOfClass:[LGOCheckRequest class]] ) {
+        LGOCheckOperation *operation = [LGOCheckOperation new];
+        operation.request = (LGOCheckRequest *)request;
+        return operation;
+    }
+    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
-    return [[LGOCheckOperation alloc] init];
+    LGOCheckRequest *request = [[LGOCheckRequest alloc] initWithContext:context];
+    NSArray *moduleList = [dictionary[@"moduleList"] isKindOfClass:[NSArray<NSString *> class]] ? dictionary[@"moduleList"] : @[];
+    if (moduleList.count) {
+        request.moduleList = moduleList;
+    }
+    else {
+        request.moduleList = LGOCore.modules.allModules;
+    }
+    
+    LGOCheckOperation *operation = [LGOCheckOperation new];
+    operation.request = request;
+    return operation;
 }
 
 @end

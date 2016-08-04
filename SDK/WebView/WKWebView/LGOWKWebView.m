@@ -8,8 +8,16 @@
 
 #import "LGOWKWebView.h"
 #import "LGOJavaScriptUserContentController.h"
+#import "LGONotification.h"
 
 @implementation LGOWKWebView
+
+- (void)dealloc
+{
+    self.navigationDelegate = nil;
+    self.UIDelegate = nil;
+    [LGONotification LGONotificationGC];
+}
 
 + (WKWebViewConfiguration *)bridge_configuration {
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];

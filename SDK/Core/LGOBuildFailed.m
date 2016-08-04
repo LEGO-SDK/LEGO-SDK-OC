@@ -9,11 +9,12 @@
 #import "LGOBuildFailed.h"
 #import "LGOProtocols.h"
 
-@interface LGOBuildFailedResponse : LGOResponse
-
-@property (nonatomic, copy) NSString *error;
-
-@end
+//@interface LGOBuildFailedResponse : LGOResponse
+//
+//@property (nonatomic, copy) NSString *error;
+////- (id) initWithErrorString:(NSString *)errorString;
+//
+//@end
 
 @implementation LGOBuildFailedResponse
 
@@ -22,6 +23,11 @@
     if (self) {
         _error = @"Unknown Error";
     }
+    return self;
+}
+
+- (id) initWithErrorString:(NSString *)errorString{
+    _error = errorString;
     return self;
 }
 
@@ -35,6 +41,11 @@
 @end
 
 @implementation LGOBuildFailed
+
+- (id) initWithErrorString:(NSString*)errorString {
+    self.error = errorString;
+    return self;
+}
 
 - (LGOResponse *)requestSynchronize {
     LGOBuildFailedResponse *response = [[LGOBuildFailedResponse alloc] init];

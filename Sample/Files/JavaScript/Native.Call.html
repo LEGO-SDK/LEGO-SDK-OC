@@ -16,8 +16,16 @@
         var message = JSMessage.newMessage()
         message.moduleName = "Native.Call"
         message.requestParams = {
-            selectorName: "testCall:",
-            firstObject: "Pony"
+            methodName: "fn1",
+            userInfo: {
+                "arg1": 10,
+                "arg2": {
+                    "k1": {
+                        "attr": "val"
+                    },
+                    "k2": 11
+                }
+            }
         }
         message.call(null)
     }
