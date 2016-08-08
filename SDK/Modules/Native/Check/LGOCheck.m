@@ -26,7 +26,7 @@
 
 @interface LGOCheckResponse : LGOResponse
 
-@property (nonatomic, retain) NSDictionary<NSString *, NSNumber *> *checkResult;
+@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *checkResult;
 
 @end
 

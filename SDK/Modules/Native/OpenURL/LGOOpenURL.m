@@ -12,7 +12,7 @@
 
 // Request
 @interface LGOOpenURLRequest : LGORequest
-@property (nonatomic, retain) NSString *URLString;
+@property (nonatomic, strong) NSString *URLString;
 @end
 
 @implementation LGOOpenURLRequest
@@ -40,7 +40,7 @@
 
 // Operation
 @interface LGOOpenURLOperation : LGORequestable
-@property (nonatomic, retain) LGOOpenURLRequest *request;
+@property (nonatomic, strong) LGOOpenURLRequest *request;
 @end
 
 @implementation LGOOpenURLOperation

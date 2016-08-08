@@ -29,10 +29,10 @@ static NSNumber * observersGCLock;
 
 // Request
 @interface LGONotificationRequest : LGORequest
-@property (nonatomic, retain) NSString * opt;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) id _Nullable aPostObject;
-@property (nonatomic, retain) NSDictionary<NSString *, id> * aPostUserInfo;
+@property (nonatomic, strong) NSString * opt;
+@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) id _Nullable aPostObject;
+@property (nonatomic, strong) NSDictionary<NSString *, id> * aPostUserInfo;
 @end
 
 @implementation LGONotificationRequest
@@ -43,8 +43,8 @@ static NSNumber * observersGCLock;
 
 // Response
 @interface LGONotificationResponse : LGOResponse
-@property (nonatomic, retain) id _Nullable object;
-@property (nonatomic, retain) NSDictionary * _Nullable userInfo;
+@property (nonatomic, strong) id _Nullable object;
+@property (nonatomic, strong) NSDictionary * _Nullable userInfo;
 @end
 
 @implementation LGONotificationResponse
@@ -61,7 +61,7 @@ static NSNumber * observersGCLock;
             userInfoValue = self.userInfo;
         }
         else {
-            NSMutableDictionary *outputInfo = @{};
+            NSMutableDictionary *outputInfo = [NSMutableDictionary new];
             for (NSString *key in self.userInfo) {
                 id value = [self.userInfo objectForKey:key];
                 if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]]){
@@ -84,7 +84,7 @@ static NSNumber * observersGCLock;
 
 // Operation
 @interface LGONotificationOperation : LGORequestable
-@property (nonatomic, retain) LGONotificationRequest *request;
+@property (nonatomic, strong) LGONotificationRequest *request;
 @end
 
 @implementation LGONotificationOperation
@@ -138,7 +138,7 @@ static NSNumber * observersGCLock;
 + (NSArray *)observers {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        observers = [NSArray array];
+        observers = [NSMutableArray new];
     });
     return observers;
 }

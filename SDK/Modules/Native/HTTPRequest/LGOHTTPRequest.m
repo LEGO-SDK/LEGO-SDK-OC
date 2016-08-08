@@ -15,7 +15,7 @@
 // - Request
 @interface LGOHTTPRequestObject : LGORequest
 
-@property (nonatomic, retain)NSMutableURLRequest *nativeRequest;
+@property (nonatomic, strong)NSMutableURLRequest *nativeRequest;
 @property (nonatomic, assign)BOOL showActivityIndicator;
 - (void)setTimeout:(double)time;
 - (void)setHeaders:(NSDictionary *)headers;
@@ -68,10 +68,10 @@
 // - Response
 @interface LGOHTTPResponseObject : LGOResponse
 
-@property (nonatomic, retain) NSString *error;
+@property (nonatomic, strong) NSString *error;
 @property (nonatomic, assign) int statusCode;
-@property (nonatomic, retain) NSString *responseText;
-@property (nonatomic, retain) NSData * _Nullable responseData;
+@property (nonatomic, strong) NSString *responseText;
+@property (nonatomic, strong) NSData * _Nullable responseData;
 
 @end
 
@@ -98,7 +98,7 @@
 
 @interface LGOHTTPOperation : LGORequestable
 
-@property (nonatomic, retain) LGOHTTPRequestObject *request;
+@property (nonatomic, strong) LGOHTTPRequestObject *request;
 
 @end
 

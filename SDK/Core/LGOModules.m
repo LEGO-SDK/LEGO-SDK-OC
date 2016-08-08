@@ -17,6 +17,14 @@
 #import "LGOOpenURL.h"
 #import "LGONotification.h"
 #import "LGODevice.h"
+#import "LGOActionSheet.h"
+#import "LGOAlertView.h"
+#import "LGOBounce.h"
+#import "LGOIndicatorView.h"
+#import "LGOStatusBar.h"
+#import "LGOAppFrame.h"
+#import "LGORefresh.h"
+#import "LGOImagePreviewer.h"
 
 @implementation LGOModules
 
@@ -34,7 +42,15 @@
                     @"Native.CanOpenURL": [LGOCanOpenURL new],
                     @"Native.OpenURL": [LGOOpenURL new],
                     @"Native.Notification": [LGONotification new],
-                    @"Native.Device": [LGODevice new]
+                    @"Native.Device": [LGODevice new],
+                    @"UI.ActionSheet": [LGOActionSheet new],
+                    @"UI.AlertView": [LGOAlertView new],
+                    @"UI.Bounce": [LGOBounce new],
+                    @"UI.IndicatorView": [LGOIndicatorView new],
+                    @"UI.StatusBar": [LGOStatusBar new],
+                    @"UI.AppFrame": [LGOAppFrame new],
+                    @"UI.Refresh": [LGORefresh new],
+                    @"UI.ImagePreviewer": [LGOImagePreviewer new]
                    } mutableCopy];
     }
     return self;

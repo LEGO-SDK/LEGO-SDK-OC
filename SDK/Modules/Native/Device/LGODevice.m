@@ -9,28 +9,33 @@
 #import "LGODevice.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
+#import "LGODeviceReachability.h"
 
+@interface LGODevice ()
 
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
++ (NSDictionary*) custom;
+
+@end
+
 
 // - Response
 
 @interface LGODeviceResponse : LGOResponse
 
-@property (nonatomic, retain) NSString *deviceName;
-@property (nonatomic, retain) NSString *deviceModel;
-@property (nonatomic, retain) NSString *deviceOSName;
-@property (nonatomic, retain) NSString *deviceOSVersion;
-@property (nonatomic, retain) NSString *deviceIDFV;
-@property (nonatomic, retain) NSString *deviceLanguage;
-@property (nonatomic, retain) NSNumber *deviceScreenWidth;
-@property (nonatomic, retain) NSNumber *deviceScreenHeight;
-@property (nonatomic, retain) NSString *appName;
-@property (nonatomic, retain) NSString *appBundleIdentifier;
-@property (nonatomic, retain) NSString *appShortVersion;
-@property (nonatomic, retain) NSNumber *appBuildNumber;
-@property (nonatomic, retain) NSNumber *networkUsingWIFI;
-@property (nonatomic, retain) NSNumber *networkCellularType;
+@property (nonatomic, strong) NSString *deviceName;
+@property (nonatomic, strong) NSString *deviceModel;
+@property (nonatomic, strong) NSString *deviceOSName;
+@property (nonatomic, strong) NSString *deviceOSVersion;
+@property (nonatomic, strong) NSString *deviceIDFV;
+@property (nonatomic, strong) NSString *deviceLanguage;
+@property (nonatomic, strong) NSNumber *deviceScreenWidth;
+@property (nonatomic, strong) NSNumber *deviceScreenHeight;
+@property (nonatomic, strong) NSString *appName;
+@property (nonatomic, strong) NSString *appBundleIdentifier;
+@property (nonatomic, strong) NSString *appShortVersion;
+@property (nonatomic, strong) NSNumber *appBuildNumber;
+@property (nonatomic, strong) NSNumber *networkUsingWIFI;
+@property (nonatomic, strong) NSNumber *networkCellularType;
 
 @end
 
@@ -66,8 +71,8 @@
     self.appBundleIdentifier = [LGODeviceResponse requestBundleStringValueForKey:@"CFBundleIdentifier"];
     self.appShortVersion = [LGODeviceResponse requestBundleStringValueForKey:@"CFBundleShortVersionString"];
     self.appBuildNumber = [LGODeviceResponse requestBundleIntValueForKey:@"CFBundleVersion"];
-    self.networkUsingWIFI = @true; //@Td
-    self.networkCellularType = @3; //@Td
+    self.networkUsingWIFI = [NSNumber numberWithBool:[LGODeviceReachability LGODeviceUsingWifi]];
+    self.networkCellularType = [NSNumber numberWithInt:[LGODeviceReachability LGODeviceCellularType]];
     
     return @{
              @"device": @{
@@ -87,9 +92,9 @@
                      },
              @"network": @{
                         @"usingWIFI": self.networkUsingWIFI,
-                        @"cellularType": self.networkCellularType,
-                     }
-//             @"custom": [LGODevice custom]
+                        @"cellularType": self.networkCellularType
+                     },
+             @"custom": [LGODevice custom]
              };
 }
 
@@ -110,7 +115,18 @@
 @end
 
 // - Module
+
 @implementation LGODevice
+
+static NSDictionary* custom;
+
++ (NSDictionary*) custom {
+    @synchronized (self) {
+        custom = @{
+                   };
+    }
+    return custom;
+}
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     return [LGODeviceOperation new];
@@ -119,8 +135,6 @@
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
     return [LGODeviceOperation new];
 }
-
-
 
 
 @end

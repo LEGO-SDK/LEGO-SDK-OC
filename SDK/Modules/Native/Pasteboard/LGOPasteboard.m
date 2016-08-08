@@ -11,8 +11,8 @@
 #import "LGOBuildFailed.h"
 
 @interface LGOPasteboardRequest : LGORequest
-@property (nonatomic, retain) NSString * opt; //update/read/delete
-@property (nonatomic, retain) NSString * _Nullable string;
+@property (nonatomic, strong) NSString * opt; //update/read/delete
+@property (nonatomic, strong) NSString * _Nullable string;
 @end
 
 @implementation LGOPasteboardRequest
@@ -23,7 +23,7 @@
 
 
 @interface LGOPasteboardResponse : LGOResponse
-@property (nonatomic, retain) NSString * _Nullable string;
+@property (nonatomic, strong) NSString * _Nullable string;
 @end
 
 @implementation LGOPasteboardResponse
@@ -40,7 +40,7 @@
 
 
 @interface LGOPasteboardOperation : LGORequestable
-@property (nonatomic, retain) LGOPasteboardRequest * request;
+@property (nonatomic, strong) LGOPasteboardRequest * request;
 @end
 
 @implementation LGOPasteboardOperation

@@ -35,7 +35,7 @@
 // Operation
 
 @interface LGOCallOperation : LGORequestable
-    @property (nonatomic, retain) LGOCallRequest *request;
+    @property (nonatomic, strong) LGOCallRequest *request;
 @end
 
 @implementation LGOCallOperation

@@ -14,9 +14,9 @@
 // - Request
 @interface LGODataModelRequest : LGORequest
 
-@property (nonatomic, retain) NSString *opt;
-@property (nonatomic, retain) NSString *dataKey;
-@property (nonatomic, retain) NSString *dataValue; // AnyObject
+@property (nonatomic, strong) NSString *opt;
+@property (nonatomic, strong) NSString *dataKey;
+@property (nonatomic, strong) NSString *dataValue; // AnyObject
 
 @end
 
@@ -38,7 +38,7 @@
 // - Response
 @interface LGODataModelResponse : LGOResponse
 
-@property (nonatomic, retain) NSDictionary *dataModel;
+@property (nonatomic, strong) NSDictionary *dataModel;
 
 @end
 
@@ -60,7 +60,7 @@
 
 @interface LGODataModelOperation : LGORequestable
 
-@property (nonatomic, retain) LGODataModelRequest *request;
+@property (nonatomic, strong) LGODataModelRequest *request;
 
 @end
 

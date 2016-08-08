@@ -12,10 +12,10 @@
 
 // Request
 @interface LGOUserDefaultsRequest : LGORequest
-@property (nonatomic, retain) NSString * suite;
-@property (nonatomic, retain) NSString * opt; // create/update/read/delete
-@property (nonatomic, retain) NSString * key;
-@property (nonatomic, retain) id _Nullable value;
+@property (nonatomic, strong) NSString * suite;
+@property (nonatomic, strong) NSString * opt; // create/update/read/delete
+@property (nonatomic, strong) NSString * key;
+@property (nonatomic, strong) id _Nullable value;
 @end
 
 @implementation LGOUserDefaultsRequest
@@ -35,7 +35,7 @@
 
 // Response
 @interface LGOUserDefaultsResponse : LGOResponse
-@property (nonatomic, retain) id value;
+@property (nonatomic, strong) id value;
 @end
 
 @implementation LGOUserDefaultsResponse
@@ -60,7 +60,7 @@
 
 // Operation
 @interface LGOUserDefaultsOperation : LGORequestable
-@property (nonatomic, retain) LGOUserDefaultsRequest *request;
+@property (nonatomic, strong) LGOUserDefaultsRequest *request;
 @end
 
 @implementation LGOUserDefaultsOperation

@@ -20,10 +20,10 @@
 // - Request
 @interface LGOFileManagerRequest : LGORequest
 
-@property (nonatomic, retain) NSString *suite;
-@property (nonatomic, retain) NSString *opt;
-@property (nonatomic, retain) NSString *filePath;
-@property (nonatomic, retain) NSData *fileContents;
+@property (nonatomic, strong) NSString *suite;
+@property (nonatomic, strong) NSString *opt;
+@property (nonatomic, strong) NSString *filePath;
+@property (nonatomic, strong) NSData *fileContents;
 
 @end
 
@@ -37,7 +37,7 @@
 @interface LGOFileManagerResponse : LGOResponse
 
 @property (nonatomic, assign) BOOL optSucceed;
-@property (nonatomic, retain) NSData *fileContents;
+@property (nonatomic, strong) NSData *fileContents;
 
 @end
 

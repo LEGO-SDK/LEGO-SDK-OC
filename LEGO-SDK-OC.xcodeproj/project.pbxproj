@@ -17,6 +17,21 @@
 		40608A041D51C3D900219874 /* LGOOpenURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A031D51C3D900219874 /* LGOOpenURL.m */; };
 		40608A071D51C99400219874 /* LGOCanOpenURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A061D51C99400219874 /* LGOCanOpenURL.m */; };
 		40608A0B1D51CC2800219874 /* LGONotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A0A1D51CC2800219874 /* LGONotification.m */; };
+		40608A181D52F0F200219874 /* LGOActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A171D52F0F200219874 /* LGOActionSheet.m */; };
+		40608A1B1D532BB200219874 /* LGOAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A1A1D532BB200219874 /* LGOAlertView.m */; };
+		40608A1E1D5339DE00219874 /* LGOBounce.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A1D1D5339DE00219874 /* LGOBounce.m */; };
+		40608A211D5340A300219874 /* LGOIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A201D5340A300219874 /* LGOIndicatorView.m */; };
+		40608A241D534ABE00219874 /* LGOStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A231D534ABE00219874 /* LGOStatusBar.m */; };
+		40608A271D53520700219874 /* LGOModalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A261D53520700219874 /* LGOModalController.m */; };
+		40608A2D1D543EC200219874 /* LGOModalPresentationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A2C1D543EC200219874 /* LGOModalPresentationTransition.m */; };
+		40608A301D545D8600219874 /* LGOViewControllerGlobalValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A2F1D545D8600219874 /* LGOViewControllerGlobalValues.m */; };
+		40608A331D5464D500219874 /* LGOModalDismissTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A321D5464D500219874 /* LGOModalDismissTransition.m */; };
+		40608A361D54882800219874 /* LGOAppFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A351D54882800219874 /* LGOAppFrame.m */; };
+		40608A391D54A5FA00219874 /* LGOImagePreviewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A381D54A5FA00219874 /* LGOImagePreviewer.m */; };
+		40608A3C1D5759DC00219874 /* LGORefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A3B1D5759DC00219874 /* LGORefresh.m */; };
+		40608A3F1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A3E1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m */; };
+		40608A451D581ACA00219874 /* LGOImagePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A441D581ACA00219874 /* LGOImagePreviewController.m */; };
+		40608A481D5888FC00219874 /* LGODeviceReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A471D5888FC00219874 /* LGODeviceReachability.m */; };
 		9050A4F51D484B2700306F9E /* LGOWebViewController+Basic.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4F41D484B2700306F9E /* LGOWebViewController+Basic.m */; };
 		9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4F71D484D2600306F9E /* LGOWKWebView.m */; };
 		9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4FA1D4850F700306F9E /* LGOJavaScriptUserContentController.m */; };
@@ -106,6 +121,36 @@
 		40608A061D51C99400219874 /* LGOCanOpenURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOCanOpenURL.m; sourceTree = "<group>"; };
 		40608A091D51CC2800219874 /* LGONotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGONotification.h; sourceTree = "<group>"; };
 		40608A0A1D51CC2800219874 /* LGONotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGONotification.m; sourceTree = "<group>"; };
+		40608A161D52F0F200219874 /* LGOActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOActionSheet.h; sourceTree = "<group>"; };
+		40608A171D52F0F200219874 /* LGOActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOActionSheet.m; sourceTree = "<group>"; };
+		40608A191D532BB200219874 /* LGOAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOAlertView.h; sourceTree = "<group>"; };
+		40608A1A1D532BB200219874 /* LGOAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOAlertView.m; sourceTree = "<group>"; };
+		40608A1C1D5339DE00219874 /* LGOBounce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOBounce.h; sourceTree = "<group>"; };
+		40608A1D1D5339DE00219874 /* LGOBounce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOBounce.m; sourceTree = "<group>"; };
+		40608A1F1D5340A300219874 /* LGOIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOIndicatorView.h; sourceTree = "<group>"; };
+		40608A201D5340A300219874 /* LGOIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOIndicatorView.m; sourceTree = "<group>"; };
+		40608A221D534ABE00219874 /* LGOStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOStatusBar.h; sourceTree = "<group>"; };
+		40608A231D534ABE00219874 /* LGOStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOStatusBar.m; sourceTree = "<group>"; };
+		40608A251D53520700219874 /* LGOModalController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOModalController.h; sourceTree = "<group>"; };
+		40608A261D53520700219874 /* LGOModalController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOModalController.m; sourceTree = "<group>"; };
+		40608A2B1D543EC200219874 /* LGOModalPresentationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOModalPresentationTransition.h; sourceTree = "<group>"; };
+		40608A2C1D543EC200219874 /* LGOModalPresentationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOModalPresentationTransition.m; sourceTree = "<group>"; };
+		40608A2E1D545D8600219874 /* LGOViewControllerGlobalValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOViewControllerGlobalValues.h; sourceTree = "<group>"; };
+		40608A2F1D545D8600219874 /* LGOViewControllerGlobalValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOViewControllerGlobalValues.m; sourceTree = "<group>"; };
+		40608A311D5464D500219874 /* LGOModalDismissTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOModalDismissTransition.h; sourceTree = "<group>"; };
+		40608A321D5464D500219874 /* LGOModalDismissTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOModalDismissTransition.m; sourceTree = "<group>"; };
+		40608A341D54882800219874 /* LGOAppFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOAppFrame.h; sourceTree = "<group>"; };
+		40608A351D54882800219874 /* LGOAppFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOAppFrame.m; sourceTree = "<group>"; };
+		40608A371D54A5FA00219874 /* LGOImagePreviewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOImagePreviewer.h; sourceTree = "<group>"; };
+		40608A381D54A5FA00219874 /* LGOImagePreviewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOImagePreviewer.m; sourceTree = "<group>"; };
+		40608A3A1D5759DC00219874 /* LGORefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGORefresh.h; sourceTree = "<group>"; };
+		40608A3B1D5759DC00219874 /* LGORefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGORefresh.m; sourceTree = "<group>"; };
+		40608A3D1D575FE400219874 /* LGOImagePreviewZoomingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOImagePreviewZoomingScrollView.h; sourceTree = "<group>"; };
+		40608A3E1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOImagePreviewZoomingScrollView.m; sourceTree = "<group>"; };
+		40608A431D581ACA00219874 /* LGOImagePreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOImagePreviewController.h; sourceTree = "<group>"; };
+		40608A441D581ACA00219874 /* LGOImagePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOImagePreviewController.m; sourceTree = "<group>"; };
+		40608A461D5888FC00219874 /* LGODeviceReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGODeviceReachability.h; sourceTree = "<group>"; };
+		40608A471D5888FC00219874 /* LGODeviceReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGODeviceReachability.m; sourceTree = "<group>"; };
 		7A12488A39AF61C14C802E57 /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
 		8CE4102F338A29E34675421B /* Pods-Sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.release.xcconfig"; sourceTree = "<group>"; };
 		9050A4F31D484B2700306F9E /* LGOWebViewController+Basic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+Basic.h"; sourceTree = "<group>"; };
@@ -236,6 +281,8 @@
 			children = (
 				402EA9C41D4F278B00E01F88 /* LGODevice.h */,
 				402EA9C51D4F278B00E01F88 /* LGODevice.m */,
+				40608A461D5888FC00219874 /* LGODeviceReachability.h */,
+				40608A471D5888FC00219874 /* LGODeviceReachability.m */,
 			);
 			path = Device;
 			sourceTree = "<group>";
@@ -294,6 +341,113 @@
 				40608A0A1D51CC2800219874 /* LGONotification.m */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		40608A0C1D52F0D200219874 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				40608A0D1D52F0D200219874 /* ActionSheet */,
+				40608A0E1D52F0D200219874 /* AlertView */,
+				40608A0F1D52F0D200219874 /* AppFrame */,
+				40608A101D52F0D200219874 /* Bounce */,
+				40608A111D52F0D200219874 /* ImagePreviewer */,
+				40608A121D52F0D200219874 /* IndicatorView */,
+				40608A131D52F0D200219874 /* Refresh */,
+				40608A141D52F0D200219874 /* StatusBar */,
+				40608A151D52F0D200219874 /* ViewController */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		40608A0D1D52F0D200219874 /* ActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				40608A161D52F0F200219874 /* LGOActionSheet.h */,
+				40608A171D52F0F200219874 /* LGOActionSheet.m */,
+			);
+			path = ActionSheet;
+			sourceTree = "<group>";
+		};
+		40608A0E1D52F0D200219874 /* AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				40608A191D532BB200219874 /* LGOAlertView.h */,
+				40608A1A1D532BB200219874 /* LGOAlertView.m */,
+			);
+			path = AlertView;
+			sourceTree = "<group>";
+		};
+		40608A0F1D52F0D200219874 /* AppFrame */ = {
+			isa = PBXGroup;
+			children = (
+				40608A341D54882800219874 /* LGOAppFrame.h */,
+				40608A351D54882800219874 /* LGOAppFrame.m */,
+			);
+			path = AppFrame;
+			sourceTree = "<group>";
+		};
+		40608A101D52F0D200219874 /* Bounce */ = {
+			isa = PBXGroup;
+			children = (
+				40608A1C1D5339DE00219874 /* LGOBounce.h */,
+				40608A1D1D5339DE00219874 /* LGOBounce.m */,
+			);
+			path = Bounce;
+			sourceTree = "<group>";
+		};
+		40608A111D52F0D200219874 /* ImagePreviewer */ = {
+			isa = PBXGroup;
+			children = (
+				40608A371D54A5FA00219874 /* LGOImagePreviewer.h */,
+				40608A381D54A5FA00219874 /* LGOImagePreviewer.m */,
+				40608A3D1D575FE400219874 /* LGOImagePreviewZoomingScrollView.h */,
+				40608A3E1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m */,
+				40608A431D581ACA00219874 /* LGOImagePreviewController.h */,
+				40608A441D581ACA00219874 /* LGOImagePreviewController.m */,
+			);
+			path = ImagePreviewer;
+			sourceTree = "<group>";
+		};
+		40608A121D52F0D200219874 /* IndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				40608A1F1D5340A300219874 /* LGOIndicatorView.h */,
+				40608A201D5340A300219874 /* LGOIndicatorView.m */,
+			);
+			path = IndicatorView;
+			sourceTree = "<group>";
+		};
+		40608A131D52F0D200219874 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				40608A3A1D5759DC00219874 /* LGORefresh.h */,
+				40608A3B1D5759DC00219874 /* LGORefresh.m */,
+			);
+			path = Refresh;
+			sourceTree = "<group>";
+		};
+		40608A141D52F0D200219874 /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				40608A221D534ABE00219874 /* LGOStatusBar.h */,
+				40608A231D534ABE00219874 /* LGOStatusBar.m */,
+			);
+			path = StatusBar;
+			sourceTree = "<group>";
+		};
+		40608A151D52F0D200219874 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				40608A251D53520700219874 /* LGOModalController.h */,
+				40608A261D53520700219874 /* LGOModalController.m */,
+				40608A311D5464D500219874 /* LGOModalDismissTransition.h */,
+				40608A321D5464D500219874 /* LGOModalDismissTransition.m */,
+				40608A2B1D543EC200219874 /* LGOModalPresentationTransition.h */,
+				40608A2C1D543EC200219874 /* LGOModalPresentationTransition.m */,
+				40608A2E1D545D8600219874 /* LGOViewControllerGlobalValues.h */,
+				40608A2F1D545D8600219874 /* LGOViewControllerGlobalValues.m */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		6AF2DA465EB844D5EEC62EB4 /* Pods */ = {
@@ -499,6 +653,7 @@
 		90E8CD601D4760BB005F4746 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				40608A0C1D52F0D200219874 /* UI */,
 				90E8CD611D4760BB005F4746 /* Native */,
 			);
 			path = Modules;
@@ -567,6 +722,7 @@
 				TargetAttributes = {
 					90E8CCCB1D470892005F4746 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = GR93WTAZ38;
 					};
 				};
 			};
@@ -687,7 +843,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40608A3C1D5759DC00219874 /* LGORefresh.m in Sources */,
+				40608A1E1D5339DE00219874 /* LGOBounce.m in Sources */,
 				9050A5221D489A1F00306F9E /* LGOWebViewController+NavigationBar.m in Sources */,
+				40608A391D54A5FA00219874 /* LGOImagePreviewer.m in Sources */,
 				9050A4F51D484B2700306F9E /* LGOWebViewController+Basic.m in Sources */,
 				90E8CD051D47115D005F4746 /* JSContext+LGOProps.m in Sources */,
 				90E8CD501D473C22005F4746 /* LGOBuildFailed.m in Sources */,
@@ -695,6 +854,7 @@
 				40608A071D51C99400219874 /* LGOCanOpenURL.m in Sources */,
 				40608A011D51A23000219874 /* LGOUserDefaults.m in Sources */,
 				9050A52E1D48AA5D00306F9E /* LGOWebViewController+Render.m in Sources */,
+				40608A301D545D8600219874 /* LGOViewControllerGlobalValues.m in Sources */,
 				9050A5321D48B26300306F9E /* LGOWebCache.m in Sources */,
 				402EA9CA1D4F3B9700E01F88 /* LGOFileManager.m in Sources */,
 				40608A0B1D51CC2800219874 /* LGONotification.m in Sources */,
@@ -707,22 +867,33 @@
 				9050A5281D489FA500306F9E /* LGOWKWebView+RefreshControl.m in Sources */,
 				9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */,
 				9050A5141D488AE800306F9E /* LGOWebViewController+Title.m in Sources */,
+				40608A181D52F0F200219874 /* LGOActionSheet.m in Sources */,
 				90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */,
 				9050A51C1D48927400306F9E /* LGOWebViewController+RefreshControl.m in Sources */,
+				40608A361D54882800219874 /* LGOAppFrame.m in Sources */,
 				90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */,
+				40608A481D5888FC00219874 /* LGODeviceReachability.m in Sources */,
 				9050A5351D48B62A00306F9E /* LGOWebHTTPService.m in Sources */,
+				40608A451D581ACA00219874 /* LGOImagePreviewController.m in Sources */,
+				40608A211D5340A300219874 /* LGOIndicatorView.m in Sources */,
+				40608A331D5464D500219874 /* LGOModalDismissTransition.m in Sources */,
 				90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */,
+				40608A3F1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m in Sources */,
+				40608A241D534ABE00219874 /* LGOStatusBar.m in Sources */,
 				9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */,
 				90E8CD591D474F06005F4746 /* LGOWebViewController.m in Sources */,
 				90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */,
 				90E8CD021D470ACF005F4746 /* LGOJavaScriptBridge.m in Sources */,
 				402EA9C61D4F278B00E01F88 /* LGODevice.m in Sources */,
 				402EA9CE1D4F964000E01F88 /* LGOHTTPRequest.m in Sources */,
+				40608A1B1D532BB200219874 /* LGOAlertView.m in Sources */,
+				40608A2D1D543EC200219874 /* LGOModalPresentationTransition.m in Sources */,
 				90E8CCD01D470892005F4746 /* main.m in Sources */,
 				90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */,
 				90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */,
 				9050A51F1D48939E00306F9E /* LGOWebViewController+ProgressView.m in Sources */,
 				402EA9C21D4F010200E01F88 /* LGODataModel.m in Sources */,
+				40608A271D53520700219874 /* LGOModalController.m in Sources */,
 				9050A5251D489E4E00306F9E /* LGOWebView+RefreshControl.m in Sources */,
 				40608A041D51C3D900219874 /* LGOOpenURL.m in Sources */,
 				9050A53B1D48C06C00306F9E /* LGOMIMETypes.m in Sources */,
@@ -830,11 +1001,14 @@
 			baseConfigurationReference = 7A12488A39AF61C14C802E57 /* Pods-Sample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -843,11 +1017,14 @@
 			baseConfigurationReference = 8CE4102F338A29E34675421B /* Pods-Sample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
