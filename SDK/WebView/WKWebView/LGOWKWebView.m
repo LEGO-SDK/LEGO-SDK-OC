@@ -33,6 +33,7 @@
     self = [super initWithFrame:frame configuration:[LGOWKWebView bridge_configuration]];
     if (self) {
         [(LGOJavaScriptUserContentController *)self.configuration.userContentController setWebView:self];
+        _dataModel = [NSMutableDictionary new];
     }
     return self;
 }
@@ -42,6 +43,7 @@
     self = [super initWithFrame:frame configuration:[LGOWKWebView bridge_configuration]];
     if (self) {
         [(LGOJavaScriptUserContentController *)self.configuration.userContentController setWebView:self];
+        _dataModel = [NSMutableDictionary new];
     }
     return self;
 }

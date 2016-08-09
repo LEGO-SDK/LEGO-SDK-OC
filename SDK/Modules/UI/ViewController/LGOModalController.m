@@ -14,11 +14,7 @@
 #import "LGOModalDismissTransition.h"
 #import "LGOWebViewController.h"
 #import "LGOWKWebView.h"
-
-
-// Global Declare|Values
-typedef UIViewController* (^LGOViewControllerInitializeBlock) (NSDictionary* args);
-static NSDictionary<NSString *, LGOViewControllerInitializeBlock>* LGOViewControllerMapping; //@Td
+#import "LGOViewControllerGlobalValues.h"
 
 // Request
 @interface LGOModalRequest : LGORequest
@@ -106,7 +102,7 @@ NSDate* lastPresent;
         [self presentWebView:URL];
     }
     else {
-        LGOViewControllerInitializeBlock initBlock = LGOViewControllerMapping[self.request.path];
+        LGOViewControllerInitializeBlock initBlock = [LGOViewControllerGlobalValues LGOViewControllerMapping][self.request.path];
         if (initBlock){
             [self presentViewController:initBlock];
         }
@@ -123,8 +119,8 @@ NSDate* lastPresent;
     aWebViewController.initializeRequest = [[NSURLRequest alloc] initWithURL:URL];
     aWebViewController.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"] : @"";
     
-    BOOL presented = NO;
-    UIViewController* presentedViewController = aWebViewController;
+    static BOOL presented = NO;
+    UIViewController* presentingViewController = aWebViewController;
     if (self.request.withNavigationController){
         UINavigationController* naviController = [self requestNavigationController:aWebViewController];
         if (naviController){
@@ -134,7 +130,7 @@ NSDate* lastPresent;
             naviController.transitioningDelegate = self;
             lastOperation = self;
             
-            presentedViewController = naviController;
+            presentingViewController = naviController;
         }
         else {
             // if self.request.edgeInsets
@@ -142,7 +138,7 @@ NSDate* lastPresent;
             aWebViewController.transitioningDelegate = self;
             lastOperation = self;
             
-            presentedViewController = aWebViewController;
+            presentingViewController = aWebViewController;
         }
     }
     else{
@@ -151,14 +147,23 @@ NSDate* lastPresent;
         aWebViewController.transitioningDelegate = self;
         lastOperation = self;
         
-        presentedViewController = aWebViewController;
+        presentingViewController = aWebViewController;
     }
     
-    // @Td aWebViewController.isPrerendering
-    if (false){
+    if (aWebViewController.isPrerending){
+        aWebViewController.renderDidFinished = ^{
+            if (presented){ return ; }
+            presented = YES;
+            [viewController presentViewController:presentingViewController animated:YES completion:nil];
+        };
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (presented){ return ; }
+            presented = YES;
+            [viewController presentViewController:presentingViewController animated:YES completion:nil];
+        });
     }
     else{
-        [viewController presentViewController:presentedViewController animated:YES completion:nil];
+        [viewController presentViewController:presentingViewController animated:YES completion:nil];
     }
 }
 
@@ -235,6 +240,7 @@ NSDate* lastPresent;
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
     LGOModalRequest *request = [LGOModalRequest new];
+    request.context = context;
     request.opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : @"";
     request.path = [dictionary[@"path"] isKindOfClass:[NSString class]] ? dictionary[@"path"] : @"";
     request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]] ? ((NSNumber *)dictionary[@"animated"]).boolValue : YES;

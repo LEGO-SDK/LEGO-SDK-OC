@@ -42,6 +42,7 @@
         self.keyboardDisplayRequiresUserAction = NO;
         self.allowsInlineMediaPlayback = YES;
         self.mediaPlaybackRequiresUserAction = NO;
+        _dataModel = [NSMutableDictionary new];
     }
     return self;
 }
@@ -54,6 +55,7 @@
         self.keyboardDisplayRequiresUserAction = NO;
         self.allowsInlineMediaPlayback = YES;
         self.mediaPlaybackRequiresUserAction = NO;
+        _dataModel = [NSMutableDictionary new];
     }
     return self;
 }

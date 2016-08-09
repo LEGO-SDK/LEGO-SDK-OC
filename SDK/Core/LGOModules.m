@@ -16,6 +16,7 @@
 #import "LGOCanOpenURL.h"
 #import "LGOOpenURL.h"
 #import "LGONotification.h"
+#import "LGODataModel.h"
 #import "LGODevice.h"
 #import "LGOActionSheet.h"
 #import "LGOAlertView.h"
@@ -25,6 +26,9 @@
 #import "LGOAppFrame.h"
 #import "LGORefresh.h"
 #import "LGOImagePreviewer.h"
+#import "LGOModalController.h"
+#import "LGONavigationItem.h"
+#import "LGONavigationController.h"
 
 @implementation LGOModules
 
@@ -42,6 +46,7 @@
                     @"Native.CanOpenURL": [LGOCanOpenURL new],
                     @"Native.OpenURL": [LGOOpenURL new],
                     @"Native.Notification": [LGONotification new],
+                    @"Native.DataModel": [LGODataModel new],
                     @"Native.Device": [LGODevice new],
                     @"UI.ActionSheet": [LGOActionSheet new],
                     @"UI.AlertView": [LGOAlertView new],
@@ -50,7 +55,10 @@
                     @"UI.StatusBar": [LGOStatusBar new],
                     @"UI.AppFrame": [LGOAppFrame new],
                     @"UI.Refresh": [LGORefresh new],
-                    @"UI.ImagePreviewer": [LGOImagePreviewer new]
+                    @"UI.ImagePreviewer": [LGOImagePreviewer new],
+                    @"UI.ModalController": [LGOModalController new],
+                    @"UI.NavigationItem": [LGONavigationItem new],
+                    @"UI.NavigationController": [LGONavigationController new]
                    } mutableCopy];
     }
     return self;

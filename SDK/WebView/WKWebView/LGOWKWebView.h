@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
+@property (nonatomic, strong) NSMutableDictionary *dataModel;
+
 @end

@@ -26,14 +26,14 @@
     }
 
     function JSDataModelDidChanged(dataKey) {
-        if (dataKey == "date") {
+        if (dataKey == "word") {
             updateName()
         }
     }
 
     function updateName() {
-        if (JSDataModel.date != undefined) {
-            document.getElementById("dataModel_date").innerHTML = JSDataModel.date
+        if (JSDataModel.word != undefined) {
+            document.getElementById("dataModel_date").innerHTML = JSDataModel.word
         }
     }
 
@@ -48,6 +48,6 @@
         message.call(null)
     }
 
-    setTimeout(updateDataModel, 5000)
+    setTimeout(updateDataModel, 3000)
 
 </script>

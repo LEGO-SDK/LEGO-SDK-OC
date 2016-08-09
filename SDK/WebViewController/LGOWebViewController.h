@@ -18,4 +18,13 @@
 
 - (void)callWithMethodName:(NSString *)methodName userInfo:(NSDictionary<NSString *, id> *)userInfo;
 
+
+typedef void (^renderDidFinishedBlock)();
+@property (nonatomic, copy) __nullable renderDidFinishedBlock renderDidFinished;
+@property (nonatomic, assign) BOOL isPrerending;
+
+- (void)configureWebView;
+- (void)configureWebViewLayout;
+
+
 @end
