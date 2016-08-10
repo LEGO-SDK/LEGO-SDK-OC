@@ -119,15 +119,15 @@ static UIWindow *window;
 }
 
 
-- (void) showInNavigationController:(UINavigationController*)navigationController{
+- (void)showInNavigationController:(UINavigationController*)navigationController{
     [navigationController pushViewController:self animated:YES];
 }
 
-- (void) showInViewController:(UIViewController*)viewController{
+- (void)showInViewController:(UIViewController*)viewController{
     [viewController presentViewController:self animated:YES completion:nil];
 }
 
-- (void) dismiss{
+- (void)dismiss{
     if (self.navigationController != nil){
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -202,7 +202,7 @@ static UIWindow *window;
     [self.scrollView.activityIndicator startAnimating];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
         [self.scrollView.activityIndicator stopAnimating];
-        if(data && !connectionError){
+        if (data != nil && !connectionError){
             UIImage *image = [[UIImage alloc] initWithData:data];
             if (image != nil){
                 self.scrollView.imageView.image = image;
@@ -219,7 +219,7 @@ static UIWindow *window;
     }];
 }
 
-- (void) configureZoom{
+- (void)configureZoom{
     {
         CGFloat minScale = 1.0;
         UIImage *image = self.scrollView.imageView.image;
@@ -233,7 +233,7 @@ static UIWindow *window;
     self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
 }
 
-- (void) configureZoomToOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+- (void)configureZoomToOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation) && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ){
         {
             CGFloat minScale = 1.0;
@@ -256,7 +256,7 @@ static UIWindow *window;
     return self.scrollView.imageView;
 }
 
-- (void) scrollViewDidZoom:(UIScrollView *)scrollView{
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView{
     [self.scrollView setNeedsLayout];
     [self.scrollView layoutIfNeeded];
 }

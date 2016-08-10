@@ -33,7 +33,7 @@
 
 @implementation LGODataModelResponse
 
-- (NSDictionary *) toDictionary {
+- (NSDictionary *)toDictionary {
     if ( [NSJSONSerialization isValidJSONObject: self.dataModel] ) {
         return self.dataModel;
     }

@@ -30,7 +30,7 @@
 
 @implementation LGOBounceOperation
 
--(LGOResponse *)requestSynchronize{
+- (LGOResponse *)requestSynchronize{
     UIView *webView = self.request.context.requestWebView;
     if ([webView isKindOfClass:[LGOWebView class]]){
         ((LGOWebView *)webView).scrollView.bounces = self.request.allow;

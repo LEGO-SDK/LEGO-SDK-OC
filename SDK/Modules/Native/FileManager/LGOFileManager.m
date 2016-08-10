@@ -145,7 +145,7 @@
 
 static NSArray<NSString *> *protecting;
 
-+ (NSArray *) protecting{
++ (NSArray *)protecting{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         protecting = @[

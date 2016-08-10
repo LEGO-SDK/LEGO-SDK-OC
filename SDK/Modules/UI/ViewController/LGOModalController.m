@@ -56,7 +56,7 @@ NSDate *lastPresent;
     return [LGOResponse new];
 }
 
-- (void) dismiss{
+- (void)dismiss{
     UIViewController *viewController = [self requestViewController];
     if(viewController == nil){ return; }
     
@@ -78,7 +78,7 @@ NSDate *lastPresent;
     
 }
 
-- (void) present{
+- (void)present{
     if (lastPresent != nil && [lastPresent timeIntervalSinceNow] > -1.0 ){
         NSLog(@"两次 Present 的操作不能少于 1 秒");
         return;
@@ -108,7 +108,7 @@ NSDate *lastPresent;
     }
 }
 
-- (void) presentWebView:(NSURL *)URL{
+- (void)presentWebView:(NSURL *)URL{
     UIViewController *viewController = [self requestViewController];
     if (viewController == nil) {return;}
     LGOWebViewController *aWebViewController = [LGOWebViewController new];
@@ -164,7 +164,7 @@ NSDate *lastPresent;
     }
 }
 
-- (void) presentViewController:(LGOViewControllerInitializeBlock)initBlock{
+- (void)presentViewController:(LGOViewControllerInitializeBlock)initBlock{
     UIViewController *viewController = [self requestViewController];
     if (viewController == nil){return;}
     UIViewController *instance = initBlock(self.request.args);
@@ -185,19 +185,19 @@ NSDate *lastPresent;
     }
 }
 
-- (UINavigationController*) requestNavigationController:(UIViewController*)rootViewController{
+- (UINavigationController *)requestNavigationController:(UIViewController*)rootViewController{
     UIViewController* requestVC = [self requestViewController];
     if (requestVC != nil && requestVC.navigationController != nil){
         Class naviClz = [requestVC.navigationController class];
         UINavigationController *naviController = [[naviClz alloc] init];
         [naviController setViewControllers:@[rootViewController] animated:NO];
-        rootViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:naviController action: @selector(dismiss)];
+        rootViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:naviController action: @selector(lgo_dismiss)];
         return naviController;
     }
     return nil;
 }
 
-- (UIViewController*) requestViewController{
+- (UIViewController *)requestViewController{
     UIView *view = [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender:nil;
     if(view){
         UIResponder *next = [view nextResponder];
@@ -248,7 +248,7 @@ NSDate *lastPresent;
     return [self buildWithRequest:request];
 }
 
-- (UIEdgeInsets) edgeInsetsFromString:(NSString *)str{
+- (UIEdgeInsets)edgeInsetsFromString:(NSString *)str{
     NSArray<NSString *> *arr = [str componentsSeparatedByString:@","];
     if (arr.count == 4){
         return UIEdgeInsetsMake([arr[0] floatValue], [arr[1] floatValue], [arr[2] floatValue], [arr[3] floatValue]);

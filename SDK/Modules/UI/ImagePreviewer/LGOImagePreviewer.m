@@ -59,7 +59,7 @@
             if ([next isKindOfClass:[UIViewController class]]){
                 return (UIViewController*)next;
             }
-            else if(next != nil) {
+            else if (next != nil) {
                 next = [next nextResponder];
             }
         }

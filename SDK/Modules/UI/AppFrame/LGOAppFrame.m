@@ -55,7 +55,7 @@
         UITabBarController *tabBarController = [UITabBarController new];
         
         NSMutableArray<UIViewController*> *controllers = [NSMutableArray new];
-        for (LGOAppFrameEntity* item in self.request.items) {
+        for (LGOAppFrameEntity *item in self.request.items) {
             UIViewController *vc1 = [self viewController:item];
             if (vc1 == nil) continue;
             UINavigationController *naviController = [(UINavigationController*)[NSClassFromString(NavigationControllerClassName) alloc] initWithRootViewController:vc1];
@@ -74,7 +74,7 @@
         UIViewController *viewController = [self viewController:item];
         if (item == nil || !viewController){ return nil; }
         
-        UINavigationController *naviController = [(UINavigationController*)[NSClassFromString(NavigationControllerClassName) alloc] initWithRootViewController:viewController];
+        UINavigationController *naviController = [(UINavigationController *)[NSClassFromString(NavigationControllerClassName) alloc] initWithRootViewController:viewController];
         naviController.accessibilityLabel = @"AppFrame";
         
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -85,7 +85,7 @@
     return nil;
 }
 
-- (UIViewController*)viewController:(LGOAppFrameEntity*)item{
+- (UIViewController *)viewController:(LGOAppFrameEntity *)item{
     if (item == nil){return nil;}
     
     NSURL *relativeURL = nil;
@@ -122,7 +122,7 @@
     return aWebViewController;
 }
 
-- (UITabBarItem*)requestTabItem:(LGOAppFrameEntity*)item{
+- (UITabBarItem *)requestTabItem:(LGOAppFrameEntity *)item{
     NSString *icon = item.icon;
     if (icon == nil) return nil;
     NSURL *iconURL = [NSURL URLWithString:icon];

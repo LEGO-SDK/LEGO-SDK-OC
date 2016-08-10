@@ -41,7 +41,7 @@
 
 @implementation LGOActionSheetResponse
 
-- (NSDictionary *)toDictionary{
+- (NSDictionary *)toDictionary {
     return @{
              @"buttonIndex": [NSNumber numberWithInt:self.buttonIndex]
              };
@@ -63,7 +63,7 @@ static LGOActionSheetOperation *currentOperation;
 
 @implementation LGOActionSheetOperation
 
-- (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock{
+- (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock {
     currentOperation = self;
     self.responseBlock = callbackBlock;
     self.actionSheet = [UIActionSheet new];
@@ -82,13 +82,13 @@ static LGOActionSheetOperation *currentOperation;
     }
     self.actionSheet.destructiveButtonIndex = self.request.dangerButton;
     
-    if ([UIApplication sharedApplication].keyWindow){
+    if ([UIApplication sharedApplication].keyWindow != nil){
         [self.actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     }
     
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (self.responseBlock){
         LGOActionSheetResponse *response = [LGOActionSheetResponse new];
         response.buttonIndex = buttonIndex;
@@ -100,7 +100,7 @@ static LGOActionSheetOperation *currentOperation;
 
 @implementation LGOActionSheet
 
-- (LGORequestable *)buildWithRequest:(LGORequest *)request{
+- (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOActionSheetRequest class]]){
         LGOActionSheetOperation *operation = [LGOActionSheetOperation new];
         operation.request = (LGOActionSheetRequest *)request;
@@ -109,7 +109,7 @@ static LGOActionSheetOperation *currentOperation;
     return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
 }
 
-- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
+- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     
     LGOActionSheetRequest *request = [LGOActionSheetRequest new];
     request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : nil;;

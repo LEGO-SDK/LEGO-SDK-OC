@@ -11,6 +11,7 @@
 #import "LGOBuildFailed.h"
 #import "LGOWebView+RefreshControl.h"
 #import "LGOWKWebView+RefreshControl.h"
+#import <objc/runtime.h>
 
 @interface LGORefreshRequest : LGORequest
 
@@ -35,6 +36,8 @@ static LGORefreshOperation *currentOperation;
 
 @implementation LGORefreshOperation
 
+UInt16 operationKey;
+
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock{
     currentOperation = self;
     self.responseBlock = callbackBlock;
@@ -42,9 +45,11 @@ static LGORefreshOperation *currentOperation;
     if ([self.request.opt isEqualToString:@"add"]){
         if ([sender isKindOfClass:[LGOWKWebView class]]){
             [((LGOWKWebView*)sender) configureRefreshControl:self];
+            objc_setAssociatedObject(sender, &operationKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
         else if ([sender isKindOfClass:[LGOWebView class]]){
             [((LGOWebView*)sender) configureRefreshControl:self];
+            objc_setAssociatedObject(sender, &operationKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     else if([self.request.opt isEqualToString:@"complete"]){

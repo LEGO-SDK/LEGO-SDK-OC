@@ -13,7 +13,7 @@
 
 @interface LGODevice ()
 
-+ (NSDictionary*) custom;
++ (NSDictionary*)custom;
 
 @end
 
@@ -112,7 +112,7 @@
 
 static NSDictionary *custom;
 
-+ (NSDictionary*) custom {
++ (NSDictionary*)custom {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         custom = @{

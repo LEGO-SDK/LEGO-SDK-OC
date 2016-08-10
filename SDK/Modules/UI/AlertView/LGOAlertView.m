@@ -31,7 +31,7 @@
 
 @implementation LGOAlertViewResponse
 
-- (NSDictionary *)toDictionary{
+- (NSDictionary *)toDictionary {
     return @{
              @"buttonIndex": [NSNumber numberWithInt:self.buttonIndex]
              };
@@ -68,7 +68,7 @@ static LGOAlertViewOperation *currentOperation;
     [self.alertView show];
 }
 
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (self.responseBlock){
         LGOAlertViewResponse *response = [LGOAlertViewResponse new];
         response.buttonIndex = buttonIndex;

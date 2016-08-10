@@ -68,7 +68,7 @@
 
 @implementation LGOUserDefaultsOperation
 
-- (NSUserDefaults *) userDefault{
+- (NSUserDefaults *)userDefault{
     if (self.request.suite.length > 0){
         return [[NSUserDefaults alloc] initWithSuiteName:self.request.suite];
     }

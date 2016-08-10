@@ -49,7 +49,7 @@
 }
 
 
-- (CGRect) startRect{
+- (CGRect)startRect{
     if (self.targetEdgeInsets.bottom < 0.0 && self.targetEdgeInsets.top == 0.0){
         CGRect frame = [self endRect];
         frame.origin.y = [UIScreen mainScreen].bounds.size.height;
@@ -58,7 +58,7 @@
     return [self endRect];
 }
 
-- (CGRect) endRect{
+- (CGRect)endRect{
     CGRect frame = [UIScreen mainScreen].bounds;
     if(self.targetEdgeInsets.bottom < 0.0 && self.targetEdgeInsets.top == 0.0){
         frame.origin.y = [UIScreen mainScreen].bounds.size.height + self.targetEdgeInsets.bottom;

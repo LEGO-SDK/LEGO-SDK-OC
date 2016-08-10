@@ -77,21 +77,21 @@
     self.errorView.frame = self.bounds;
 }
 
-- (void) showErrorView{
+- (void)showErrorView{
     [self addSubview:self.errorView];
     self.errorView.frame = self.bounds;
     [self.errorView addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapped:)]];
 }
 
-- (void) handleSingleTapped:(UITapGestureRecognizer*)sender{
+- (void)handleSingleTapped:(UITapGestureRecognizer*)sender{
     LGOImagePreviewFrameController *viewController = [self requestViewController];
-    if(viewController){
+    if (viewController != nil){
         [viewController dismiss];
     }
 }
 
-- (void) handleDoubleTapped:(UITapGestureRecognizer*)sender{
-    if(self.zoomScale == self.maximumZoomScale){
+- (void)handleDoubleTapped:(UITapGestureRecognizer*)sender{
+    if (self.zoomScale == self.maximumZoomScale){
         [self setZoomScale:self.minimumZoomScale animated:YES];
     }
     else {
@@ -100,7 +100,7 @@
     }
 }
 
-- (void) handleLongPressed:(UILongPressGestureRecognizer*)sender{
+- (void)handleLongPressed:(UILongPressGestureRecognizer*)sender{
     if (sender.state == UIGestureRecognizerStateBegan){
         [self.longPressActionSheet showInView:[LGOImagePreviewFrameController window]];
         self.longPressActionSheet.delegate = self;
@@ -120,7 +120,7 @@
     return nil;
 }
 
-- (void) setupProps{
+- (void)setupProps{
     _singleTapGesture = [UITapGestureRecognizer new];
     _singleTapGesture.numberOfTapsRequired = 1;
     _doubleTapGesture = [UITapGestureRecognizer new];
@@ -163,7 +163,7 @@
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
             }
         }
-        else if([title isEqualToString:@"复制图片"]){
+        else if ([title isEqualToString:@"复制图片"]){
             UIImage *image = self.imageView.image;
             NSData *data = UIImagePNGRepresentation(image);
             if (image != nil && data != nil){

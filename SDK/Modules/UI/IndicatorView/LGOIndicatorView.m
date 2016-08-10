@@ -32,7 +32,7 @@
 
 @implementation LGOIndicatorViewOperation
 
--(LGOResponse *)requestSynchronize{
+- (LGOResponse *)requestSynchronize{
     UIView *webView = [self.request.context requestWebView];
     if ([webView isKindOfClass:[LGOWebView class]]){
         ((LGOWebView *)webView).scrollView.showsHorizontalScrollIndicator = !self.request.hidden;

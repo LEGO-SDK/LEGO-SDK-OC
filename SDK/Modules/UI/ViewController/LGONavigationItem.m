@@ -112,7 +112,7 @@ UInt16 LGONavigationItemOperationPinKey;
     callbackBlock([self requestSynchronize]);
 }
 
-- (UIViewController*) requestViewController{
+- (UIViewController*)requestViewController{
     UIView *view = [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender:nil;
     if(view){
         UIResponder *next = [view nextResponder];
