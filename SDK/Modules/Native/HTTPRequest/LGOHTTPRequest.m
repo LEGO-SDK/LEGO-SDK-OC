@@ -69,7 +69,7 @@
 @interface LGOHTTPResponseObject : LGOResponse
 
 @property (nonatomic, strong) NSString *error;
-@property (nonatomic, assign) int statusCode;
+@property (nonatomic, assign) long statusCode;
 @property (nonatomic, strong) NSString *responseText;
 @property (nonatomic, strong) NSData * _Nullable responseData;
 
@@ -106,8 +106,12 @@
 @implementation LGOHTTPOperation
 
 + (NSOperationQueue *)aQueue{
-    NSOperationQueue *q = [NSOperationQueue new];
-    q.maxConcurrentOperationCount = 4;
+    static NSOperationQueue *q;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        q = [NSOperationQueue new];
+        q.maxConcurrentOperationCount = 4;
+    });
     return q;
 }
 

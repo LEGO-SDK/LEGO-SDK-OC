@@ -40,7 +40,9 @@
 
 // Operation
 @interface LGOOpenURLOperation : LGORequestable
+
 @property (nonatomic, strong) LGOOpenURLRequest *request;
+
 @end
 
 @implementation LGOOpenURLOperation

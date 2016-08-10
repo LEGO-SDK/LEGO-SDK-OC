@@ -125,57 +125,6 @@
     [self configureWebViewInitializeRequest];
 }
 
-
-#pragma mark - ConfigureLayout
-
-NSLayoutConstraint * _Nullable topSpace;
-
-- (void)configureWebView{
-    [self configureWebViewLayout];
-    self.webView.backgroundColor = [UIColor whiteColor];
-}
-
-- (void)configureWebViewLayout{
-    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
-    for (NSLayoutConstraint* constraint in self.view.constraints) {
-        if ([constraint.firstItem isKindOfClass:[NSObject class]] && constraint.firstItem == self.webView){
-            [self.view removeConstraint:constraint];
-        }
-        if ([constraint.secondItem isKindOfClass:[NSObject class]] && constraint.secondItem == self.webView){
-            [self.view removeConstraint:constraint];
-        }
-    }
-    [self.view addConstraints: [NSLayoutConstraint
-                                constraintsWithVisualFormat:@"|-0-[webView]-0-|"
-                                options:kNilOptions
-                                metrics:nil
-                                views:@{
-                                        @"webView": self.webView}]];
-    NSArray* vConstraints = [NSLayoutConstraint
-                             constraintsWithVisualFormat:@"V:|-0-[webView]-0-|"
-                             options:kNilOptions
-                             metrics:nil
-                             views:@{
-                                     @"webView": self.webView}];
-    [self.view addConstraints:vConstraints];
-    topSpace = vConstraints.firstObject;
-}
-
-- (void)configureTopSpace{
-    CGFloat top = 0.0;
-    UINavigationController* naviController = self.navigationController;
-    if (!naviController) {
-        top = 0.0;
-    }
-    else if (!naviController.navigationBarHidden && naviController.navigationBar.translucent){
-        CGRect barFrame = naviController.navigationBar.frame;
-        top = barFrame.origin.y + barFrame.size.height;
-    }
-    if (topSpace) {
-        topSpace.constant = top;
-    }
-}
-
 @end
 
 

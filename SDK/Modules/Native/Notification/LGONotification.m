@@ -13,14 +13,16 @@
 
 
 // Support
-static NSMutableArray  * observers; //<LGONotificationObserver>
-static NSNumber * observersGCLock;
+static NSMutableArray *observers; //<LGONotificationObserver>
+static NSNumber *observersGCLock;
 
 // Observer
-@interface LGONotificationObserver : NSObject
-@property (nonatomic) __weak NSObject * webView;
-@property (nonatomic, assign) NSString * name ;
+@interface LGONotificationObserver :NSObject
+
+@property (nonatomic) __weak NSObject *webView;
+@property (nonatomic, assign) NSString *name ;
 @property (nonatomic, assign) id observer ; // NSObjectProtocol
+
 @end
 
 @implementation LGONotificationObserver
@@ -28,23 +30,22 @@ static NSNumber * observersGCLock;
 @end
 
 // Request
-@interface LGONotificationRequest : LGORequest
-@property (nonatomic, strong) NSString * opt;
-@property (nonatomic, strong) NSString * name;
+@interface LGONotificationRequest :LGORequest
+@property (nonatomic, strong) NSString *opt;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) id _Nullable aPostObject;
-@property (nonatomic, strong) NSDictionary<NSString *, id> * aPostUserInfo;
+@property (nonatomic, strong) NSDictionary<NSString *, id> *aPostUserInfo;
 @end
 
 @implementation LGONotificationRequest
 
 @end
 
-
-
-// Response
 @interface LGONotificationResponse : LGOResponse
+
 @property (nonatomic, strong) id _Nullable object;
 @property (nonatomic, strong) NSDictionary * _Nullable userInfo;
+
 @end
 
 @implementation LGONotificationResponse
@@ -68,7 +69,7 @@ static NSNumber * observersGCLock;
                     [outputInfo setObject:value forKey:key];
                 }
             }
-            userInfoValue = outputInfo; //isNeed NSMutableDict2NSDict ?
+            userInfoValue = [outputInfo copy]; //isNeed NSMutableDict2NSDict ?
         }
     }
     

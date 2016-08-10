@@ -10,6 +10,6 @@
 
 @interface LGONotification : LGOModule
 
-+ (void) LGONotificationGC;
++ (void)LGONotificationGC;
 
 @end

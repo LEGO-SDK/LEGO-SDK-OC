@@ -52,7 +52,7 @@
 - (NSDictionary *)toDictionary{
     return @{
              @"succeed": [NSNumber numberWithBool:self.succeed],
-             @"value": self.value
+             @"value": self.value != nil ? self.value : [NSNull null] 
              };
 }
 
