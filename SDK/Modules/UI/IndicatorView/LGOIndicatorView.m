@@ -13,20 +13,21 @@
 #import "LGOWKWebView.h"
 
 
-// Request
 @interface LGOIndicatorViewRequest : LGORequest
+
 @property (nonatomic, assign) UIEdgeInsets insets;
 @property (nonatomic, assign) BOOL hidden;
+
 @end
 
 @implementation LGOIndicatorViewRequest
 
 @end
 
-
-// Operation
 @interface LGOIndicatorViewOperation : LGORequestable
+
 @property (nonatomic, strong) LGOIndicatorViewRequest *request;
+
 @end
 
 @implementation LGOIndicatorViewOperation
@@ -48,7 +49,6 @@
 
 @end
 
-// Module
 @implementation LGOIndicatorView
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
@@ -61,7 +61,7 @@
 }
 
 - (CGFloat)pickValue:(NSNumber *)num{
-    if (!num) {
+    if (num == nil) {
         return 0.0;
     }
     return num.floatValue;

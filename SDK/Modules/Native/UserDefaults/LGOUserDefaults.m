@@ -10,12 +10,13 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-// Request
 @interface LGOUserDefaultsRequest : LGORequest
-@property (nonatomic, strong) NSString * suite;
-@property (nonatomic, strong) NSString * opt; // create/update/read/delete
-@property (nonatomic, strong) NSString * key;
+
+@property (nonatomic, strong) NSString *suite;
+@property (nonatomic, strong) NSString *opt; // create/update/read/delete
+@property (nonatomic, strong) NSString *key;
 @property (nonatomic, strong) id _Nullable value;
+
 @end
 
 @implementation LGOUserDefaultsRequest
@@ -33,9 +34,10 @@
 
 @end
 
-// Response
 @interface LGOUserDefaultsResponse : LGOResponse
+
 @property (nonatomic, strong) id value;
+
 @end
 
 @implementation LGOUserDefaultsResponse
@@ -58,9 +60,10 @@
 
 @end
 
-// Operation
 @interface LGOUserDefaultsOperation : LGORequestable
+
 @property (nonatomic, strong) LGOUserDefaultsRequest *request;
+
 @end
 
 @implementation LGOUserDefaultsOperation
@@ -82,7 +85,7 @@
     }
     else if ([self.request.opt isEqualToString:@"read"]){
         id value = [[self userDefault] objectForKey:self.request.key];
-        if (value) {
+        if (value != nil) {
             return [[LGOUserDefaultsResponse alloc] initWithSucceed:YES value:value];
         }
         return [[LGOUserDefaultsResponse alloc] initWithSucceed:NO value:@""];
@@ -96,7 +99,6 @@
 
 @end
 
-// Module
 @implementation LGOUserDefaults
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
@@ -111,7 +113,7 @@
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
     NSString * opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : nil;
     NSString * key = [dictionary[@"key"] isKindOfClass:[NSString class]] ? dictionary[@"key"] : nil;
-    if (opt && key) {
+    if (opt != nil && key != nil) {
         NSString * suite = [dictionary[@"suite"] isKindOfClass:[NSString class]] ? dictionary[@"suite"] : @"";
         return [self buildWithRequest:[[LGOUserDefaultsRequest alloc] initWithSuite:suite opt:opt key:key value:dictionary[@"value"]]];
     }

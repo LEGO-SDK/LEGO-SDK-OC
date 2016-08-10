@@ -10,4 +10,6 @@
 
 @interface LGOFileManager : LGOModule
 
++ (void)configureProtecting:(NSArray *)array;
+
 @end

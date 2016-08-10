@@ -12,7 +12,6 @@
 #import "LGOWebView.h"
 #import "LGOWKWebView.h"
 
-// - Request
 @interface LGOHTTPRequestObject : LGORequest
 
 @property (nonatomic, strong)NSMutableURLRequest *nativeRequest;
@@ -28,7 +27,7 @@
     self = [super init];
     if (self) {
         NSURL *URL = [[NSURL alloc] initWithString:URLString];
-        if (URL) {
+        if (URL != nil) {
             _nativeRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
         }
     }
@@ -39,7 +38,7 @@
     self = [super init];
     if (self) {
         NSURL *URL = [[NSURL alloc] initWithString:URLString];
-        if (URL) {
+        if (URL != nil) {
             _nativeRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
             _nativeRequest.HTTPMethod = @"POST";
             _nativeRequest.HTTPBody = data;
@@ -64,8 +63,6 @@
 
 @end
 
-
-// - Response
 @interface LGOHTTPResponseObject : LGOResponse
 
 @property (nonatomic, strong) NSString *error;
@@ -79,11 +76,11 @@
 
 - (NSDictionary *)toDictionary{
     return @{
-             @"error": self.error,
+             @"error": self.error != nil ? self.error : [NSNull null],
              @"statusCode": [NSNumber numberWithInt:(self.statusCode)],
-             @"responseText": self.responseText,
+             @"responseText": self.responseText != nil ? self.responseText : [NSNull null] ,
              @"responseData": ^(){
-                 if (self.responseData){
+                 if (self.responseData != nil){
                      return [self.responseData base64EncodedStringWithOptions:kNilOptions];
                  }
                  return @"";
@@ -92,9 +89,6 @@
 }
 
 @end
-
-
-// - Operation
 
 @interface LGOHTTPOperation : LGORequestable
 
@@ -128,7 +122,7 @@
         returnResponse.error = error ? error.description : @"";
         returnResponse.statusCode = [responseObject isKindOfClass:[NSHTTPURLResponse class]] ? [(NSHTTPURLResponse *)responseObject statusCode] : 500;
         NSString *utf8encodedString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        if (utf8encodedString){
+        if (utf8encodedString != nil){
             returnResponse.responseText = utf8encodedString;
             returnResponse.responseData = nil;
         }
@@ -141,8 +135,6 @@
 }
 
 @end
-
-// - Module
 
 @implementation LGOHTTPRequest
 
@@ -157,8 +149,6 @@
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
     LGOHTTPRequestObject * _Nullable requestObject = nil;
-    
-    // resolve URLString
     NSString * _Nullable URLString = [dictionary[@"URL"] isKindOfClass:[NSString class]]? dictionary[@"URL"] : nil;
     if (URLString){
         if (![URLString hasPrefix:@"http://"] && ![URLString hasPrefix:@"https://"]){
@@ -199,7 +189,6 @@
     }
     
     if (requestObject){
-        
         requestObject.showActivityIndicator = ^{
             NSNumber *isShow = dictionary[@"showActivityIndicator"];
             if ([isShow isKindOfClass:[NSNumber class]]){

@@ -12,19 +12,20 @@
 #import "LGOWebView.h"
 #import "LGOWKWebView.h"
 
-// Request
 @interface LGOBounceRequest : LGORequest
+
 @property (nonatomic, assign) BOOL allow;
+
 @end
 
 @implementation LGOBounceRequest
 
-
 @end
 
-// Operation
 @interface LGOBounceOperation : LGORequestable
+
 @property (nonatomic, strong) LGOBounceRequest *request;
+
 @end
 
 @implementation LGOBounceOperation
@@ -42,7 +43,6 @@
 
 @end
 
-// Module
 @implementation LGOBounce
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
@@ -56,7 +56,7 @@
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
     NSNumber *allow = dictionary[@"allow"];
-    if (!allow){
+    if (allow == nil){
         return [[LGOBuildFailed alloc] initWithErrorString:@"RequestParam Required: allow"];
     }
     

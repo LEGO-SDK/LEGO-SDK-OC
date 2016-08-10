@@ -10,14 +10,12 @@
 #import "LGOWebViewController.h"
 #import "LGOBuildFailed.h"
 
-// Request
 @interface LGOCallRequest : LGORequest
 
 @property (nonatomic, copy) NSString *methodName;
 @property (nonatomic, copy) NSDictionary *userInfo;
 
 @end
-
 
 @implementation LGOCallRequest
 
@@ -31,8 +29,6 @@
 }
 
 @end
-
-// Operation
 
 @interface LGOCallOperation : LGORequestable
 
@@ -53,9 +49,6 @@
 
 @end
 
-
-// Module
-
 @implementation LGOCall
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
@@ -71,7 +64,6 @@
     NSString *methodName = [dictionary[@"selectorName"] isKindOfClass:[NSString class]] ? dictionary[@"selectorName"] : nil;
     NSDictionary *userInfo = [dictionary[@"userInfo"] isKindOfClass:[NSDictionary class]] ? dictionary[@"userInfo"] : nil;
     LGOCallRequest *request = [[LGOCallRequest alloc] initWithContext:context methodName:methodName userInfo:userInfo];
-    
     LGOCallOperation *operation = [LGOCallOperation new];
     operation.request = request;
     return operation;

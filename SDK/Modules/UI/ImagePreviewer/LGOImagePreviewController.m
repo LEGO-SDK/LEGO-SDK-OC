@@ -10,17 +10,18 @@
 #import "LGOImagePreviewController.h"
 #import "LGOImagePreviewZoomingScrollView.h"
 
-static UIWindow* window;
+static UIWindow *window;
 
 @interface LGOImagePreviewFrameController ()
-@property (nonatomic, strong) NSArray<NSURL*>* URLs;
-@property (nonatomic, strong) NSURL* defaultURL;
-@property (nonatomic, strong) NSMutableDictionary<NSString*, UIImage*>* imageCaches;
+
+@property (nonatomic, strong) NSArray<NSURL*> *URLs;
+@property (nonatomic, strong) NSURL *defaultURL;
+@property (nonatomic, strong) NSMutableDictionary<NSString*, UIImage*> *imageCaches;
+
 @end
 
 @implementation LGOImagePreviewFrameController
 
-// init & lifeCycle
 - (instancetype)initWithURLs:(NSArray<NSURL*>*)theURLs defaultURL:(NSURL*)defaultURL{
     self = [super initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     if (self) {
@@ -33,16 +34,15 @@ static UIWindow* window;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    if (self.defaultURL){
-        LGOImagePreviewImageViewController* vc = [[LGOImagePreviewImageViewController alloc] init:self.defaultURL];
-        NSMutableArray<LGOImagePreviewImageViewController*>* vcs = [NSMutableArray new];
+    if (self.defaultURL != nil){
+        LGOImagePreviewImageViewController *vc = [[LGOImagePreviewImageViewController alloc] init:self.defaultURL];
+        NSMutableArray<LGOImagePreviewImageViewController*> *vcs = [NSMutableArray new];
         [vcs addObject:vc];
         [self setViewControllers:vcs direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-//        [self setViewControllers:@[[[LGOImagePreviewImageViewController alloc] init:self.defaultURL]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     }
     else {
-        NSURL* firstURL = self.URLs.firstObject;
-        if (firstURL){
+        NSURL *firstURL = self.URLs.firstObject;
+        if (firstURL != nil){
             [self setViewControllers:@[[[LGOImagePreviewImageViewController alloc] init:firstURL]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
         }
     }
@@ -53,7 +53,7 @@ static UIWindow* window;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (self.navigationController){
+    if (self.navigationController != nil){
         self.navigationController.view.backgroundColor = [UIColor whiteColor];
         [self.navigationController setNavigationBarHidden:YES animated:NO];
     }
@@ -62,28 +62,26 @@ static UIWindow* window;
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    if (self.navigationController){
+    if (self.navigationController != nil){
         [self.navigationController setNavigationBarHidden:NO animated:animated];
     }
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
-// protocol impl
-
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
-    UIViewController* firtVC = self.viewControllers ? self.viewControllers.firstObject : nil;
-    LGOImagePreviewImageViewController* pageVC = [firtVC isKindOfClass:[LGOImagePreviewImageViewController class]] ? (LGOImagePreviewImageViewController*)firtVC : nil;
-    if (pageVC){
+    UIViewController *firtVC = self.viewControllers ? self.viewControllers.firstObject : nil;
+    LGOImagePreviewImageViewController *pageVC = [firtVC isKindOfClass:[LGOImagePreviewImageViewController class]] ? (LGOImagePreviewImageViewController*)firtVC : nil;
+    if (pageVC != nil){
         NSInteger indexAtPage = [self.URLs indexOfObjectPassingTest:^BOOL(NSURL * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj.absoluteString isEqualToString:[pageVC.URL absoluteString] ]){
                 return YES;
             }
             return NO;
         }];
-        if (indexAtPage) {
+        if (indexAtPage != NSNotFound) {
             if (indexAtPage + 1 < self.URLs.count ){
-                NSURL* keyURL = self.URLs[indexAtPage+1];
-                if (keyURL){
+                NSURL *keyURL = self.URLs[indexAtPage+1];
+                if (keyURL != nil){
                     return [[LGOImagePreviewImageViewController alloc] init:keyURL image:[self.imageCaches valueForKey:[keyURL absoluteString]]];
                 }
             }
@@ -94,19 +92,19 @@ static UIWindow* window;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
-    UIViewController* firtVC = self.viewControllers ? self.viewControllers.firstObject : nil;
-    LGOImagePreviewImageViewController* pageVC = [firtVC isKindOfClass:[LGOImagePreviewImageViewController class]] ? (LGOImagePreviewImageViewController*)firtVC : nil;
-    if (pageVC){
+    UIViewController *firtVC = self.viewControllers ? self.viewControllers.firstObject : nil;
+    LGOImagePreviewImageViewController *pageVC = [firtVC isKindOfClass:[LGOImagePreviewImageViewController class]] ? (LGOImagePreviewImageViewController*)firtVC : nil;
+    if (pageVC != nil){
         NSInteger indexAtPage = [self.URLs indexOfObjectPassingTest:^BOOL(NSURL * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj.absoluteString isEqualToString:[pageVC.URL absoluteString] ]){
                 return YES;
             }
             return NO;
         }];
-        if (indexAtPage) {
+        if (indexAtPage != NSNotFound) {
             if (indexAtPage - 1 >= 0){
-                NSURL* keyURL = self.URLs[indexAtPage-1];
-                if (keyURL){
+                NSURL *keyURL = self.URLs[indexAtPage-1];
+                if (keyURL != nil){
                     return [[LGOImagePreviewImageViewController alloc] init:keyURL image:[self.imageCaches valueForKey:[keyURL absoluteString]]];
                 }
             }
@@ -121,7 +119,6 @@ static UIWindow* window;
 }
 
 
-// supp
 - (void) showInNavigationController:(UINavigationController*)navigationController{
     [navigationController pushViewController:self animated:YES];
 }
@@ -131,7 +128,7 @@ static UIWindow* window;
 }
 
 - (void) dismiss{
-    if (self.navigationController){
+    if (self.navigationController != nil){
         [self.navigationController popViewControllerAnimated:YES];
     }
     else {
@@ -139,27 +136,12 @@ static UIWindow* window;
     }
 }
 
-
-// static
 + (UIWindow *)window{
     @synchronized (self) {
         window = [UIWindow new];
     }
     return window;
 }
-
-
-@end
-
-
-// --
-
-
-@interface LGOImagePreviewImageViewController (Main)
-
-
-//@property (nonatomic, strong) UIImage* image;
-//@property (nonatomic, strong) LGOImagePreviewZoomingScrollView* scrollView;
 
 @end
 
@@ -209,28 +191,25 @@ static UIWindow* window;
     }];
 }
 
-// supp+impl
-
 - (void)loadImage{
-    if (self.image){
+    if (self.image != nil){
         self.scrollView.imageView.image = self.image;
         self.scrollView.imageView.frame = CGRectMake(0.0, 0.0, self.image.size.width, self.image.size.height);
         [self configureZoom];
         return ;
     }
-    NSURLRequest* request = [[NSURLRequest alloc] initWithURL:self.URL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:15.0];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:self.URL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:15.0];
     [self.scrollView.activityIndicator startAnimating];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
         [self.scrollView.activityIndicator stopAnimating];
         if(data && !connectionError){
-            UIImage* image = [[UIImage alloc] initWithData:data];
-            if (image){
+            UIImage *image = [[UIImage alloc] initWithData:data];
+            if (image != nil){
                 self.scrollView.imageView.image = image;
                 self.scrollView.imageView.frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
                 [self configureZoom];
                 if ([self.parentViewController isKindOfClass:[LGOImagePreviewFrameController class]]){
                     [((LGOImagePreviewFrameController*)self.parentViewController).imageCaches setObject:image forKey:[self.URL absoluteString]];
-//                    [((LGOImagePreviewFrameController*)self.parentViewController).imageCaches setValue:image forKey:[self.URL absoluteString]];
                 }
             }
         }
@@ -243,8 +222,8 @@ static UIWindow* window;
 - (void) configureZoom{
     {
         CGFloat minScale = 1.0;
-        UIImage* image = self.scrollView.imageView.image;
-        if (image){
+        UIImage *image = self.scrollView.imageView.image;
+        if (image != nil){
             minScale = [UIScreen mainScreen].bounds.size.width / image.size.width;
         }
         self.scrollView.minimumZoomScale = minScale;
@@ -258,8 +237,8 @@ static UIWindow* window;
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation) && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ){
         {
             CGFloat minScale = 1.0;
-            UIImage* image = self.scrollView.imageView.image;
-            if (image){
+            UIImage *image = self.scrollView.imageView.image;
+            if (image != nil){
                 minScale = [UIScreen mainScreen].bounds.size.width / image.size.width;
             }
             self.scrollView.minimumZoomScale = minScale;

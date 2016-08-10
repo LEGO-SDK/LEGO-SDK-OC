@@ -9,29 +9,28 @@
 #import "LGORefresh.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-
-//#import "LGOWebView.h"
 #import "LGOWebView+RefreshControl.h"
-
-//#import "LGOWKWebView.h"
 #import "LGOWKWebView+RefreshControl.h"
 
-// Request
 @interface LGORefreshRequest : LGORequest
-@property (nonatomic, strong) NSString* opt; // add/complete
+
+@property (nonatomic, strong) NSString *opt; // add/complete
+
 @end
 
 @implementation LGORefreshRequest
 
 @end
 
-// Operation
 @class LGORefreshOperation;
+
 static LGORefreshOperation *currentOperation;
 
 @interface LGORefreshOperation : LGORequestable
+
 @property (nonatomic, strong) LGORefreshRequest *request;
 @property (nonatomic, copy) LGORequestableAsynchronizeBlock responseBlock;
+
 @end
 
 @implementation LGORefreshOperation
@@ -39,7 +38,7 @@ static LGORefreshOperation *currentOperation;
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock{
     currentOperation = self;
     self.responseBlock = callbackBlock;
-    NSObject* sender = self.request.context.sender;
+    NSObject *sender = self.request.context.sender;
     if ([self.request.opt isEqualToString:@"add"]){
         if ([sender isKindOfClass:[LGOWKWebView class]]){
             [((LGOWKWebView*)sender) configureRefreshControl:self];
@@ -65,7 +64,6 @@ static LGORefreshOperation *currentOperation;
 }
 @end
 
-// Module
 @implementation LGORefresh
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{

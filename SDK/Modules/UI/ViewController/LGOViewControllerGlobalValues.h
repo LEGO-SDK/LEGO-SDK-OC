@@ -11,7 +11,9 @@
 typedef UIViewController* (^LGOViewControllerInitializeBlock) (NSDictionary* args);
 
 @interface LGOViewControllerGlobalValues : NSObject
+
 + (NSDictionary*)LGOViewControllerMapping;
+
 @end
 
 

@@ -10,19 +10,20 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-// Request
 @interface LGOCanOpenURLRequest : LGORequest
+
 @property (nonatomic, strong) NSString *URLString;
+
 @end
 
 @implementation LGOCanOpenURLRequest
 
-
 @end
 
-// Response
 @interface LGOCanOpenURLResponse : LGOResponse
+
 @property (nonatomic, assign) BOOL canOpen;
+
 @end
 
 @implementation LGOCanOpenURLResponse
@@ -35,9 +36,10 @@
 
 @end
 
-// Operation
 @interface LGOCanOpenURLOperation : LGORequestable
+
 @property (nonatomic, strong) LGOCanOpenURLRequest *request;
+
 @end
 
 @implementation LGOCanOpenURLOperation
@@ -45,7 +47,7 @@
 - (LGOResponse *)requestSynchronize{
     LGOCanOpenURLResponse *response = [LGOCanOpenURLResponse new];
     NSURL *URL = [NSURL URLWithString:self.request.URLString];
-    if (URL){
+    if (URL != nil){
         response.canOpen = [[UIApplication sharedApplication] canOpenURL:URL];
     }
     else {
@@ -56,7 +58,6 @@
 
 @end
 
-// Module
 @implementation LGOCanOpenURL
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
@@ -70,7 +71,7 @@
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
      NSString *URLString = [dictionary[@"URL"] isKindOfClass:[NSString class]] ? dictionary[@"URL"] : nil;
-     if (URLString) {
+     if (URLString != nil) {
          LGOCanOpenURLRequest *request = [LGOCanOpenURLRequest new];
          request.URLString = URLString;
          return [self buildWithRequest:request];

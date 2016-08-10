@@ -11,20 +11,22 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-// Request
 @interface LGOAlertViewRequest : LGORequest
+
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *message;
 @property (nonatomic, strong) NSArray<NSString *> *buttonTitles;
+
 @end
 
 @implementation LGOAlertViewRequest
 
 @end
 
-// Response
 @interface LGOAlertViewResponse : LGOResponse
+
 @property (nonatomic, assign) int buttonIndex;
+
 @end
 
 @implementation LGOAlertViewResponse
@@ -37,15 +39,16 @@
 
 @end
 
-
-// Operation
 @class LGOAlertViewOperation;
+
 static LGOAlertViewOperation *currentOperation;
 
 @interface LGOAlertViewOperation : LGORequestable<UIAlertViewDelegate>
+
 @property (nonatomic, strong) LGOAlertViewRequest *request;
 @property (nonatomic, strong) UIAlertView *alertView;
 @property (nonatomic, copy) LGORequestableAsynchronizeBlock responseBlock;
+
 @end
 
 @implementation LGOAlertViewOperation
@@ -75,7 +78,6 @@ static LGOAlertViewOperation *currentOperation;
 
 @end
 
-// Module
 @implementation LGOAlertView
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{

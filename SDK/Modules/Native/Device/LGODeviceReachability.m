@@ -489,7 +489,7 @@ static void LGOReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRe
 + (int)LGODeviceCellularType{
     CTTelephonyNetworkInfo *network = [CTTelephonyNetworkInfo new];
     NSString *currentRadioAccessTechnology = network.currentRadioAccessTechnology;
-    if (!currentRadioAccessTechnology) {
+    if (currentRadioAccessTechnology == nil) {
         return 0;
     }
     else if([currentRadioAccessTechnology isEqualToString:CTRadioAccessTechnologyGPRS]){

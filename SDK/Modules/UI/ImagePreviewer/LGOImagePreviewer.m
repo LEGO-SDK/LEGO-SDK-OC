@@ -11,33 +11,35 @@
 #import "LGOBuildFailed.h"
 #import "LGOImagePreviewController.h"
 
-// Request
 @interface LGOImagePreviewerRequest : LGORequest
-@property (nonatomic, strong) NSArray<NSString*>* URLs;
-@property (nonatomic, strong) NSString* currentURL;
+
+@property (nonatomic, strong) NSArray<NSString*> *URLs;
+@property (nonatomic, strong) NSString *currentURL;
+
 @end
 
 @implementation LGOImagePreviewerRequest
 
 @end
 
-// Operation
 @interface LGOImagePreviewerOperation : LGORequestable
+
 @property (nonatomic, strong) LGOImagePreviewerRequest *request;
+
 @end
 
 @implementation LGOImagePreviewerOperation
 
 - (LGOResponse *)requestSynchronize{
-    NSMutableArray<NSURL*>* URLs = [NSMutableArray new];
+    NSMutableArray<NSURL*> *URLs = [NSMutableArray new];
     for (NSString* URLString in self.request.URLs) {
         [URLs addObject:[NSURL URLWithString:URLString]];
     }
-    NSURL* defaultURL = self.request.currentURL ? [NSURL URLWithString:self.request.currentURL]: nil;
-    LGOImagePreviewFrameController* viewController = [[LGOImagePreviewFrameController alloc] initWithURLs:URLs defaultURL:defaultURL];
+    NSURL *defaultURL = self.request.currentURL ? [NSURL URLWithString:self.request.currentURL]: nil;
+    LGOImagePreviewFrameController *viewController = [[LGOImagePreviewFrameController alloc] initWithURLs:URLs defaultURL:defaultURL];
     
-    UIViewController* targetViewController = [self requestViewController];
-    if (targetViewController){
+    UIViewController *targetViewController = [self requestViewController];
+    if (targetViewController != nil){
         if(targetViewController.navigationController){
             [viewController showInNavigationController:targetViewController.navigationController];
         }
@@ -50,14 +52,14 @@
 }
 
 - (UIViewController*) requestViewController{
-    UIView* view = [self.request.context.sender isKindOfClass:[UIView class]]? (UIView*)self.request.context.sender : nil;
-    if (view){
-        UIResponder* next = view.nextResponder;
+    UIView *view = [self.request.context.sender isKindOfClass:[UIView class]]? (UIView*)self.request.context.sender : nil;
+    if (view != nil){
+        UIResponder *next = view.nextResponder;
         for (int i = 0; i < 100; i++) {
             if ([next isKindOfClass:[UIViewController class]]){
                 return (UIViewController*)next;
             }
-            else if(next) {
+            else if(next != nil) {
                 next = [next nextResponder];
             }
         }
@@ -67,7 +69,6 @@
 
 @end
 
-// Module
 @implementation LGOImagePreviewer
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{

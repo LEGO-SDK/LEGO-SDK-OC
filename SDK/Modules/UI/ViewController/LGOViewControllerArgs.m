@@ -11,29 +11,31 @@
 #import "LGOBuildFailed.h"
 #import "LGOWebViewController.h"
 
-// Response
 @interface LGOArgsResponse : LGOResponse
-@property (nonatomic, strong) NSDictionary* args;
+
+@property (nonatomic, strong) NSDictionary *args;
+
 @end
 
 @implementation LGOArgsResponse
 
 - (NSDictionary *)toDictionary{
-    return self.args;
+    return self.args != nil ? self.args : @{};
 }
 
 @end
 
-// Operation
 @interface LGOArgsOperation : LGORequestable
+
 @property (nonatomic, retain) LGORequest *request;
+
 @end
 
 @implementation LGOArgsOperation
 
 - (LGOResponse *)requestSynchronize{
-    LGOArgsResponse* response = [LGOArgsResponse new];
-    UIViewController* viewController = [self.request.context requestViewController];
+    LGOArgsResponse *response = [LGOArgsResponse new];
+    UIViewController *viewController = [self.request.context requestViewController];
     if ([viewController isKindOfClass:[LGOWebViewController class]]){
         response.args = ((LGOWebViewController*)viewController).initializeContext;
         return response;
@@ -44,7 +46,6 @@
 
 @end
 
-// Module
 @implementation LGOArgs
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
@@ -52,7 +53,7 @@
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
-    LGOArgsOperation* operation = [LGOArgsOperation new];
+    LGOArgsOperation *operation = [LGOArgsOperation new];
     operation.request = [[LGORequest alloc]initWithContext:context];
     return operation;
 }

@@ -10,6 +10,6 @@
 
 @interface LGODevice : LGOModule
 
-//+ (NSDictionary *)custom;
++ (void)configureCustomDictionary:(NSDictionary *)dictionary;
 
 @end

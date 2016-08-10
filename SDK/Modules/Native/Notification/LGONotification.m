@@ -11,17 +11,14 @@
 #import "LGOBuildFailed.h"
 #import "LGOWebView.h"
 
-
-// Support
-static NSMutableArray *observers; //<LGONotificationObserver>
+static NSMutableArray *observers;
 static NSNumber *observersGCLock;
 
-// Observer
 @interface LGONotificationObserver :NSObject
 
 @property (nonatomic) __weak NSObject *webView;
 @property (nonatomic, assign) NSString *name ;
-@property (nonatomic, assign) id observer ; // NSObjectProtocol
+@property (nonatomic, assign) id observer ;
 
 @end
 
@@ -29,12 +26,13 @@ static NSNumber *observersGCLock;
 
 @end
 
-// Request
 @interface LGONotificationRequest :LGORequest
+
 @property (nonatomic, strong) NSString *opt;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) id _Nullable aPostObject;
 @property (nonatomic, strong) NSDictionary<NSString *, id> *aPostUserInfo;
+
 @end
 
 @implementation LGONotificationRequest
@@ -57,7 +55,7 @@ static NSNumber *observersGCLock;
     if (self.object && ([self.object isKindOfClass:[NSString class]] || [self.object isKindOfClass:[NSNumber class]])){
         objectValue = self.object;
     }
-    if (self.userInfo){
+    if (self.userInfo != nil){
         if ([NSJSONSerialization isValidJSONObject:self.userInfo]){
             userInfoValue = self.userInfo;
         }
@@ -69,7 +67,7 @@ static NSNumber *observersGCLock;
                     [outputInfo setObject:value forKey:key];
                 }
             }
-            userInfoValue = [outputInfo copy]; //isNeed NSMutableDict2NSDict ?
+            userInfoValue = [outputInfo copy];
         }
     }
     
@@ -81,11 +79,10 @@ static NSNumber *observersGCLock;
 
 @end
 
-
-
-// Operation
 @interface LGONotificationOperation : LGORequestable
+
 @property (nonatomic, strong) LGONotificationRequest *request;
+
 @end
 
 @implementation LGONotificationOperation
@@ -104,16 +101,16 @@ static NSNumber *observersGCLock;
             response.userInfo = userInfo;
             callbackBlock(response);
         }];
-        if (self.request.context.sender){
+        if (self.request.context.sender != nil){
             LGONotificationObserver *item = [LGONotificationObserver new];
             item.webView = self.request.context.sender;
             item.name = self.request.name;
             item.observer = observer;
-            [observers addObject: item]; // @observers
+            [observers addObject: item];
         }
     }
     else if([self.request.opt isEqualToString:@"remove"]){
-        for (LGONotificationObserver *item in observers) { // @observers
+        for (LGONotificationObserver *item in observers) {
             if ([item.webView isEqual:self.request.context.sender]){
                 if(self.request.name.length > 0 && [self.request.name isEqualToString:item.name]){
                     [[NSNotificationCenter defaultCenter] removeObserver:item.observer];
@@ -130,12 +127,8 @@ static NSNumber *observersGCLock;
 
 @end
 
-
-
-// Module
 @implementation LGONotification
 
-// ... Module Supp
 + (NSArray *)observers {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -157,7 +150,7 @@ static NSNumber *observersGCLock;
         NSMutableArray<LGONotificationObserver *> *weakObservers = [NSMutableArray new];
         NSMutableArray<LGONotificationObserver *> *nonweakObservers = [NSMutableArray new];
         for (LGONotificationObserver *item in [self observers]) {
-            if (item.webView){
+            if (item.webView != nil){
                 [nonweakObservers addObject:item];
             }
             else {
@@ -171,9 +164,6 @@ static NSNumber *observersGCLock;
     }
 }
 
-
-// ... Module Impl
-
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
     if ([request isKindOfClass:[LGONotificationRequest class]]){
         LGONotificationOperation *operation = [LGONotificationOperation new];
@@ -185,8 +175,7 @@ static NSNumber *observersGCLock;
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
      NSString *name = [dictionary[@"name"] isKindOfClass:[NSString class]] ? dictionary[@"name"] : nil;
-     if (name) {
-         
+     if (name != nil) {
          NSString *opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : nil;
          opt = opt.length > 0 ? opt : @"add";
          LGONotificationRequest *request = [LGONotificationRequest new];
@@ -195,12 +184,12 @@ static NSNumber *observersGCLock;
          request.context = context;
          
          NSString *aPostObject = [dictionary[@"aPostObject"] isKindOfClass:[NSString class]] ? dictionary[@"aPostObject"]:nil;
-         if (aPostObject){
+         if (aPostObject != nil){
              request.aPostObject = aPostObject;
          }
          
          NSDictionary *aPostUserInfo = [dictionary[@"aPostUserInfo"] isKindOfClass:[NSDictionary class]] ? dictionary[@"aPostUserInfo"]:nil;
-         if (aPostUserInfo){
+         if (aPostUserInfo != nil){
              request.aPostUserInfo = aPostUserInfo;
          }
          

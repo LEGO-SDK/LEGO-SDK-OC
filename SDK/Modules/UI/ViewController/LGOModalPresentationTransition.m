@@ -31,17 +31,16 @@
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    if (!fromVC && !toVC) {
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    if (toVC == nil) {
         return ;
     }
     
-    UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:toVC action:@selector(lgo_dismiss)];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:toVC action:@selector(lgo_dismiss)];
     [self.maskView addGestureRecognizer:tapGesture];
     
-    UIView* containerView = [transitionContext containerView];
-    if (containerView){
+    UIView *containerView = [transitionContext containerView];
+    if (containerView != nil){
         [containerView addSubview:self.maskView];
         [containerView addSubview:toVC.view];
         toVC.view.frame = [self startRect];

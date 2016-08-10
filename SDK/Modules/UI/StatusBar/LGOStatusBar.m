@@ -11,27 +11,29 @@
 #import "LGOBuildFailed.h"
 #import "LGOWebViewController.h"
 
-// Request
 @interface LGOStatusBarRequest : LGORequest
+
 @property (nonatomic, strong) NSString *style; // light/default
+
 @end
 
 @implementation LGOStatusBarRequest
 
 @end
 
-// Operation
 @interface LGOStatusBarOperation : LGORequestable
+
 @property (nonatomic, strong) LGOStatusBarRequest *request;
+
 @end
 
 @implementation LGOStatusBarOperation
 
 - (void)updateInitContext{
-    UIViewController* viewController = [self.request.context requestViewController];
+    UIViewController *viewController = [self.request.context requestViewController];
     if ([viewController isKindOfClass:[LGOWebViewController class]]){
-        NSDictionary* initialzeContext = ((LGOWebViewController *)viewController).initializeContext;
-        if (initialzeContext){
+        NSDictionary *initialzeContext = ((LGOWebViewController *)viewController).initializeContext;
+        if (initialzeContext != nil){
             [initialzeContext setValue:self.request.style forKey:@"statusBarStyle"];
             ((LGOWebViewController *)viewController).initializeContext = initialzeContext;
             [viewController setNeedsStatusBarAppearanceUpdate];
@@ -57,7 +59,6 @@
 
 @end
 
-// Module
 @implementation LGOStatusBar
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
@@ -71,7 +72,7 @@
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
     NSString *style = [dictionary[@"style"] isKindOfClass:[NSString class]] ? dictionary[@"style"] : nil;
-    if (!style){
+    if (style == nil){
         return [[LGOBuildFailed alloc] initWithErrorString:@"RequestParam Required: style"];
     }
     LGOStatusBarRequest *request = [LGOStatusBarRequest new];

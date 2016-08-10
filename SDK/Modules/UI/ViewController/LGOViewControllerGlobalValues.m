@@ -8,8 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "LGOViewControllerGlobalValues.h"
 
-static NSDictionary<NSString*, LGOViewControllerInitializeBlock>* _LGOViewControllerMapping;
-static NSNumber * _token;
+static NSDictionary<NSString*, LGOViewControllerInitializeBlock> *_LGOViewControllerMapping;
+static NSNumber  *_token;
 
 @implementation LGOViewControllerGlobalValues
 

@@ -11,12 +11,13 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-// Request
 @interface LGOActionSheetRequest : LGORequest
-@property (nonatomic, strong) NSString * title;
-@property (nonatomic, strong) NSArray<NSString *> * buttonTitles;
+
+@property (nonatomic, strong) NSString  *title;
+@property (nonatomic, strong) NSArray<NSString *>  *buttonTitles;
 @property (nonatomic, assign) int dangerButton;
-@property (nonatomic, strong) NSString * cancelButton;
+@property (nonatomic, strong) NSString  *cancelButton;
+
 @end
 
 @implementation LGOActionSheetRequest
@@ -32,9 +33,10 @@
 
 @end
 
-// Response
 @interface LGOActionSheetResponse : LGOResponse
+
 @property (nonatomic, assign) int buttonIndex;
+
 @end
 
 @implementation LGOActionSheetResponse
@@ -47,14 +49,16 @@
 
 @end
 
-// Operation
 @class LGOActionSheetOperation;
+
 static LGOActionSheetOperation *currentOperation;
 
 @interface LGOActionSheetOperation : LGORequestable<UIActionSheetDelegate>
+
 @property (nonatomic, strong) LGOActionSheetRequest *request;
 @property (nonatomic, strong) UIActionSheet *actionSheet;
 @property (nonatomic, copy) LGORequestableAsynchronizeBlock responseBlock;
+
 @end
 
 @implementation LGOActionSheetOperation
@@ -67,7 +71,7 @@ static LGOActionSheetOperation *currentOperation;
     if (self.request.title.length > 0) {
         self.actionSheet.title = self.request.title;
     }
-    if (self.request.buttonTitles && self.request.buttonTitles.count > 0){
+    if (self.request.buttonTitles != nil && self.request.buttonTitles.count > 0){
         for (NSString *item in self.request.buttonTitles) {
             [self.actionSheet addButtonWithTitle:item];
         }
@@ -94,10 +98,6 @@ static LGOActionSheetOperation *currentOperation;
 
 @end
 
-
-
-
-// Module
 @implementation LGOActionSheet
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
@@ -116,7 +116,7 @@ static LGOActionSheetOperation *currentOperation;
     request.buttonTitles = [dictionary[@"buttonTitles"] isKindOfClass:[NSArray class]] ? dictionary[@"buttonTitles"] : nil;
     request.cancelButton = [dictionary[@"cancelButton"] isKindOfClass:[NSString class]] ? dictionary[@"cancelButton"] : @"取消";
     NSNumber *dangerButton = [dictionary[@"dangerButton"] isKindOfClass:[NSNumber class]] ? dictionary[@"dangerButton"] : nil;
-    if (dangerButton) {
+    if (dangerButton != nil) {
         request.dangerButton = dangerButton.intValue;
     }
     return [self buildWithRequest:request];

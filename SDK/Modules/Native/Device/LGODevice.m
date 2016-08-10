@@ -17,9 +17,6 @@
 
 @end
 
-
-// - Response
-
 @interface LGODeviceResponse : LGOResponse
 
 @property (nonatomic, strong) NSString *deviceName;
@@ -38,7 +35,6 @@
 @property (nonatomic, strong) NSNumber *networkCellularType;
 
 @end
-
 
 @implementation LGODeviceResponse
 
@@ -100,8 +96,6 @@
 
 @end
 
-
-// - Operation
 @interface LGODeviceOperation : LGORequestable
 
 @end
@@ -114,18 +108,21 @@
 
 @end
 
-// - Module
-
 @implementation LGODevice
 
-static NSDictionary* custom;
+static NSDictionary *custom;
 
 + (NSDictionary*) custom {
-    @synchronized (self) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         custom = @{
                    };
-    }
+    });
     return custom;
+}
+
++ (void)configureCustomDictionary:(NSDictionary *)dictionary{
+    custom = (dictionary != nil ? dictionary : @{}) ;
 }
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {

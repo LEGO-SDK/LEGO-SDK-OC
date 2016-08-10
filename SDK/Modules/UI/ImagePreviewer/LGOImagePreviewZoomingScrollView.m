@@ -11,11 +11,12 @@
 
 @interface LGOImagePreviewZoomingScrollView ()
 
-@property (nonatomic, strong) UITapGestureRecognizer* singleTapGesture;
-@property (nonatomic, strong) UITapGestureRecognizer* doubleTapGesture;
-@property (nonatomic, strong) UILongPressGestureRecognizer* longPressGesture;
-@property (nonatomic, strong) UIActionSheet* longPressActionSheet;
-@property (nonatomic, strong) UILabel* errorView;
+@property (nonatomic, strong) UITapGestureRecognizer *singleTapGesture;
+@property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
+@property (nonatomic, strong) UIActionSheet *longPressActionSheet;
+@property (nonatomic, strong) UILabel *errorView;
+
 @end
 
 @implementation LGOImagePreviewZoomingScrollView
@@ -48,7 +49,7 @@
     [super didMoveToSuperview];
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
-    if (!self.imageView.image){
+    if (self.imageView.image != nil){
         self.imageView.frame = self.bounds;
     }
 }
@@ -76,8 +77,6 @@
     self.errorView.frame = self.bounds;
 }
 
-// --
-
 - (void) showErrorView{
     [self addSubview:self.errorView];
     self.errorView.frame = self.bounds;
@@ -85,7 +84,7 @@
 }
 
 - (void) handleSingleTapped:(UITapGestureRecognizer*)sender{
-    LGOImagePreviewFrameController* viewController = [self requestViewController];
+    LGOImagePreviewFrameController *viewController = [self requestViewController];
     if(viewController){
         [viewController dismiss];
     }
@@ -109,12 +108,12 @@
 }
 
 - (LGOImagePreviewFrameController*) requestViewController {
-    UIResponder* next = [self nextResponder];
+    UIResponder *next = [self nextResponder];
     for (int i = 0; i< 100; i++) {
         if ([next isKindOfClass:[LGOImagePreviewFrameController class]]){
             return (LGOImagePreviewFrameController*)next;
         }
-        else if (next) {
+        else if (next != nil) {
             next = [next nextResponder];
         }
     }
@@ -157,17 +156,17 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (actionSheet == self.longPressActionSheet){
-        NSString* title = [actionSheet buttonTitleAtIndex:buttonIndex];
+        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
         if ([title isEqualToString:@"保存图片"]){
-            UIImage* image = self.imageView.image;
-            if (image){
+            UIImage *image = self.imageView.image;
+            if (image != nil){
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
             }
         }
         else if([title isEqualToString:@"复制图片"]){
-            UIImage* image = self.imageView.image;
-            NSData* data = UIImagePNGRepresentation(image);
-            if (image && data){
+            UIImage *image = self.imageView.image;
+            NSData *data = UIImagePNGRepresentation(image);
+            if (image != nil && data != nil){
                 [[UIPasteboard generalPasteboard] setData:data forPasteboardType:@"public.png"];
             }
         }

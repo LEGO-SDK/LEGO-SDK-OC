@@ -11,22 +11,24 @@
 #import "LGOBuildFailed.h"
 #import <objc/runtime.h>
 
-// Request
 @interface LGONavigationItemRequest : LGORequest
-@property (nonatomic, strong) NSString* title;
-@property (nonatomic, strong) NSString* leftItem;
-@property (nonatomic, strong) NSString* rightItem;
-@property (nonatomic, strong) NSString* backItem;
+
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *leftItem;
+@property (nonatomic, strong) NSString *rightItem;
+@property (nonatomic, strong) NSString *backItem;
+
 @end
 
 @implementation LGONavigationItemRequest
 
 @end
 
-// Response
 @interface LGONavigationItemResponse : LGOResponse
+
 @property (nonatomic, assign) BOOL leftTapped;
 @property (nonatomic, assign) BOOL rightTapped;
+
 @end
 
 @implementation LGONavigationItemResponse
@@ -40,10 +42,10 @@
 
 @end
 
-// Operation
-
 @interface LGONavigationItemOperation : LGORequestable
+
 @property (nonatomic, retain) LGONavigationItemRequest *request;
+
 @end
 
 @implementation LGONavigationItemOperation
@@ -52,54 +54,54 @@ static LGORequestableAsynchronizeBlock responseBlock;
 UInt16 LGONavigationItemOperationPinKey;
 
 - (LGOResponse *)requestSynchronize{
-    UIViewController* viewController = [self requestViewController];
-    if (!viewController) return nil;
-    if (self.request.title) {
+    UIViewController *viewController = [self requestViewController];
+    if (viewController == nil) return nil;
+    if (self.request.title != nil) {
         viewController.title = self.request.title;
     }
-    if (self.request.leftItem){
-        NSURL* URL = [NSURL URLWithString:self.request.leftItem];
-        if (URL && URL.host){
+    if (self.request.leftItem != nil){
+        NSURL *URL = [NSURL URLWithString:self.request.leftItem];
+        if (URL != nil && URL.host){
             [self imageBarButtonItem:URL completionBlock:^(UIBarButtonItem *item) {
                 item.tag = 100;
                 viewController.navigationItem.leftBarButtonItem = item;
             }];
         }
         else{
-            UIBarButtonItem* leftItem = [self textBarButtonItem:self.request.leftItem];
-            if (leftItem){
+            UIBarButtonItem *leftItem = [self textBarButtonItem:self.request.leftItem];
+            if (leftItem != nil){
                 leftItem.tag = 100;
                 viewController.navigationItem.leftBarButtonItem = leftItem;
             }
         }
         [self pinToViewController:viewController];
     }
-    if (self.request.rightItem){
-        NSURL* URL = [NSURL URLWithString:self.request.rightItem];
-        if (URL && URL.host){
+    if (self.request.rightItem != nil){
+        NSURL *URL = [NSURL URLWithString:self.request.rightItem];
+        if (URL != nil && URL.host != nil){
             [self imageBarButtonItem:URL completionBlock:^(UIBarButtonItem *item) {
                 item.tag = 101;
                 viewController.navigationItem.rightBarButtonItem = item;
             }];
         }
         else{
-            UIBarButtonItem* rightItem = [self textBarButtonItem:self.request.backItem];
-            if (rightItem){
+            UIBarButtonItem *rightItem = [self textBarButtonItem:self.request.backItem];
+            if (rightItem != nil){
                 rightItem.tag = 101;
                 viewController.navigationItem.rightBarButtonItem = rightItem;
             }
         }
         [self pinToViewController:viewController];
     }
-    if (self.request.backItem){
-        UIBarButtonItem* backItem = [self textBarButtonItem:self.request.backItem];
-        if (backItem){
+    if (self.request.backItem != nil){
+        UIBarButtonItem *backItem = [self textBarButtonItem:self.request.backItem];
+        if (backItem != nil){
             backItem.target = nil;
             backItem.action = nil;
             viewController.navigationItem.backBarButtonItem = backItem;
         }
     }
-    LGONavigationItemResponse* response = [LGONavigationItemResponse new];
+    LGONavigationItemResponse *response = [LGONavigationItemResponse new];
     response.leftTapped = NO;
     response.rightTapped = NO;
     return response;
@@ -110,18 +112,16 @@ UInt16 LGONavigationItemOperationPinKey;
     callbackBlock([self requestSynchronize]);
 }
 
-// --
-
 - (UIViewController*) requestViewController{
-    UIView* view = [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender:nil;
+    UIView *view = [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender:nil;
     if(view){
-        UIResponder* next = [view nextResponder];
+        UIResponder *next = [view nextResponder];
         for (int count = 0; count<100; count++) {
             if([next isKindOfClass:[UIViewController class]]){
                 return (UIViewController *)next;
             }
             else{
-                if (next){
+                if (next != nil){
                     next = [next nextResponder];
                 }
             }
@@ -131,16 +131,16 @@ UInt16 LGONavigationItemOperationPinKey;
 }
 
 - (void)imageBarButtonItem:(NSURL*)URL completionBlock:( void (^) (UIBarButtonItem* item) )completionBlock{
-    NSURLRequest* request = [[NSURLRequest alloc] initWithURL:URL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:15.0];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:15.0];
     CGFloat scale = 2.0;
     if ([URL.absoluteString containsString:@"@3x.png"] || [URL.absoluteString containsString:@"%40"]){
         scale = 3.0;
     }
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
-        if (!data){ return ; }
-        UIImage* image = [[UIImage alloc] initWithData:data scale:scale];
-        if (!image){ return ; }
-        UIBarButtonItem* item = [[UIBarButtonItem alloc]initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(handleBarButtonItemTapped:)];
+        if (data == nil){ return ; }
+        UIImage *image = [[UIImage alloc] initWithData:data scale:scale];
+        if (image == nil){ return ; }
+        UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(handleBarButtonItemTapped:)];
         completionBlock(item);
     }];
 }
@@ -155,7 +155,7 @@ UInt16 LGONavigationItemOperationPinKey;
 
 - (void)handleBarButtonItemTapped:(UIBarButtonItem*)sender{
     if (responseBlock){
-        LGONavigationItemResponse* response = [LGONavigationItemResponse new];
+        LGONavigationItemResponse *response = [LGONavigationItemResponse new];
         response.leftTapped = sender.tag == 100;
         response.rightTapped = sender.tag == 101;
         responseBlock(response);
@@ -164,7 +164,6 @@ UInt16 LGONavigationItemOperationPinKey;
 
 @end
 
-// Module
 @implementation LGONavigationItem
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{

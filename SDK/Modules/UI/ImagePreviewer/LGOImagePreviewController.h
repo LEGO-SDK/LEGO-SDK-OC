@@ -10,8 +10,8 @@
 #import "LGOImagePreviewZoomingScrollView.h"
 
 @interface LGOImagePreviewFrameController : UIPageViewController<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
-//@property (nonatomic, strong) NSArray<NSURL*>* URLs;
-//@property (nonatomic, strong) NSURL* defaultURL;
+//@property (nonatomic, strong) NSArray<NSURL*> *URLs;
+//@property (nonatomic, strong) NSURL *defaultURL;
 + (UIWindow*) window;
 - (instancetype)initWithURLs:(NSArray<NSURL*>*)URLs defaultURL:(NSURL*)defaultURL;
 - (void) showInNavigationController:(UINavigationController*)navigationController;
@@ -22,9 +22,9 @@
 
 
 @interface LGOImagePreviewImageViewController : UIViewController<UIScrollViewDelegate>
-@property (nonatomic, strong) NSURL* URL;
-@property (nonatomic, strong) UIImage* image;
-@property (nonatomic, strong) LGOImagePreviewZoomingScrollView* scrollView;
+@property (nonatomic, strong) NSURL *URL;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) LGOImagePreviewZoomingScrollView *scrollView;
 - (instancetype)init:(NSURL*)URL;
 - (instancetype)init:(NSURL*)URL image:(UIImage*)image;
 @end

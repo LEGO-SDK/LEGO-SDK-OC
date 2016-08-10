@@ -11,5 +11,5 @@
 @interface LGOModalPresentationTransition : NSObject<UIViewControllerAnimatedTransitioning>
 - (id)initWithTargetEdgeInsets:(UIEdgeInsets)insets;
 @property (nonatomic, assign) UIEdgeInsets targetEdgeInsets;
-@property (nonatomic, strong) UIView* maskView;
+@property (nonatomic, strong) UIView *maskView;
 @end

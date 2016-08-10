@@ -13,11 +13,10 @@
 #import "LGOWKWebView+DataModel.h"
 #import "LGOBuildFailed.h"
 
-// - Request
 @interface LGODataModelRequest : LGORequest
 
-@property (nonatomic, strong) NSString* opt; // update/read , defautl:read
-@property (nonatomic, strong) NSString* dataKey; // Only for update
+@property (nonatomic, strong) NSString *opt; // update/read , defautl:read
+@property (nonatomic, strong) NSString *dataKey; // Only for update
 @property (nonatomic, strong) id dataValue; // Only for update
 
 @end
@@ -26,15 +25,11 @@
 
 @end
 
-
-// - Response
 @interface LGODataModelResponse : LGOResponse
 
 @property (nonatomic, strong) NSDictionary *dataModel;
 
 @end
-
-
 
 @implementation LGODataModelResponse
 
@@ -47,16 +42,11 @@
 
 @end
 
-
-// - Operation
-
 @interface LGODataModelOperation : LGORequestable
 
 @property (nonatomic, strong) LGODataModelRequest *request;
 
 @end
-
-
 
 @implementation LGODataModelOperation
 
@@ -101,9 +91,6 @@
 }
 
 @end
-
-
-// - Model
 
 @implementation LGODataModel
 

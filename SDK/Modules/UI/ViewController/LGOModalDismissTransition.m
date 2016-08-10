@@ -25,23 +25,22 @@
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    if (!fromVC && !toVC) {
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    if (fromVC == nil) {
         return ;
     }
-    UIView* containerView = [transitionContext containerView];
-    if (containerView){
-        UIView* maskView = [containerView viewWithTag:999];
+    UIView *containerView = [transitionContext containerView];
+    if (containerView != nil){
+        UIView *maskView = [containerView viewWithTag:999];
         fromVC.view.frame = [self endRect];
         [UIView animateWithDuration:0.30 delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:15.0 options:kNilOptions animations:^{
             fromVC.view.frame = [self startRect];
-            if (maskView){
+            if (maskView != nil){
                 maskView.alpha = 0.0;
             }
         } completion:^(BOOL finished) {
             fromVC.view.frame = [self startRect];
-            if (maskView){
+            if (maskView != nil){
                 maskView.alpha = 0.0;
             }
             [transitionContext completeTransition:YES];

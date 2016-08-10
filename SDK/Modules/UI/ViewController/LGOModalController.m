@@ -16,28 +16,26 @@
 #import "LGOWKWebView.h"
 #import "LGOViewControllerGlobalValues.h"
 
-// Request
 @interface LGOModalRequest : LGORequest
 
-@property (nonatomic, strong) NSString* opt; // present/dismiss
-@property (nonatomic, strong) NSString* path; // an URLString or LGOViewControllerMapping[path]
+@property (nonatomic, strong) NSString *opt; // present/dismiss
+@property (nonatomic, strong) NSString *path; // an URLString or LGOViewControllerMapping[path]
 @property (nonatomic, assign) BOOL animated; // push or pop need animation. Defaults to true.
 @property (nonatomic, assign) BOOL withNavigationController; // ViewController will wrap by navigationController, defaults to YES.
 @property (nonatomic, assign) UIEdgeInsets edgeInsets; // ViewController will wrap by UIWindow with EdgeInsets.
-@property (nonatomic, strong) NSDictionary<NSString *, id>* args; // deliver args to next ViewController
+@property (nonatomic, strong) NSDictionary<NSString *, id> *args; // deliver args to next ViewController
 
 @end
 
 @implementation LGOModalRequest
 
-
 @end
 
-
-// Operation
 @class LGOModalOperation;
-LGOModalOperation* lastOperation;
-NSDate* lastPresent;
+
+LGOModalOperation *lastOperation;
+
+NSDate *lastPresent;
 
 @interface LGOModalOperation : LGORequestable<UIViewControllerTransitioningDelegate>
 
@@ -58,29 +56,29 @@ NSDate* lastPresent;
 }
 
 - (void) dismiss{
-    UIViewController* viewController = [self requestViewController];
-    if(!viewController){ return; }
+    UIViewController *viewController = [self requestViewController];
+    if(viewController == nil){ return; }
     
-    UIViewController* presentedViewController = viewController.presentedViewController;
-    if (presentedViewController) {
+    UIViewController *presentedViewController = viewController.presentedViewController;
+    if (presentedViewController != nil) {
         [presentedViewController dismissViewControllerAnimated:self.request.animated completion:nil];
         return;
     }
     
-    UINavigationController* naviViewController = viewController.navigationController;
-    if (naviViewController){
+    UINavigationController *naviViewController = viewController.navigationController;
+    if (naviViewController != nil){
         [naviViewController dismissViewControllerAnimated:self.request.animated completion:nil];
         return;
     }
     
-    if (viewController.presentingViewController){
+    if (viewController.presentingViewController != nil){
         [viewController dismissViewControllerAnimated:self.request.animated completion:nil];
     }
     
 }
 
 - (void) present{
-    if (lastPresent && [lastPresent timeIntervalSinceNow] > -1.0 ){
+    if (lastPresent != nil && [lastPresent timeIntervalSinceNow] > -1.0 ){
         NSLog(@"两次 Present 的操作不能少于 1 秒");
         return;
     }
@@ -88,17 +86,17 @@ NSDate* lastPresent;
         lastPresent = [NSDate new];
     }
     
-    NSURL* relativeURL = nil;
-    UIViewController* webViewController = self.request.context.requestViewController;
-    if (webViewController && [webViewController isKindOfClass:[LGOWebViewController class]]){
-        UIView* webView = ((LGOWebViewController *)webViewController).webView;
-        if (webView && [webView isKindOfClass:[LGOWKWebView class]]){
+    NSURL *relativeURL = nil;
+    UIViewController *webViewController = self.request.context.requestViewController;
+    if (webViewController != nil && [webViewController isKindOfClass:[LGOWebViewController class]]){
+        UIView *webView = ((LGOWebViewController *)webViewController).webView;
+        if (webView != nil && [webView isKindOfClass:[LGOWKWebView class]]){
             relativeURL = ((LGOWKWebView*)webView).URL;
         }
     }
     
-    NSURL* URL = [NSURL URLWithString:self.request.path relativeToURL:relativeURL];
-    if (URL){
+    NSURL *URL = [NSURL URLWithString:self.request.path relativeToURL:relativeURL];
+    if (URL != nil){
         [self presentWebView:URL];
     }
     else {
@@ -109,21 +107,19 @@ NSDate* lastPresent;
     }
 }
 
-// ... supp
-
 - (void) presentWebView:(NSURL *)URL{
-    UIViewController* viewController = [self requestViewController];
-    if (!viewController) {return;}
-    LGOWebViewController* aWebViewController = [LGOWebViewController new];
+    UIViewController *viewController = [self requestViewController];
+    if (viewController == nil) {return;}
+    LGOWebViewController *aWebViewController = [LGOWebViewController new];
     aWebViewController.initializeContext = self.request.args;
     aWebViewController.initializeRequest = [[NSURLRequest alloc] initWithURL:URL];
     aWebViewController.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"] : @"";
     
     static BOOL presented = NO;
-    UIViewController* presentingViewController = aWebViewController;
+    UIViewController *presentingViewController = aWebViewController;
     if (self.request.withNavigationController){
-        UINavigationController* naviController = [self requestNavigationController:aWebViewController];
-        if (naviController){
+        UINavigationController *naviController = [self requestNavigationController:aWebViewController];
+        if (naviController != nil){
             
             // if self.request.edgeInsets
             naviController.modalPresentationStyle = UIModalPresentationCustom;
@@ -168,14 +164,14 @@ NSDate* lastPresent;
 }
 
 - (void) presentViewController:(LGOViewControllerInitializeBlock)initBlock{
-    UIViewController* viewController = [self requestViewController];
-    if (!viewController){return;}
-    UIViewController* instance = initBlock(self.request.args);
-    if (instance){
+    UIViewController *viewController = [self requestViewController];
+    if (viewController == nil){return;}
+    UIViewController *instance = initBlock(self.request.args);
+    if (instance != nil){
         instance.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"]: @"";
         if (self.request.withNavigationController){
-            UIViewController* aViewController = [self requestNavigationController:instance];
-            if (aViewController){
+            UIViewController *aViewController = [self requestNavigationController:instance];
+            if (aViewController != nil){
                 [viewController presentViewController:aViewController animated:YES completion:nil];
             }
             else {
@@ -196,15 +192,15 @@ NSDate* lastPresent;
 }
 
 - (UIViewController*) requestViewController{
-    UIView* view = [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender:nil;
+    UIView *view = [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender:nil;
     if(view){
-        UIResponder* next = [view nextResponder];
+        UIResponder *next = [view nextResponder];
         for (int count = 0; count<100; count++) {
             if([next isKindOfClass:[UIViewController class]]){
                 return (UIViewController *)next;
             }
             else{
-                if (next){
+                if (next != nil){
                     next = [next nextResponder];
                 }
             }
@@ -212,8 +208,6 @@ NSDate* lastPresent;
     }
     return nil;
 }
-
-// ... delegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
     return [[LGOModalPresentationTransition alloc] initWithTargetEdgeInsets:self.request.edgeInsets];
@@ -225,8 +219,6 @@ NSDate* lastPresent;
 
 @end
 
-
-// Module
 @implementation LGOModalController
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
@@ -251,7 +243,7 @@ NSDate* lastPresent;
 }
 
 - (UIEdgeInsets) edgeInsetsFromString:(NSString *)str{
-    NSArray<NSString *>* arr = [str componentsSeparatedByString:@","];
+    NSArray<NSString *> *arr = [str componentsSeparatedByString:@","];
     if (arr.count == 4){
         return UIEdgeInsetsMake([arr[0] floatValue], [arr[1] floatValue], [arr[2] floatValue], [arr[3] floatValue]);
     }

@@ -10,20 +10,20 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-// Request
 @interface LGOOpenURLRequest : LGORequest
+
 @property (nonatomic, strong) NSString *URLString;
+
 @end
 
 @implementation LGOOpenURLRequest
 
 @end
 
-
-
-// Response
 @interface LGOOpenURLResponse : LGOResponse
+
 @property (nonatomic, assign) BOOL finished;
+
 @end
 
 @implementation LGOOpenURLResponse
@@ -36,9 +36,6 @@
 
 @end
 
-
-
-// Operation
 @interface LGOOpenURLOperation : LGORequestable
 
 @property (nonatomic, strong) LGOOpenURLRequest *request;
@@ -50,7 +47,7 @@
 - (LGOResponse *)requestSynchronize{
     LGOOpenURLResponse *response = [LGOOpenURLResponse new];
     NSURL *URL = [NSURL URLWithString:self.request.URLString];
-    if (URL){
+    if (URL != nil){
         response.finished = [[UIApplication sharedApplication] openURL:URL];
     }
     else{
@@ -61,9 +58,6 @@
 
 @end
 
-
-
-// Module
 @implementation LGOOpenURL
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request{
@@ -77,7 +71,7 @@
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
     NSString *URLString = [dictionary[@"URL"] isKindOfClass:[NSString class]] ? dictionary[@"URL"] : nil;
-    if (URLString) {
+    if (URLString != nil) {
         LGOOpenURLRequest *request = [LGOOpenURLRequest new];
         request.URLString = URLString;
         return [self buildWithRequest:request];

@@ -16,8 +16,6 @@
 
 @end
 
-
-// - Request
 @interface LGOFileManagerRequest : LGORequest
 
 @property (nonatomic, strong) NSString *suite;
@@ -31,9 +29,6 @@
 
 @end
 
-
-
-// - Response
 @interface LGOFileManagerResponse : LGOResponse
 
 @property (nonatomic, assign) BOOL optSucceed;
@@ -45,12 +40,12 @@
 
 + (NSString *)stringFromFileContent:(NSData *)fileContent {
     NSString *utf8Str = [[NSString alloc] initWithData:fileContent encoding:NSUTF8StringEncoding];
-    if (utf8Str){
+    if (utf8Str != nil){
         return utf8Str;
     }
     else {
         NSString *base64Str = [fileContent base64EncodedStringWithOptions:kNilOptions];
-        if (base64Str) {
+        if (base64Str != nil) {
             return base64Str;
         }
         return nil;
@@ -68,12 +63,10 @@
 
 @end
 
-
-
-// - Operation
-
 @interface LGOFileManagerOperation : LGORequestable
+
 @property (nonatomic, strong) LGOFileManagerRequest *request;
+
 @end
 
 @implementation LGOFileManagerOperation
@@ -113,13 +106,13 @@
         return response;
     }
     
-    if (!self.request.filePath){
+    if ([self.request.filePath length] == 0){
         return response;
     }
     
     if ([self.request.opt isEqualToString:@"Read"]){
         NSData *fileContents = [NSData dataWithContentsOfFile:filePath];
-        if (fileContents){
+        if (fileContents != nil ){
             response.optSucceed = YES;
             response.fileContents = fileContents;
         }
@@ -131,7 +124,7 @@
         
         [[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:true attributes:nil error:nil];
         NSData *data = self.request.fileContents;
-        if (data){
+        if (data != nil){
             [data writeToFile:filePath options:NSDataWritingAtomic error:nil];
         }
         response.optSucceed = YES;
@@ -148,16 +141,25 @@
 
 @end
 
-
-
-// - Module
-
 @implementation LGOFileManager
 
+static NSArray<NSString *> *protecting;
+
 + (NSArray *) protecting{
-    return @[
-             @"/Caches/LGOCache/"
-             ];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        protecting = @[
+                      @"/Caches/LGOCache/"
+                      ];
+    });
+    return protecting;
+}
+
++ (void)configureProtecting:(NSArray *)array{
+    if (array == nil) {
+        return ;
+    }
+    protecting = array;
 }
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
