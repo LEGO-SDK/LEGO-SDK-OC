@@ -76,15 +76,36 @@
     self = [super init];
     if (self) {
         [self addBridgeScript];
+        [self addSynchronizeResponses];
         [self addHandlers];
     }
     return self;
 }
 
 - (void)addBridgeScript {
-    [self addUserScript:[[WKUserScript alloc] initWithSource:@"var JSMessageCallbacks=[];var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}window.webkit.messageHandlers.JSMessage.postMessage(JSON.stringify(this))},log:function(){JSConsole.log(JSON.stringify(this))}}}}" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO]];
+    [self addUserScript:[[WKUserScript alloc] initWithSource:@"var JSMessageCallbacks=[];var JSSynchronizeResponses={};var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}window.webkit.messageHandlers.JSMessage.postMessage(JSON.stringify(this));if(JSSynchronizeResponses[this.moduleName]!==undefined){return JSSynchronizeResponses[this.moduleName]}}}}}" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO]];
     [self addUserScript:[[WKUserScript alloc] initWithSource:@"var JSConsole={log:function(text){window.webkit.messageHandlers.JSLog.postMessage(btoa(encodeURIComponent(text)))}}" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO]];
     [self addUserScript:[[WKUserScript alloc] initWithSource:@"window.addEventListener('load', function(){window.webkit.messageHandlers.JSLoaded.postMessage('')})" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
+}
+
+- (void)addSynchronizeResponses{
+    for (NSString *moduleName in [LGOCore.modules allModules]) {
+        LGOModule *module = [LGOCore.modules moduleWithName:moduleName];
+        NSDictionary* syncDict = [module synchronizeResponse];
+        if (syncDict != nil) {
+            NSError *error = nil;
+            NSData *JSONData = [NSJSONSerialization dataWithJSONObject:syncDict options:kNilOptions error:&error];
+            if (error != nil ) { continue ; }
+            NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
+            if (JSONString == nil) { continue ; }
+            JSONString = [JSONString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            if (JSONString == nil) { continue ; }
+            NSData *JSONData2 =  [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+            if (JSONData2 == nil) {continue ;}
+            NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
+            [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"JSSynchronizeResponses['%@'] = JSON.parse(decodeURIComponent(atob('%@')));", moduleName, base64String] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO]];
+        }
+    }
 }
 
 - (void)addHandlers {

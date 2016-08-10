@@ -133,6 +133,9 @@ static NSDictionary *custom;
     return [LGODeviceOperation new];
 }
 
+- (NSDictionary *)synchronizeResponse{
+    return [[[LGODeviceOperation new] requestSynchronize] toDictionary];
+}
 
 @end
 

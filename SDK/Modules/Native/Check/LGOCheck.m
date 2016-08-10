@@ -83,4 +83,14 @@
     return operation;
 }
 
+- (NSDictionary *)synchronizeResponse{
+    NSMutableDictionary *checkResult = [NSMutableDictionary dictionary];
+    for (NSString *module in LGOCore.modules.allModules) {
+        [checkResult setObject:[NSNumber numberWithBool:YES] forKey:module];
+    }
+    LGOCheckResponse *response = [[LGOCheckResponse alloc] init];
+    response.checkResult = [checkResult copy];
+    return [response toDictionary];
+}
+
 @end

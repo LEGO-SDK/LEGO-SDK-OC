@@ -6,6 +6,7 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "LGOModalController.h"
 #import "LGOCore.h"
@@ -185,9 +186,14 @@ NSDate *lastPresent;
 }
 
 - (UINavigationController*) requestNavigationController:(UIViewController*)rootViewController{
-    id naviClz = [self requestViewController].navigationController.self;
-    if(!naviClz) { return nil; }
-    // @Td dynamic init naviController
+    UIViewController* requestVC = [self requestViewController];
+    if (requestVC != nil && requestVC.navigationController != nil){
+        Class naviClz = [requestVC.navigationController class];
+        UINavigationController *naviController = [[naviClz alloc] init];
+        [naviController setViewControllers:@[rootViewController] animated:NO];
+        rootViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:naviController action: @selector(dismiss)];
+        return naviController;
+    }
     return nil;
 }
 

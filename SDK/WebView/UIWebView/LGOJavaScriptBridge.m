@@ -68,7 +68,29 @@
 @implementation LGOJSBridge
 
 + (NSString *)bridgeScript {
-    return @"var JSMessageCallbacks=[];var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON.stringify(this))},log:function(){console.log(this);JSConsole.log(JSON.stringify(this))}}}}";
+    return [@"var JSMessageCallbacks=[];var JSSynchronizeResponses={};var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON.stringify(this));if(JSSynchronizeResponses[this.moduleName]!==undefined){return JSSynchronizeResponses[this.moduleName]}}}}};" stringByAppendingString:[self synchronizeResponse]];
+}
+
++ (NSString *)synchronizeResponse {
+    NSString* output = @"";
+    for (NSString *moduleName in [LGOCore.modules allModules]) {
+        LGOModule *module = [LGOCore.modules moduleWithName:moduleName];
+        NSDictionary* syncDict = [module synchronizeResponse];
+        if (syncDict != nil) {
+            NSError *error = nil;
+            NSData *JSONData = [NSJSONSerialization dataWithJSONObject:syncDict options:kNilOptions error:&error];
+            if (error != nil ) { continue ; }
+            NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
+            if (JSONString == nil) { continue ; }
+            JSONString = [JSONString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            if (JSONString == nil) { continue ; }
+            NSData *JSONData2 =  [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+            if (JSONData2 == nil) {continue ;}
+            NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
+            output = [output stringByAppendingString: [NSString stringWithFormat:@"JSSynchronizeResponses['%@'] = JSON.parse(decodeURIComponent(atob('%@')));", moduleName, base64String] ];
+        }
+    }
+    return output;
 }
 
 + (void)exec:(JSValue *)JSONString {

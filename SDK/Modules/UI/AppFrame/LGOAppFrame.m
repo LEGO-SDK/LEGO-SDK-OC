@@ -46,7 +46,7 @@
 @implementation LGOAppFrameOperation
 
 - (LGOResponse *)requestSynchronize{
-    NSString *NavigationControllerClassName = [NSString stringWithFormat:@"%s", class_getName([UINavigationController class])] ; //@Td mergeFrom customsClass
+    NSString *NavigationControllerClassName = [NSString stringWithFormat:@"%s", class_getName([UINavigationController class])];
     
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     if (rootViewController == nil || ![rootViewController.accessibilityLabel isEqualToString:@"AppFrame"]){ return nil; }

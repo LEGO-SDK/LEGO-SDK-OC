@@ -84,4 +84,8 @@
     return [[LGORequestable alloc] init];
 }
 
+- (NSDictionary *)synchronizeResponse{
+    return nil;
+}
+
 @end
