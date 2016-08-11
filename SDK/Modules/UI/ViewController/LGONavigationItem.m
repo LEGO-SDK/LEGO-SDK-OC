@@ -11,7 +11,7 @@
 #import "LGOBuildFailed.h"
 #import <objc/runtime.h>
 
-@interface LGONavigationItemRequest : LGORequest
+@interface LGONavigationItemRequest: LGORequest
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *leftItem;
@@ -24,7 +24,7 @@
 
 @end
 
-@interface LGONavigationItemResponse : LGOResponse
+@interface LGONavigationItemResponse: LGOResponse
 
 @property (nonatomic, assign) BOOL leftTapped;
 @property (nonatomic, assign) BOOL rightTapped;
@@ -42,7 +42,7 @@
 
 @end
 
-@interface LGONavigationItemOperation : LGORequestable
+@interface LGONavigationItemOperation: LGORequestable
 
 @property (nonatomic, retain) LGONavigationItemRequest *request;
 

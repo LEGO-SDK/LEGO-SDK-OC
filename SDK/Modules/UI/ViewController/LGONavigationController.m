@@ -13,7 +13,7 @@
 #import "LGOWebViewController.h"
 #import "LGOWKWebView.h"
 
-@interface LGONavigationRequest : LGORequest
+@interface LGONavigationRequest: LGORequest
 
 @property (nonatomic, strong) NSString *opt; // push/pop
 @property (nonatomic, strong) NSString *path; // an URLString or LGOViewControllerMapping[path]
@@ -28,7 +28,7 @@
 
 static NSDate *lastPush;
 
-@interface LGONavigationOperation : LGORequestable
+@interface LGONavigationOperation: LGORequestable
 
 @property (nonatomic, retain) LGONavigationRequest *request;
 

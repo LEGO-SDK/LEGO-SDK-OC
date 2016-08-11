@@ -9,7 +9,7 @@
 #import "LGOBuildFailed.h"
 #import "LGOProtocols.h"
 
-//@interface LGOBuildFailedResponse : LGOResponse
+//@interface LGOBuildFailedResponse: LGOResponse
 //
 //@property (nonatomic, copy) NSString *error;
 ////- (id) initWithErrorString:(NSString *)errorString;

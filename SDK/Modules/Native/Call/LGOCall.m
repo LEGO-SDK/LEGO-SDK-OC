@@ -10,7 +10,7 @@
 #import "LGOWebViewController.h"
 #import "LGOBuildFailed.h"
 
-@interface LGOCallRequest : LGORequest
+@interface LGOCallRequest: LGORequest
 
 @property (nonatomic, copy) NSString *methodName;
 @property (nonatomic, copy) NSDictionary *userInfo;
@@ -30,7 +30,7 @@
 
 @end
 
-@interface LGOCallOperation : LGORequestable
+@interface LGOCallOperation: LGORequestable
 
 @property (nonatomic, strong) LGOCallRequest *request;
 

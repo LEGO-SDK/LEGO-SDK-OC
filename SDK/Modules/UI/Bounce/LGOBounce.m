@@ -12,7 +12,7 @@
 #import "LGOWebView.h"
 #import "LGOWKWebView.h"
 
-@interface LGOBounceRequest : LGORequest
+@interface LGOBounceRequest: LGORequest
 
 @property (nonatomic, assign) BOOL allow;
 
@@ -22,7 +22,7 @@
 
 @end
 
-@interface LGOBounceOperation : LGORequestable
+@interface LGOBounceOperation: LGORequestable
 
 @property (nonatomic, strong) LGOBounceRequest *request;
 

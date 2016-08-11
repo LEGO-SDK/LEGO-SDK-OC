@@ -11,7 +11,7 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-@interface LGOActionSheetRequest : LGORequest
+@interface LGOActionSheetRequest: LGORequest
 
 @property (nonatomic, strong) NSString  *title;
 @property (nonatomic, strong) NSArray<NSString *>  *buttonTitles;
@@ -33,7 +33,7 @@
 
 @end
 
-@interface LGOActionSheetResponse : LGOResponse
+@interface LGOActionSheetResponse: LGOResponse
 
 @property (nonatomic, assign) NSInteger buttonIndex;
 
@@ -53,7 +53,7 @@
 
 static LGOActionSheetOperation *currentOperation;
 
-@interface LGOActionSheetOperation : LGORequestable<UIActionSheetDelegate>
+@interface LGOActionSheetOperation: LGORequestable<UIActionSheetDelegate>
 
 @property (nonatomic, strong) LGOActionSheetRequest *request;
 @property (nonatomic, strong) UIActionSheet *actionSheet;

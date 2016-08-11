@@ -11,7 +11,7 @@
 #import "LGOBuildFailed.h"
 #import "LGOWebViewController.h"
 
-@interface LGOStatusBarRequest : LGORequest
+@interface LGOStatusBarRequest: LGORequest
 
 @property (nonatomic, strong) NSString *style; // light/default
 
@@ -21,7 +21,7 @@
 
 @end
 
-@interface LGOStatusBarOperation : LGORequestable
+@interface LGOStatusBarOperation: LGORequestable
 
 @property (nonatomic, strong) LGOStatusBarRequest *request;
 

@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGOActionSheet : LGOModule
+@interface LGOActionSheet: LGOModule
 
 @end

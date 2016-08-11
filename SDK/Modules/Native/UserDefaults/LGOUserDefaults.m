@@ -10,7 +10,7 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-@interface LGOUserDefaultsRequest : LGORequest
+@interface LGOUserDefaultsRequest: LGORequest
 
 @property (nonatomic, strong) NSString *suite;
 @property (nonatomic, strong) NSString *opt; // create/update/read/delete
@@ -34,7 +34,7 @@
 
 @end
 
-@interface LGOUserDefaultsResponse : LGOResponse
+@interface LGOUserDefaultsResponse: LGOResponse
 
 @property (nonatomic, strong) id value;
 
@@ -60,7 +60,7 @@
 
 @end
 
-@interface LGOUserDefaultsOperation : LGORequestable
+@interface LGOUserDefaultsOperation: LGORequestable
 
 @property (nonatomic, strong) LGOUserDefaultsRequest *request;
 

@@ -13,7 +13,7 @@
 #import "LGOWKWebView+DataModel.h"
 #import "LGOBuildFailed.h"
 
-@interface LGODataModelRequest : LGORequest
+@interface LGODataModelRequest: LGORequest
 
 @property (nonatomic, strong) NSString *opt; // update/read , defautl:read
 @property (nonatomic, strong) NSString *dataKey; // Only for update
@@ -25,7 +25,7 @@
 
 @end
 
-@interface LGODataModelResponse : LGOResponse
+@interface LGODataModelResponse: LGOResponse
 
 @property (nonatomic, strong) NSDictionary *dataModel;
 
@@ -42,7 +42,7 @@
 
 @end
 
-@interface LGODataModelOperation : LGORequestable
+@interface LGODataModelOperation: LGORequestable
 
 @property (nonatomic, strong) LGODataModelRequest *request;
 

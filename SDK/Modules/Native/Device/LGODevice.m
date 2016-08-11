@@ -17,7 +17,7 @@
 
 @end
 
-@interface LGODeviceResponse : LGOResponse
+@interface LGODeviceResponse: LGOResponse
 
 @property (nonatomic, strong) NSString *deviceName;
 @property (nonatomic, strong) NSString *deviceModel;
@@ -96,7 +96,7 @@
 
 @end
 
-@interface LGODeviceOperation : LGORequestable
+@interface LGODeviceOperation: LGORequestable
 
 @end
 

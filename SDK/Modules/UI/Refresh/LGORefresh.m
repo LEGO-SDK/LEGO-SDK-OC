@@ -13,7 +13,9 @@
 #import "LGOWKWebView+RefreshControl.h"
 #import <objc/runtime.h>
 
-@interface LGORefreshRequest : LGORequest
+static int kOperationKey;
+
+@interface LGORefreshRequest: LGORequest
 
 @property (nonatomic, strong) NSString *opt; // add/complete
 
@@ -23,11 +25,7 @@
 
 @end
 
-@class LGORefreshOperation;
-
-static LGORefreshOperation *currentOperation;
-
-@interface LGORefreshOperation : LGORequestable
+@interface LGORefreshOperation: LGORequestable
 
 @property (nonatomic, strong) LGORefreshRequest *request;
 @property (nonatomic, copy) LGORequestableAsynchronizeBlock responseBlock;
@@ -36,20 +34,17 @@ static LGORefreshOperation *currentOperation;
 
 @implementation LGORefreshOperation
 
-UInt16 operationKey;
-
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock{
-    currentOperation = self;
     self.responseBlock = callbackBlock;
     NSObject *sender = self.request.context.sender;
     if ([self.request.opt isEqualToString:@"add"]){
         if ([sender isKindOfClass:[LGOWKWebView class]]){
             [((LGOWKWebView*)sender) configureRefreshControl:self];
-            objc_setAssociatedObject(sender, &operationKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(sender, &kOperationKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
         else if ([sender isKindOfClass:[LGOWebView class]]){
             [((LGOWebView*)sender) configureRefreshControl:self];
-            objc_setAssociatedObject(sender, &operationKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(sender, &kOperationKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     else if([self.request.opt isEqualToString:@"complete"]){

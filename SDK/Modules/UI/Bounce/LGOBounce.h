@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGOBounce : LGOModule
+@interface LGOBounce: LGOModule
 
 @end

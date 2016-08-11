@@ -13,7 +13,7 @@
 #import "LGOWKWebView.h"
 
 
-@interface LGOIndicatorViewRequest : LGORequest
+@interface LGOIndicatorViewRequest: LGORequest
 
 @property (nonatomic, assign) UIEdgeInsets insets;
 @property (nonatomic, assign) BOOL hidden;
@@ -24,7 +24,7 @@
 
 @end
 
-@interface LGOIndicatorViewOperation : LGORequestable
+@interface LGOIndicatorViewOperation: LGORequestable
 
 @property (nonatomic, strong) LGOIndicatorViewRequest *request;
 

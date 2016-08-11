@@ -17,7 +17,7 @@
 #import "LGOWKWebView.h"
 #import "LGOViewControllerGlobalValues.h"
 
-@interface LGOModalRequest : LGORequest
+@interface LGOModalRequest: LGORequest
 
 @property (nonatomic, strong) NSString *opt; // present/dismiss
 @property (nonatomic, strong) NSString *path; // an URLString or LGOViewControllerMapping[path]
@@ -39,7 +39,7 @@ LGOModalOperation *lastOperation;
 
 NSDate *lastPresent;
 
-@interface LGOModalOperation : LGORequestable<UIViewControllerTransitioningDelegate>
+@interface LGOModalOperation: LGORequestable<UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) LGOModalRequest *request;
 

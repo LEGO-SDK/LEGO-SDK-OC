@@ -12,7 +12,7 @@
 #import "LGOWebView.h"
 #import "LGOWKWebView.h"
 
-@interface LGOHTTPRequestObject : LGORequest
+@interface LGOHTTPRequestObject: LGORequest
 
 @property (nonatomic, strong)NSMutableURLRequest *nativeRequest;
 @property (nonatomic, assign)BOOL showActivityIndicator;
@@ -63,7 +63,7 @@
 
 @end
 
-@interface LGOHTTPResponseObject : LGOResponse
+@interface LGOHTTPResponseObject: LGOResponse
 
 @property (nonatomic, strong) NSString *error;
 @property (nonatomic, assign) NSInteger statusCode;
@@ -90,7 +90,7 @@
 
 @end
 
-@interface LGOHTTPOperation : LGORequestable
+@interface LGOHTTPOperation: LGORequestable
 
 @property (nonatomic, strong) LGOHTTPRequestObject *request;
 

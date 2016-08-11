@@ -10,7 +10,7 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-@interface LGOOpenURLRequest : LGORequest
+@interface LGOOpenURLRequest: LGORequest
 
 @property (nonatomic, strong) NSString *URLString;
 
@@ -20,7 +20,7 @@
 
 @end
 
-@interface LGOOpenURLResponse : LGOResponse
+@interface LGOOpenURLResponse: LGOResponse
 
 @property (nonatomic, assign) BOOL finished;
 
@@ -36,7 +36,7 @@
 
 @end
 
-@interface LGOOpenURLOperation : LGORequestable
+@interface LGOOpenURLOperation: LGORequestable
 
 @property (nonatomic, strong) LGOOpenURLRequest *request;
 

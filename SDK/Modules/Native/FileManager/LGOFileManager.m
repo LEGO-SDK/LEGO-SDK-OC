@@ -16,7 +16,7 @@
 
 @end
 
-@interface LGOFileManagerRequest : LGORequest
+@interface LGOFileManagerRequest: LGORequest
 
 @property (nonatomic, strong) NSString *suite;
 @property (nonatomic, strong) NSString *opt;
@@ -29,7 +29,7 @@
 
 @end
 
-@interface LGOFileManagerResponse : LGOResponse
+@interface LGOFileManagerResponse: LGOResponse
 
 @property (nonatomic, assign) BOOL optSucceed;
 @property (nonatomic, strong) NSData *fileContents;
@@ -63,7 +63,7 @@
 
 @end
 
-@interface LGOFileManagerOperation : LGORequestable
+@interface LGOFileManagerOperation: LGORequestable
 
 @property (nonatomic, strong) LGOFileManagerRequest *request;
 

@@ -11,7 +11,7 @@
 #import "LGOBuildFailed.h"
 #import "LGOWebViewController.h"
 
-@interface LGOArgsResponse : LGOResponse
+@interface LGOArgsResponse: LGOResponse
 
 @property (nonatomic, strong) NSDictionary *args;
 
@@ -25,7 +25,7 @@
 
 @end
 
-@interface LGOArgsOperation : LGORequestable
+@interface LGOArgsOperation: LGORequestable
 
 @property (nonatomic, retain) LGORequest *request;
 

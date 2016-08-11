@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LGOWebViewController.h"
 
-@interface SDKSampleJavaScriptItemViewController : LGOWebViewController
+@interface SDKSampleJavaScriptItemViewController: LGOWebViewController
 
 @property (nonatomic, copy) NSString *file;
 

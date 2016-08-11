@@ -10,7 +10,7 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-@interface LGOCheckRequest : LGORequest
+@interface LGOCheckRequest: LGORequest
 
 @property (nonatomic, copy) NSArray *moduleList;
 
@@ -20,7 +20,7 @@
 
 @end
 
-@interface LGOCheckResponse : LGOResponse
+@interface LGOCheckResponse: LGOResponse
 
 @property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *checkResult;
 
@@ -37,7 +37,7 @@
 
 @end
 
-@interface LGOCheckOperation : LGORequestable
+@interface LGOCheckOperation: LGORequestable
 
 @property (nonatomic, strong) LGOCheckRequest *request;
 

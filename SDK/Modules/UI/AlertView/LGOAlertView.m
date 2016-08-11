@@ -11,7 +11,7 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 
-@interface LGOAlertViewRequest : LGORequest
+@interface LGOAlertViewRequest: LGORequest
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *message;
@@ -23,7 +23,7 @@
 
 @end
 
-@interface LGOAlertViewResponse : LGOResponse
+@interface LGOAlertViewResponse: LGOResponse
 
 @property (nonatomic, assign) NSInteger buttonIndex;
 
@@ -43,7 +43,7 @@
 
 static LGOAlertViewOperation *currentOperation;
 
-@interface LGOAlertViewOperation : LGORequestable<UIAlertViewDelegate>
+@interface LGOAlertViewOperation: LGORequestable<UIAlertViewDelegate>
 
 @property (nonatomic, strong) LGOAlertViewRequest *request;
 @property (nonatomic, strong) UIAlertView *alertView;

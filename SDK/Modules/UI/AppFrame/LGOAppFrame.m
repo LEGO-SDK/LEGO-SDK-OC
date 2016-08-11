@@ -27,7 +27,7 @@
 
 @end
 
-@interface LGOAppFrameRequest : LGORequest
+@interface LGOAppFrameRequest: LGORequest
 
 @property (nonatomic, strong) NSArray<LGOAppFrameEntity*> *items;
 
@@ -37,7 +37,7 @@
 
 @end
 
-@interface LGOAppFrameOperation : LGORequestable
+@interface LGOAppFrameOperation: LGORequestable
 
 @property (nonatomic, strong) LGOAppFrameRequest *request;
 

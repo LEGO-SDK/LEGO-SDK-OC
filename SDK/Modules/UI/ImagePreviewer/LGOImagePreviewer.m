@@ -11,7 +11,7 @@
 #import "LGOBuildFailed.h"
 #import "LGOImagePreviewController.h"
 
-@interface LGOImagePreviewerRequest : LGORequest
+@interface LGOImagePreviewerRequest: LGORequest
 
 @property (nonatomic, strong) NSArray<NSString*> *URLs;
 @property (nonatomic, strong) NSString *currentURL;
@@ -22,7 +22,7 @@
 
 @end
 
-@interface LGOImagePreviewerOperation : LGORequestable
+@interface LGOImagePreviewerOperation: LGORequestable
 
 @property (nonatomic, strong) LGOImagePreviewerRequest *request;
 

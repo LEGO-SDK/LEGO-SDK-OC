@@ -14,7 +14,7 @@
 static NSMutableArray *observers;
 static NSNumber *observersGCLock;
 
-@interface LGONotificationObserver :NSObject
+@interface LGONotificationObserver: NSObject
 
 @property (nonatomic) __weak NSObject *webView;
 @property (nonatomic, assign) NSString *name ;
@@ -26,7 +26,7 @@ static NSNumber *observersGCLock;
 
 @end
 
-@interface LGONotificationRequest :LGORequest
+@interface LGONotificationRequest: LGORequest
 
 @property (nonatomic, strong) NSString *opt;
 @property (nonatomic, strong) NSString *name;
@@ -39,7 +39,7 @@ static NSNumber *observersGCLock;
 
 @end
 
-@interface LGONotificationResponse : LGOResponse
+@interface LGONotificationResponse: LGOResponse
 
 @property (nonatomic, strong) id _Nullable object;
 @property (nonatomic, strong) NSDictionary * _Nullable userInfo;
@@ -79,7 +79,7 @@ static NSNumber *observersGCLock;
 
 @end
 
-@interface LGONotificationOperation : LGORequestable
+@interface LGONotificationOperation: LGORequestable
 
 @property (nonatomic, strong) LGONotificationRequest *request;
 
