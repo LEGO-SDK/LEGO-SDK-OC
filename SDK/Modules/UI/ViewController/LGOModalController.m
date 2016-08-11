@@ -24,6 +24,7 @@
 @property (nonatomic, assign) BOOL animated; // push or pop need animation. Defaults to true.
 @property (nonatomic, assign) BOOL withNavigationController; // ViewController will wrap by navigationController, defaults to YES.
 @property (nonatomic, assign) UIEdgeInsets edgeInsets; // ViewController will wrap by UIWindow with EdgeInsets.
+@property (nonatomic, assign) BOOL edgeInsetsDidSet;
 @property (nonatomic, strong) NSDictionary<NSString *, id> *args; // deliver args to next ViewController
 
 @end
@@ -121,29 +122,28 @@ NSDate *lastPresent;
     if (self.request.withNavigationController){
         UINavigationController *naviController = [self requestNavigationController:aWebViewController];
         if (naviController != nil){
-            
-            // if self.request.edgeInsets
-            naviController.modalPresentationStyle = UIModalPresentationCustom;
-            naviController.transitioningDelegate = self;
-            lastOperation = self;
-            
+            if (self.request.edgeInsetsDidSet){
+                naviController.modalPresentationStyle = UIModalPresentationCustom;
+                naviController.transitioningDelegate = self;
+                lastOperation = self;
+            }
             presentingViewController = naviController;
         }
         else {
-            // if self.request.edgeInsets
-            aWebViewController.modalPresentationStyle = UIModalPresentationCustom;
-            aWebViewController.transitioningDelegate = self;
-            lastOperation = self;
-            
+            if (self.request.edgeInsetsDidSet){
+                aWebViewController.modalPresentationStyle = UIModalPresentationCustom;
+                aWebViewController.transitioningDelegate = self;
+                lastOperation = self;
+            }
             presentingViewController = aWebViewController;
         }
     }
     else{
-        // if self.request.edgeInsets
-        aWebViewController.modalPresentationStyle = UIModalPresentationCustom;
-        aWebViewController.transitioningDelegate = self;
-        lastOperation = self;
-        
+        if (self.request.edgeInsetsDidSet){
+            aWebViewController.modalPresentationStyle = UIModalPresentationCustom;
+            aWebViewController.transitioningDelegate = self;
+            lastOperation = self;
+        }
         presentingViewController = aWebViewController;
     }
     
@@ -216,11 +216,17 @@ NSDate *lastPresent;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
-    return [[LGOModalPresentationTransition alloc] initWithTargetEdgeInsets:self.request.edgeInsets];
+    if (self.request.edgeInsetsDidSet){
+        return [[LGOModalPresentationTransition alloc] initWithTargetEdgeInsets:self.request.edgeInsets];
+    }
+    return nil;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
-    return [[LGOModalDismissTransition alloc] initWithTargetEdgeInsets:self.request.edgeInsets];
+    if (self.request.edgeInsetsDidSet){
+        return [[LGOModalDismissTransition alloc] initWithTargetEdgeInsets:self.request.edgeInsets];
+    }
+    return nil;
 }
 
 @end
@@ -243,7 +249,11 @@ NSDate *lastPresent;
     request.path = [dictionary[@"path"] isKindOfClass:[NSString class]] ? dictionary[@"path"] : @"";
     request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]] ? ((NSNumber *)dictionary[@"animated"]).boolValue : YES;
     request.withNavigationController = [dictionary[@"withNavigationController"] isKindOfClass:[NSNumber class]] ? ((NSNumber *)dictionary[@"withNavigationController"]).boolValue : YES;
-    request.edgeInsets = [dictionary[@"edgeInsets"] isKindOfClass:[NSString class]] ? [self edgeInsetsFromString:(NSString *)dictionary[@"edgeInsets"]] : UIEdgeInsetsZero ;
+    NSString *edgeInsetsString = [dictionary[@"edgeInsets"] isKindOfClass:[NSString class]] ? dictionary[@"edgeInsets"] : nil;
+    if (edgeInsetsString != nil) {
+        request.edgeInsets = [self edgeInsetsFromString:edgeInsetsString];
+        request.edgeInsetsDidSet = YES;
+    }
     request.args = [dictionary[@"args"] isKindOfClass:[NSDictionary class]] ? dictionary[@"args"] : @{};
     return [self buildWithRequest:request];
 }
