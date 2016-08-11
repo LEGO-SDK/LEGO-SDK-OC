@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface LGOModalDismissTransition : NSObject<UIViewControllerAnimatedTransitioning>
-- (instancetype)initWithTargetEdgeInsets:(UIEdgeInsets)insets;
+
 @property (nonatomic, assign) UIEdgeInsets targetEdgeInsets;
+
+- (instancetype)initWithTargetEdgeInsets:(UIEdgeInsets)insets;
+
 @end

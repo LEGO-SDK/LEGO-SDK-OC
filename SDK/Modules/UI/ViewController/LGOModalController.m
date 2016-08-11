@@ -15,7 +15,6 @@
 #import "LGOModalDismissTransition.h"
 #import "LGOWebViewController.h"
 #import "LGOWKWebView.h"
-#import "LGOViewControllerGlobalValues.h"
 
 @interface LGOModalRequest: LGORequest
 
@@ -101,12 +100,6 @@ NSDate *lastPresent;
     if (URL != nil){
         [self presentWebView:URL];
     }
-    else {
-        LGOViewControllerInitializeBlock initBlock = [LGOViewControllerGlobalValues LGOViewControllerMapping][self.request.path];
-        if (initBlock){
-            [self presentViewController:initBlock];
-        }
-    }
 }
 
 - (void)presentWebView:(NSURL *)URL{
@@ -164,34 +157,13 @@ NSDate *lastPresent;
     }
 }
 
-- (void)presentViewController:(LGOViewControllerInitializeBlock)initBlock{
-    UIViewController *viewController = [self requestViewController];
-    if (viewController == nil){return;}
-    UIViewController *instance = initBlock(self.request.args);
-    if (instance != nil){
-        instance.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"]: @"";
-        if (self.request.withNavigationController){
-            UIViewController *aViewController = [self requestNavigationController:instance];
-            if (aViewController != nil){
-                [viewController presentViewController:aViewController animated:YES completion:nil];
-            }
-            else {
-                [viewController presentViewController:instance animated:YES completion:nil];
-            }
-        }
-        else {
-            [viewController presentViewController:instance animated:YES completion:nil];
-        }
-    }
-}
-
 - (UINavigationController *)requestNavigationController:(UIViewController*)rootViewController{
     UIViewController* requestVC = [self requestViewController];
     if (requestVC != nil && requestVC.navigationController != nil){
         Class naviClz = [requestVC.navigationController class];
         UINavigationController *naviController = [[naviClz alloc] init];
         [naviController setViewControllers:@[rootViewController] animated:NO];
-        rootViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:naviController action: @selector(lgo_dismiss)];
+//        rootViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:naviController action: @selector(lgo_dismiss)];
         return naviController;
     }
     return nil;

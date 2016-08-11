@@ -7,9 +7,7 @@
 //
 
 #import "LGODataModel.h"
-#import "LGOWebView.h"
 #import "LGOWebView+DataModel.h"
-#import "LGOWKWebView.h"
 #import "LGOWKWebView+DataModel.h"
 #import "LGOBuildFailed.h"
 
@@ -56,12 +54,12 @@
     NSObject * _Nullable sender = self.request.context.sender;
     
     if ([self.request.opt isEqual: @"read"]) {
-        if ([sender isKindOfClass: [LGOWebView class]]) {
-            response.dataModel = ((LGOWebView*)sender).dataModel ;
+        if ([sender isKindOfClass: [UIWebView class]]) {
+            response.dataModel = ((UIWebView *)sender).dataModel ;
             return response;
         }
-        else if ([sender isKindOfClass: [LGOWKWebView class]]){
-            response.dataModel = ((LGOWKWebView*)sender).dataModel;
+        else if ([sender isKindOfClass: [WKWebView class]]){
+            response.dataModel = ((WKWebView *)sender).dataModel;
             return response;
         }
     }
@@ -78,12 +76,12 @@
                 }
             }
         }
-        if ([sender isKindOfClass: [LGOWebView class]]) {
-            [((LGOWebView*)sender) updateDataModel:self.request.dataKey dataValue:dataValue];
+        if ([sender isKindOfClass: [UIWebView class]]) {
+            [((UIWebView *)sender) updateDataModel:self.request.dataKey dataValue:dataValue];
             return response;
         }
-        else if ([sender isKindOfClass: [LGOWKWebView class]]){
-            [((LGOWKWebView*)sender) updateDataModel:self.request.dataKey dataValue:dataValue];
+        else if ([sender isKindOfClass: [WKWebView class]]){
+            [((WKWebView *)sender) updateDataModel:self.request.dataKey dataValue:dataValue];
             return response;
         }
     }

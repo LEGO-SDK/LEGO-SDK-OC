@@ -1,14 +1,16 @@
 //
-//  LGOWebView+DataModel.h
+//  LGOWKWebView+DataModel.h
 //  LEGO-SDK-OC
 //
 //  Created by adi on 16/8/9.
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOWebView.h"
+#import <WebKit/WebKit.h>
 
-@interface LGOWebView (DataModel)
+@interface WKWebView (DataModel)
+
+@property (nonatomic, strong) NSMutableDictionary *dataModel;
 
 - (void)updateDataModel:(NSString*)dataKey dataValue:(id)dataValue;
 

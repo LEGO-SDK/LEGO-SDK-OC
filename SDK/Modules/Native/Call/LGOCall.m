@@ -7,8 +7,8 @@
 //
 
 #import "LGOCall.h"
-#import "LGOWebViewController.h"
 #import "LGOBuildFailed.h"
+#import "LGOCallable.h"
 
 @interface LGOCallRequest: LGORequest
 
@@ -40,11 +40,11 @@
 
 - (LGOResponse *)requestSynchronize {
     UIViewController *requestViewController = self.request.context.requestViewController;
-    if ([requestViewController isKindOfClass:[LGOWebViewController class]]) {
-        [(LGOWebViewController *)requestViewController callWithMethodName:self.request.methodName userInfo:self.request.userInfo];
+    if ([requestViewController conformsToProtocol:@protocol(LGOCallable)]) {
+        [(NSObject<LGOCallable> *)requestViewController callWithMethodName:self.request.methodName userInfo:self.request.userInfo];
         return [[LGOResponse alloc] init];
     }
-    return [[LGOBuildFailedResponse alloc] initWithErrorString: @"DownCast Failed"];
+    return [[LGOBuildFailedResponse alloc] initWithErrorString: @"ViewController Does not conforms LGOCallable."];
 }
 
 @end

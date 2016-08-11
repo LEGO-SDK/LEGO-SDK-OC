@@ -8,12 +8,11 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 #import "LGOAppFrame.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 #import "LGOWebViewController.h"
-#import "LGOWKWebView.h"
-#import "LGOViewControllerGlobalValues.h"
 
 @interface LGOAppFrameEntity : NSObject
 
@@ -86,39 +85,31 @@
 }
 
 - (UIViewController *)viewController:(LGOAppFrameEntity *)item{
-    if (item == nil){return nil;}
-    
+    if (item == nil){
+        return nil;
+    }
     NSURL *relativeURL = nil;
-    UIViewController *webViewController = self.request.context.requestViewController;
-    if (webViewController != nil && [webViewController isKindOfClass:[LGOWebViewController class]]){
-        UIView *webView = ((LGOWebViewController *)webViewController).webView;
-        if (webView != nil && [webView isKindOfClass:[LGOWKWebView class]]){
-            relativeURL = ((LGOWKWebView*)webView).URL;
-        }
+    UIView *webView = self.request.context.requestWebView;
+    if (webView != nil && [webView isKindOfClass:[UIWebView class]]){
+        relativeURL = ((UIWebView *)webView).request.URL;
     }
-    if (relativeURL == nil) return nil;
-    
-    if ([LGOViewControllerGlobalValues LGOViewControllerMapping]){
-        LGOViewControllerInitializeBlock initBlock = [LGOViewControllerGlobalValues LGOViewControllerMapping][item.framePath];
-        if (initBlock){
-            return initBlock(item.frameArgs);
-        }
+    if (webView != nil && [webView isKindOfClass:[WKWebView class]]){
+        relativeURL = ((WKWebView *)webView).URL;
     }
-    
     NSURL *URL = [NSURL URLWithString:item.framePath relativeToURL:relativeURL];
-    if (URL == nil) return nil;
+    if (URL == nil) {
+        return nil;
+    }
     LGOWebViewController *aWebViewController = [LGOWebViewController new];
     aWebViewController.initializeContext = item.frameArgs;
     aWebViewController.initializeRequest = [[NSURLRequest alloc] initWithURL:URL];
-    aWebViewController.title = [item.frameArgs[@"title"] isKindOfClass:[NSString class]]?item.frameArgs[@"title"]:@"";
-    
+    aWebViewController.title = [item.frameArgs[@"title"] isKindOfClass:[NSString class]] ? item.frameArgs[@"title"] : @"";
     [[NSOperationQueue new] addOperationWithBlock:^{
         UITabBarItem *tabItem = [self requestTabItem:item];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             aWebViewController.tabBarItem = tabItem;
         }];
     }];
-    
     return aWebViewController;
 }
 

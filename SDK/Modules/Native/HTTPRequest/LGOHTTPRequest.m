@@ -6,11 +6,10 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
+#import <WebKit/WebKit.h>
 #import "LGOHTTPRequest.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-#import "LGOWebView.h"
-#import "LGOWKWebView.h"
 
 @interface LGOHTTPRequestObject: LGORequest
 
@@ -152,16 +151,16 @@
     NSString * _Nullable URLString = [dictionary[@"URL"] isKindOfClass:[NSString class]]? dictionary[@"URL"] : nil;
     if (URLString){
         if (![URLString hasPrefix:@"http://"] && ![URLString hasPrefix:@"https://"]){
-            if([context.requestWebView isKindOfClass:[LGOWebView class]]){
-                LGOWebView *webView = (LGOWebView *)context.requestWebView;
-                NSURL *activeURL = webView.URL;
+            if([context.requestWebView isKindOfClass:[UIWebView class]]){
+                UIWebView *webView = (UIWebView *)context.requestWebView;
+                NSURL *activeURL = webView.request.URL;
                 NSURL *relativeURL = [NSURL URLWithString:URLString relativeToURL:activeURL];
                 if (relativeURL){
                     URLString = relativeURL.absoluteString;
                 }
             }
-            if([context.requestWebView isKindOfClass:[LGOWKWebView class]]){
-                LGOWKWebView *webView = (LGOWKWebView *)context.requestWebView;
+            if([context.requestWebView isKindOfClass:[WKWebView class]]){
+                WKWebView *webView = (WKWebView *)context.requestWebView;
                 NSURL *activeURL = webView.URL;
                 NSURL *relativeURL = [NSURL URLWithString:URLString relativeToURL:activeURL];
                 if (relativeURL){

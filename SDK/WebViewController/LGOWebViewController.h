@@ -16,9 +16,6 @@
 
 @property (nonatomic, copy) NSDictionary *initializeContext;
 
-- (void)callWithMethodName:(NSString *)methodName userInfo:(NSDictionary<NSString *, id> *)userInfo;
-
-
 typedef void (^renderDidFinishedBlock)();
 @property (nonatomic, copy) renderDidFinishedBlock renderDidFinished;
 @property (nonatomic, assign) BOOL isPrerending;

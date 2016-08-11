@@ -6,7 +6,6 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOViewControllerGlobalValues.h"
 #import "LGOModalDismissTransition.h"
 
 @implementation LGOModalDismissTransition

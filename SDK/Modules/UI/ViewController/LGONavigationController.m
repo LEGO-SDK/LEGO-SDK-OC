@@ -6,12 +6,11 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
+#import <WebKit/WebKit.h>
 #import "LGONavigationController.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-#import "LGOViewControllerGlobalValues.h"
 #import "LGOWebViewController.h"
-#import "LGOWKWebView.h"
 
 @interface LGONavigationRequest: LGORequest
 
@@ -63,23 +62,16 @@ static NSDate *lastPush;
     }
     if (self.request.path.length > 0){
         NSURL *relativeURL = nil;
-        UIViewController *webViewController = self.request.context.requestViewController;
-        if (webViewController != nil && [webViewController isKindOfClass:[LGOWebViewController class]]){
-            UIView *webView = ((LGOWebViewController *)webViewController).webView;
-            if (webView != nil && [webView isKindOfClass:[LGOWKWebView class]]){
-                relativeURL = ((LGOWKWebView*)webView).URL;
-            }
+        UIView *webView = self.request.context.requestWebView;
+        if (webView != nil && [webView isKindOfClass:[UIWebView class]]){
+            relativeURL = ((UIWebView *)webView).request.URL;
         }
-        
+        if (webView != nil && [webView isKindOfClass:[WKWebView class]]){
+            relativeURL = ((WKWebView *)webView).URL;
+        }
         NSURL *URL = [NSURL URLWithString:self.request.path relativeToURL:relativeURL];
         if (URL != nil){
             [self pushWebView:URL];
-        }
-        else {
-            LGOViewControllerInitializeBlock initBlock = [LGOViewControllerGlobalValues LGOViewControllerMapping][self.request.path];
-            if (initBlock != nil){
-                [self pushViewController:initBlock];
-            }
         }
     }
 }
@@ -114,17 +106,6 @@ static NSDate *lastPush;
     }
     else{
         [naviVC pushViewController:aWebViewController animated:self.request.animated];
-    }
-}
-
-- (void)pushViewController:(LGOViewControllerInitializeBlock)initBlock{
-    UIViewController *instance = initBlock(self.request.args);
-    if (instance != nil){
-        instance.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"]:@"";
-        UIViewController *requestVC = [self.request.context requestViewController];
-        UINavigationController *naviVC = requestVC? requestVC.navigationController : nil;
-        if (naviVC == nil){ return ; }
-        [naviVC pushViewController:instance animated:self.request.animated];
     }
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import "SDKSampleJavaScriptItemViewController.h"
+#import "LGOWebView+DataModel.h"
+#import "LGOWKWebView+DataModel.h"
 @import WebKit;
 
 @implementation SDKSampleJavaScriptItemViewController
@@ -25,6 +27,22 @@
     UIViewController* rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     if(rootViewController){
         rootViewController.accessibilityLabel = @"AppFrame";
+    }
+    [self configureTestCases];
+}
+
+- (void)configureTestCases {
+    if ([self.file isEqualToString:@"Native.DataModel"]) {
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testDataModel) userInfo:nil repeats:YES];
+    }
+}
+
+- (void)testDataModel {
+    if ([self.webView isKindOfClass:[UIWebView class]]) {
+        [(UIWebView *)self.webView updateDataModel:@"date" dataValue:[[NSDate new] description]];
+    }
+    else if ([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView *)self.webView updateDataModel:@"date" dataValue:[[NSDate new] description]];
     }
 }
 

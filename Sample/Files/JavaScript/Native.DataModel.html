@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-    </head>
+            </head>
     <body onload="init()">
         <p>Date = <span id="dataModel_date"></span></p>
     </body>
@@ -15,39 +15,39 @@
         date: "",
         word: ""
     }
-    
-    function init() {
-        var message = JSMessage.newMessage()
-        message.moduleName = "Native.DataModel"
-        message.call(function(dataModel){
-                         JSDataModel = dataModel
-                         updateName()
-                     })
+
+function init() {
+    var message = JSMessage.newMessage()
+    message.moduleName = "Native.DataModel"
+    message.call(function(dataModel){
+                 JSDataModel = dataModel
+                 updateName()
+                 })
+}
+
+function JSDataModelDidChanged(dataKey) {
+    if (dataKey == "date") {
+        updateName()
     }
+}
 
-    function JSDataModelDidChanged(dataKey) {
-        if (dataKey == "word") {
-            updateName()
-        }
+function updateName() {
+    if (JSDataModel.date != undefined) {
+        document.getElementById("dataModel_date").innerHTML = JSDataModel.date
     }
+}
 
-    function updateName() {
-        if (JSDataModel.word != undefined) {
-            document.getElementById("dataModel_date").innerHTML = JSDataModel.word
-        }
+function updateDataModel() {
+    var message = JSMessage.newMessage()
+    message.moduleName = "Native.DataModel"
+    message.requestParams = {
+        opt: "update",
+        dataKey: "word",
+        dataValue: "Hello, World!"
     }
+    message.call(null)
+}
 
-    function updateDataModel() {
-        var message = JSMessage.newMessage()
-        message.moduleName = "Native.DataModel"
-        message.requestParams = {
-            opt: "update",
-            dataKey: "word",
-            dataValue: "Hello, World!"
-        }
-        message.call(null)
-    }
+setTimeout(updateDataModel, 5000)
 
-    setTimeout(updateDataModel, 3000)
-
-</script>
+    </script>

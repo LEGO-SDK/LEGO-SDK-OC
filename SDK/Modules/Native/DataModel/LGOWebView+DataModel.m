@@ -6,9 +6,12 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "LGOWebView+DataModel.h"
 
-@implementation LGOWebView (DataModel)
+static int kDataModelIdentifierKey;
+
+@implementation UIWebView (DataModel)
 
 - (void)updateDataModel:(NSString *)dataKey dataValue:(id)dataValue{
     id oldValue = [self.dataModel valueForKey:dataKey];
@@ -41,6 +44,17 @@
             [self stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat:@"(typeof JSDataModelDidChanged != 'undefined') && JSDataModelDidChanged('%@') ", dataKey] ];
         }];
     }
+}
+
+- (NSMutableDictionary *)dataModel {
+    if (objc_getAssociatedObject(self, &kDataModelIdentifierKey) == nil) {
+        [self setDataModel:[NSMutableDictionary dictionary]];
+    }
+    return objc_getAssociatedObject(self, &kDataModelIdentifierKey);
+}
+
+- (void)setDataModel:(NSMutableDictionary *)dataModel {
+    objc_setAssociatedObject(self, &kDataModelIdentifierKey, dataModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

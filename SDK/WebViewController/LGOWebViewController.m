@@ -94,8 +94,6 @@
     [self navigationBar_viewDidDisappear];
 }
 
-- (void)callWithMethodName:(NSString *)methodName userInfo:(NSDictionary<NSString *, id> *)userInfo {}
-
 #pragma mark - Components
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
