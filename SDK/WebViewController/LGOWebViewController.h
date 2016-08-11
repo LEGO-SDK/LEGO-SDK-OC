@@ -20,11 +20,8 @@
 
 
 typedef void (^renderDidFinishedBlock)();
-@property (nonatomic, copy) __nullable renderDidFinishedBlock renderDidFinished;
+@property (nonatomic, copy) renderDidFinishedBlock renderDidFinished;
 @property (nonatomic, assign) BOOL isPrerending;
-
-- (void)configureWebView;
-- (void)configureWebViewLayout;
 
 
 @end

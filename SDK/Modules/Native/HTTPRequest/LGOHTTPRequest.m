@@ -66,7 +66,7 @@
 @interface LGOHTTPResponseObject : LGOResponse
 
 @property (nonatomic, strong) NSString *error;
-@property (nonatomic, assign) long statusCode;
+@property (nonatomic, assign) NSInteger statusCode;
 @property (nonatomic, strong) NSString *responseText;
 @property (nonatomic, strong) NSData * _Nullable responseData;
 
@@ -77,7 +77,7 @@
 - (NSDictionary *)toDictionary{
     return @{
              @"error": self.error != nil ? self.error : [NSNull null],
-             @"statusCode": [NSNumber numberWithInt:(self.statusCode)],
+             @"statusCode": [NSNumber numberWithInteger:self.statusCode],
              @"responseText": self.responseText != nil ? self.responseText : [NSNull null] ,
              @"responseData": ^(){
                  if (self.responseData != nil){

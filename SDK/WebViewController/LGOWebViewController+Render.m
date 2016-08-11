@@ -37,7 +37,6 @@
         [self.webView removeFromSuperview];
         [self.view addSubview:self.webView];
         self.webView.frame = [UIScreen mainScreen].bounds;
-        [self configureWebViewLayout];
         [self.view layoutIfNeeded];
         [self.webView layoutIfNeeded];
     }

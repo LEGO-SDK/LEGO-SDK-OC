@@ -35,7 +35,7 @@
 
 @interface LGOActionSheetResponse : LGOResponse
 
-@property (nonatomic, assign) int buttonIndex;
+@property (nonatomic, assign) NSInteger buttonIndex;
 
 @end
 
@@ -43,7 +43,7 @@
 
 - (NSDictionary *)toDictionary {
     return @{
-             @"buttonIndex": [NSNumber numberWithInt:self.buttonIndex]
+             @"buttonIndex": [NSNumber numberWithInteger:self.buttonIndex]
              };
 }
 
