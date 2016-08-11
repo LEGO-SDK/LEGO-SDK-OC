@@ -12,8 +12,9 @@
 #import "LGOWebView+RefreshControl.h"
 #import "LGOWKWebView+RefreshControl.h"
 #import <objc/runtime.h>
+#import <WebKit/WebKit.h>
 
-static int kOperationKey;
+static int kRefreshOperationIdentifierKey;
 
 @interface LGORefreshRequest: LGORequest
 
@@ -38,21 +39,21 @@ static int kOperationKey;
     self.responseBlock = callbackBlock;
     NSObject *sender = self.request.context.sender;
     if ([self.request.opt isEqualToString:@"add"]){
-        if ([sender isKindOfClass:[LGOWKWebView class]]){
-            [((LGOWKWebView*)sender) configureRefreshControl:self];
-            objc_setAssociatedObject(sender, &kOperationKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        if ([sender isKindOfClass:[WKWebView class]]){
+            [((WKWebView *)sender) configureRefreshControl:self];
+            objc_setAssociatedObject(sender, &kRefreshOperationIdentifierKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
-        else if ([sender isKindOfClass:[LGOWebView class]]){
-            [((LGOWebView*)sender) configureRefreshControl:self];
-            objc_setAssociatedObject(sender, &kOperationKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        else if ([sender isKindOfClass:[UIWebView class]]){
+            [((UIWebView *)sender) configureRefreshControl:self];
+            objc_setAssociatedObject(sender, &kRefreshOperationIdentifierKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     else if([self.request.opt isEqualToString:@"complete"]){
-        if ([sender isKindOfClass:[LGOWKWebView class]]){
-            [((LGOWKWebView*)sender) endRefreshing];
+        if ([sender isKindOfClass:[WKWebView class]]){
+            [((WKWebView *)sender) endRefreshing];
         }
-        else if ([sender isKindOfClass:[LGOWebView class]]){
-            [((LGOWebView*)sender) endRefreshing];
+        else if ([sender isKindOfClass:[UIWebView class]]){
+            [((UIWebView *)sender) endRefreshing];
         }
     }
 }

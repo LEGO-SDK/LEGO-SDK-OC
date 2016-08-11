@@ -9,7 +9,6 @@
 #import "LGONotification.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-#import "LGOWebView.h"
 
 static NSMutableArray *observers;
 static NSNumber *observersGCLock;

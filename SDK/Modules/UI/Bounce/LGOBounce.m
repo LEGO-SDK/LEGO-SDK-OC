@@ -6,11 +6,10 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
+#import <WebKit/WebKit.h>
 #import "LGOBounce.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-#import "LGOWebView.h"
-#import "LGOWKWebView.h"
 
 @interface LGOBounceRequest: LGORequest
 
@@ -32,11 +31,11 @@
 
 - (LGOResponse *)requestSynchronize{
     UIView *webView = self.request.context.requestWebView;
-    if ([webView isKindOfClass:[LGOWebView class]]){
-        ((LGOWebView *)webView).scrollView.bounces = self.request.allow;
+    if ([webView isKindOfClass:[UIWebView class]]){
+        ((UIWebView *)webView).scrollView.bounces = self.request.allow;
     }
-    else if ([webView isKindOfClass:[LGOWKWebView class]]){
-        ((LGOWKWebView *)webView).scrollView.bounces = self.request.allow;
+    else if ([webView isKindOfClass:[WKWebView class]]){
+        ((WKWebView *)webView).scrollView.bounces = self.request.allow;
     }
     return [LGOResponse new];
 }

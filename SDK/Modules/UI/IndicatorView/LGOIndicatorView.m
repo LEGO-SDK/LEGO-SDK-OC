@@ -6,12 +6,10 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
+#import <WebKit/WebKit.h>
 #import "LGOIndicatorView.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-#import "LGOWebView.h"
-#import "LGOWKWebView.h"
-
 
 @interface LGOIndicatorViewRequest: LGORequest
 
@@ -34,15 +32,15 @@
 
 - (LGOResponse *)requestSynchronize{
     UIView *webView = [self.request.context requestWebView];
-    if ([webView isKindOfClass:[LGOWebView class]]){
-        ((LGOWebView *)webView).scrollView.showsHorizontalScrollIndicator = !self.request.hidden;
-        ((LGOWebView *)webView).scrollView.showsVerticalScrollIndicator = !self.request.hidden;
-        ((LGOWebView *)webView).scrollView.scrollIndicatorInsets = self.request.insets;
+    if ([webView isKindOfClass:[UIWebView class]]){
+        ((UIWebView *)webView).scrollView.showsHorizontalScrollIndicator = !self.request.hidden;
+        ((UIWebView *)webView).scrollView.showsVerticalScrollIndicator = !self.request.hidden;
+        ((UIWebView *)webView).scrollView.scrollIndicatorInsets = self.request.insets;
     }
-    else if ([webView isKindOfClass:[LGOWKWebView class]]){
-        ((LGOWKWebView *)webView).scrollView.showsHorizontalScrollIndicator = !self.request.hidden;
-        ((LGOWKWebView *)webView).scrollView.showsVerticalScrollIndicator = !self.request.hidden;
-        ((LGOWKWebView *)webView).scrollView.scrollIndicatorInsets = self.request.insets;
+    else if ([webView isKindOfClass:[WKWebView class]]){
+        ((WKWebView *)webView).scrollView.showsHorizontalScrollIndicator = !self.request.hidden;
+        ((WKWebView *)webView).scrollView.showsVerticalScrollIndicator = !self.request.hidden;
+        ((WKWebView *)webView).scrollView.scrollIndicatorInsets = self.request.insets;
     }
     return [LGOResponse new];
 }

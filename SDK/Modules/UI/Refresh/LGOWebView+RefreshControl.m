@@ -7,10 +7,13 @@
 //
 
 #import "LGOWebView+RefreshControl.h"
+#import <objc/runtime.h>
 
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 
-@implementation LGOWebView (RefreshControl)
+static int kRefreshControlIdentifierKey;
+
+@implementation UIWebView (RefreshControl)
 
 - (void)requestRefreshControl {
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -30,6 +33,14 @@
     if (self.refreshControl != nil) {
         [self.refreshControl endRefreshing];
     }
+}
+
+- (UIRefreshControl *)refreshControl {
+    return objc_getAssociatedObject(self, &kRefreshControlIdentifierKey);
+}
+
+- (void)setRefreshControl:(UIRefreshControl *)refreshControl {
+    objc_setAssociatedObject(self, &kRefreshControlIdentifierKey, refreshControl, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

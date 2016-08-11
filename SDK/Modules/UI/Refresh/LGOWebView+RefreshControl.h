@@ -1,14 +1,16 @@
 //
-//  LGOWKWebView+RefreshControl.h
+//  LGOWebView+RefreshControl.h
 //  LEGO-SDK-OC
 //
 //  Created by 崔明辉 on 16/7/27.
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOWKWebView.h"
+#import <UIKit/UIKit.h>
 
-@interface LGOWKWebView (RefreshControl)
+@interface UIWebView (RefreshControl)
+
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 - (void)requestRefreshControl;
 
