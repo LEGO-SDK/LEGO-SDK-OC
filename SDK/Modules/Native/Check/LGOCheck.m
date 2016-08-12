@@ -83,7 +83,7 @@
     return operation;
 }
 
-- (NSDictionary *)synchronizeResponse{
+- (NSDictionary *)synchronizeResponse:(UIView *)webView {
     NSMutableDictionary *checkResult = [NSMutableDictionary dictionary];
     for (NSString *module in LGOCore.modules.allModules) {
         [checkResult setObject:[NSNumber numberWithBool:YES] forKey:module];

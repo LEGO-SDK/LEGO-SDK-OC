@@ -12,6 +12,9 @@
 @implementation LGOWatchDog
 
 + (BOOL)checkURL:(NSURL *)URL {
+    if ([LGOCore.whiteList count] == 0) {
+        return YES;
+    }
     NSString *host = URL.host;
     if (host != nil) {
         for (NSString *whiteItem in [LGOCore.whiteList copy]) {
@@ -24,6 +27,9 @@
 }
 
 + (BOOL)checkSSL:(NSURL *)URL {
+    if ([LGOCore.requireSSL count] == 0) {
+        return YES;
+    }
     NSString *host = URL.host;
     if (host != nil) {
         for (NSString *sslItem in [LGOCore.requireSSL copy]) {
@@ -40,10 +46,13 @@
 
 + (BOOL)checkModule:(NSURL *)URL moduleName:(NSString *)moduleName {
     if (![self checkURL:URL]) {
-        return false;
+        return NO;
     }
     NSString *host = URL.host;
-    if (host != nil) {
+    if (host == nil && [LGOCore.whiteList count] == 0) {
+        return YES;
+    }
+    else if (host != nil) {
         NSArray<NSString *> *moduleSettings = LGOCore.whiteModule[moduleName];
         if (moduleSettings != nil) {
             for (NSString *moduleSetting in moduleSettings) {

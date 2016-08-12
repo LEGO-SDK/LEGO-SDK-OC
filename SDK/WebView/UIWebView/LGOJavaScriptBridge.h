@@ -28,11 +28,9 @@ typedef void(^LGOJSMessageCallCompletionBlock)(NSDictionary<NSString *, id> * _N
 
 @protocol LGOJSBridgeExport <JSExport>
 
-+ (nonnull NSString *)bridgeScript;
++ (nonnull NSString *)bridgeScript:(nonnull JSValue *)JSValue;
 
 + (void)exec:(nonnull JSValue *)JSONString;
-
-+ (void)log:(nonnull NSString *)text;
 
 @end
 

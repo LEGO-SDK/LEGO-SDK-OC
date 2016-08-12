@@ -76,10 +76,14 @@
     self = [super init];
     if (self) {
         [self addBridgeScript];
-        [self addSynchronizeResponses];
         [self addHandlers];
     }
     return self;
+}
+
+- (void)addPrescripts {
+    [self addSynchronizeResponses:self.webView];
+    [self addAssignArgs:self.webView];
 }
 
 - (void)addBridgeScript {
@@ -88,10 +92,10 @@
     [self addUserScript:[[WKUserScript alloc] initWithSource:@"window.addEventListener('load', function(){window.webkit.messageHandlers.JSLoaded.postMessage('')})" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
 }
 
-- (void)addSynchronizeResponses{
+- (void)addSynchronizeResponses:(UIView *)webView {
     for (NSString *moduleName in [LGOCore.modules allModules]) {
         LGOModule *module = [LGOCore.modules moduleWithName:moduleName];
-        NSDictionary* syncDict = [module synchronizeResponse];
+        NSDictionary* syncDict = [module synchronizeResponse:webView];
         if (syncDict != nil) {
             NSError *error = nil;
             NSData *JSONData = [NSJSONSerialization dataWithJSONObject:syncDict options:kNilOptions error:&error];
@@ -104,6 +108,32 @@
             if (JSONData2 == nil) {continue ;}
             NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
             [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"JSSynchronizeResponses['%@'] = JSON.parse(decodeURIComponent(atob('%@')));", moduleName, base64String] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO]];
+        }
+    }
+}
+
+- (void)addAssignArgs:(UIView *)webView {
+    if ([webView isKindOfClass:[WKWebView class]]) {
+        if ([webView respondsToSelector:NSSelectorFromString(@"lgo_args")]) {
+            NSDictionary *args = [webView valueForKey:@"lgo_args"];
+            if (args != nil) {
+                NSError *error = nil;
+                NSData *JSONData = [NSJSONSerialization dataWithJSONObject:args options:kNilOptions error:&error];
+                if (error == nil ) {
+                    NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
+                    if (JSONString != nil) {
+                        JSONString = [JSONString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                        if (JSONString != nil) {
+                            NSData *JSONData2 =  [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+                            if (JSONData2 != nil) {
+                                NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
+                                [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window._args = {}; Object.assign(window._args, JSON.parse(decodeURIComponent(atob('%@'))));", base64String] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO]];
+                            }
+                        }
+                    }
+                }
+                
+            }
         }
     }
 }

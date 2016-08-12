@@ -29,4 +29,6 @@ typedef void(^LGOWKMessageCallCompletionBlock)(NSDictionary<NSString *, id> * _N
 
 @property (nonatomic, weak) WKWebView * _Nullable webView;
 
+- (void)addPrescripts;
+
 @end

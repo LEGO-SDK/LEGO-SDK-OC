@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
-#import "LGOWebView.h"
 
 @interface JSContext (LGOProps)
 
-@property (nonatomic, strong) LGOWebView *lgo_webView;
+@property (nonatomic, strong) UIWebView *lgo_webView;
 
 @end

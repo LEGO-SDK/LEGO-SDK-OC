@@ -17,8 +17,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[LGOCore whiteList] addObject:@"127.0.0.1"];
-    [[LGOCore whiteList] addObject:@"github.com"];
     return YES;
 }
 

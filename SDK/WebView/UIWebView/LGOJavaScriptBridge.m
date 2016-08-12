@@ -67,15 +67,19 @@
 
 @implementation LGOJSBridge
 
-+ (NSString *)bridgeScript {
-    return [@"var JSMessageCallbacks=[];var JSSynchronizeResponses={};var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON.stringify(this));if(JSSynchronizeResponses[this.moduleName]!==undefined){return JSSynchronizeResponses[this.moduleName]}}}}};" stringByAppendingString:[self synchronizeResponse]];
++ (NSString *)bridgeScript:(nonnull JSValue *)JSValue {
+    return [
+            [@"var JSMessageCallbacks=[];var JSSynchronizeResponses={};var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON.stringify(this));if(JSSynchronizeResponses[this.moduleName]!==undefined){return JSSynchronizeResponses[this.moduleName]}}}}};"
+             stringByAppendingString:[self synchronizeResponse:JSValue.context.lgo_webView]]
+             stringByAppendingString:[self assignArgs:JSValue.context.lgo_webView]
+            ];
 }
 
-+ (NSString *)synchronizeResponse {
-    NSString* output = @"";
++ (NSString *)synchronizeResponse:(UIView *)webView {
+    NSString *output = @"";
     for (NSString *moduleName in [LGOCore.modules allModules]) {
         LGOModule *module = [LGOCore.modules moduleWithName:moduleName];
-        NSDictionary* syncDict = [module synchronizeResponse];
+        NSDictionary* syncDict = [module synchronizeResponse:webView];
         if (syncDict != nil) {
             NSError *error = nil;
             NSData *JSONData = [NSJSONSerialization dataWithJSONObject:syncDict options:kNilOptions error:&error];
@@ -93,12 +97,41 @@
     return output;
 }
 
++ (NSString *)assignArgs:(UIView *)webView {
+    NSString *output= @"";
+    if ([webView isKindOfClass:[UIWebView class]]) {
+        if ([webView respondsToSelector:NSSelectorFromString(@"lgo_args")]) {
+            NSDictionary *args = [webView valueForKey:@"lgo_args"];
+            if (args != nil) {
+                NSError *error = nil;
+                NSData *JSONData = [NSJSONSerialization dataWithJSONObject:args options:kNilOptions error:&error];
+                if (error == nil ) {
+                    NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
+                    if (JSONString != nil) {
+                        JSONString = [JSONString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                        if (JSONString != nil) {
+                            NSData *JSONData2 =  [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+                            if (JSONData2 != nil) {
+                                NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
+                                output = [output stringByAppendingString:
+                                          [NSString stringWithFormat:@"window._args = {}; Object.assign(window._args, JSON.parse(decodeURIComponent(atob('%@'))));", base64String]];
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+    return output;
+}
+
 + (void)exec:(JSValue *)JSONString {
-    LGOWebView *webView = JSONString.context.lgo_webView;
+    UIWebView *webView = JSONString.context.lgo_webView;
     if (webView == nil) {
         return;
     }
-    NSURL *URL = webView.URL;
+    NSURL *URL = webView.request.URL;
     if (URL == nil) {
         return;
     }
@@ -133,10 +166,6 @@
             }
         }
     }
-}
-
-+ (void)log:(NSString *)text {
-    NSLog(@"%@", text);
 }
 
 + (void)callbackWithID:(NSNumber *)callbackID result:(NSDictionary *)result webView:(UIWebView *)webView {

@@ -94,11 +94,11 @@
 
 - (UIView *)webView {
     if (_webView == nil) {
-//        _webView = [[LGOWebView alloc] initWithFrame:CGRectZero];
-//        [(LGOWebView *)_webView setDelegate:self];
-        _webView = [[LGOWKWebView alloc] initWithFrame:CGRectZero];
-        [(LGOWKWebView *)_webView setNavigationDelegate:self];
+        _webView = [[LGOWebView alloc] initWithFrame:CGRectZero];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        _webView = [[LGOWKWebView alloc] initWithFrame:CGRectZero];
+//        [(LGOWKWebView *)_webView setNavigationDelegate:self];
+//        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return _webView;
 }

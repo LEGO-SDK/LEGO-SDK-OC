@@ -13,11 +13,11 @@ static int kJSWebViewIdentifierKey;
 
 @implementation JSContext (LGOProps)
 
-- (void)setLgo_webView:(LGOWebView *)lgo_webView {
+- (void)setLgo_webView:(UIWebView *)lgo_webView {
     objc_setAssociatedObject(self, &kJSWebViewIdentifierKey, lgo_webView, OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (LGOWebView *)lgo_webView {
+- (UIWebView *)lgo_webView {
     return objc_getAssociatedObject(self, &kJSWebViewIdentifierKey);
 }
 

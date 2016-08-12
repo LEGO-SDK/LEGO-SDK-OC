@@ -7,7 +7,7 @@
 //
 
 #import "LGOModalPresentationTransition.h"
-
+#import "UIViewController+LGOViewController.h"
 
 @implementation LGOModalPresentationTransition
 

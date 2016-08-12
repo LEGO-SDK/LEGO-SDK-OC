@@ -55,6 +55,6 @@ typedef void(^LGORequestableAsynchronizeBlock)(LGOResponse * _Nonnull response);
 
 - (nonnull LGORequestable *)buildWithDictionary:(nonnull NSDictionary *)dictionary context:(nonnull LGORequestContext *)context;
 
-- (nullable NSDictionary *)synchronizeResponse;
+- (nullable NSDictionary *)synchronizeResponse:(nullable UIView *)webView;
 
 @end

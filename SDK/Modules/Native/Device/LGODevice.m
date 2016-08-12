@@ -133,7 +133,7 @@ static NSDictionary *custom;
     return [LGODeviceOperation new];
 }
 
-- (NSDictionary *)synchronizeResponse{
+- (NSDictionary *)synchronizeResponse:(UIView *)webView {
     return [[[LGODeviceOperation new] requestSynchronize] toDictionary];
 }
 

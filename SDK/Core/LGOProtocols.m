@@ -84,7 +84,7 @@
     return [[LGORequestable alloc] init];
 }
 
-- (NSDictionary *)synchronizeResponse{
+- (NSDictionary *)synchronizeResponse:(UIView *)webView {
     return nil;
 }
 
