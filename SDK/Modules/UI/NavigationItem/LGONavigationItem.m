@@ -55,7 +55,9 @@ UInt16 LGONavigationItemOperationPinKey;
 
 - (LGOResponse *)requestSynchronize{
     UIViewController *viewController = [self requestViewController];
-    if (viewController == nil) return nil;
+    if (viewController == nil) {
+        return nil;
+    }
     if (self.request.title != nil) {
         viewController.title = self.request.title;
     }
@@ -112,11 +114,11 @@ UInt16 LGONavigationItemOperationPinKey;
     callbackBlock([self requestSynchronize]);
 }
 
-- (UIViewController*)requestViewController{
+- (UIViewController *)requestViewController{
     UIView *view = [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender:nil;
-    if(view){
+    if(view != nil){
         UIResponder *next = [view nextResponder];
-        for (int count = 0; count<100; count++) {
+        for (int count = 0; count < 100; count++) {
             if([next isKindOfClass:[UIViewController class]]){
                 return (UIViewController *)next;
             }

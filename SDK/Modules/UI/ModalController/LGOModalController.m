@@ -8,13 +8,13 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 #import "LGOModalController.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 #import "LGOModalPresentationTransition.h"
 #import "LGOModalDismissTransition.h"
-#import "LGOWebViewController.h"
-#import "LGOWKWebView.h"
+#import "UIViewController+LGOViewController.h"
 
 @interface LGOModalRequest: LGORequest
 
@@ -88,14 +88,13 @@ NSDate *lastPresent;
     }
     
     NSURL *relativeURL = nil;
-    UIViewController *webViewController = self.request.context.requestViewController;
-    if (webViewController != nil && [webViewController isKindOfClass:[LGOWebViewController class]]){
-        UIView *webView = ((LGOWebViewController *)webViewController).webView;
-        if (webView != nil && [webView isKindOfClass:[LGOWKWebView class]]){
-            relativeURL = ((LGOWKWebView*)webView).URL;
-        }
+    UIView *webView = self.request.context.requestWebView;
+    if (webView != nil && [webView isKindOfClass:[UIWebView class]]){
+        relativeURL = ((UIWebView *)webView).request.URL;
     }
-    
+    if (webView != nil && [webView isKindOfClass:[WKWebView class]]){
+        relativeURL = ((WKWebView *)webView).URL;
+    }
     NSURL *URL = [NSURL URLWithString:self.request.path relativeToURL:relativeURL];
     if (URL != nil){
         [self presentWebView:URL];
@@ -104,16 +103,16 @@ NSDate *lastPresent;
 
 - (void)presentWebView:(NSURL *)URL{
     UIViewController *viewController = [self requestViewController];
-    if (viewController == nil) {return;}
-    LGOWebViewController *aWebViewController = [LGOWebViewController new];
-    aWebViewController.initializeContext = self.request.args;
-    aWebViewController.initializeRequest = [[NSURLRequest alloc] initWithURL:URL];
-    aWebViewController.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"] : @"";
-    
-    static BOOL presented = NO;
-    UIViewController *presentingViewController = aWebViewController;
+    if (viewController == nil) {
+        return;
+    }
+    UIViewController *nextViewController = [UIViewController new];
+    [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:self.request.args];
+    nextViewController.hidesBottomBarWhenPushed = YES;
+    nextViewController.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"]: @"";
+    UIViewController *presentingViewController = nextViewController;
     if (self.request.withNavigationController){
-        UINavigationController *naviController = [self requestNavigationController:aWebViewController];
+        UINavigationController *naviController = [self requestNavigationController:nextViewController];
         if (naviController != nil){
             if (self.request.edgeInsetsDidSet){
                 naviController.modalPresentationStyle = UIModalPresentationCustom;
@@ -124,37 +123,22 @@ NSDate *lastPresent;
         }
         else {
             if (self.request.edgeInsetsDidSet){
-                aWebViewController.modalPresentationStyle = UIModalPresentationCustom;
-                aWebViewController.transitioningDelegate = self;
+                nextViewController.modalPresentationStyle = UIModalPresentationCustom;
+                nextViewController.transitioningDelegate = self;
                 lastOperation = self;
             }
-            presentingViewController = aWebViewController;
+            presentingViewController = nextViewController;
         }
     }
     else{
         if (self.request.edgeInsetsDidSet){
-            aWebViewController.modalPresentationStyle = UIModalPresentationCustom;
-            aWebViewController.transitioningDelegate = self;
+            nextViewController.modalPresentationStyle = UIModalPresentationCustom;
+            nextViewController.transitioningDelegate = self;
             lastOperation = self;
         }
-        presentingViewController = aWebViewController;
+        presentingViewController = nextViewController;
     }
-    
-    if (aWebViewController.isPrerending){
-        aWebViewController.renderDidFinished = ^{
-            if (presented){ return ; }
-            presented = YES;
-            [viewController presentViewController:presentingViewController animated:YES completion:nil];
-        };
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (presented){ return ; }
-            presented = YES;
-            [viewController presentViewController:presentingViewController animated:YES completion:nil];
-        });
-    }
-    else{
-        [viewController presentViewController:presentingViewController animated:YES completion:nil];
-    }
+    [viewController presentViewController:presentingViewController animated:YES completion:nil];
 }
 
 - (UINavigationController *)requestNavigationController:(UIViewController*)rootViewController{
@@ -163,7 +147,7 @@ NSDate *lastPresent;
         Class naviClz = [requestVC.navigationController class];
         UINavigationController *naviController = [[naviClz alloc] init];
         [naviController setViewControllers:@[rootViewController] animated:NO];
-//        rootViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:naviController action: @selector(lgo_dismiss)];
+        rootViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:naviController action: @selector(lgo_dismiss)];
         return naviController;
     }
     return nil;

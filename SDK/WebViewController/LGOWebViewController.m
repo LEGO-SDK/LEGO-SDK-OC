@@ -11,16 +11,12 @@
 #import "LGOWKWebView.h"
 #import "LGOWebViewController+Basic.h"
 #import "LGOWebViewController+Title.h"
-#import "LGOWebViewController+StatusBar.h"
-#import "LGOWebViewController+RefreshControl.h"
 #import "LGOWebViewController+ProgressView.h"
 #import "LGOWebViewController+NavigationBar.h"
 
 @interface LGOWebViewController () <UIWebViewDelegate, WKNavigationDelegate>
 
 @property (nonatomic, assign) BOOL titleObserverConfigured;
-
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, assign) BOOL progressObserverConfigured;
@@ -70,17 +66,6 @@
     [self configureProgressView];
     [self configureTitleObserver];
     [self configureProgressObserver];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self statusBar_viewWillAppear];
-    [self navigationBar_viewWillAppear];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self statusBar_viewWillDisappear];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -8,6 +8,7 @@
 
 #import "SDKSampleJavaScriptListViewController.h"
 #import "SDKSampleJavaScriptItemViewController.h"
+#import "UIViewController+LGOViewController.h"
 
 @implementation SDKSampleJavaScriptListViewController
 
@@ -20,6 +21,9 @@
 }
 
 - (IBAction)handleButtonTapped:(UIButton *)sender {
+//    UIViewController *viewController = [[UIViewController alloc] initWithNibName:nil bundle:nil];
+//    [viewController lgo_openWebViewWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.github.com/"]] args:@{}];
+//    [self.navigationController pushViewController:viewController animated:YES];
     SDKSampleJavaScriptItemViewController *viewController = [[UIStoryboard storyboardWithName:@"SDKSample" bundle:nil] instantiateViewControllerWithIdentifier:@"SDKSampleJavaScriptItemViewController"];
     viewController.title = sender.accessibilityLabel;
     viewController.file = sender.accessibilityLabel;

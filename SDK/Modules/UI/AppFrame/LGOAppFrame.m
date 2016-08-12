@@ -12,7 +12,7 @@
 #import "LGOAppFrame.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-#import "LGOWebViewController.h"
+#import "UIViewController+LGOViewController.h"
 
 @interface LGOAppFrameEntity : NSObject
 
@@ -84,7 +84,7 @@
     return nil;
 }
 
-- (UIViewController *)viewController:(LGOAppFrameEntity *)item{
+- (UIViewController *)viewController:(LGOAppFrameEntity *)item {
     if (item == nil){
         return nil;
     }
@@ -100,29 +100,34 @@
     if (URL == nil) {
         return nil;
     }
-    LGOWebViewController *aWebViewController = [LGOWebViewController new];
-    aWebViewController.initializeContext = item.frameArgs;
-    aWebViewController.initializeRequest = [[NSURLRequest alloc] initWithURL:URL];
-    aWebViewController.title = [item.frameArgs[@"title"] isKindOfClass:[NSString class]] ? item.frameArgs[@"title"] : @"";
+    UIViewController *nextViewController = [UIViewController new];
+    [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:item.frameArgs];
+    nextViewController.title = [item.frameArgs[@"title"] isKindOfClass:[NSString class]]? item.frameArgs[@"title"]: @"";
     [[NSOperationQueue new] addOperationWithBlock:^{
         UITabBarItem *tabItem = [self requestTabItem:item];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            aWebViewController.tabBarItem = tabItem;
+            nextViewController.tabBarItem = tabItem;
         }];
     }];
-    return aWebViewController;
+    return nextViewController;
 }
 
 - (UITabBarItem *)requestTabItem:(LGOAppFrameEntity *)item{
     NSString *icon = item.icon;
-    if (icon == nil) return nil;
+    if (icon == nil) {
+        return nil;
+    }
     NSURL *iconURL = [NSURL URLWithString:icon];
-    if(iconURL == nil) return nil;
+    if(iconURL == nil) {
+        return nil;
+    }
     
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:iconURL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:10.0];
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     UIImage *image = [UIImage imageWithData:data scale:2.0];
-    if (image == nil) return nil;
+    if (image == nil) {
+        return nil;
+    }
     NSString *title = [item.frameArgs[@"title"] isKindOfClass:[NSString class]]? item.frameArgs[@"title"] : nil;
     return [[UITabBarItem alloc] initWithTitle:title image:image tag:0];
 }

@@ -10,10 +10,13 @@
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
 #import "LGOWebViewController.h"
+#import "UIViewController+LGOStatusBar.h"
 
 @interface LGOStatusBarRequest: LGORequest
 
 @property (nonatomic, strong) NSString *style; // light/default
+@property (nonatomic, strong) NSNumber *hidden; // boolean
+@property (nonatomic, assign) BOOL animated; // boolean
 
 @end
 
@@ -29,30 +32,44 @@
 
 @implementation LGOStatusBarOperation
 
-- (void)updateInitContext{
-    UIViewController *viewController = [self.request.context requestViewController];
-    if ([viewController isKindOfClass:[LGOWebViewController class]]){
-        NSDictionary *initialzeContext = ((LGOWebViewController *)viewController).initializeContext;
-        if (initialzeContext != nil){
-            [initialzeContext setValue:self.request.style forKey:@"statusBarStyle"];
-            ((LGOWebViewController *)viewController).initializeContext = initialzeContext;
+- (void)updatePreference:(UIViewController *)viewController {
+    if (self.request.animated) {
+        [UIView animateWithDuration:0.25 animations:^{
             [viewController setNeedsStatusBarAppearanceUpdate];
-        }
+        }];
+    }
+    else {
+        [viewController setNeedsStatusBarAppearanceUpdate];
     }
 }
 
--(LGOResponse *)requestSynchronize{
+- (LGOResponse *)requestSynchronize {
+    UIViewController *viewController = [self.request.context requestViewController];
+    if (viewController != nil) {
+        if ([self.request.style isEqualToString:@"light"]) {
+            viewController.lgo_statusBarStyle = UIStatusBarStyleLightContent;
+        }
+        else if (self.request.style != nil) {
+            viewController.lgo_statusBarStyle = UIStatusBarStyleDefault;
+        }
+        if ([self.request.hidden isEqualToNumber:@(YES)]) {
+            viewController.lgo_statusBarHidden = YES;
+        }
+        else if (self.request.style != nil) {
+            viewController.lgo_statusBarHidden = NO;
+        }
+    }
     NSDictionary *value = [NSBundle mainBundle].infoDictionary[@"UIViewControllerBasedStatusBarAppearance"] ;
     if ([value isKindOfClass:[NSNumber class]]){
-        if (((NSNumber *)value).boolValue){
-            [[UIApplication sharedApplication] setStatusBarStyle: [self.request.style isEqualToString:@"light"]? UIStatusBarStyleLightContent : UIStatusBarStyleDefault animated:YES];
+        if (!((NSNumber *)value).boolValue){
+            [viewController lgo_setNeedsStatusBarAppearanceUpdate:self.request.animated];
         }
         else {
-            [self updateInitContext];
+            [self updatePreference:viewController];
         }
     }
     else {
-        [self updateInitContext];
+        [self updatePreference:viewController];
     }
     return [LGOResponse new];
 }
@@ -71,13 +88,11 @@
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
-    NSString *style = [dictionary[@"style"] isKindOfClass:[NSString class]] ? dictionary[@"style"] : nil;
-    if (style == nil){
-        return [[LGOBuildFailed alloc] initWithErrorString:@"RequestParam Required: style"];
-    }
     LGOStatusBarRequest *request = [LGOStatusBarRequest new];
     request.context = context;
-    request.style = style;
+    request.style = [dictionary[@"style"] isKindOfClass:[NSString class]] ? dictionary[@"style"] : nil;
+    request.hidden = [dictionary[@"hidden"] isKindOfClass:[NSNumber class]] ? dictionary[@"hidden"] : nil;
+    request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]] ? [dictionary[@"animated"] boolValue] : YES;
     return [self buildWithRequest:request];
 }
 

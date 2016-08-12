@@ -10,7 +10,7 @@
 #import "LGONavigationController.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-#import "LGOWebViewController.h"
+#import "UIViewController+LGOViewController.h"
 
 @interface LGONavigationRequest: LGORequest
 
@@ -77,36 +77,15 @@ static NSDate *lastPush;
 }
 
 - (void)pushWebView:(NSURL*)URL{
-    LGOWebViewController *aWebViewController = [LGOWebViewController new];
-    aWebViewController.initializeContext = self.request.args;
-    aWebViewController.initializeRequest = [[NSURLRequest alloc] initWithURL:URL];
-    aWebViewController.hidesBottomBarWhenPushed = YES;
-    aWebViewController.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"]: @"";
-    
-    UIViewController *requestVC = [self.request.context requestViewController];
-    UINavigationController *naviVC = requestVC? requestVC.navigationController : nil;
-    if (naviVC == nil) { return; }
-    
-    if (aWebViewController.isPrerending){
-        static BOOL pushed = NO;
-        __weak LGOWebViewController *weakWebViewController = aWebViewController;
-        aWebViewController.renderDidFinished = ^{
-            LGOWebViewController *strongWebViewController = weakWebViewController;
-            if (pushed || strongWebViewController == nil) {
-                return ;
-            }
-            pushed = YES;
-            [naviVC pushViewController:strongWebViewController animated:self.request.animated];
-        };
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(500 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (pushed){ return ; }
-            pushed = YES;
-            [naviVC pushViewController:aWebViewController animated:self.request.animated];
-        });
+    UIViewController *nextViewController = [UIViewController new];
+    [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:self.request.args];
+    nextViewController.hidesBottomBarWhenPushed = YES;
+    nextViewController.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"]: @"";
+    UINavigationController *navigationController = [[self.request.context requestViewController] navigationController];
+    if (navigationController == nil) {
+        return;
     }
-    else{
-        [naviVC pushViewController:aWebViewController animated:self.request.animated];
-    }
+    [navigationController pushViewController:nextViewController animated:self.request.animated];
 }
 
 @end
