@@ -208,7 +208,18 @@
         }
     }
     else if ([message.name isEqualToString:@"JSLoaded"]) {
-        
+        UIResponder *next = [(UIView *)self.webView nextResponder];
+        while (next != nil && ![next isKindOfClass:[UIViewController class]]) {
+            next = [next nextResponder];
+        }
+        if ([next isKindOfClass:[UIViewController class]] && ([(UIViewController *)next title] == nil || [(UIViewController *)next title].length == 0)) {
+            [self.webView evaluateJavaScript:@"document.title" completionHandler:^(id _Nullable title, NSError * _Nullable error) {
+                if ([title isKindOfClass:[NSString class]]) {
+                    [(UIViewController *)next setTitle:title];
+                }
+            }];
+            
+        }
     }
 }
 

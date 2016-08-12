@@ -32,6 +32,8 @@ typedef void(^LGOJSMessageCallCompletionBlock)(NSDictionary<NSString *, id> * _N
 
 + (void)exec:(nonnull JSValue *)JSONString;
 
++ (void)setTitle:(nonnull JSValue *)title;
+
 @end
 
 @interface LGOJSBridge: NSObject <LGOJSBridgeExport>

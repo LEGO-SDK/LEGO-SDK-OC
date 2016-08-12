@@ -10,7 +10,6 @@
 #import "LGOWebView.h"
 #import "LGOWKWebView.h"
 #import "LGOWebViewController+Basic.h"
-#import "LGOWebViewController+Title.h"
 #import "LGOWebViewController+ProgressView.h"
 #import "LGOWebViewController+NavigationBar.h"
 
@@ -35,7 +34,6 @@
     else if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView *)self.webView setDelegate:nil];
     }
-    [self unconfigureTitleObserver];
     [self unconfigureProgressObserver];
 }
 
@@ -64,7 +62,6 @@
     [self.view addSubview:self.webView];
     self.webView.frame = self.view.bounds;
     [self configureProgressView];
-    [self configureTitleObserver];
     [self configureProgressObserver];
 }
 
@@ -82,23 +79,18 @@
 #pragma mark - Components
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    [self title_observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     [self progress_observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [self title_webViewDidFinishLoad:webView];
 }
 
 #pragma mark - Getter & Setter
 
 - (UIView *)webView {
     if (_webView == nil) {
-        _webView = [[LGOWebView alloc] initWithFrame:CGRectZero];
-        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//        _webView = [[LGOWKWebView alloc] initWithFrame:CGRectZero];
-//        [(LGOWKWebView *)_webView setNavigationDelegate:self];
+//        _webView = [[LGOWebView alloc] initWithFrame:CGRectZero];
 //        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _webView = [[LGOWKWebView alloc] initWithFrame:CGRectZero];
+        [(LGOWKWebView *)_webView setNavigationDelegate:self];
+        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return _webView;
 }

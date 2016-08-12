@@ -7,7 +7,6 @@
 //
 
 #import "LGOWebViewController+Render.h"
-#import "LGOWebViewController+Title.h"
 #import <WebKit/WebKit.h>
 
 
@@ -45,17 +44,12 @@
 - (void)webViewDidFinishedRender:(WKWebView*)webView{
     if (self.renderDidFinished) {
         [self stopPrerending];
-        [self title_wkWebViewDidFinishLoad:webView];
         self.renderDidFinished();
         WKWebView* webView = [self.webView isKindOfClass:[WKWebView class]]? (WKWebView*)self.webView : nil;
         if(webView){
             [webView evaluateJavaScript:@"JSRender()" completionHandler:nil];
         }
     }
-}
-
-- (void)webView:(WKWebView*)webView didFinishNavigation:(WKNavigation*)navigation{
-    [self title_wkWebViewDidFinishLoad:webView];
 }
 
 @end

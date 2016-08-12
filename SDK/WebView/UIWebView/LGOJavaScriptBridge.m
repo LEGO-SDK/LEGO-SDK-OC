@@ -68,10 +68,11 @@
 @implementation LGOJSBridge
 
 + (NSString *)bridgeScript:(nonnull JSValue *)JSValue {
-    return [
-            [@"var JSMessageCallbacks=[];var JSSynchronizeResponses={};var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON.stringify(this));if(JSSynchronizeResponses[this.moduleName]!==undefined){return JSSynchronizeResponses[this.moduleName]}}}}};"
-             stringByAppendingString:[self synchronizeResponse:JSValue.context.lgo_webView]]
-             stringByAppendingString:[self assignArgs:JSValue.context.lgo_webView]
+    return [NSString stringWithFormat:@"%@%@%@%@",
+            @"var JSMessageCallbacks=[];var JSSynchronizeResponses={};var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON.stringify(this));if(JSSynchronizeResponses[this.moduleName]!==undefined){return JSSynchronizeResponses[this.moduleName]}}}}};",
+            [self synchronizeResponse:JSValue.context.lgo_webView],
+            [self assignArgs:JSValue.context.lgo_webView],
+            [self titleScript]
             ];
 }
 
@@ -126,6 +127,10 @@
     return output;
 }
 
++ (NSString *)titleScript {
+    return @"(function(){JSBridge.setTitle(document.title)})()";
+}
+
 + (void)exec:(JSValue *)JSONString {
     UIWebView *webView = JSONString.context.lgo_webView;
     if (webView == nil) {
@@ -164,6 +169,18 @@
             else {
                 NSLog(@"%@", [body stringByRemovingPercentEncoding]);
             }
+        }
+    }
+}
+
++ (void)setTitle:(JSValue *)title {
+    UIResponder *next = [(UIView *)title.context.lgo_webView nextResponder];
+    while (next != nil && ![next isKindOfClass:[UIViewController class]]) {
+        next = [next nextResponder];
+    }
+    if ([next isKindOfClass:[UIViewController class]] && ([(UIViewController *)next title] == nil || [(UIViewController *)next title].length == 0)) {
+        if ([title isString]) {
+            [(UIViewController *)next setTitle:title.toString];
         }
     }
 }
