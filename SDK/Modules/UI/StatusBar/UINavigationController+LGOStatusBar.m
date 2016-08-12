@@ -91,8 +91,8 @@
     NSDictionary *value = [NSBundle mainBundle].infoDictionary[@"UIViewControllerBasedStatusBarAppearance"] ;
     if ([value isKindOfClass:[NSNumber class]]){
         if (!((NSNumber *)value).boolValue){
-            [[UIApplication sharedApplication] setStatusBarStyle:[self.visibleViewController lgo_statusBarStyle] animated:NO];
-            [[UIApplication sharedApplication] setStatusBarHidden:[self.visibleViewController lgo_statusBarHidden] withAnimation:UIStatusBarAnimationNone];
+            [[UIApplication sharedApplication] setStatusBarStyle:[self.visibleViewController preferredStatusBarStyle] animated:NO];
+            [[UIApplication sharedApplication] setStatusBarHidden:[self.visibleViewController prefersStatusBarHidden] withAnimation:UIStatusBarAnimationNone];
         }
         else {
             [self lgo_setNeedsStatusBarAppearanceUpdate];
@@ -104,11 +104,11 @@
 }
 
 - (UIStatusBarStyle)lgo_preferredStatusBarStyle {
-    return [self.visibleViewController lgo_statusBarStyle];
+    return [self.visibleViewController preferredStatusBarStyle];
 }
 
 - (BOOL)lgo_prefersStatusBarHidden {
-    return [self.visibleViewController lgo_statusBarHidden];
+    return [self.visibleViewController prefersStatusBarHidden];
 }
 
 @end
