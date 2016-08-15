@@ -15,7 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.webView = [[LGOWKWebView alloc] initWithFrame:CGRectZero];
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.webView.frame = self.view.bounds;
     [self.view addSubview:self.webView];

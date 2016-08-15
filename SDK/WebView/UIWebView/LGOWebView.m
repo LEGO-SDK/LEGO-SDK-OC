@@ -52,6 +52,9 @@
 }
 
 - (void)configureContext {
+    if ([self respondsToSelector:NSSelectorFromString(@"lgo_context")]) {
+        return;
+    }
     JSContext *context = [self valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     if (context != nil && context != self.context) {
         context.lgo_webView = self;

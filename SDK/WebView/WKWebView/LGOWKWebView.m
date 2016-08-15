@@ -40,7 +40,8 @@
 
 - (instancetype)initWithFrame:(CGRect)frame configuration:(nonnull WKWebViewConfiguration *)configuration
 {
-    self = [super initWithFrame:frame configuration:[LGOWKWebView bridge_configuration]];
+    self = [super initWithFrame:frame
+                  configuration:[configuration.userContentController isKindOfClass:[LGOJavaScriptUserContentController class]] ? configuration : [LGOWKWebView bridge_configuration]];
     if (self) {
         [(LGOJavaScriptUserContentController *)self.configuration.userContentController setWebView:self];
         _dataModel = [NSMutableDictionary new];

@@ -86,6 +86,8 @@
 		90F8D3CF1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3CE1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m */; };
 		90F8D3D21D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3D11D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m */; };
 		90F8D3D71D6162CB00CBEDB2 /* LGOProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3D61D6162CB00CBEDB2 /* LGOProgressView.m */; };
+		90F8D3DB1D61805E00CBEDB2 /* UIWebView+LGOAutoInject.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3DA1D61805E00CBEDB2 /* UIWebView+LGOAutoInject.m */; };
+		90F8D3DE1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3DD1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m */; };
 		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; };
 /* End PBXBuildFile section */
 
@@ -244,6 +246,10 @@
 		90F8D3D11D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+LGONavigationBar.m"; sourceTree = "<group>"; };
 		90F8D3D51D6162CB00CBEDB2 /* LGOProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOProgressView.h; sourceTree = "<group>"; };
 		90F8D3D61D6162CB00CBEDB2 /* LGOProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOProgressView.m; sourceTree = "<group>"; };
+		90F8D3D91D61805E00CBEDB2 /* UIWebView+LGOAutoInject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+LGOAutoInject.h"; sourceTree = "<group>"; };
+		90F8D3DA1D61805E00CBEDB2 /* UIWebView+LGOAutoInject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+LGOAutoInject.m"; sourceTree = "<group>"; };
+		90F8D3DC1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+LGOAutoInject.h"; sourceTree = "<group>"; };
+		90F8D3DD1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+LGOAutoInject.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -597,6 +603,7 @@
 		90E8CCF91D470A7A005F4746 /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				90F8D3D81D61801C00CBEDB2 /* AutoInject */,
 				90E8CCFB1D470A94005F4746 /* UIWebView */,
 				90E8CCFC1D470A94005F4746 /* WKWebView */,
 			);
@@ -732,6 +739,17 @@
 				90F8D3D61D6162CB00CBEDB2 /* LGOProgressView.m */,
 			);
 			path = ProgressView;
+			sourceTree = "<group>";
+		};
+		90F8D3D81D61801C00CBEDB2 /* AutoInject */ = {
+			isa = PBXGroup;
+			children = (
+				90F8D3D91D61805E00CBEDB2 /* UIWebView+LGOAutoInject.h */,
+				90F8D3DA1D61805E00CBEDB2 /* UIWebView+LGOAutoInject.m */,
+				90F8D3DC1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.h */,
+				90F8D3DD1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m */,
+			);
+			path = AutoInject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -933,6 +951,7 @@
 				40608A241D534ABE00219874 /* LGOStatusBar.m in Sources */,
 				9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */,
 				90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */,
+				90F8D3DE1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m in Sources */,
 				906F11E51D5C7C40001F64DF /* UIViewController+LGOViewController.m in Sources */,
 				90E8CD021D470ACF005F4746 /* LGOJavaScriptBridge.m in Sources */,
 				90673F921D5C29C0009B9D9B /* LGOWKWebView+RefreshControl.m in Sources */,
@@ -946,6 +965,7 @@
 				402EA9C21D4F010200E01F88 /* LGODataModel.m in Sources */,
 				90673F911D5C29C0009B9D9B /* LGOWebView+RefreshControl.m in Sources */,
 				40608A041D51C3D900219874 /* LGOOpenURL.m in Sources */,
+				90F8D3DB1D61805E00CBEDB2 /* UIWebView+LGOAutoInject.m in Sources */,
 				906F11E81D5C88EE001F64DF /* UIViewController+LGOStatusBar.m in Sources */,
 				906F11E21D5C7C2B001F64DF /* LGONavigationItem.m in Sources */,
 				9050A53B1D48C06C00306F9E /* LGOMIMETypes.m in Sources */,
