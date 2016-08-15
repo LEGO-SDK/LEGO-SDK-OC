@@ -9,7 +9,6 @@
 #import "LGOStatusBar.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-#import "LGOWebViewController.h"
 #import "UIViewController+LGOStatusBar.h"
 
 @interface LGOStatusBarRequest: LGORequest

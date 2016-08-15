@@ -7,14 +7,22 @@
 //
 
 #import "SDKSampleJavaScriptItemViewController.h"
+#import "LGOWKWebView.h"
 #import "LGOWebView+DataModel.h"
 #import "LGOWKWebView+DataModel.h"
-@import WebKit;
 
 @implementation SDKSampleJavaScriptItemViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.webView = [[LGOWKWebView alloc] initWithFrame:CGRectZero];
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.webView.frame = self.view.bounds;
+    [self.view addSubview:self.webView];
+    [self configureTests];
+}
+
+- (void)configureTests {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:self.file ofType:@"html"];
     NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     if ([self.webView isKindOfClass:[UIWebView class]]) {
