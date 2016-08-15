@@ -10,7 +10,6 @@
 #import "LGOWebView.h"
 #import "LGOWKWebView.h"
 #import "LGOWebViewController+Basic.h"
-#import "LGOWebViewController+ProgressView.h"
 
 @interface LGOWebViewController () <UIWebViewDelegate, WKNavigationDelegate>
 
@@ -33,7 +32,6 @@
     else if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView *)self.webView setDelegate:nil];
     }
-    [self unconfigureProgressObserver];
 }
 
 - (instancetype)initWithTitle:(NSString *)title URLString:(NSString *)URLString
@@ -60,19 +58,11 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     [self.view addSubview:self.webView];
     self.webView.frame = self.view.bounds;
-    [self configureProgressView];
-    [self configureProgressObserver];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.renderDidFinished = nil;
-}
-
-#pragma mark - Components
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    [self progress_observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 #pragma mark - Getter & Setter

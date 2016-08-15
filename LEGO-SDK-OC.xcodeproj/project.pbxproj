@@ -32,7 +32,6 @@
 		9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4F71D484D2600306F9E /* LGOWKWebView.m */; };
 		9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4FA1D4850F700306F9E /* LGOJavaScriptUserContentController.m */; };
 		9050A5191D48914A00306F9E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9050A5181D48914A00306F9E /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		9050A51F1D48939E00306F9E /* LGOWebViewController+ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A51E1D48939E00306F9E /* LGOWebViewController+ProgressView.m */; };
 		9050A52E1D48AA5D00306F9E /* LGOWebViewController+Render.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A52D1D48AA5D00306F9E /* LGOWebViewController+Render.m */; };
 		9050A5321D48B26300306F9E /* LGOWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A5311D48B26300306F9E /* LGOWebCache.m */; };
 		9050A5351D48B62A00306F9E /* LGOWebHTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A5341D48B62A00306F9E /* LGOWebHTTPService.m */; };
@@ -43,8 +42,6 @@
 		906F11CF1D5C5A3B001F64DF /* LGOWebView+DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11CC1D5C5A3B001F64DF /* LGOWebView+DataModel.m */; };
 		906F11D01D5C5A3B001F64DF /* LGOWKWebView+DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11CE1D5C5A3B001F64DF /* LGOWKWebView+DataModel.m */; };
 		906F11DE1D5C7C2B001F64DF /* LGOModalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11D31D5C7C2B001F64DF /* LGOModalController.m */; };
-		906F11DF1D5C7C2B001F64DF /* LGOModalDismissTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11D51D5C7C2B001F64DF /* LGOModalDismissTransition.m */; };
-		906F11E01D5C7C2B001F64DF /* LGOModalPresentationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11D71D5C7C2B001F64DF /* LGOModalPresentationTransition.m */; };
 		906F11E11D5C7C2B001F64DF /* LGONavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11DA1D5C7C2B001F64DF /* LGONavigationController.m */; };
 		906F11E21D5C7C2B001F64DF /* LGONavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11DD1D5C7C2B001F64DF /* LGONavigationItem.m */; };
 		906F11E51D5C7C40001F64DF /* UIViewController+LGOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11E41D5C7C40001F64DF /* UIViewController+LGOViewController.m */; };
@@ -91,6 +88,7 @@
 		90F8D3CC1D6153AC00CBEDB2 /* LGONavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3CB1D6153AC00CBEDB2 /* LGONavigationBar.m */; };
 		90F8D3CF1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3CE1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m */; };
 		90F8D3D21D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3D11D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m */; };
+		90F8D3D71D6162CB00CBEDB2 /* LGOProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3D61D6162CB00CBEDB2 /* LGOProgressView.m */; };
 		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; };
 /* End PBXBuildFile section */
 
@@ -160,8 +158,6 @@
 		9050A4F91D4850F700306F9E /* LGOJavaScriptUserContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOJavaScriptUserContentController.h; sourceTree = "<group>"; };
 		9050A4FA1D4850F700306F9E /* LGOJavaScriptUserContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOJavaScriptUserContentController.m; sourceTree = "<group>"; };
 		9050A5181D48914A00306F9E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		9050A51D1D48939E00306F9E /* LGOWebViewController+ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+ProgressView.h"; sourceTree = "<group>"; };
-		9050A51E1D48939E00306F9E /* LGOWebViewController+ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+ProgressView.m"; sourceTree = "<group>"; };
 		9050A52C1D48AA5D00306F9E /* LGOWebViewController+Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+Render.h"; sourceTree = "<group>"; };
 		9050A52D1D48AA5D00306F9E /* LGOWebViewController+Render.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+Render.m"; sourceTree = "<group>"; };
 		9050A5301D48B26300306F9E /* LGOWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOWebCache.h; sourceTree = "<group>"; };
@@ -183,10 +179,6 @@
 		906F11CE1D5C5A3B001F64DF /* LGOWKWebView+DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWKWebView+DataModel.m"; sourceTree = "<group>"; };
 		906F11D21D5C7C2B001F64DF /* LGOModalController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOModalController.h; sourceTree = "<group>"; };
 		906F11D31D5C7C2B001F64DF /* LGOModalController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOModalController.m; sourceTree = "<group>"; };
-		906F11D41D5C7C2B001F64DF /* LGOModalDismissTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOModalDismissTransition.h; sourceTree = "<group>"; };
-		906F11D51D5C7C2B001F64DF /* LGOModalDismissTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOModalDismissTransition.m; sourceTree = "<group>"; };
-		906F11D61D5C7C2B001F64DF /* LGOModalPresentationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOModalPresentationTransition.h; sourceTree = "<group>"; };
-		906F11D71D5C7C2B001F64DF /* LGOModalPresentationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOModalPresentationTransition.m; sourceTree = "<group>"; };
 		906F11D91D5C7C2B001F64DF /* LGONavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGONavigationController.h; sourceTree = "<group>"; };
 		906F11DA1D5C7C2B001F64DF /* LGONavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGONavigationController.m; sourceTree = "<group>"; };
 		906F11DC1D5C7C2B001F64DF /* LGONavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGONavigationItem.h; sourceTree = "<group>"; };
@@ -259,6 +251,8 @@
 		90F8D3CE1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LGONavigationBar.m"; sourceTree = "<group>"; };
 		90F8D3D01D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+LGONavigationBar.h"; sourceTree = "<group>"; };
 		90F8D3D11D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+LGONavigationBar.m"; sourceTree = "<group>"; };
+		90F8D3D51D6162CB00CBEDB2 /* LGOProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOProgressView.h; sourceTree = "<group>"; };
+		90F8D3D61D6162CB00CBEDB2 /* LGOProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +370,7 @@
 		40608A0C1D52F0D200219874 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				90F8D3D41D61620E00CBEDB2 /* ProgressView */,
 				906F11EF1D5DB115001F64DF /* NavigationBar */,
 				906F11D11D5C7C2B001F64DF /* ModalController */,
 				906F11D81D5C7C2B001F64DF /* NavigationController */,
@@ -521,10 +516,6 @@
 			children = (
 				906F11D21D5C7C2B001F64DF /* LGOModalController.h */,
 				906F11D31D5C7C2B001F64DF /* LGOModalController.m */,
-				906F11D41D5C7C2B001F64DF /* LGOModalDismissTransition.h */,
-				906F11D51D5C7C2B001F64DF /* LGOModalDismissTransition.m */,
-				906F11D61D5C7C2B001F64DF /* LGOModalPresentationTransition.h */,
-				906F11D71D5C7C2B001F64DF /* LGOModalPresentationTransition.m */,
 			);
 			path = ModalController;
 			sourceTree = "<group>";
@@ -631,8 +622,6 @@
 				9050A4F41D484B2700306F9E /* LGOWebViewController+Basic.m */,
 				9050A52C1D48AA5D00306F9E /* LGOWebViewController+Render.h */,
 				9050A52D1D48AA5D00306F9E /* LGOWebViewController+Render.m */,
-				9050A51D1D48939E00306F9E /* LGOWebViewController+ProgressView.h */,
-				9050A51E1D48939E00306F9E /* LGOWebViewController+ProgressView.m */,
 			);
 			path = WebViewController;
 			sourceTree = "<group>";
@@ -757,6 +746,15 @@
 				90E8CD641D4760D7005F4746 /* LGOCheck.m */,
 			);
 			path = Check;
+			sourceTree = "<group>";
+		};
+		90F8D3D41D61620E00CBEDB2 /* ProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				90F8D3D51D6162CB00CBEDB2 /* LGOProgressView.h */,
+				90F8D3D61D6162CB00CBEDB2 /* LGOProgressView.m */,
+			);
+			path = ProgressView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -920,6 +918,7 @@
 				40608A3C1D5759DC00219874 /* LGORefresh.m in Sources */,
 				40608A1E1D5339DE00219874 /* LGOBounce.m in Sources */,
 				906F11DE1D5C7C2B001F64DF /* LGOModalController.m in Sources */,
+				90F8D3D71D6162CB00CBEDB2 /* LGOProgressView.m in Sources */,
 				906F11F51D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.m in Sources */,
 				906F11EE1D5D9FD8001F64DF /* UITabBarController+LGOStatusBar.m in Sources */,
 				40608A391D54A5FA00219874 /* LGOImagePreviewer.m in Sources */,
@@ -939,7 +938,6 @@
 				90F8D3CC1D6153AC00CBEDB2 /* LGONavigationBar.m in Sources */,
 				90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */,
 				906F11D01D5C5A3B001F64DF /* LGOWKWebView+DataModel.m in Sources */,
-				906F11E01D5C7C2B001F64DF /* LGOModalPresentationTransition.m in Sources */,
 				90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */,
 				402EA9BE1D4B39B500E01F88 /* LGOCall.m in Sources */,
 				906F11CF1D5C5A3B001F64DF /* LGOWebView+DataModel.m in Sources */,
@@ -969,10 +967,8 @@
 				40608A1B1D532BB200219874 /* LGOAlertView.m in Sources */,
 				906F11F21D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m in Sources */,
 				90E8CCD01D470892005F4746 /* main.m in Sources */,
-				906F11DF1D5C7C2B001F64DF /* LGOModalDismissTransition.m in Sources */,
 				90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */,
 				90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */,
-				9050A51F1D48939E00306F9E /* LGOWebViewController+ProgressView.m in Sources */,
 				402EA9C21D4F010200E01F88 /* LGODataModel.m in Sources */,
 				90673F911D5C29C0009B9D9B /* LGOWebView+RefreshControl.m in Sources */,
 				40608A041D51C3D900219874 /* LGOOpenURL.m in Sources */,

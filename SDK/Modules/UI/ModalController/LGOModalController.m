@@ -12,8 +12,6 @@
 #import "LGOModalController.h"
 #import "LGOCore.h"
 #import "LGOBuildFailed.h"
-#import "LGOModalPresentationTransition.h"
-#import "LGOModalDismissTransition.h"
 #import "UIViewController+LGOViewController.h"
 
 @interface LGOModalRequest: LGORequest
