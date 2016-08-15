@@ -55,7 +55,7 @@
         if ([self.request.hidden isEqualToNumber:@(YES)]) {
             viewController.lgo_statusBarHidden = YES;
         }
-        else if (self.request.style != nil) {
+        else if (self.request.hidden != nil) {
             viewController.lgo_statusBarHidden = NO;
         }
     }
@@ -87,7 +87,7 @@
     return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
 }
 
-- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
+- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGOStatusBarRequest *request = [LGOStatusBarRequest new];
     request.context = context;
     request.style = [dictionary[@"style"] isKindOfClass:[NSString class]] ? dictionary[@"style"] : nil;

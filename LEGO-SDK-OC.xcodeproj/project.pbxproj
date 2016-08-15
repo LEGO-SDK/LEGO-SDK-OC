@@ -89,6 +89,9 @@
 		90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */; };
 		90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */; };
 		90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD641D4760D7005F4746 /* LGOCheck.m */; };
+		90F8D3CC1D6153AC00CBEDB2 /* LGONavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3CB1D6153AC00CBEDB2 /* LGONavigationBar.m */; };
+		90F8D3CF1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3CE1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m */; };
+		90F8D3D21D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3D11D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m */; };
 		F54B7F04EEE0A5C5F565B2AB /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CB2CC77EAAA6917F37215A /* libPods-Sample.a */; };
 /* End PBXBuildFile section */
 
@@ -253,6 +256,12 @@
 		90E8CD5E1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKSampleJavaScriptItemViewController.m; sourceTree = "<group>"; };
 		90E8CD631D4760D7005F4746 /* LGOCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOCheck.h; sourceTree = "<group>"; };
 		90E8CD641D4760D7005F4746 /* LGOCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOCheck.m; sourceTree = "<group>"; };
+		90F8D3CA1D6153AC00CBEDB2 /* LGONavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGONavigationBar.h; sourceTree = "<group>"; };
+		90F8D3CB1D6153AC00CBEDB2 /* LGONavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGONavigationBar.m; sourceTree = "<group>"; };
+		90F8D3CD1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LGONavigationBar.h"; sourceTree = "<group>"; };
+		90F8D3CE1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LGONavigationBar.m"; sourceTree = "<group>"; };
+		90F8D3D01D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+LGONavigationBar.h"; sourceTree = "<group>"; };
+		90F8D3D11D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+LGONavigationBar.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -544,6 +553,12 @@
 		906F11EF1D5DB115001F64DF /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
+				90F8D3CA1D6153AC00CBEDB2 /* LGONavigationBar.h */,
+				90F8D3CB1D6153AC00CBEDB2 /* LGONavigationBar.m */,
+				90F8D3CD1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.h */,
+				90F8D3CE1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m */,
+				90F8D3D01D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.h */,
+				90F8D3D11D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m */,
 			);
 			path = NavigationBar;
 			sourceTree = "<group>";
@@ -927,6 +942,7 @@
 				40608A0B1D51CC2800219874 /* LGONotification.m in Sources */,
 				9050A5381D48B63200306F9E /* LGOWebService.m in Sources */,
 				406089FD1D5192E700219874 /* LGOPasteboard.m in Sources */,
+				90F8D3CC1D6153AC00CBEDB2 /* LGONavigationBar.m in Sources */,
 				90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */,
 				906F11D01D5C5A3B001F64DF /* LGOWKWebView+DataModel.m in Sources */,
 				906F11E01D5C7C2B001F64DF /* LGOModalPresentationTransition.m in Sources */,
@@ -941,7 +957,9 @@
 				90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */,
 				40608A481D5888FC00219874 /* LGODeviceReachability.m in Sources */,
 				9050A5351D48B62A00306F9E /* LGOWebHTTPService.m in Sources */,
+				90F8D3CF1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m in Sources */,
 				40608A451D581ACA00219874 /* LGOImagePreviewController.m in Sources */,
+				90F8D3D21D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m in Sources */,
 				40608A211D5340A300219874 /* LGOIndicatorView.m in Sources */,
 				90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */,
 				40608A3F1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m in Sources */,

@@ -29,6 +29,7 @@
 #import "LGOModalController.h"
 #import "LGONavigationItem.h"
 #import "LGONavigationController.h"
+#import "LGONavigationBar.h"
 
 @implementation LGOModules
 
@@ -58,7 +59,8 @@
                     @"UI.ImagePreviewer": [LGOImagePreviewer new],
                     @"UI.ModalController": [LGOModalController new],
                     @"UI.NavigationItem": [LGONavigationItem new],
-                    @"UI.NavigationController": [LGONavigationController new]
+                    @"UI.NavigationController": [LGONavigationController new],
+                    @"UI.NavigationBar": [LGONavigationBar new],
                    } mutableCopy];
     }
     return self;
