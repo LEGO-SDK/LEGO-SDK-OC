@@ -16,9 +16,12 @@
 
 @interface LGOAppFrameEntity : NSObject
 
+@property (nonatomic, strong) NSString *path;
+@property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) NSString *icon;
-@property (nonatomic, strong) NSString *framePath;
-@property (nonatomic, strong) NSDictionary<NSString*, id> *frameArgs;
+@property (nonatomic, assign) BOOL statusBarHidden;
+@property (nonatomic, assign) BOOL navigationBarHidden;
+@property (nonatomic, strong) NSDictionary *args;
 
 @end
 
@@ -96,13 +99,19 @@
     if (webView != nil && [webView isKindOfClass:[WKWebView class]]){
         relativeURL = ((WKWebView *)webView).URL;
     }
-    NSURL *URL = [NSURL URLWithString:item.framePath relativeToURL:relativeURL];
+    NSURL *URL = [NSURL URLWithString:item.path relativeToURL:relativeURL];
     if (URL == nil) {
         return nil;
     }
     UIViewController *nextViewController = [UIViewController new];
-    [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:item.frameArgs];
-    nextViewController.title = [item.frameArgs[@"title"] isKindOfClass:[NSString class]]? item.frameArgs[@"title"]: @"";
+    [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:item.args];
+    nextViewController.title = item.title;
+    if ([nextViewController respondsToSelector:NSSelectorFromString(@"lgo_navigationBarHidden")]) {
+        [nextViewController setValue:@(item.navigationBarHidden) forKey:@"lgo_navigationBarHidden"];
+    }
+    if ([nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarHidden")]) {
+        [nextViewController setValue:@(item.statusBarHidden) forKey:@"lgo_statusBarHidden"];
+    }
     [[NSOperationQueue new] addOperationWithBlock:^{
         UITabBarItem *tabItem = [self requestTabItem:item];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -121,14 +130,13 @@
     if(iconURL == nil) {
         return nil;
     }
-    
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:iconURL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:10.0];
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     UIImage *image = [UIImage imageWithData:data scale:2.0];
     if (image == nil) {
         return nil;
     }
-    NSString *title = [item.frameArgs[@"title"] isKindOfClass:[NSString class]]? item.frameArgs[@"title"] : nil;
+    NSString *title = item.title;
     return [[UITabBarItem alloc] initWithTitle:title image:image tag:0];
 }
 
@@ -153,13 +161,13 @@
     
     NSMutableArray<LGOAppFrameEntity*> *itemFormatted = [NSMutableArray new];
     for (NSDictionary* item in items) {
-        NSString *framePath = [item[@"framePath"] isKindOfClass:[NSString class]] ? item[@"framePath"] : nil;
-        if (framePath == nil) continue;
-        
         LGOAppFrameEntity *entity = [LGOAppFrameEntity new];
+        entity.path = [item[@"path"] isKindOfClass:[NSString class]] ? item[@"path"] : nil;
+        entity.title = [item[@"title"] isKindOfClass:[NSString class]] ? item[@"title"] : nil;
         entity.icon = [item[@"icon"] isKindOfClass:[NSString class]] ? item[@"icon"] : nil;
-        entity.framePath = framePath;
-        entity.frameArgs = [item[@"frameArgs"] isKindOfClass:[NSDictionary class]] ? item[@"frameArgs"] : nil;
+        entity.statusBarHidden = [item[@"statusBarHidden"] isKindOfClass:[NSNumber class]] ? [item[@"statusBarHidden"] boolValue] : NO;
+        entity.navigationBarHidden = [item[@"navigationBarHidden"] isKindOfClass:[NSNumber class]] ? [item[@"navigationBarHidden"] boolValue] : NO;
+        entity.args = [item[@"args"] isKindOfClass:[NSDictionary class]] ? item[@"args"] : nil;
         [itemFormatted addObject:entity];
     }
     

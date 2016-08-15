@@ -11,7 +11,6 @@
 #import "LGOWKWebView.h"
 #import "LGOWebViewController+Basic.h"
 #import "LGOWebViewController+ProgressView.h"
-#import "LGOWebViewController+NavigationBar.h"
 
 @interface LGOWebViewController () <UIWebViewDelegate, WKNavigationDelegate>
 
@@ -68,12 +67,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.renderDidFinished = nil;
-    [self navigationBar_viewDidAppear];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self navigationBar_viewDidDisappear];
 }
 
 #pragma mark - Components

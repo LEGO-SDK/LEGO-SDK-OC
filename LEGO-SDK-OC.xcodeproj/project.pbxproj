@@ -33,7 +33,6 @@
 		9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4FA1D4850F700306F9E /* LGOJavaScriptUserContentController.m */; };
 		9050A5191D48914A00306F9E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9050A5181D48914A00306F9E /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9050A51F1D48939E00306F9E /* LGOWebViewController+ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A51E1D48939E00306F9E /* LGOWebViewController+ProgressView.m */; };
-		9050A5221D489A1F00306F9E /* LGOWebViewController+NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A5211D489A1F00306F9E /* LGOWebViewController+NavigationBar.m */; };
 		9050A52E1D48AA5D00306F9E /* LGOWebViewController+Render.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A52D1D48AA5D00306F9E /* LGOWebViewController+Render.m */; };
 		9050A5321D48B26300306F9E /* LGOWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A5311D48B26300306F9E /* LGOWebCache.m */; };
 		9050A5351D48B62A00306F9E /* LGOWebHTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A5341D48B62A00306F9E /* LGOWebHTTPService.m */; };
@@ -163,8 +162,6 @@
 		9050A5181D48914A00306F9E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		9050A51D1D48939E00306F9E /* LGOWebViewController+ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+ProgressView.h"; sourceTree = "<group>"; };
 		9050A51E1D48939E00306F9E /* LGOWebViewController+ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+ProgressView.m"; sourceTree = "<group>"; };
-		9050A5201D489A1F00306F9E /* LGOWebViewController+NavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+NavigationBar.h"; sourceTree = "<group>"; };
-		9050A5211D489A1F00306F9E /* LGOWebViewController+NavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+NavigationBar.m"; sourceTree = "<group>"; };
 		9050A52C1D48AA5D00306F9E /* LGOWebViewController+Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGOWebViewController+Render.h"; sourceTree = "<group>"; };
 		9050A52D1D48AA5D00306F9E /* LGOWebViewController+Render.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGOWebViewController+Render.m"; sourceTree = "<group>"; };
 		9050A5301D48B26300306F9E /* LGOWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOWebCache.h; sourceTree = "<group>"; };
@@ -636,8 +633,6 @@
 				9050A52D1D48AA5D00306F9E /* LGOWebViewController+Render.m */,
 				9050A51D1D48939E00306F9E /* LGOWebViewController+ProgressView.h */,
 				9050A51E1D48939E00306F9E /* LGOWebViewController+ProgressView.m */,
-				9050A5201D489A1F00306F9E /* LGOWebViewController+NavigationBar.h */,
-				9050A5211D489A1F00306F9E /* LGOWebViewController+NavigationBar.m */,
 			);
 			path = WebViewController;
 			sourceTree = "<group>";
@@ -924,7 +919,6 @@
 			files = (
 				40608A3C1D5759DC00219874 /* LGORefresh.m in Sources */,
 				40608A1E1D5339DE00219874 /* LGOBounce.m in Sources */,
-				9050A5221D489A1F00306F9E /* LGOWebViewController+NavigationBar.m in Sources */,
 				906F11DE1D5C7C2B001F64DF /* LGOModalController.m in Sources */,
 				906F11F51D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.m in Sources */,
 				906F11EE1D5D9FD8001F64DF /* UITabBarController+LGOStatusBar.m in Sources */,

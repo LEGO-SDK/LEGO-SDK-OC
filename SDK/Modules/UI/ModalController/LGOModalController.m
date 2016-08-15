@@ -18,13 +18,13 @@
 
 @interface LGOModalRequest: LGORequest
 
-@property (nonatomic, strong) NSString *opt; // present/dismiss
-@property (nonatomic, strong) NSString *path; // an URLString or LGOViewControllerMapping[path]
+@property (nonatomic, copy) NSString *opt; // present/dismiss
+@property (nonatomic, copy) NSString *path; // an URLString or LGOViewControllerMapping[path]
 @property (nonatomic, assign) BOOL animated; // push or pop need animation. Defaults to true.
-@property (nonatomic, assign) BOOL withNavigationController; // ViewController will wrap by navigationController, defaults to YES.
-@property (nonatomic, assign) UIEdgeInsets edgeInsets; // ViewController will wrap by UIWindow with EdgeInsets.
-@property (nonatomic, assign) BOOL edgeInsetsDidSet;
-@property (nonatomic, strong) NSDictionary<NSString *, id> *args; // deliver args to next ViewController
+@property (nonatomic, copy) NSString *title; // next title.
+@property (nonatomic, assign) BOOL statusBarHidden; // next title.
+@property (nonatomic, assign) BOOL navigationBarHidden; // next title.
+@property (nonatomic, strong) NSDictionary *args; // deliver args to next ViewController
 
 @end
 
@@ -38,7 +38,7 @@ LGOModalOperation *lastOperation;
 
 NSDate *lastPresent;
 
-@interface LGOModalOperation: LGORequestable<UIViewControllerTransitioningDelegate>
+@interface LGOModalOperation: LGORequestable
 
 @property (nonatomic, strong) LGOModalRequest *request;
 
@@ -109,40 +109,26 @@ NSDate *lastPresent;
     UIViewController *nextViewController = [UIViewController new];
     [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:self.request.args];
     nextViewController.hidesBottomBarWhenPushed = YES;
-    nextViewController.title = [self.request.args[@"title"] isKindOfClass:[NSString class]]? self.request.args[@"title"]: @"";
-    UIViewController *presentingViewController = nextViewController;
-    if (self.request.withNavigationController){
-        UINavigationController *naviController = [self requestNavigationController:nextViewController];
-        if (naviController != nil){
-            if (self.request.edgeInsetsDidSet){
-                naviController.modalPresentationStyle = UIModalPresentationCustom;
-                naviController.transitioningDelegate = self;
-                lastOperation = self;
-            }
-            presentingViewController = naviController;
-        }
-        else {
-            if (self.request.edgeInsetsDidSet){
-                nextViewController.modalPresentationStyle = UIModalPresentationCustom;
-                nextViewController.transitioningDelegate = self;
-                lastOperation = self;
-            }
-            presentingViewController = nextViewController;
-        }
+    nextViewController.title = self.request.title;
+    if ([nextViewController respondsToSelector:NSSelectorFromString(@"lgo_navigationBarHidden")]) {
+        [nextViewController setValue:@(self.request.navigationBarHidden) forKey:@"lgo_navigationBarHidden"];
     }
-    else{
-        if (self.request.edgeInsetsDidSet){
-            nextViewController.modalPresentationStyle = UIModalPresentationCustom;
-            nextViewController.transitioningDelegate = self;
-            lastOperation = self;
-        }
+    if ([nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarHidden")]) {
+        [nextViewController setValue:@(self.request.statusBarHidden) forKey:@"lgo_statusBarHidden"];
+    }
+    UIViewController *presentingViewController = nextViewController;
+    UINavigationController *navigationController = [self requestNavigationController:nextViewController];
+    if (navigationController != nil){
+        presentingViewController = navigationController;
+    }
+    else {
         presentingViewController = nextViewController;
     }
     [viewController presentViewController:presentingViewController animated:YES completion:nil];
 }
 
 - (UINavigationController *)requestNavigationController:(UIViewController*)rootViewController{
-    UIViewController* requestVC = [self requestViewController];
+    UIViewController *requestVC = [self requestViewController];
     if (requestVC != nil && requestVC.navigationController != nil){
         Class naviClz = [requestVC.navigationController class];
         UINavigationController *naviController = [[naviClz alloc] init];
@@ -171,20 +157,6 @@ NSDate *lastPresent;
     return nil;
 }
 
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
-    if (self.request.edgeInsetsDidSet){
-        return [[LGOModalPresentationTransition alloc] initWithTargetEdgeInsets:self.request.edgeInsets];
-    }
-    return nil;
-}
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
-    if (self.request.edgeInsetsDidSet){
-        return [[LGOModalDismissTransition alloc] initWithTargetEdgeInsets:self.request.edgeInsets];
-    }
-    return nil;
-}
-
 @end
 
 @implementation LGOModalController
@@ -201,25 +173,14 @@ NSDate *lastPresent;
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
     LGOModalRequest *request = [LGOModalRequest new];
     request.context = context;
-    request.opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : @"";
+    request.opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : @"present";
     request.path = [dictionary[@"path"] isKindOfClass:[NSString class]] ? dictionary[@"path"] : @"";
     request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]] ? ((NSNumber *)dictionary[@"animated"]).boolValue : YES;
-    request.withNavigationController = [dictionary[@"withNavigationController"] isKindOfClass:[NSNumber class]] ? ((NSNumber *)dictionary[@"withNavigationController"]).boolValue : YES;
-    NSString *edgeInsetsString = [dictionary[@"edgeInsets"] isKindOfClass:[NSString class]] ? dictionary[@"edgeInsets"] : nil;
-    if (edgeInsetsString != nil) {
-        request.edgeInsets = [self edgeInsetsFromString:edgeInsetsString];
-        request.edgeInsetsDidSet = YES;
-    }
+    request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : @"";
+    request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"statusBarHidden"] boolValue] : NO;
+    request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"navigationBarHidden"] boolValue] : NO;
     request.args = [dictionary[@"args"] isKindOfClass:[NSDictionary class]] ? dictionary[@"args"] : @{};
     return [self buildWithRequest:request];
-}
-
-- (UIEdgeInsets)edgeInsetsFromString:(NSString *)str{
-    NSArray<NSString *> *arr = [str componentsSeparatedByString:@","];
-    if (arr.count == 4){
-        return UIEdgeInsetsMake([arr[0] floatValue], [arr[1] floatValue], [arr[2] floatValue], [arr[3] floatValue]);
-    }
-    return UIEdgeInsetsZero;
 }
 
 @end

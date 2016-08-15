@@ -10,8 +10,6 @@
         <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="push_github()">Push GitHub</button></p>
         <p style="padding-top: 44px"></p>
         <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="present_github()">Present GitHub</button></p>
-        <p style="padding-top: 44px"></p>
-        <p><button style="width: 240px; height: 132px; font-size:24px; " onclick="present_github_edge()">Present GitHub(edge)</button></p>
     </body>
 </html>
 
@@ -64,10 +62,10 @@
         message.requestParams = {
             opt: "push",
             path: "http://duowan.cn/",
+            title: "多玩游戏",
+            statusBarHidden: false,
             args: {
-                title: "多玩游戏",
                 customID: 8888,
-                statusBarHidden: false
             }
         }
         message.call(null)
@@ -79,10 +77,10 @@
         message.requestParams = {
             opt: "push",
             path: "https://github.com/index.html",
+            statusBarHidden: true,
+            navigationBarHidden: true,
             args: {
                 customID: 8888,
-                statusBarHidden: true,
-                navigationBarHidden: true
             }
         }
         message.call(null)
@@ -94,40 +92,13 @@
         message.requestParams = {
             opt: "present",
             path: "https://github.com/index.html",
+            title: "GitHub",
+            statusBarHidden: true,
             args: {
-                title: "GitHub",
                 customID: 8888,
-                statusBarHidden: true
             }
         }
         message.call(null)
     }
-
-    function present_github_edge() {
-        var message = JSMessage.newMessage()
-        message.moduleName = "UI.ModalController"
-        message.requestParams = {
-            opt: "present",
-            path: "https://github.com/index.html",
-            edgeInsets: "0,0,-414,0",
-            withNavigationController: false,
-            args: {
-                title: "GitHub",
-                customID: 8888
-            }
-        }
-        message.call(null)
-    }
-
-    function changeStatusBarStyle() {
-        var message = JSMessage.newMessage()
-        message.moduleName = "UI.StatusBar"
-        message.requestParams = {
-            style: "default",
-        }
-        message.call(null)
-    }
-
-    setTimeout(changeStatusBarStyle, 2000)
 
 </script>
