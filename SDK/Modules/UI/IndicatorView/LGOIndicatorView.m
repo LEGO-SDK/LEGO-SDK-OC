@@ -7,7 +7,6 @@
 //
 
 #import <WebKit/WebKit.h>
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGOIndicatorView.h"
 
@@ -36,12 +35,19 @@
         ((UIWebView *)webView).scrollView.showsHorizontalScrollIndicator = !self.request.hidden;
         ((UIWebView *)webView).scrollView.showsVerticalScrollIndicator = !self.request.hidden;
         ((UIWebView *)webView).scrollView.scrollIndicatorInsets = self.request.insets;
+        return [[LGOResponse new] accept:nil];
     } else if ([webView isKindOfClass:[WKWebView class]]) {
         ((WKWebView *)webView).scrollView.showsHorizontalScrollIndicator = !self.request.hidden;
         ((WKWebView *)webView).scrollView.showsVerticalScrollIndicator = !self.request.hidden;
         ((WKWebView *)webView).scrollView.scrollIndicatorInsets = self.request.insets;
+        return [[LGOResponse new] accept:nil];
+    } else {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.Bounce"
+                                                             code:-3
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"WebView not found."
+                                                         }]];
     }
-    return [LGOResponse new];
 }
 
 @end
@@ -54,7 +60,7 @@
         operation.request = (LGOIndicatorViewRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.IndicatorView" code:-1 reason:@"Type error."];
 }
 
 - (CGFloat)pickValue:(NSNumber *)num {

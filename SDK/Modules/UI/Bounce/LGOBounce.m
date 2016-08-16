@@ -33,10 +33,17 @@
     UIView *webView = self.request.context.requestWebView;
     if ([webView isKindOfClass:[UIWebView class]]) {
         ((UIWebView *)webView).scrollView.bounces = self.request.allow;
+        return [[LGOResponse new] accept:nil];
     } else if ([webView isKindOfClass:[WKWebView class]]) {
         ((WKWebView *)webView).scrollView.bounces = self.request.allow;
+        return [[LGOResponse new] accept:nil];
+    } else {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.Bounce"
+                                                             code:-3
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"WebView not found."
+                                                         }]];
     }
-    return [LGOResponse new];
 }
 
 @end
@@ -49,15 +56,14 @@
         operation.request = (LGOBounceRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.Bounce" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     NSNumber *allow = dictionary[@"allow"];
     if (allow == nil) {
-        return [[LGOBuildFailed alloc] initWithErrorString:@"RequestParam Required: allow"];
+        return [LGORequestable rejectWithDomain:@"UI.Bounce" code:-2 reason:@"Allow required."];
     }
-
     LGOBounceRequest *request = [LGOBounceRequest new];
     request.context = context;
     request.allow = [allow isKindOfClass:[NSNumber class]] ? ((NSNumber *)allow).boolValue : NO;

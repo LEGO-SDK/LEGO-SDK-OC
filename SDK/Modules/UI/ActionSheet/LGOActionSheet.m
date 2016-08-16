@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "LGOActionSheet.h"
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 
 @interface LGOActionSheetRequest : LGORequest
@@ -78,9 +77,14 @@ static LGOActionSheetOperation *currentOperation;
         self.actionSheet.cancelButtonIndex = self.actionSheet.numberOfButtons - 1;
     }
     self.actionSheet.destructiveButtonIndex = self.request.dangerButton;
-
     if ([UIApplication sharedApplication].keyWindow != nil) {
         [self.actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    } else {
+        callbackBlock([[LGOResponse new] reject:[NSError errorWithDomain:@"UI.ActionSheet"
+                                                                    code:-2
+                                                                userInfo:@{
+                                                                    NSLocalizedDescriptionKey : @"Window not found."
+                                                                }]]);
     }
 }
 
@@ -88,7 +92,7 @@ static LGOActionSheetOperation *currentOperation;
     if (self.responseBlock) {
         LGOActionSheetResponse *response = [LGOActionSheetResponse new];
         response.buttonIndex = buttonIndex;
-        self.responseBlock(response);
+        self.responseBlock([response accept:nil]);
     }
 }
 
@@ -102,7 +106,7 @@ static LGOActionSheetOperation *currentOperation;
         operation.request = (LGOActionSheetRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.ActionSheet" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {

@@ -6,7 +6,6 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOBuildFailed.h"
 #import "LGONavigationBar.h"
 #import "UIViewController+LGONavigationBar.h"
 
@@ -37,9 +36,15 @@
         } else if (self.request.hidden != nil) {
             viewController.lgo_navigationBarHidden = NO;
         }
+        [viewController lgo_setNeedsNavigationBarAppearanceUpdate:self.request.animated];
+        return [[[LGOResponse alloc] init] accept:nil];
     }
-    [viewController lgo_setNeedsNavigationBarAppearanceUpdate:self.request.animated];
-    return [LGOResponse new];
+    return
+        [[[LGOResponse alloc] init] reject:[NSError errorWithDomain:@"UI.NavigationBar"
+                                                               code:-2
+                                                           userInfo:@{
+                                                               NSLocalizedDescriptionKey : @"ViewController not found!"
+                                                           }]];
 }
 
 @end
@@ -52,7 +57,7 @@
         operation.request = (LGONavigationBarRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.NavigationBar" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {

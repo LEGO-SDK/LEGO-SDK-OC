@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "LGOAlertView.h"
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 
 @interface LGOAlertViewRequest : LGORequest
@@ -73,7 +72,7 @@ static LGOAlertViewOperation *currentOperation;
     if (self.responseBlock) {
         LGOAlertViewResponse *response = [LGOAlertViewResponse new];
         response.buttonIndex = buttonIndex;
-        self.responseBlock(response);
+        self.responseBlock([response accept:nil]);
     }
 }
 
@@ -87,7 +86,7 @@ static LGOAlertViewOperation *currentOperation;
         operation.request = (LGOAlertViewRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.AlertView" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {

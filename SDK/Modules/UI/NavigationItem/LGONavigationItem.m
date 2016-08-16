@@ -7,7 +7,6 @@
 //
 
 #import <objc/runtime.h>
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGONavigationItem.h"
 
@@ -56,7 +55,11 @@ UInt16 LGONavigationItemOperationPinKey;
 - (LGOResponse *)requestSynchronize {
     UIViewController *viewController = [self requestViewController];
     if (viewController == nil) {
-        return nil;
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.NavigationItem"
+                                                             code:-2
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"ViewController not found."
+                                                         }]];
     }
     if (self.request.title != nil) {
         viewController.title = self.request.title;
@@ -106,7 +109,7 @@ UInt16 LGONavigationItemOperationPinKey;
     LGONavigationItemResponse *response = [LGONavigationItemResponse new];
     response.leftTapped = NO;
     response.rightTapped = NO;
-    return response;
+    return [response accept:nil];
 }
 
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock {
@@ -176,7 +179,7 @@ UInt16 LGONavigationItemOperationPinKey;
         LGONavigationItemResponse *response = [LGONavigationItemResponse new];
         response.leftTapped = sender.tag == 100;
         response.rightTapped = sender.tag == 101;
-        responseBlock(response);
+        responseBlock([response accept:nil]);
     }
 }
 
@@ -190,7 +193,7 @@ UInt16 LGONavigationItemOperationPinKey;
         operation.request = (LGONavigationItemRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.NavigationItem" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {

@@ -7,7 +7,6 @@
 //
 
 #import <WebKit/WebKit.h>
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGONavigationController.h"
 #import "UIViewController+LGOViewController.h"
@@ -40,24 +39,34 @@ static NSDate *lastPush;
 
 - (LGOResponse *)requestSynchronize {
     if ([self.request.opt isEqualToString:@"push"]) {
-        [self push];
+        return [self push];
     } else if ([self.request.opt isEqualToString:@"pop"]) {
-        [self pop];
+        return [self pop];
     }
     return [LGOResponse new];
 }
 
-- (void)pop {
+- (LGOResponse *)pop {
     UIViewController *requestVC = [self.request.context requestViewController];
     if (requestVC != nil && requestVC.navigationController) {
         [requestVC.navigationController popViewControllerAnimated:self.request.animated];
+        return [[LGOResponse new] accept:nil];
+    } else {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.NavigationController"
+                                                             code:-2
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"ViewController not found."
+                                                         }]];
     }
 }
 
-- (void)push {
+- (LGOResponse *)push {
     if (lastPush != nil && lastPush.timeIntervalSinceNow > -1.0) {
-        NSLog(@"两次 Push 的操作不能少于 1 秒");
-        return;
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.NavigationController"
+                                                             code:-3
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"push interval too short."
+                                                         }]];
     } else {
         lastPush = [NSDate new];
     }
@@ -72,12 +81,24 @@ static NSDate *lastPush;
         }
         NSURL *URL = [NSURL URLWithString:self.request.path relativeToURL:relativeURL];
         if (URL != nil) {
-            [self pushWebView:URL];
+            return [self pushWebView:URL];
+        } else {
+            return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.NavigationController"
+                                                                 code:-5
+                                                             userInfo:@{
+                                                                 NSLocalizedDescriptionKey : @"invalid url."
+                                                             }]];
         }
+    } else {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.NavigationController"
+                                                             code:-5
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"null path"
+                                                         }]];
     }
 }
 
-- (void)pushWebView:(NSURL *)URL {
+- (LGOResponse *)pushWebView:(NSURL *)URL {
     UIViewController *nextViewController = [UIViewController new];
     [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:self.request.args];
     nextViewController.hidesBottomBarWhenPushed = YES;
@@ -90,9 +111,15 @@ static NSDate *lastPush;
     }
     UINavigationController *navigationController = [[self.request.context requestViewController] navigationController];
     if (navigationController == nil) {
-        return;
+        return
+            [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.NavigationController"
+                                                          code:-4
+                                                      userInfo:@{
+                                                          NSLocalizedDescriptionKey : @"NavigationController not found."
+                                                      }]];
     }
     [navigationController pushViewController:nextViewController animated:self.request.animated];
+    return [[LGOResponse new] accept:nil];
 }
 
 @end
@@ -105,7 +132,7 @@ static NSDate *lastPush;
         operation.request = (LGONavigationRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.NavigationController" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {

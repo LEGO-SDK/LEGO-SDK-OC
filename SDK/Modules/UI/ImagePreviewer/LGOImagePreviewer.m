@@ -6,7 +6,6 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGOImagePreviewController.h"
 #import "LGOImagePreviewer.h"
@@ -43,12 +42,18 @@
     if (targetViewController != nil) {
         if (targetViewController.navigationController) {
             [viewController showInNavigationController:targetViewController.navigationController];
+            return [[LGOResponse new] accept:nil];
         } else {
             [viewController showInViewController:targetViewController];
+            return [[LGOResponse new] accept:nil];
         }
+    } else {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.ImagePreviewer"
+                                                             code:-2
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"ViewController not found."
+                                                         }]];
     }
-
-    return nil;
 }
 
 - (UIViewController *)requestViewController {
@@ -77,7 +82,7 @@
         operation.request = (LGOImagePreviewerRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.ImagePreviewer" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {

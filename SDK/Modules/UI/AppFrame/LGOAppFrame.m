@@ -10,7 +10,6 @@
 #import <WebKit/WebKit.h>
 #import <objc/runtime.h>
 #import "LGOAppFrame.h"
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "UIViewController+LGOViewController.h"
 
@@ -53,9 +52,14 @@
 
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     if (rootViewController == nil || ![rootViewController.accessibilityLabel isEqualToString:@"AppFrame"]) {
-        return nil;
+        return [[LGOResponse new]
+            reject:[NSError errorWithDomain:@"UI.AppFrame"
+                                       code:-2
+                                   userInfo:@{
+                                       NSLocalizedDescriptionKey :
+                                           @"RootViewController must set AppFrame to accessibilityLabel"
+                                   }]];
     }
-
     if (self.request.items.count > 1) {
         UITabBarController *tabBarController = [UITabBarController new];
 
@@ -74,14 +78,25 @@
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         if (window) {
             window.rootViewController = tabBarController;
+            return [[LGOResponse new] accept:nil];
+        } else {
+            return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.AppFrame"
+                                                                 code:-4
+                                                             userInfo:@{
+                                                                 NSLocalizedDescriptionKey : @"KeyWindow not found."
+                                                             }]];
         }
     } else {
         LGOAppFrameEntity *item = self.request.items.firstObject;
         UIViewController *viewController = [self viewController:item];
         if (item == nil || !viewController) {
-            return nil;
+            return [[LGOResponse new]
+                reject:[NSError errorWithDomain:@"UI.AppFrame"
+                                           code:-3
+                                       userInfo:@{
+                                           NSLocalizedDescriptionKey : @"Item ViewController create fail."
+                                       }]];
         }
-
         UINavigationController *naviController =
             [(UINavigationController *)[NSClassFromString(NavigationControllerClassName) alloc]
                 initWithRootViewController:viewController];
@@ -90,9 +105,15 @@
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         if (window != nil) {
             window.rootViewController = naviController;
+            return [[LGOResponse new] accept:nil];
+        } else {
+            return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.AppFrame"
+                                                                 code:-4
+                                                             userInfo:@{
+                                                                 NSLocalizedDescriptionKey : @"KeyWindow not found."
+                                                             }]];
         }
     }
-    return nil;
 }
 
 - (UIViewController *)viewController:(LGOAppFrameEntity *)item {
@@ -159,13 +180,13 @@
         operation.request = (LGOAppFrameRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.AppFrame" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     NSArray<NSDictionary *> *items = [dictionary[@"items"] isKindOfClass:[NSArray class]] ? dictionary[@"items"] : nil;
     if (items == nil) {
-        return [[LGOBuildFailed alloc] initWithErrorString:@"RequestParam Required: items"];
+        return [LGORequestable rejectWithDomain:@"UI.AppFrame" code:-2 reason:@"Items required."];
     }
 
     NSMutableArray<LGOAppFrameEntity *> *itemFormatted = [NSMutableArray new];

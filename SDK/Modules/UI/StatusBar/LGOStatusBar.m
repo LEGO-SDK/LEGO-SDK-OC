@@ -6,7 +6,6 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGOStatusBar.h"
 #import "UIViewController+LGOStatusBar.h"
@@ -55,18 +54,23 @@
         } else if (self.request.hidden != nil) {
             viewController.lgo_statusBarHidden = NO;
         }
-    }
-    NSDictionary *value = [NSBundle mainBundle].infoDictionary[@"UIViewControllerBasedStatusBarAppearance"];
-    if ([value isKindOfClass:[NSNumber class]]) {
-        if (!((NSNumber *)value).boolValue) {
-            [viewController lgo_setNeedsStatusBarAppearanceUpdate:self.request.animated];
+        NSDictionary *value = [NSBundle mainBundle].infoDictionary[@"UIViewControllerBasedStatusBarAppearance"];
+        if ([value isKindOfClass:[NSNumber class]]) {
+            if (!((NSNumber *)value).boolValue) {
+                [viewController lgo_setNeedsStatusBarAppearanceUpdate:self.request.animated];
+            } else {
+                [self updatePreference:viewController];
+            }
         } else {
             [self updatePreference:viewController];
         }
-    } else {
-        [self updatePreference:viewController];
+        return [[LGOResponse new] accept:nil];
     }
-    return [LGOResponse new];
+    return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.StatusBar"
+                                                         code:-2
+                                                     userInfo:@{
+                                                         NSLocalizedDescriptionKey : @"ViewController not found."
+                                                     }]];
 }
 
 @end
@@ -79,7 +83,7 @@
         operation.request = (LGOStatusBarRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.StatusBar" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {

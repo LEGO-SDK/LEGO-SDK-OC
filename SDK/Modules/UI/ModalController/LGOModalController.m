@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 #import <objc/runtime.h>
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGOModalController.h"
 #import "UIViewController+LGOViewController.h"
@@ -46,44 +45,52 @@ NSDate *lastPresent;
 
 - (LGOResponse *)requestSynchronize {
     if ([self.request.opt isEqualToString:@"present"]) {
-        [self present];
+        return [self present];
     } else if ([self.request.opt isEqualToString:@"dismiss"]) {
-        [self dismiss];
+        return [self dismiss];
     }
-    return [LGOResponse new];
+    return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.ModalController"
+                                                         code:-2
+                                                     userInfo:@{
+                                                         NSLocalizedDescriptionKey : @"invalid opt value."
+                                                     }]];
 }
 
-- (void)dismiss {
+- (LGOResponse *)dismiss {
     UIViewController *viewController = [self requestViewController];
     if (viewController == nil) {
-        return;
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.ModalController"
+                                                             code:-3
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"ViewController not found."
+                                                         }]];
     }
-
     UIViewController *presentedViewController = viewController.presentedViewController;
     if (presentedViewController != nil) {
         [presentedViewController dismissViewControllerAnimated:self.request.animated completion:nil];
-        return;
+        return [[LGOResponse new] accept:nil];
     }
-
     UINavigationController *naviViewController = viewController.navigationController;
     if (naviViewController != nil) {
         [naviViewController dismissViewControllerAnimated:self.request.animated completion:nil];
-        return;
+        return [[LGOResponse new] accept:nil];
     }
-
     if (viewController.presentingViewController != nil) {
         [viewController dismissViewControllerAnimated:self.request.animated completion:nil];
     }
+    return [[LGOResponse new] accept:nil];
 }
 
-- (void)present {
+- (LGOResponse *)present {
     if (lastPresent != nil && [lastPresent timeIntervalSinceNow] > -1.0) {
-        NSLog(@"两次 Present 的操作不能少于 1 秒");
-        return;
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.ModalController"
+                                                             code:-4
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"present interval too short."
+                                                         }]];
     } else {
         lastPresent = [NSDate new];
     }
-
     NSURL *relativeURL = nil;
     UIView *webView = self.request.context.requestWebView;
     if (webView != nil && [webView isKindOfClass:[UIWebView class]]) {
@@ -94,14 +101,24 @@ NSDate *lastPresent;
     }
     NSURL *URL = [NSURL URLWithString:self.request.path relativeToURL:relativeURL];
     if (URL != nil) {
-        [self presentWebView:URL];
+        return [self presentWebView:URL];
+    } else {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.ModalController"
+                                                             code:-5
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"invalid url."
+                                                         }]];
     }
 }
 
-- (void)presentWebView:(NSURL *)URL {
+- (LGOResponse *)presentWebView:(NSURL *)URL {
     UIViewController *viewController = [self requestViewController];
     if (viewController == nil) {
-        return;
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.ModalController"
+                                                             code:-3
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"ViewController not found."
+                                                         }]];
     }
     UIViewController *nextViewController = [UIViewController new];
     [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:self.request.args];
@@ -121,6 +138,7 @@ NSDate *lastPresent;
         presentingViewController = nextViewController;
     }
     [viewController presentViewController:presentingViewController animated:YES completion:nil];
+    return [[LGOResponse new] accept:nil];
 }
 
 - (UINavigationController *)requestNavigationController:(UIViewController *)rootViewController {
@@ -167,7 +185,7 @@ NSDate *lastPresent;
         operation.request = (LGOModalRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"UI.ModalController" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
