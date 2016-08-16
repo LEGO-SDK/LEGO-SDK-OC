@@ -15,6 +15,8 @@
 
 @implementation UIViewController (LGOViewController)
 
+static UIWindow *renderWindow;
+
 - (void)lgo_openWebViewWithRequest:(NSURLRequest *)request args:(NSDictionary *)args {
     if (self.lgo_webView == nil) {
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -34,6 +36,52 @@
     self.lgo_webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.lgo_webView];
     [self lgo_loadRequest:request];
+}
+
+- (void)lgo_openWebViewWithRequest:(NSURLRequest *)request args:(NSDictionary *)args renderFinishedBlock:(void (^)())renderFinishedBlock {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        renderWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        renderWindow.hidden = NO;
+        renderWindow.alpha = 0.0;
+        renderWindow.windowLevel = 0;
+        renderWindow.userInteractionEnabled = NO;
+    });
+    [self lgo_openWebViewWithRequest:request args:args];
+    renderWindow.rootViewController = self;
+    __block BOOL finished = NO;
+    for (int i = 0; i < 10; i++) {
+        int j = i;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(50 * i * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+            if (finished) {
+                return;
+            }
+            if ([self.lgo_webView isKindOfClass:[WKWebView class]] && j < 9) {
+                if ([(WKWebView *)self.lgo_webView isLoading]) {
+                    return;
+                }
+            }
+            if ([self.lgo_webView isKindOfClass:[UIWebView class]] && j < 9) {
+                if ([(UIWebView *)self.lgo_webView isLoading]) {
+                    return;
+                }
+            }
+            finished = YES;
+            renderWindow.rootViewController = nil;
+            if (renderFinishedBlock) {
+                if ([self.lgo_webView isKindOfClass:[UIWebView class]]) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+                        renderFinishedBlock();
+                    });
+                }
+                else {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(100 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+                        renderFinishedBlock();
+                    });
+                }
+            }
+        });
+    }
 }
 
 - (void)lgo_loadRequest:(NSURLRequest *)request {

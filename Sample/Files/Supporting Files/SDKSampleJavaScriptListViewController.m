@@ -28,10 +28,12 @@
 }
 
 - (IBAction)handlePackButtonTapped:(UIButton *)sender {
-    SDKSampleJavaScriptItemViewController *viewController = [[UIStoryboard storyboardWithName:@"SDKSample" bundle:nil] instantiateViewControllerWithIdentifier:@"SDKSampleJavaScriptItemViewController"];
+    UIViewController *viewController = [UIViewController new];
     viewController.title = sender.accessibilityLabel;
-    viewController.zipURL = [NSString stringWithFormat:@"http://uedfe.yypm.com/assets/spack/%@.zip", sender.accessibilityLabel];
-    [self.navigationController pushViewController:viewController animated:YES];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://uedfe.yypm.com/assets/spack/%@.zip", sender.accessibilityLabel]]];
+    [viewController lgo_openWebViewWithRequest:request args:nil renderFinishedBlock:^{
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];
 }
 
 @end

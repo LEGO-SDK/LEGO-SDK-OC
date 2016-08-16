@@ -17,6 +17,7 @@ static GCDWebServer *sharedServer;
 static int serverPort = 10000;
 
 + (void)load {
+    [GCDWebServer setLogLevel:4];
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedServer = [[GCDWebServer alloc] init];

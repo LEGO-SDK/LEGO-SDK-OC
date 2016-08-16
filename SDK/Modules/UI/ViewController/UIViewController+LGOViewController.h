@@ -14,6 +14,8 @@
 
 - (void)lgo_openWebViewWithRequest:(NSURLRequest *)request args:(NSDictionary *)args;
 
+- (void)lgo_openWebViewWithRequest:(NSURLRequest *)request args:(NSDictionary *)args renderFinishedBlock:(void (^)())renderFinishedBlock;
+
 - (void)lgo_dismiss;
 
 @end
