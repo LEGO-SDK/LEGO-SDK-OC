@@ -61,18 +61,20 @@
     return self;
 }
 
-- (void)reject:(NSError *)error {
+- (LGOResponse *)reject:(NSError *)error {
     _metaData = @{
         @"error" : @(YES),
         @"code" : @(error.code),
         @"reason" : error.localizedDescription != nil ? error.localizedDescription : @"",
     };
+    return self;
 }
 
-- (void)accept:(NSDictionary *)metaData {
+- (LGOResponse *)accept:(NSDictionary *)metaData {
     if (metaData != nil) {
         _metaData = metaData;
     }
+    return self;
 }
 
 - (NSDictionary *)resData {
