@@ -69,16 +69,9 @@ static UIWindow *renderWindow;
             finished = YES;
             renderWindow.rootViewController = nil;
             if (renderFinishedBlock) {
-                if ([self.lgo_webView isKindOfClass:[UIWebView class]]) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
-                        renderFinishedBlock();
-                    });
-                }
-                else {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(100 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
-                        renderFinishedBlock();
-                    });
-                }
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(200 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+                    renderFinishedBlock();
+                });
             }
         });
     }

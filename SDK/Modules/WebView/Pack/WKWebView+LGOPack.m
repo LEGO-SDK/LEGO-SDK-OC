@@ -61,6 +61,11 @@
                 [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
             }];
         }
+        else {
+            [LGOPack createFileServerWithURL:request.URL progressBlock:^(double progress) {} completionBlock:^(NSString *finalPath) {
+                [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
+            }];
+        }
         return [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
     }
     return [self lgo_PackLoadRequest:request];
