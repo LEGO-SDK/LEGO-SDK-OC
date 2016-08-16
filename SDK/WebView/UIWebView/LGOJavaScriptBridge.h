@@ -11,22 +11,23 @@
 
 @class LGORequestContext;
 
-typedef void(^LGOJSMessageCallCompletionBlock)(NSDictionary<NSString *, id> * _Nonnull result);
+typedef void (^LGOJSMessageCallCompletionBlock)(NSDictionary<NSString *, id> *_Nonnull result);
 
 @interface LGOJSMessage : NSObject
 
-@property (nonatomic, copy) NSString * _Nonnull messageID;
-@property (nonatomic, copy) NSString * _Nonnull moduleName;
-@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nonnull requestParams;
-@property (nonatomic, strong) NSNumber * _Nonnull callbackID;
+@property(nonatomic, copy) NSString *_Nonnull messageID;
+@property(nonatomic, copy) NSString *_Nonnull moduleName;
+@property(nonatomic, copy) NSDictionary<NSString *, id> *_Nonnull requestParams;
+@property(nonatomic, strong) NSNumber *_Nonnull callbackID;
 
 + (nullable LGOJSMessage *)newMessageWithJSONString:(nonnull NSString *)JSONString;
 
-- (void)callWithCompletionBlock:(nonnull LGOJSMessageCallCompletionBlock)completionBlock context:(nullable LGORequestContext *)context;
+- (void)callWithCompletionBlock:(nonnull LGOJSMessageCallCompletionBlock)completionBlock
+                        context:(nullable LGORequestContext *)context;
 
 @end
 
-@protocol LGOJSBridgeExport <JSExport>
+@protocol LGOJSBridgeExport<JSExport>
 
 + (nonnull NSString *)bridgeScript:(nonnull JSValue *)JSValue;
 
@@ -36,7 +37,7 @@ typedef void(^LGOJSMessageCallCompletionBlock)(NSDictionary<NSString *, id> * _N
 
 @end
 
-@interface LGOJSBridge: NSObject <LGOJSBridgeExport>
+@interface LGOJSBridge : NSObject<LGOJSBridgeExport>
 
 @end
 

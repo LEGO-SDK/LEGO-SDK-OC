@@ -9,18 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "LGOProtocols.h"
 
-@interface LGOBuildFailed: LGORequestable
+@interface LGOBuildFailed : LGORequestable
 
-@property (nonatomic, copy) NSString *error;
-- (id) initWithErrorString:(NSString *)errorString;
+@property(nonatomic, copy) NSString *error;
+- (id)initWithErrorString:(NSString *)errorString;
 
 @end
 
+@interface LGOBuildFailedResponse : LGOResponse
 
-
-@interface LGOBuildFailedResponse: LGOResponse
-
-@property (nonatomic, copy) NSString *error;
-- (id) initWithErrorString:(NSString *)errorString;
+@property(nonatomic, copy) NSString *error;
+- (id)initWithErrorString:(NSString *)errorString;
 
 @end

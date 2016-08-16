@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGOImagePreviewer: LGOModule
+@interface LGOImagePreviewer : LGOModule
 
 @end

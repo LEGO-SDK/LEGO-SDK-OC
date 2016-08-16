@@ -10,8 +10,8 @@
 
 @interface UIViewController (LGOStatusBar)
 
-@property (nonatomic, assign) UIStatusBarStyle lgo_statusBarStyle;
-@property (nonatomic, assign) BOOL lgo_statusBarHidden;
+@property(nonatomic, assign) UIStatusBarStyle lgo_statusBarStyle;
+@property(nonatomic, assign) BOOL lgo_statusBarHidden;
 
 - (void)lgo_setNeedsStatusBarAppearanceUpdate:(BOOL)animated;
 

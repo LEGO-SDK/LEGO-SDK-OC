@@ -20,11 +20,14 @@
 static int kNavigationHiddenIdentifierKey;
 
 - (BOOL)lgo_navigationBarHidden {
-    return objc_getAssociatedObject(self, &kNavigationHiddenIdentifierKey) == nil ? NO : [objc_getAssociatedObject(self, &kNavigationHiddenIdentifierKey) boolValue];
+    return objc_getAssociatedObject(self, &kNavigationHiddenIdentifierKey) == nil
+               ? NO
+               : [objc_getAssociatedObject(self, &kNavigationHiddenIdentifierKey) boolValue];
 }
 
 - (void)setLgo_navigationBarHidden:(BOOL)lgo_navigationBarHidden {
-    objc_setAssociatedObject(self, &kNavigationHiddenIdentifierKey, @(lgo_navigationBarHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &kNavigationHiddenIdentifierKey, @(lgo_navigationBarHidden),
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

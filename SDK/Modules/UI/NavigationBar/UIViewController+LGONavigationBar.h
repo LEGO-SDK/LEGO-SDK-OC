@@ -10,7 +10,7 @@
 
 @interface UIViewController (LGONavigationBar)
 
-@property (nonatomic, assign) BOOL lgo_navigationBarHidden;
+@property(nonatomic, assign) BOOL lgo_navigationBarHidden;
 
 - (void)lgo_setNeedsNavigationBarAppearanceUpdate:(BOOL)animated;
 

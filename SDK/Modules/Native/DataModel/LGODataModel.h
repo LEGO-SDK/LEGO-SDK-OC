@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGODataModel: LGOModule
+@interface LGODataModel : LGOModule
 
 @end

@@ -7,8 +7,8 @@
 //
 
 #import <objc/runtime.h>
-#import "LGOWatchDog.h"
 #import "LGOPack.h"
+#import "LGOWatchDog.h"
 #import "WKWebView+LGOPack.h"
 
 @implementation WKWebView (LGOPack)
@@ -17,25 +17,20 @@
     {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            Class class = [WKWebView class];
-            SEL originalSelector = @selector(loadRequest:);
-            SEL swizzledSelector = @selector(lgo_PackLoadRequest:);
-            Method originalMethod = class_getInstanceMethod(class, originalSelector);
-            Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-            BOOL didAddMethod =
-            class_addMethod(class,
-                            originalSelector,
-                            method_getImplementation(swizzledMethod),
-                            method_getTypeEncoding(swizzledMethod));
-            
-            if (didAddMethod) {
-                class_replaceMethod(class,
-                                    swizzledSelector,
-                                    method_getImplementation(originalMethod),
-                                    method_getTypeEncoding(originalMethod));
-            } else {
-                method_exchangeImplementations(originalMethod, swizzledMethod);
-            }
+          Class class = [WKWebView class];
+          SEL originalSelector = @selector(loadRequest:);
+          SEL swizzledSelector = @selector(lgo_PackLoadRequest:);
+          Method originalMethod = class_getInstanceMethod(class, originalSelector);
+          Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+          BOOL didAddMethod = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod),
+                                              method_getTypeEncoding(swizzledMethod));
+
+          if (didAddMethod) {
+              class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod),
+                                  method_getTypeEncoding(originalMethod));
+          } else {
+              method_exchangeImplementations(originalMethod, swizzledMethod);
+          }
         });
     }
 }
@@ -57,14 +52,19 @@
                     }
                 }
             }
-            [LGOPack createFileServerWithURL:request.URL progressBlock:^(double progress) {} completionBlock:^(NSString *finalPath) {
-                [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
-            }];
-        }
-        else {
-            [LGOPack createFileServerWithURL:request.URL progressBlock:^(double progress) {} completionBlock:^(NSString *finalPath) {
-                [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
-            }];
+            [LGOPack createFileServerWithURL:request.URL
+                progressBlock:^(double progress) {
+                }
+                completionBlock:^(NSString *finalPath) {
+                  [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
+                }];
+        } else {
+            [LGOPack createFileServerWithURL:request.URL
+                progressBlock:^(double progress) {
+                }
+                completionBlock:^(NSString *finalPath) {
+                  [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
+                }];
         }
         return [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
     }

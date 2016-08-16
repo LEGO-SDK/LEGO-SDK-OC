@@ -18,7 +18,7 @@
     static NSMutableArray *arr;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        arr = [NSMutableArray array];
+      arr = [NSMutableArray array];
     });
     return arr;
 }
@@ -27,16 +27,16 @@
     static NSMutableArray *arr;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        arr = [NSMutableArray array];
+      arr = [NSMutableArray array];
     });
     return arr;
 }
 
-+ (NSMutableDictionary<NSString *,NSArray<NSString *> *> *)whiteModule {
++ (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)whiteModule {
     static NSMutableDictionary *dict;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dict = [NSMutableDictionary dictionary];
+      dict = [NSMutableDictionary dictionary];
     });
     return dict;
 }
@@ -45,7 +45,7 @@
     static LGOModules *modules;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        modules = [[LGOModules alloc] init];
+      modules = [[LGOModules alloc] init];
     });
     return modules;
 }

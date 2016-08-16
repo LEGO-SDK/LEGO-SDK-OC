@@ -6,19 +6,19 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGORefresh.h"
-#import "LGOCore.h"
-#import "LGOBuildFailed.h"
-#import "LGOWebView+RefreshControl.h"
-#import "LGOWKWebView+RefreshControl.h"
-#import <objc/runtime.h>
 #import <WebKit/WebKit.h>
+#import <objc/runtime.h>
+#import "LGOBuildFailed.h"
+#import "LGOCore.h"
+#import "LGORefresh.h"
+#import "LGOWKWebView+RefreshControl.h"
+#import "LGOWebView+RefreshControl.h"
 
 static int kRefreshOperationIdentifierKey;
 
-@interface LGORefreshRequest: LGORequest
+@interface LGORefreshRequest : LGORequest
 
-@property (nonatomic, strong) NSString *opt; // add/complete
+@property(nonatomic, strong) NSString *opt;  // add/complete
 
 @end
 
@@ -26,40 +26,37 @@ static int kRefreshOperationIdentifierKey;
 
 @end
 
-@interface LGORefreshOperation: LGORequestable
+@interface LGORefreshOperation : LGORequestable
 
-@property (nonatomic, strong) LGORefreshRequest *request;
-@property (nonatomic, copy) LGORequestableAsynchronizeBlock responseBlock;
+@property(nonatomic, strong) LGORefreshRequest *request;
+@property(nonatomic, copy) LGORequestableAsynchronizeBlock responseBlock;
 
 @end
 
 @implementation LGORefreshOperation
 
-- (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock{
+- (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock {
     self.responseBlock = callbackBlock;
     NSObject *sender = self.request.context.sender;
-    if ([self.request.opt isEqualToString:@"add"]){
-        if ([sender isKindOfClass:[WKWebView class]]){
+    if ([self.request.opt isEqualToString:@"add"]) {
+        if ([sender isKindOfClass:[WKWebView class]]) {
             [((WKWebView *)sender) configureRefreshControl:self];
             objc_setAssociatedObject(sender, &kRefreshOperationIdentifierKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-        else if ([sender isKindOfClass:[UIWebView class]]){
+        } else if ([sender isKindOfClass:[UIWebView class]]) {
             [((UIWebView *)sender) configureRefreshControl:self];
             objc_setAssociatedObject(sender, &kRefreshOperationIdentifierKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
-    }
-    else if([self.request.opt isEqualToString:@"complete"]){
-        if ([sender isKindOfClass:[WKWebView class]]){
-            [((WKWebView *)sender) endRefreshing];
-        }
-        else if ([sender isKindOfClass:[UIWebView class]]){
-            [((UIWebView *)sender) endRefreshing];
+    } else if ([self.request.opt isEqualToString:@"complete"]) {
+        if ([sender isKindOfClass:[WKWebView class]]) {
+            [((WKWebView *)sender)endRefreshing];
+        } else if ([sender isKindOfClass:[UIWebView class]]) {
+            [((UIWebView *)sender)endRefreshing];
         }
     }
 }
 
-- (void)handleRefreshControlTrigger{
-    if (self.responseBlock){
+- (void)handleRefreshControlTrigger {
+    if (self.responseBlock) {
         self.responseBlock([LGOResponse new]);
     }
 }
@@ -67,8 +64,8 @@ static int kRefreshOperationIdentifierKey;
 
 @implementation LGORefresh
 
-- (LGORequestable *)buildWithRequest:(LGORequest *)request{
-    if ([request isKindOfClass:[LGORefreshRequest class]]){
+- (LGORequestable *)buildWithRequest:(LGORequest *)request {
+    if ([request isKindOfClass:[LGORefreshRequest class]]) {
         LGORefreshOperation *operation = [LGORefreshOperation new];
         operation.request = (LGORefreshRequest *)request;
         return operation;
@@ -76,7 +73,7 @@ static int kRefreshOperationIdentifierKey;
     return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
 }
 
-- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
+- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     NSString *opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : @"add";
     LGORefreshRequest *request = [LGORefreshRequest new];
     request.context = context;
@@ -85,4 +82,3 @@ static int kRefreshOperationIdentifierKey;
 }
 
 @end
-

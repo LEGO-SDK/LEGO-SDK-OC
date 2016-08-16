@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGOCanOpenURL: LGOModule
+@interface LGOCanOpenURL : LGOModule
 
 @end

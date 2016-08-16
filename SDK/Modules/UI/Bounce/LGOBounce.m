@@ -8,12 +8,12 @@
 
 #import <WebKit/WebKit.h>
 #import "LGOBounce.h"
-#import "LGOCore.h"
 #import "LGOBuildFailed.h"
+#import "LGOCore.h"
 
-@interface LGOBounceRequest: LGORequest
+@interface LGOBounceRequest : LGORequest
 
-@property (nonatomic, assign) BOOL allow;
+@property(nonatomic, assign) BOOL allow;
 
 @end
 
@@ -21,20 +21,19 @@
 
 @end
 
-@interface LGOBounceOperation: LGORequestable
+@interface LGOBounceOperation : LGORequestable
 
-@property (nonatomic, strong) LGOBounceRequest *request;
+@property(nonatomic, strong) LGOBounceRequest *request;
 
 @end
 
 @implementation LGOBounceOperation
 
-- (LGOResponse *)requestSynchronize{
+- (LGOResponse *)requestSynchronize {
     UIView *webView = self.request.context.requestWebView;
-    if ([webView isKindOfClass:[UIWebView class]]){
+    if ([webView isKindOfClass:[UIWebView class]]) {
         ((UIWebView *)webView).scrollView.bounces = self.request.allow;
-    }
-    else if ([webView isKindOfClass:[WKWebView class]]){
+    } else if ([webView isKindOfClass:[WKWebView class]]) {
         ((WKWebView *)webView).scrollView.bounces = self.request.allow;
     }
     return [LGOResponse new];
@@ -44,8 +43,8 @@
 
 @implementation LGOBounce
 
-- (LGORequestable *)buildWithRequest:(LGORequest *)request{
-    if ([request isKindOfClass:[LGOBounceRequest class]]){
+- (LGORequestable *)buildWithRequest:(LGORequest *)request {
+    if ([request isKindOfClass:[LGOBounceRequest class]]) {
         LGOBounceOperation *operation = [LGOBounceOperation new];
         operation.request = (LGOBounceRequest *)request;
         return operation;
@@ -53,12 +52,12 @@
     return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
 }
 
-- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
+- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     NSNumber *allow = dictionary[@"allow"];
-    if (allow == nil){
+    if (allow == nil) {
         return [[LGOBuildFailed alloc] initWithErrorString:@"RequestParam Required: allow"];
     }
-    
+
     LGOBounceRequest *request = [LGOBounceRequest new];
     request.context = context;
     request.allow = [allow isKindOfClass:[NSNumber class]] ? ((NSNumber *)allow).boolValue : NO;
@@ -66,4 +65,3 @@
 }
 
 @end
-

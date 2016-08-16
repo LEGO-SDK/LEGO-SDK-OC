@@ -6,29 +6,27 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOWebView.h"
-#import "LGOJavaScriptBridge.h"
 #import "JSContext+LGOProps.h"
+#import "LGOJavaScriptBridge.h"
 #import "LGONotification.h"
+#import "LGOWebView.h"
 @import JavaScriptCore;
 
 @interface LGOWebView ()
 
-@property (nonatomic, strong) JSContext *context;
+@property(nonatomic, strong) JSContext *context;
 
 @end
 
 @implementation LGOWebView
 
-- (void)dealloc
-{
+- (void)dealloc {
     self.delegate = nil;
     self.context.lgo_webView = nil;
     [LGONotification LGONotificationGC];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self configureContext];
@@ -39,8 +37,7 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         [self configureContext];

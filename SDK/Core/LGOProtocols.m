@@ -14,8 +14,7 @@
 - (UIViewController *)requestViewController {
     if (self.viewController != nil) {
         return self.viewController;
-    }
-    else {
+    } else {
         if (self.sender != nil && [self.sender isKindOfClass:[UIView class]]) {
             UIResponder *next = [(UIView *)self.sender nextResponder];
             while (next != nil && ![next isKindOfClass:[UIViewController class]]) {
@@ -30,10 +29,10 @@
 }
 
 - (UIView *)requestWebView {
-    if (self.sender != nil && ([self.sender isKindOfClass:[UIWebView class]] || [self.sender isKindOfClass:[WKWebView class]])) {
+    if (self.sender != nil &&
+        ([self.sender isKindOfClass:[UIWebView class]] || [self.sender isKindOfClass:[WKWebView class]])) {
         return (UIView *)self.sender;
-    }
-    else {
+    } else {
         return nil;
     }
 }
@@ -55,9 +54,7 @@
 @implementation LGOResponse
 
 - (NSDictionary *)toDictionary {
-    return @{
-             @"succeed": [NSNumber numberWithBool:self.succeed]
-             };
+    return @{ @"succeed" : [NSNumber numberWithBool:self.succeed] };
 }
 
 @end

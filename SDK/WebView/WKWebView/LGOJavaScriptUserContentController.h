@@ -10,24 +10,25 @@
 
 @class LGORequestContext;
 
-typedef void(^LGOWKMessageCallCompletionBlock)(NSDictionary<NSString *, id> * _Nonnull result);
+typedef void (^LGOWKMessageCallCompletionBlock)(NSDictionary<NSString *, id> *_Nonnull result);
 
 @interface LGOWKMessage : NSObject
 
-@property (nonatomic, copy) NSString * _Nonnull messageID;
-@property (nonatomic, copy) NSString * _Nonnull moduleName;
-@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nonnull requestParams;
-@property (nonatomic, strong) NSNumber * _Nonnull callbackID;
+@property(nonatomic, copy) NSString *_Nonnull messageID;
+@property(nonatomic, copy) NSString *_Nonnull moduleName;
+@property(nonatomic, copy) NSDictionary<NSString *, id> *_Nonnull requestParams;
+@property(nonatomic, strong) NSNumber *_Nonnull callbackID;
 
 + (nullable LGOWKMessage *)newMessageWithJSONString:(nonnull NSString *)JSONString;
 
-- (void)callWithCompletionBlock:(nonnull LGOWKMessageCallCompletionBlock)completionBlock context:(nullable LGORequestContext *)context;
+- (void)callWithCompletionBlock:(nonnull LGOWKMessageCallCompletionBlock)completionBlock
+                        context:(nullable LGORequestContext *)context;
 
 @end
 
-@interface LGOJavaScriptUserContentController : WKUserContentController <WKScriptMessageHandler>
+@interface LGOJavaScriptUserContentController : WKUserContentController<WKScriptMessageHandler>
 
-@property (nonatomic, weak) WKWebView * _Nullable webView;
+@property(nonatomic, weak) WKWebView *_Nullable webView;
 
 - (void)addPrescripts;
 

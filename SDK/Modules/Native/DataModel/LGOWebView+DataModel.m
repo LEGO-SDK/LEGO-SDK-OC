@@ -13,35 +13,53 @@ static int kDataModelIdentifierKey;
 
 @implementation UIWebView (DataModel)
 
-- (void)updateDataModel:(NSString *)dataKey dataValue:(id)dataValue{
+- (void)updateDataModel:(NSString *)dataKey dataValue:(id)dataValue {
     id oldValue = [self.dataModel valueForKey:dataKey];
     [self.dataModel setValue:dataValue forKey:dataKey];
-    if (![NSJSONSerialization isValidJSONObject:self.dataModel]){
+    if (![NSJSONSerialization isValidJSONObject:self.dataModel]) {
         self.dataModel[dataKey] = oldValue;
-    }
-    else {
+    } else {
         [self notifyDataModelDidChanged:dataKey dataValue:dataValue];
     }
 }
 
-- (void)notifyDataModelDidChanged:(NSString *)dataKey dataValue:(id)dataValue{
-    if (self.loading) { return ; }
-    if ([NSJSONSerialization isValidJSONObject:dataValue]){
-        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dataValue options:kNilOptions error:nil];
-        if (!jsonData) { return ; }
-        NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        if (!jsonString) { return ; }
-        jsonString = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet new]];
-        [[NSOperationQueue mainQueue]addOperationWithBlock:^{
-            [self stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat:@"if (typeof JSDataModel != 'undefined'){JSDataModel['%@'] = JSON.parse(decodeURIComponent('%@'))}", dataKey, jsonString] ];
-            [self stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat:@"(typeof JSDataModelDidChanged != 'undefined') && JSDataModelDidChanged('%@') ", dataKey] ];
-        }];
-        
+- (void)notifyDataModelDidChanged:(NSString *)dataKey dataValue:(id)dataValue {
+    if (self.loading) {
+        return;
     }
-    else {
-        [[NSOperationQueue mainQueue]addOperationWithBlock:^{
-            [self stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat:@"if (typeof JSDataModel != 'undefined'){JSDataModel['%@'] = '%@'} ", dataKey, dataValue] ];
-            [self stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat:@"(typeof JSDataModelDidChanged != 'undefined') && JSDataModelDidChanged('%@') ", dataKey] ];
+    if ([NSJSONSerialization isValidJSONObject:dataValue]) {
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dataValue options:kNilOptions error:nil];
+        if (!jsonData) {
+            return;
+        }
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        if (!jsonString) {
+            return;
+        }
+        jsonString = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet new]];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+          [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if (typeof JSDataModel != "
+                                                                                  @"'undefined'){JSDataModel['%@'] = "
+                                                                                  @"JSON.parse(decodeURIComponent('%@'"
+                                                                                  @"))}",
+                                                                                  dataKey, jsonString]];
+          [self
+              stringByEvaluatingJavaScriptFromString:
+                  [NSString
+                      stringWithFormat:@"(typeof JSDataModelDidChanged != 'undefined') && JSDataModelDidChanged('%@') ",
+                                       dataKey]];
+        }];
+
+    } else {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+          [self stringByEvaluatingJavaScriptFromString:
+                    [NSString stringWithFormat:@"if (typeof JSDataModel != 'undefined'){JSDataModel['%@'] = '%@'} ",
+                                               dataKey, dataValue]];
+          [self
+              stringByEvaluatingJavaScriptFromString:
+                  [NSString
+                      stringWithFormat:@"(typeof JSDataModelDidChanged != 'undefined') && JSDataModelDidChanged('%@') ",
+                                       dataKey]];
         }];
     }
 }

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol LGOCallable <NSObject>
+@protocol LGOCallable<NSObject>
 
 @required
 - (void)callWithMethodName:(NSString *)methodName userInfo:(NSDictionary<NSString *, id> *)userInfo;

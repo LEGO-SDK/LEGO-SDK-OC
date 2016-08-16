@@ -10,8 +10,8 @@
 
 @interface LGOWKWebView : WKWebView
 
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property(nonatomic, strong) UIRefreshControl *refreshControl;
 
-@property (nonatomic, strong) NSMutableDictionary *dataModel;
+@property(nonatomic, strong) NSMutableDictionary *dataModel;
 
 @end

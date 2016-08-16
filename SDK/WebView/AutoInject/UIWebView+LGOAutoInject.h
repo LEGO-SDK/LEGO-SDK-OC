@@ -10,6 +10,6 @@
 
 @interface UIWebView (LGOAutoInject)
 
-@property (nonatomic, strong) JSContext *lgo_context;
+@property(nonatomic, strong) JSContext *lgo_context;
 
 @end

@@ -6,27 +6,26 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOImagePreviewZoomingScrollView.h"
 #import "LGOImagePreviewController.h"
+#import "LGOImagePreviewZoomingScrollView.h"
 
 @interface LGOImagePreviewZoomingScrollView ()
 
-@property (nonatomic, strong) UITapGestureRecognizer *singleTapGesture;
-@property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
-@property (nonatomic, strong) UIActionSheet *longPressActionSheet;
-@property (nonatomic, strong) UILabel *errorView;
+@property(nonatomic, strong) UITapGestureRecognizer *singleTapGesture;
+@property(nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
+@property(nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
+@property(nonatomic, strong) UIActionSheet *longPressActionSheet;
+@property(nonatomic, strong) UILabel *errorView;
 
 @end
 
 @implementation LGOImagePreviewZoomingScrollView
 
-- (void)dealloc{
+- (void)dealloc {
     self.longPressActionSheet.delegate = nil;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self setupProps];
@@ -40,87 +39,86 @@
         [self.singleTapGesture requireGestureRecognizerToFail:self.doubleTapGesture];
         [self.imageView addGestureRecognizer:self.singleTapGesture];
         self.activityIndicator.hidesWhenStopped = YES;
-        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapped:)]];
+        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                           action:@selector(handleSingleTapped:)]];
     }
     return self;
 }
 
-- (void)didMoveToSuperview{
+- (void)didMoveToSuperview {
     [super didMoveToSuperview];
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
-    if (self.imageView.image != nil){
+    if (self.imageView.image != nil) {
         self.imageView.frame = self.bounds;
     }
 }
 
-- (void)layoutSubviews{
+- (void)layoutSubviews {
     [super layoutSubviews];
     CGSize boundsSize = self.bounds.size;
     CGRect frameToCenter = self.imageView.frame;
-    if (frameToCenter.size.width < boundsSize.width){
-        frameToCenter.origin.x = ( boundsSize.width - frameToCenter.size.width ) / 2.0;
-    }
-    else {
+    if (frameToCenter.size.width < boundsSize.width) {
+        frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2.0;
+    } else {
         frameToCenter.origin.x = 0.0;
     }
-    if (frameToCenter.size.height < boundsSize.height){
+    if (frameToCenter.size.height < boundsSize.height) {
         frameToCenter.origin.y = (boundsSize.height - frameToCenter.size.height) / 2.0;
-    }
-    else{
+    } else {
         frameToCenter.origin.y = 0.0;
     }
-    if (!CGRectEqualToRect(self.imageView.frame, frameToCenter)){
+    if (!CGRectEqualToRect(self.imageView.frame, frameToCenter)) {
         self.imageView.frame = frameToCenter;
     }
-    self.activityIndicator.center = CGPointMake(self.bounds.size.width/2.0, self.bounds.size.height/2.0);
+    self.activityIndicator.center = CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0);
     self.errorView.frame = self.bounds;
 }
 
-- (void)showErrorView{
+- (void)showErrorView {
     [self addSubview:self.errorView];
     self.errorView.frame = self.bounds;
-    [self.errorView addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapped:)]];
+    [self.errorView
+        addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                     action:@selector(handleSingleTapped:)]];
 }
 
-- (void)handleSingleTapped:(UITapGestureRecognizer*)sender{
+- (void)handleSingleTapped:(UITapGestureRecognizer *)sender {
     LGOImagePreviewFrameController *viewController = [self requestViewController];
-    if (viewController != nil){
+    if (viewController != nil) {
         [viewController dismiss];
     }
 }
 
-- (void)handleDoubleTapped:(UITapGestureRecognizer*)sender{
-    if (self.zoomScale == self.maximumZoomScale){
+- (void)handleDoubleTapped:(UITapGestureRecognizer *)sender {
+    if (self.zoomScale == self.maximumZoomScale) {
         [self setZoomScale:self.minimumZoomScale animated:YES];
-    }
-    else {
+    } else {
         CGPoint touchPoint = [sender locationOfTouch:0 inView:self.imageView];
         [self zoomToRect:CGRectMake(touchPoint.x, touchPoint.y, 1, 1) animated:YES];
     }
 }
 
-- (void)handleLongPressed:(UILongPressGestureRecognizer*)sender{
-    if (sender.state == UIGestureRecognizerStateBegan){
+- (void)handleLongPressed:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
         [self.longPressActionSheet showInView:[LGOImagePreviewFrameController window]];
         self.longPressActionSheet.delegate = self;
     }
 }
 
-- (LGOImagePreviewFrameController*) requestViewController {
+- (LGOImagePreviewFrameController *)requestViewController {
     UIResponder *next = [self nextResponder];
-    for (int i = 0; i< 100; i++) {
-        if ([next isKindOfClass:[LGOImagePreviewFrameController class]]){
-            return (LGOImagePreviewFrameController*)next;
-        }
-        else if (next != nil) {
+    for (int i = 0; i < 100; i++) {
+        if ([next isKindOfClass:[LGOImagePreviewFrameController class]]) {
+            return (LGOImagePreviewFrameController *)next;
+        } else if (next != nil) {
             next = [next nextResponder];
         }
     }
     return nil;
 }
 
-- (void)setupProps{
+- (void)setupProps {
     _singleTapGesture = [UITapGestureRecognizer new];
     _singleTapGesture.numberOfTapsRequired = 1;
     _doubleTapGesture = [UITapGestureRecognizer new];
@@ -134,7 +132,8 @@
     _imageView = [UIImageView new];
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
     _imageView.userInteractionEnabled = YES;
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    _activityIndicator =
+        [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     _errorView = [UILabel new];
     _errorView.font = [UIFont systemFontOfSize:16.0];
     _errorView.textColor = [UIColor whiteColor];
@@ -145,28 +144,24 @@
 
 @end
 
-
-
-
 @interface LGOImagePreviewZoomingScrollView (Delegator)
-    
+
 @end
 
 @implementation LGOImagePreviewZoomingScrollView (Delegator)
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    if (actionSheet == self.longPressActionSheet){
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (actionSheet == self.longPressActionSheet) {
         NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-        if ([title isEqualToString:@"保存图片"]){
+        if ([title isEqualToString:@"保存图片"]) {
             UIImage *image = self.imageView.image;
-            if (image != nil){
+            if (image != nil) {
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
             }
-        }
-        else if ([title isEqualToString:@"复制图片"]){
+        } else if ([title isEqualToString:@"复制图片"]) {
             UIImage *image = self.imageView.image;
             NSData *data = UIImagePNGRepresentation(image);
-            if (image != nil && data != nil){
+            if (image != nil && data != nil) {
                 [[UIPasteboard generalPasteboard] setData:data forPasteboardType:@"public.png"];
             }
         }
@@ -174,6 +169,3 @@
 }
 
 @end
-
-
-

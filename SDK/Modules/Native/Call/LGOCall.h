@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "LGOProtocols.h"
 
-@interface LGOCall: LGOModule
+@interface LGOCall : LGOModule
 
 @end

@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGOPasteboard: LGOModule
+@interface LGOPasteboard : LGOModule
 
 @end

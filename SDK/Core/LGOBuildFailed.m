@@ -26,23 +26,23 @@
     return self;
 }
 
-- (id) initWithErrorString:(NSString *)errorString{
+- (id)initWithErrorString:(NSString *)errorString {
     _error = errorString;
     return self;
 }
 
 - (NSDictionary *)toDictionary {
     return @{
-             @"succeed": @(false),
-             @"error": self.error,
-             };
+        @"succeed" : @(false),
+        @"error" : self.error,
+    };
 }
 
 @end
 
 @implementation LGOBuildFailed
 
-- (id) initWithErrorString:(NSString*)errorString {
+- (id)initWithErrorString:(NSString *)errorString {
     self.error = errorString;
     return self;
 }

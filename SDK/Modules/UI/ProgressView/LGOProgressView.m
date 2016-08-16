@@ -13,15 +13,14 @@
 
 @interface LGOProgressView ()
 
-@property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) NSTimer *hiddenTimer;
+@property(nonatomic, strong) UIProgressView *progressView;
+@property(nonatomic, strong) NSTimer *hiddenTimer;
 
 @end
 
 @implementation LGOProgressView
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _progressView = [[UIProgressView alloc] init];
@@ -34,21 +33,27 @@
     [self.progressView setAlpha:1.0];
     [self.progressView setProgress:progress animated:YES];
     if (progress == 1.0) {
-        self.hiddenTimer = [NSTimer scheduledTimerWithTimeInterval:0.80 target:self selector:@selector(hidesWithDelay) userInfo:nil repeats:NO];
+        self.hiddenTimer = [NSTimer scheduledTimerWithTimeInterval:0.80
+                                                            target:self
+                                                          selector:@selector(hidesWithDelay)
+                                                          userInfo:nil
+                                                           repeats:NO];
     }
 }
 
 - (void)hidesWithDelay {
-    [UIView animateWithDuration:0.30 animations:^{
-        [self.progressView setAlpha:0.0];
-    } completion:nil];
+    [UIView animateWithDuration:0.30
+                     animations:^{
+                       [self.progressView setAlpha:0.0];
+                     }
+                     completion:nil];
 }
 
 @end
 
 @interface WKWebView (LGOProgressView)
 
-@property (nonatomic, strong) LGOProgressView *lgo_progressView;
+@property(nonatomic, strong) LGOProgressView *lgo_progressView;
 
 @end
 
@@ -58,49 +63,39 @@
     {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            Class class = [WKWebView class];
-            SEL originalSelector = @selector(willMoveToSuperview:);
-            SEL swizzledSelector = @selector(lgo_progressViewWillMoveToSuperview:);
-            Method originalMethod = class_getInstanceMethod(class, originalSelector);
-            Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-            BOOL didAddMethod =
-            class_addMethod(class,
-                            originalSelector,
-                            method_getImplementation(swizzledMethod),
-                            method_getTypeEncoding(swizzledMethod));
-            
-            if (didAddMethod) {
-                class_replaceMethod(class,
-                                    swizzledSelector,
-                                    method_getImplementation(originalMethod),
-                                    method_getTypeEncoding(originalMethod));
-            } else {
-                method_exchangeImplementations(originalMethod, swizzledMethod);
-            }
+          Class class = [WKWebView class];
+          SEL originalSelector = @selector(willMoveToSuperview:);
+          SEL swizzledSelector = @selector(lgo_progressViewWillMoveToSuperview:);
+          Method originalMethod = class_getInstanceMethod(class, originalSelector);
+          Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+          BOOL didAddMethod = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod),
+                                              method_getTypeEncoding(swizzledMethod));
+
+          if (didAddMethod) {
+              class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod),
+                                  method_getTypeEncoding(originalMethod));
+          } else {
+              method_exchangeImplementations(originalMethod, swizzledMethod);
+          }
         });
     }
     {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            Class class = [WKWebView class];
-            SEL originalSelector = @selector(didChangeValueForKey:);
-            SEL swizzledSelector = @selector(lgo_progressViewDidChangeValueForKey:);
-            Method originalMethod = class_getInstanceMethod(class, originalSelector);
-            Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-            BOOL didAddMethod =
-            class_addMethod(class,
-                            originalSelector,
-                            method_getImplementation(swizzledMethod),
-                            method_getTypeEncoding(swizzledMethod));
-            
-            if (didAddMethod) {
-                class_replaceMethod(class,
-                                    swizzledSelector,
-                                    method_getImplementation(originalMethod),
-                                    method_getTypeEncoding(originalMethod));
-            } else {
-                method_exchangeImplementations(originalMethod, swizzledMethod);
-            }
+          Class class = [WKWebView class];
+          SEL originalSelector = @selector(didChangeValueForKey:);
+          SEL swizzledSelector = @selector(lgo_progressViewDidChangeValueForKey:);
+          Method originalMethod = class_getInstanceMethod(class, originalSelector);
+          Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+          BOOL didAddMethod = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod),
+                                              method_getTypeEncoding(swizzledMethod));
+
+          if (didAddMethod) {
+              class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod),
+                                  method_getTypeEncoding(originalMethod));
+          } else {
+              method_exchangeImplementations(originalMethod, swizzledMethod);
+          }
         });
     }
 }

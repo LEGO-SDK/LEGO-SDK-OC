@@ -9,13 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "LGOProtocols.h"
 
-typedef void(^LGOPackFileServerProgressBlock)(double progress);
-typedef void(^LGOPackFileServerCreatedBlock)(NSString *finalPath);
+typedef void (^LGOPackFileServerProgressBlock)(double progress);
+typedef void (^LGOPackFileServerCreatedBlock)(NSString *finalPath);
 
 @interface LGOPack : LGOModule
 
 + (BOOL)localCachedWithURL:(NSURL *)URL;
 
-+ (void)createFileServerWithURL:(NSURL *)URL progressBlock:(LGOPackFileServerProgressBlock)progressBlock completionBlock:(LGOPackFileServerCreatedBlock)completionBlock;
++ (void)createFileServerWithURL:(NSURL *)URL
+                  progressBlock:(LGOPackFileServerProgressBlock)progressBlock
+                completionBlock:(LGOPackFileServerCreatedBlock)completionBlock;
 
 @end

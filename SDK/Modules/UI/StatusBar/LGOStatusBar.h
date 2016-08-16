@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGOStatusBar: LGOModule
+@interface LGOStatusBar : LGOModule
 
 @end

@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGOIndicatorView: LGOModule
+@interface LGOIndicatorView : LGOModule
 
 @end

@@ -10,11 +10,13 @@
 
 @interface UIViewController (LGOViewController)
 
-@property (nonatomic, strong) UIView *lgo_webView;
+@property(nonatomic, strong) UIView *lgo_webView;
 
 - (void)lgo_openWebViewWithRequest:(NSURLRequest *)request args:(NSDictionary *)args;
 
-- (void)lgo_openWebViewWithRequest:(NSURLRequest *)request args:(NSDictionary *)args renderFinishedBlock:(void (^)())renderFinishedBlock;
+- (void)lgo_openWebViewWithRequest:(NSURLRequest *)request
+                              args:(NSDictionary *)args
+               renderFinishedBlock:(void (^)())renderFinishedBlock;
 
 - (void)lgo_dismiss;
 

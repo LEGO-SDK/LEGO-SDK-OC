@@ -6,23 +6,23 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-#import "LGOModalController.h"
-#import "LGOCore.h"
+#import <objc/runtime.h>
 #import "LGOBuildFailed.h"
+#import "LGOCore.h"
+#import "LGOModalController.h"
 #import "UIViewController+LGOViewController.h"
 
-@interface LGOModalRequest: LGORequest
+@interface LGOModalRequest : LGORequest
 
-@property (nonatomic, copy) NSString *opt; // present/dismiss
-@property (nonatomic, copy) NSString *path; // an URLString or LGOViewControllerMapping[path]
-@property (nonatomic, assign) BOOL animated; // push or pop need animation. Defaults to true.
-@property (nonatomic, copy) NSString *title; // next title.
-@property (nonatomic, assign) BOOL statusBarHidden; // next title.
-@property (nonatomic, assign) BOOL navigationBarHidden; // next title.
-@property (nonatomic, strong) NSDictionary *args; // deliver args to next ViewController
+@property(nonatomic, copy) NSString *opt;               // present/dismiss
+@property(nonatomic, copy) NSString *path;              // an URLString or LGOViewControllerMapping[path]
+@property(nonatomic, assign) BOOL animated;             // push or pop need animation. Defaults to true.
+@property(nonatomic, copy) NSString *title;             // next title.
+@property(nonatomic, assign) BOOL statusBarHidden;      // next title.
+@property(nonatomic, assign) BOOL navigationBarHidden;  // next title.
+@property(nonatomic, strong) NSDictionary *args;        // deliver args to next ViewController
 
 @end
 
@@ -36,70 +36,69 @@ LGOModalOperation *lastOperation;
 
 NSDate *lastPresent;
 
-@interface LGOModalOperation: LGORequestable
+@interface LGOModalOperation : LGORequestable
 
-@property (nonatomic, strong) LGOModalRequest *request;
+@property(nonatomic, strong) LGOModalRequest *request;
 
 @end
 
 @implementation LGOModalOperation
 
-- (LGOResponse *)requestSynchronize{
-    if ([self.request.opt isEqualToString:@"present"]){
+- (LGOResponse *)requestSynchronize {
+    if ([self.request.opt isEqualToString:@"present"]) {
         [self present];
-    }
-    else if ([self.request.opt isEqualToString:@"dismiss"]){
+    } else if ([self.request.opt isEqualToString:@"dismiss"]) {
         [self dismiss];
     }
     return [LGOResponse new];
 }
 
-- (void)dismiss{
+- (void)dismiss {
     UIViewController *viewController = [self requestViewController];
-    if(viewController == nil){ return; }
-    
+    if (viewController == nil) {
+        return;
+    }
+
     UIViewController *presentedViewController = viewController.presentedViewController;
     if (presentedViewController != nil) {
         [presentedViewController dismissViewControllerAnimated:self.request.animated completion:nil];
         return;
     }
-    
+
     UINavigationController *naviViewController = viewController.navigationController;
-    if (naviViewController != nil){
+    if (naviViewController != nil) {
         [naviViewController dismissViewControllerAnimated:self.request.animated completion:nil];
         return;
     }
-    
-    if (viewController.presentingViewController != nil){
+
+    if (viewController.presentingViewController != nil) {
         [viewController dismissViewControllerAnimated:self.request.animated completion:nil];
     }
-    
 }
 
-- (void)present{
-    if (lastPresent != nil && [lastPresent timeIntervalSinceNow] > -1.0 ){
+- (void)present {
+    if (lastPresent != nil && [lastPresent timeIntervalSinceNow] > -1.0) {
         NSLog(@"两次 Present 的操作不能少于 1 秒");
         return;
-    }
-    else {
+    } else {
         lastPresent = [NSDate new];
     }
-    
+
     NSURL *relativeURL = nil;
     UIView *webView = self.request.context.requestWebView;
-    if (webView != nil && [webView isKindOfClass:[UIWebView class]]){
+    if (webView != nil && [webView isKindOfClass:[UIWebView class]]) {
         relativeURL = ((UIWebView *)webView).request.URL;
     }
-    if (webView != nil && [webView isKindOfClass:[WKWebView class]]){
+    if (webView != nil && [webView isKindOfClass:[WKWebView class]]) {
         relativeURL = ((WKWebView *)webView).URL;
     }
     NSURL *URL = [NSURL URLWithString:self.request.path relativeToURL:relativeURL];
-    if (URL != nil){
+    if (URL != nil) {
         [self presentWebView:URL];
     }
 }
 
-- (void)presentWebView:(NSURL *)URL{
+- (void)presentWebView:(NSURL *)URL {
     UIViewController *viewController = [self requestViewController];
     if (viewController == nil) {
         return;
@@ -116,37 +115,40 @@ NSDate *lastPresent;
     }
     UIViewController *presentingViewController = nextViewController;
     UINavigationController *navigationController = [self requestNavigationController:nextViewController];
-    if (navigationController != nil){
+    if (navigationController != nil) {
         presentingViewController = navigationController;
-    }
-    else {
+    } else {
         presentingViewController = nextViewController;
     }
     [viewController presentViewController:presentingViewController animated:YES completion:nil];
 }
 
-- (UINavigationController *)requestNavigationController:(UIViewController*)rootViewController{
+- (UINavigationController *)requestNavigationController:(UIViewController *)rootViewController {
     UIViewController *requestVC = [self requestViewController];
-    if (requestVC != nil && requestVC.navigationController != nil){
+    if (requestVC != nil && requestVC.navigationController != nil) {
         Class naviClz = [requestVC.navigationController class];
         UINavigationController *naviController = [[naviClz alloc] init];
-        [naviController setViewControllers:@[rootViewController] animated:NO];
-        rootViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:naviController action: @selector(lgo_dismiss)];
+        [naviController setViewControllers:@[ rootViewController ] animated:NO];
+        rootViewController.navigationItem.rightBarButtonItem =
+            [[UIBarButtonItem alloc] initWithTitle:@"关闭"
+                                             style:UIBarButtonItemStylePlain
+                                            target:naviController
+                                            action:@selector(lgo_dismiss)];
         return naviController;
     }
     return nil;
 }
 
-- (UIViewController *)requestViewController{
-    UIView *view = [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender:nil;
-    if(view){
+- (UIViewController *)requestViewController {
+    UIView *view =
+        [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender : nil;
+    if (view) {
         UIResponder *next = [view nextResponder];
-        for (int count = 0; count<100; count++) {
-            if([next isKindOfClass:[UIViewController class]]){
+        for (int count = 0; count < 100; count++) {
+            if ([next isKindOfClass:[UIViewController class]]) {
                 return (UIViewController *)next;
-            }
-            else{
-                if (next != nil){
+            } else {
+                if (next != nil) {
                     next = [next nextResponder];
                 }
             }
@@ -159,8 +161,8 @@ NSDate *lastPresent;
 
 @implementation LGOModalController
 
-- (LGORequestable *)buildWithRequest:(LGORequest *)request{
-    if ([request isKindOfClass:[LGOModalRequest class]]){
+- (LGORequestable *)buildWithRequest:(LGORequest *)request {
+    if ([request isKindOfClass:[LGOModalRequest class]]) {
         LGOModalOperation *operation = [LGOModalOperation new];
         operation.request = (LGOModalRequest *)request;
         return operation;
@@ -168,15 +170,21 @@ NSDate *lastPresent;
     return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
 }
 
-- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
+- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGOModalRequest *request = [LGOModalRequest new];
     request.context = context;
     request.opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : @"present";
     request.path = [dictionary[@"path"] isKindOfClass:[NSString class]] ? dictionary[@"path"] : @"";
-    request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]] ? ((NSNumber *)dictionary[@"animated"]).boolValue : YES;
+    request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]]
+                           ? ((NSNumber *)dictionary[@"animated"]).boolValue
+                           : YES;
     request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : @"";
-    request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"statusBarHidden"] boolValue] : NO;
-    request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"navigationBarHidden"] boolValue] : NO;
+    request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]]
+                                  ? [dictionary[@"statusBarHidden"] boolValue]
+                                  : NO;
+    request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]]
+                                      ? [dictionary[@"navigationBarHidden"] boolValue]
+                                      : NO;
     request.args = [dictionary[@"args"] isKindOfClass:[NSDictionary class]] ? dictionary[@"args"] : @{};
     return [self buildWithRequest:request];
 }

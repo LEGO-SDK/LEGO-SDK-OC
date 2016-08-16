@@ -8,7 +8,7 @@
 
 #import "LGOProtocols.h"
 
-@interface LGOFileManager: LGOModule
+@interface LGOFileManager : LGOModule
 
 + (void)configureProtecting:(NSArray *)array;
 

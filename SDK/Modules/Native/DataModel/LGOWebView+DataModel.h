@@ -10,10 +10,10 @@
 
 @interface UIWebView (DataModel)
 
-@property (nonatomic, strong) NSMutableDictionary *dataModel;
+@property(nonatomic, strong) NSMutableDictionary *dataModel;
 
-- (void)updateDataModel:(NSString*)dataKey dataValue:(id)dataValue;
+- (void)updateDataModel:(NSString *)dataKey dataValue:(id)dataValue;
 
-- (void)notifyDataModelDidChanged:(NSString*)dataKey dataValue:(id)dataValue;
+- (void)notifyDataModelDidChanged:(NSString *)dataKey dataValue:(id)dataValue;
 
 @end

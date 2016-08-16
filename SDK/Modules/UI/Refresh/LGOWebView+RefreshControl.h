@@ -10,7 +10,7 @@
 
 @interface UIWebView (RefreshControl)
 
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property(nonatomic, strong) UIRefreshControl *refreshControl;
 
 - (void)requestRefreshControl;
 

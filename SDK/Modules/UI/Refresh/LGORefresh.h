@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGORefresh: LGOModule
+@interface LGORefresh : LGOModule
 
 @end

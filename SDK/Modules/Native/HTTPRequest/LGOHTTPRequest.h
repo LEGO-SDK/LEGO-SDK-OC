@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGOHTTPRequest: LGOModule
+@interface LGOHTTPRequest : LGOModule
 
 @end

@@ -6,11 +6,11 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
+#import <UIKit/UIKit.h>
 
 @interface JSContext (LGOProps)
 
-@property (nonatomic, strong) UIWebView *lgo_webView;
+@property(nonatomic, strong) UIWebView *lgo_webView;
 
 @end

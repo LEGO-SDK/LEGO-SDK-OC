@@ -6,8 +6,8 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOWatchDog.h"
 #import "LGOCore.h"
+#import "LGOWatchDog.h"
 
 @implementation LGOWatchDog
 
@@ -51,8 +51,7 @@
     NSString *host = URL.host;
     if (host == nil && [LGOCore.whiteList count] == 0) {
         return YES;
-    }
-    else if (host != nil) {
+    } else if (host != nil) {
         NSArray<NSString *> *moduleSettings = LGOCore.whiteModule[moduleName];
         if (moduleSettings != nil) {
             for (NSString *moduleSetting in moduleSettings) {
@@ -60,8 +59,7 @@
                     return YES;
                 }
             }
-        }
-        else {
+        } else {
             return YES;
         }
     }

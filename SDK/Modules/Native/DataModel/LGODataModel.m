@@ -6,16 +6,16 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGODataModel.h"
-#import "LGOWebView+DataModel.h"
-#import "LGOWKWebView+DataModel.h"
 #import "LGOBuildFailed.h"
+#import "LGODataModel.h"
+#import "LGOWKWebView+DataModel.h"
+#import "LGOWebView+DataModel.h"
 
-@interface LGODataModelRequest: LGORequest
+@interface LGODataModelRequest : LGORequest
 
-@property (nonatomic, strong) NSString *opt; // update/read , defautl:read
-@property (nonatomic, strong) NSString *dataKey; // Only for update
-@property (nonatomic, strong) id dataValue; // Only for update
+@property(nonatomic, strong) NSString *opt;      // update/read , defautl:read
+@property(nonatomic, strong) NSString *dataKey;  // Only for update
+@property(nonatomic, strong) id dataValue;       // Only for update
 
 @end
 
@@ -23,16 +23,16 @@
 
 @end
 
-@interface LGODataModelResponse: LGOResponse
+@interface LGODataModelResponse : LGOResponse
 
-@property (nonatomic, strong) NSDictionary *dataModel;
+@property(nonatomic, strong) NSDictionary *dataModel;
 
 @end
 
 @implementation LGODataModelResponse
 
 - (NSDictionary *)toDictionary {
-    if ( [NSJSONSerialization isValidJSONObject: self.dataModel] ) {
+    if ([NSJSONSerialization isValidJSONObject:self.dataModel]) {
         return self.dataModel;
     }
     return [super toDictionary];
@@ -40,47 +40,46 @@
 
 @end
 
-@interface LGODataModelOperation: LGORequestable
+@interface LGODataModelOperation : LGORequestable
 
-@property (nonatomic, strong) LGODataModelRequest *request;
+@property(nonatomic, strong) LGODataModelRequest *request;
 
 @end
 
 @implementation LGODataModelOperation
 
 - (LGOResponse *)requestSynchronize {
-    LGODataModelResponse* response = [LGODataModelResponse new];
+    LGODataModelResponse *response = [LGODataModelResponse new];
     response.dataModel = @{};
-    NSObject * _Nullable sender = self.request.context.sender;
-    
-    if ([self.request.opt isEqual: @"read"]) {
-        if ([sender isKindOfClass: [UIWebView class]]) {
-            response.dataModel = ((UIWebView *)sender).dataModel ;
+    NSObject *_Nullable sender = self.request.context.sender;
+
+    if ([self.request.opt isEqual:@"read"]) {
+        if ([sender isKindOfClass:[UIWebView class]]) {
+            response.dataModel = ((UIWebView *)sender).dataModel;
             return response;
-        }
-        else if ([sender isKindOfClass: [WKWebView class]]){
+        } else if ([sender isKindOfClass:[WKWebView class]]) {
             response.dataModel = ((WKWebView *)sender).dataModel;
             return response;
         }
-    }
-    else if ([self.request.opt isEqual: @"update"]) {
-        if (!self.request.dataKey || self.request.dataValue == nil){ return response; }
+    } else if ([self.request.opt isEqual:@"update"]) {
+        if (!self.request.dataKey || self.request.dataValue == nil) {
+            return response;
+        }
         id dataValue = self.request.dataValue;
-        if ([dataValue isKindOfClass:[NSString class]]){
-            NSData* data = [((NSString*)dataValue) dataUsingEncoding:NSUTF8StringEncoding];
-            if (data){
-                NSError* error = nil;
+        if ([dataValue isKindOfClass:[NSString class]]) {
+            NSData *data = [((NSString *)dataValue) dataUsingEncoding:NSUTF8StringEncoding];
+            if (data) {
+                NSError *error = nil;
                 id result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-                if (error == nil){
+                if (error == nil) {
                     dataValue = result;
                 }
             }
         }
-        if ([sender isKindOfClass: [UIWebView class]]) {
+        if ([sender isKindOfClass:[UIWebView class]]) {
             [((UIWebView *)sender) updateDataModel:self.request.dataKey dataValue:dataValue];
             return response;
-        }
-        else if ([sender isKindOfClass: [WKWebView class]]){
+        } else if ([sender isKindOfClass:[WKWebView class]]) {
             [((WKWebView *)sender) updateDataModel:self.request.dataKey dataValue:dataValue];
             return response;
         }
@@ -92,8 +91,8 @@
 
 @implementation LGODataModel
 
-- (LGORequestable *)buildWithRequest:(LGORequest *)request{
-    if ([request isKindOfClass:[LGODataModelRequest class]]){
+- (LGORequestable *)buildWithRequest:(LGORequest *)request {
+    if ([request isKindOfClass:[LGODataModelRequest class]]) {
         LGODataModelOperation *operation = [LGODataModelOperation new];
         operation.request = (LGODataModelRequest *)request;
         return operation;
@@ -101,8 +100,8 @@
     return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
 }
 
-- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
-    LGODataModelRequest* request = [LGODataModelRequest new];
+- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
+    LGODataModelRequest *request = [LGODataModelRequest new];
     request.context = context;
     request.opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : @"read";
     request.dataKey = [dictionary[@"dataKey"] isKindOfClass:[NSString class]] ? dictionary[@"dataKey"] : nil;
@@ -111,13 +110,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-

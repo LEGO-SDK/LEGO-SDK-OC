@@ -8,6 +8,6 @@
 
 #import "LGOProtocols.h"
 
-@interface LGONavigationController: LGOModule
+@interface LGONavigationController : LGOModule
 
 @end

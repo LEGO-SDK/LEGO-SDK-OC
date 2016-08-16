@@ -6,13 +6,13 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
+#import "LGOBuildFailed.h"
 #import "LGOCheck.h"
 #import "LGOCore.h"
-#import "LGOBuildFailed.h"
 
-@interface LGOCheckRequest: LGORequest
+@interface LGOCheckRequest : LGORequest
 
-@property (nonatomic, copy) NSArray *moduleList;
+@property(nonatomic, copy) NSArray *moduleList;
 
 @end
 
@@ -20,26 +20,23 @@
 
 @end
 
-@interface LGOCheckResponse: LGOResponse
+@interface LGOCheckResponse : LGOResponse
 
-@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *checkResult;
+@property(nonatomic, strong) NSDictionary<NSString *, NSNumber *> *checkResult;
 
 @end
 
 @implementation LGOCheckResponse
 
 - (NSDictionary *)toDictionary {
-    return @{
-             @"SDKVersion": [LGOCore SDKVersion],
-             @"checkResult": self.checkResult
-             };
+    return @{ @"SDKVersion" : [LGOCore SDKVersion], @"checkResult" : self.checkResult };
 }
 
 @end
 
-@interface LGOCheckOperation: LGORequestable
+@interface LGOCheckOperation : LGORequestable
 
-@property (nonatomic, strong) LGOCheckRequest *request;
+@property(nonatomic, strong) LGOCheckRequest *request;
 
 @end
 
@@ -60,7 +57,7 @@
 @implementation LGOCheck
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
-    if ( [request isKindOfClass:[LGOCheckRequest class]] ) {
+    if ([request isKindOfClass:[LGOCheckRequest class]]) {
         LGOCheckOperation *operation = [LGOCheckOperation new];
         operation.request = (LGOCheckRequest *)request;
         return operation;
@@ -70,14 +67,14 @@
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGOCheckRequest *request = [[LGOCheckRequest alloc] initWithContext:context];
-    NSArray *moduleList = [dictionary[@"moduleList"] isKindOfClass:[NSArray<NSString *> class]] ? dictionary[@"moduleList"] : @[];
+    NSArray *moduleList =
+        [dictionary[@"moduleList"] isKindOfClass:[NSArray<NSString *> class]] ? dictionary[@"moduleList"] : @[];
     if (moduleList.count) {
         request.moduleList = moduleList;
-    }
-    else {
+    } else {
         request.moduleList = LGOCore.modules.allModules;
     }
-    
+
     LGOCheckOperation *operation = [LGOCheckOperation new];
     operation.request = request;
     return operation;

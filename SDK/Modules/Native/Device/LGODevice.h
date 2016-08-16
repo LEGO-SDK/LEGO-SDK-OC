@@ -8,7 +8,7 @@
 
 #import "LGOProtocols.h"
 
-@interface LGODevice: LGOModule
+@interface LGODevice : LGOModule
 
 + (void)configureCustomDictionary:(NSDictionary *)dictionary;
 

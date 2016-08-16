@@ -6,8 +6,8 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOWebView+RefreshControl.h"
 #import <objc/runtime.h>
+#import "LGOWebView+RefreshControl.h"
 
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 
@@ -19,11 +19,14 @@ static int kRefreshControlIdentifierKey;
     self.refreshControl = [[UIRefreshControl alloc] init];
 }
 
-- (void)configureRefreshControl:(NSObject *)target; {
+- (void)configureRefreshControl:(NSObject *)target;
+{
     [self requestRefreshControl];
     if (self.refreshControl != nil) {
         if ([target respondsToSelector:@selector(handleRefreshControlTrigger)]) {
-            [self.refreshControl addTarget:target action:@selector(handleRefreshControlTrigger) forControlEvents:UIControlEventValueChanged];
+            [self.refreshControl addTarget:target
+                                    action:@selector(handleRefreshControlTrigger)
+                          forControlEvents:UIControlEventValueChanged];
         }
         [self.scrollView addSubview:self.refreshControl];
     }

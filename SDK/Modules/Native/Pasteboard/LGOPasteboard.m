@@ -6,14 +6,14 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOPasteboard.h"
-#import "LGOCore.h"
 #import "LGOBuildFailed.h"
+#import "LGOCore.h"
+#import "LGOPasteboard.h"
 
-@interface LGOPasteboardRequest: LGORequest
+@interface LGOPasteboardRequest : LGORequest
 
-@property (nonatomic, strong) NSString *opt; //update/read/delete
-@property (nonatomic, strong) NSString * _Nullable string;
+@property(nonatomic, strong) NSString *opt;  // update/read/delete
+@property(nonatomic, strong) NSString *_Nullable string;
 
 @end
 
@@ -21,44 +21,39 @@
 
 @end
 
-@interface LGOPasteboardResponse: LGOResponse
+@interface LGOPasteboardResponse : LGOResponse
 
-@property (nonatomic, strong) NSString * _Nullable string;
+@property(nonatomic, strong) NSString *_Nullable string;
 
 @end
 
 @implementation LGOPasteboardResponse
 
-- (NSDictionary *)toDictionary{
-    return @{
-             @"string": self.string ? self.string : [NSNull null]
-             };
+- (NSDictionary *)toDictionary {
+    return @{ @"string" : self.string ? self.string : [NSNull null] };
 }
 
 @end
 
-@interface LGOPasteboardOperation: LGORequestable
+@interface LGOPasteboardOperation : LGORequestable
 
-@property (nonatomic, strong) LGOPasteboardRequest *request;
+@property(nonatomic, strong) LGOPasteboardRequest *request;
 
 @end
 
 @implementation LGOPasteboardOperation
 
-- (LGOResponse *)requestSynchronize{
-    
+- (LGOResponse *)requestSynchronize {
     LGOPasteboardResponse *response = [LGOPasteboardResponse new];
-    
-    if ([[self.request opt] isEqualToString:@"read"]){
+
+    if ([[self.request opt] isEqualToString:@"read"]) {
         response.string = [UIPasteboard generalPasteboard].string;
         return response;
-    }
-    else if ([[self.request opt] isEqualToString:@"update"]){
-        if (self.request.string){
+    } else if ([[self.request opt] isEqualToString:@"update"]) {
+        if (self.request.string) {
             [UIPasteboard generalPasteboard].string = self.request.string;
         }
-    }
-    else if ([[self.request opt] isEqualToString:@"delete"]){
+    } else if ([[self.request opt] isEqualToString:@"delete"]) {
         [UIPasteboard generalPasteboard].string = @"";
     }
     response.string = nil;
@@ -69,26 +64,25 @@
 
 @implementation LGOPasteboard
 
-- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
+- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGOPasteboardRequest *request = [LGOPasteboardRequest new];
-    if ([dictionary[@"opt"] isKindOfClass:[NSString class]]){
+    if ([dictionary[@"opt"] isKindOfClass:[NSString class]]) {
         request.opt = (NSString *)dictionary[@"opt"];
-    }
-    else{
+    } else {
         request.opt = @"read";
     }
-    
-    if ([dictionary[@"string"] isKindOfClass:[NSString class]]){
+
+    if ([dictionary[@"string"] isKindOfClass:[NSString class]]) {
         request.string = (NSString *)dictionary[@"string"];
     }
-    
+
     LGOPasteboardOperation *operation = [LGOPasteboardOperation new];
     operation.request = request;
     return operation;
 }
 
-- (LGORequestable *)buildWithRequest:(LGORequest *)request{
-    if([request isKindOfClass:[LGOPasteboardRequest class]]){
+- (LGORequestable *)buildWithRequest:(LGORequest *)request {
+    if ([request isKindOfClass:[LGOPasteboardRequest class]]) {
         LGOPasteboardOperation *operation = [LGOPasteboardOperation new];
         operation.request = (LGOPasteboardRequest *)request;
         return operation;

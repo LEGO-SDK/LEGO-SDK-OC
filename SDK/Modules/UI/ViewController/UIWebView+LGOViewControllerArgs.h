@@ -10,6 +10,6 @@
 
 @interface UIWebView (LGOViewControllerArgs)
 
-@property (nonatomic, copy) NSDictionary *lgo_args;
+@property(nonatomic, copy) NSDictionary *lgo_args;
 
 @end

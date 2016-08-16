@@ -6,21 +6,23 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOCall.h"
 #import "LGOBuildFailed.h"
+#import "LGOCall.h"
 #import "LGOCallable.h"
 
-@interface LGOCallRequest: LGORequest
+@interface LGOCallRequest : LGORequest
 
-@property (nonatomic, copy) NSString *methodName;
-@property (nonatomic, copy) NSDictionary *userInfo;
+@property(nonatomic, copy) NSString *methodName;
+@property(nonatomic, copy) NSDictionary *userInfo;
 
 @end
 
 @implementation LGOCallRequest
 
-- (instancetype)initWithContext:(LGORequestContext *)context methodName:(NSString *)methodName userInfo:(NSDictionary *)userInfo {
-    self = [super initWithContext: context];
+- (instancetype)initWithContext:(LGORequestContext *)context
+                     methodName:(NSString *)methodName
+                       userInfo:(NSDictionary *)userInfo {
+    self = [super initWithContext:context];
     if (self) {
         _methodName = methodName;
         _userInfo = userInfo;
@@ -30,9 +32,9 @@
 
 @end
 
-@interface LGOCallOperation: LGORequestable
+@interface LGOCallOperation : LGORequestable
 
-@property (nonatomic, strong) LGOCallRequest *request;
+@property(nonatomic, strong) LGOCallRequest *request;
 
 @end
 
@@ -41,10 +43,11 @@
 - (LGOResponse *)requestSynchronize {
     UIViewController *requestViewController = self.request.context.requestViewController;
     if ([requestViewController conformsToProtocol:@protocol(LGOCallable)]) {
-        [(NSObject<LGOCallable> *)requestViewController callWithMethodName:self.request.methodName userInfo:self.request.userInfo];
+        [(NSObject<LGOCallable> *)requestViewController callWithMethodName:self.request.methodName
+                                                                  userInfo:self.request.userInfo];
         return [[LGOResponse alloc] init];
     }
-    return [[LGOBuildFailedResponse alloc] initWithErrorString: @"ViewController Does not conforms LGOCallable."];
+    return [[LGOBuildFailedResponse alloc] initWithErrorString:@"ViewController Does not conforms LGOCallable."];
 }
 
 @end
@@ -52,7 +55,7 @@
 @implementation LGOCall
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
-    if ( [request isKindOfClass:[LGOCallRequest class]] ) {
+    if ([request isKindOfClass:[LGOCallRequest class]]) {
         LGOCallOperation *operation = [LGOCallOperation new];
         operation.request = (LGOCallRequest *)request;
         return operation;
@@ -61,8 +64,10 @@
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
-    NSString *methodName = [dictionary[@"selectorName"] isKindOfClass:[NSString class]] ? dictionary[@"selectorName"] : nil;
-    NSDictionary *userInfo = [dictionary[@"userInfo"] isKindOfClass:[NSDictionary class]] ? dictionary[@"userInfo"] : nil;
+    NSString *methodName =
+        [dictionary[@"selectorName"] isKindOfClass:[NSString class]] ? dictionary[@"selectorName"] : nil;
+    NSDictionary *userInfo =
+        [dictionary[@"userInfo"] isKindOfClass:[NSDictionary class]] ? dictionary[@"userInfo"] : nil;
     LGOCallRequest *request = [[LGOCallRequest alloc] initWithContext:context methodName:methodName userInfo:userInfo];
     LGOCallOperation *operation = [LGOCallOperation new];
     operation.request = request;
@@ -70,7 +75,3 @@
 }
 
 @end
-
-
-
-

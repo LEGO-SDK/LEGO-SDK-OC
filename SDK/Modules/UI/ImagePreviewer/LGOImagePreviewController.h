@@ -9,30 +9,31 @@
 #import <UIKit/UIKit.h>
 #import "LGOImagePreviewZoomingScrollView.h"
 
-@interface LGOImagePreviewFrameController : UIPageViewController<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
+@interface LGOImagePreviewFrameController
+    : UIPageViewController<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
-+ (UIWindow *) window;
++ (UIWindow *)window;
 
-- (instancetype)initWithURLs:(NSArray<NSURL*>*)URLs defaultURL:(NSURL*)defaultURL;
+- (instancetype)initWithURLs:(NSArray<NSURL *> *)URLs defaultURL:(NSURL *)defaultURL;
 
-- (void) showInNavigationController:(UINavigationController*)navigationController;
+- (void)showInNavigationController:(UINavigationController *)navigationController;
 
-- (void) showInViewController:(UIViewController*)viewController;
+- (void)showInViewController:(UIViewController *)viewController;
 
-- (void) dismiss;
+- (void)dismiss;
 
 @end
 
 @interface LGOImagePreviewImageViewController : UIViewController<UIScrollViewDelegate>
 
-@property (nonatomic, strong) NSURL *URL;
+@property(nonatomic, strong) NSURL *URL;
 
-@property (nonatomic, strong) UIImage *image;
+@property(nonatomic, strong) UIImage *image;
 
-@property (nonatomic, strong) LGOImagePreviewZoomingScrollView *scrollView;
+@property(nonatomic, strong) LGOImagePreviewZoomingScrollView *scrollView;
 
-- (instancetype)init:(NSURL*)URL;
+- (instancetype)init:(NSURL *)URL;
 
-- (instancetype)init:(NSURL*)URL image:(UIImage*)image;
+- (instancetype)init:(NSURL *)URL image:(UIImage *)image;
 
 @end

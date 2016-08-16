@@ -1,17 +1,17 @@
 /*
  Copyright (c) 2011, Tony Million.
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
- 
+
  1. Redistributions of source code must retain the above copyright notice, this
  list of conditions and the following disclaimer.
- 
+
  2. Redistributions in binary form must reproduce the above copyright notice,
  this list of conditions and the following disclaimer in the documentation
  and/or other materials provided with the distribution.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -27,7 +27,6 @@
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-
 
 @interface LGODeviceReachability : NSObject
 
@@ -45,17 +44,16 @@ typedef NS_ENUM(NSInteger, LGONetworkStatus) {
 
 @class LGOReachability;
 
-typedef void (^NetworkReachable)(LGOReachability * reachability);
-typedef void (^NetworkUnreachable)(LGOReachability * reachability);
-typedef void (^NetworkReachability)(LGOReachability * reachability, SCNetworkConnectionFlags flags);
-
+typedef void (^NetworkReachable)(LGOReachability* reachability);
+typedef void (^NetworkUnreachable)(LGOReachability* reachability);
+typedef void (^NetworkReachability)(LGOReachability* reachability, SCNetworkConnectionFlags flags);
 
 @interface LGOReachability : NSObject
 
-@property (nonatomic, copy) NetworkReachable    reachableBlock;
-@property (nonatomic, copy) NetworkUnreachable  unreachableBlock;
-@property (nonatomic, copy) NetworkReachability reachabilityBlock;
+@property(nonatomic, copy) NetworkReachable reachableBlock;
+@property(nonatomic, copy) NetworkUnreachable unreachableBlock;
+@property(nonatomic, copy) NetworkReachability reachabilityBlock;
 
-@property (nonatomic, assign) BOOL reachableOnWWAN;
+@property(nonatomic, assign) BOOL reachableOnWWAN;
 
 @end

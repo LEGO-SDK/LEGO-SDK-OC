@@ -9,12 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface LGOImagePreviewZoomingScrollView : UIScrollView<UIActionSheetDelegate>
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property(nonatomic, strong) UIImageView *imageView;
+@property(nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
-- (void) showErrorView;
+- (void)showErrorView;
 
 @end
-
-
-

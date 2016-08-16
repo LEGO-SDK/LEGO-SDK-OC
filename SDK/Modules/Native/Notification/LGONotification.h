@@ -8,7 +8,7 @@
 
 #import "LGOProtocols.h"
 
-@interface LGONotification: LGOModule
+@interface LGONotification : LGOModule
 
 + (void)LGONotificationGC;
 

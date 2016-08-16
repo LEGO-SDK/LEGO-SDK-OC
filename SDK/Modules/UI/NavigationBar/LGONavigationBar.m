@@ -6,14 +6,14 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGONavigationBar.h"
 #import "LGOBuildFailed.h"
+#import "LGONavigationBar.h"
 #import "UIViewController+LGONavigationBar.h"
 
-@interface LGONavigationBarRequest: LGORequest
+@interface LGONavigationBarRequest : LGORequest
 
-@property (nonatomic, strong) NSNumber *hidden; // boolean
-@property (nonatomic, assign) BOOL animated; // boolean
+@property(nonatomic, strong) NSNumber *hidden;  // boolean
+@property(nonatomic, assign) BOOL animated;     // boolean
 
 @end
 
@@ -21,9 +21,9 @@
 
 @end
 
-@interface LGONavigationBarOperation: LGORequestable
+@interface LGONavigationBarOperation : LGORequestable
 
-@property (nonatomic, strong) LGONavigationBarRequest *request;
+@property(nonatomic, strong) LGONavigationBarRequest *request;
 
 @end
 
@@ -34,8 +34,7 @@
     if (viewController != nil) {
         if ([self.request.hidden isEqualToNumber:@(YES)]) {
             viewController.lgo_navigationBarHidden = YES;
-        }
-        else if (self.request.hidden != nil) {
+        } else if (self.request.hidden != nil) {
             viewController.lgo_navigationBarHidden = NO;
         }
     }
@@ -47,8 +46,8 @@
 
 @implementation LGONavigationBar
 
-- (LGORequestable *)buildWithRequest:(LGORequest *)request{
-    if ([request isKindOfClass:[LGONavigationBarRequest class]]){
+- (LGORequestable *)buildWithRequest:(LGORequest *)request {
+    if ([request isKindOfClass:[LGONavigationBarRequest class]]) {
         LGONavigationBarOperation *operation = [LGONavigationBarOperation new];
         operation.request = (LGONavigationBarRequest *)request;
         return operation;
@@ -56,11 +55,12 @@
     return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
 }
 
-- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context{
+- (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGONavigationBarRequest *request = [LGONavigationBarRequest new];
     request.context = context;
     request.hidden = [dictionary[@"hidden"] isKindOfClass:[NSNumber class]] ? dictionary[@"hidden"] : nil;
-    request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]] ? [dictionary[@"animated"] boolValue] : YES;
+    request.animated =
+        [dictionary[@"animated"] isKindOfClass:[NSNumber class]] ? [dictionary[@"animated"] boolValue] : YES;
     return [self buildWithRequest:request];
 }
 

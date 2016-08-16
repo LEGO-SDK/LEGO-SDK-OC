@@ -6,12 +6,12 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
+#import "JSContext+LGOProps.h"
+#import "LGOCore.h"
 #import "LGOJavaScriptBridge.h"
 #import "LGOProtocols.h"
-#import "LGOCore.h"
-#import "LGOWebView.h"
-#import "JSContext+LGOProps.h"
 #import "LGOWatchDog.h"
+#import "LGOWebView.h"
 
 @implementation LGOJSMessage
 
@@ -22,23 +22,24 @@
         NSDictionary *JSONObject = [NSJSONSerialization JSONObjectWithData:JSONData options:kNilOptions error:&err];
         if (err == nil && [JSONObject isKindOfClass:[NSDictionary class]]) {
             LGOJSMessage *message = [[LGOJSMessage alloc] init];
-            message.messageID = [JSONObject[@"messageID"] isKindOfClass:[NSString class]] ? JSONObject[@"messageID"] : nil;
-            message.moduleName = [JSONObject[@"moduleName"] isKindOfClass:[NSString class]] ? JSONObject[@"moduleName"] : nil;
-            message.requestParams = [JSONObject[@"requestParams"] isKindOfClass:[NSDictionary class]] ? JSONObject[@"requestParams"] : nil;
-            message.callbackID = [JSONObject[@"callbackID"] isKindOfClass:[NSNumber class]] ? JSONObject[@"callbackID"] : nil;
+            message.messageID =
+                [JSONObject[@"messageID"] isKindOfClass:[NSString class]] ? JSONObject[@"messageID"] : nil;
+            message.moduleName =
+                [JSONObject[@"moduleName"] isKindOfClass:[NSString class]] ? JSONObject[@"moduleName"] : nil;
+            message.requestParams =
+                [JSONObject[@"requestParams"] isKindOfClass:[NSDictionary class]] ? JSONObject[@"requestParams"] : nil;
+            message.callbackID =
+                [JSONObject[@"callbackID"] isKindOfClass:[NSNumber class]] ? JSONObject[@"callbackID"] : nil;
             return message;
-        }
-        else {
+        } else {
             return nil;
         }
-    }
-    else {
+    } else {
         return nil;
     }
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _messageID = @"";
@@ -49,16 +50,17 @@
     return self;
 }
 
-- (void)callWithCompletionBlock:(nonnull LGOJSMessageCallCompletionBlock)completionBlock context:(LGORequestContext *)context {
+- (void)callWithCompletionBlock:(nonnull LGOJSMessageCallCompletionBlock)completionBlock
+                        context:(LGORequestContext *)context {
     LGOModule *module = [[LGOCore modules] moduleWithName:self.moduleName];
     if (module != nil) {
         LGORequestable *requestable = [module buildWithDictionary:self.requestParams context:context];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [requestable requestAsynchronize:^(LGOResponse * _Nonnull response) {
-                if (response != nil) {
-                    completionBlock([response toDictionary]);
-                }
-            }];
+          [requestable requestAsynchronize:^(LGOResponse *_Nonnull response) {
+            if (response != nil) {
+                completionBlock([response toDictionary]);
+            }
+          }];
         }];
     }
 }
@@ -68,59 +70,82 @@
 @implementation LGOJSBridge
 
 + (NSString *)bridgeScript:(nonnull JSValue *)JSValue {
-    return [NSString stringWithFormat:@"%@%@%@%@",
-            @"var JSMessageCallbacks=[];var JSSynchronizeResponses={};var JSMessage={newMessage:function(name,requestParams){return{messageID:'',moduleName:name,requestParams:requestParams,callbackID:-1,call:function(callback){if(typeof callback=='function'){JSMessageCallbacks.push(callback);this.callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON.stringify(this));if(JSSynchronizeResponses[this.moduleName]!==undefined){return JSSynchronizeResponses[this.moduleName]}}}}};",
-            [self synchronizeResponse:JSValue.context.lgo_webView],
-            [self assignArgs:JSValue.context.lgo_webView],
-            [self titleScript]
-            ];
+    return [NSString stringWithFormat:@"%@%@%@%@", @"var JSMessageCallbacks=[];var JSSynchronizeResponses={};var "
+                                                   @"JSMessage={newMessage:function(name,requestParams){return{"
+                                                   @"messageID:'',moduleName:name,requestParams:requestParams,"
+                                                   @"callbackID:-1,call:function(callback){if(typeof "
+                                                   @"callback=='function'){JSMessageCallbacks.push(callback);this."
+                                                   @"callbackID=JSMessageCallbacks.length-1}JSBridge.exec(JSON."
+                                                   @"stringify(this));if(JSSynchronizeResponses[this.moduleName]!=="
+                                                   @"undefined){return JSSynchronizeResponses[this.moduleName]}}}}};",
+                                      [self synchronizeResponse:JSValue.context.lgo_webView],
+                                      [self assignArgs:JSValue.context.lgo_webView], [self titleScript]];
 }
 
 + (NSString *)synchronizeResponse:(UIView *)webView {
     NSString *output = @"";
     for (NSString *moduleName in [LGOCore.modules allModules]) {
         LGOModule *module = [LGOCore.modules moduleWithName:moduleName];
-        NSDictionary* syncDict = [module synchronizeResponse:webView];
+        NSDictionary *syncDict = [module synchronizeResponse:webView];
         if (syncDict != nil) {
             NSError *error = nil;
             NSData *JSONData = [NSJSONSerialization dataWithJSONObject:syncDict options:kNilOptions error:&error];
-            if (error != nil ) { continue ; }
+            if (error != nil) {
+                continue;
+            }
             NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
-            if (JSONString == nil) { continue ; }
-            JSONString = [JSONString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-            if (JSONString == nil) { continue ; }
-            NSData *JSONData2 =  [JSONString dataUsingEncoding:NSUTF8StringEncoding];
-            if (JSONData2 == nil) {continue ;}
+            if (JSONString == nil) {
+                continue;
+            }
+            JSONString = [JSONString
+                stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            if (JSONString == nil) {
+                continue;
+            }
+            NSData *JSONData2 = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+            if (JSONData2 == nil) {
+                continue;
+            }
             NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
-            output = [output stringByAppendingString: [NSString stringWithFormat:@"JSSynchronizeResponses['%@'] = JSON.parse(decodeURIComponent(atob('%@')));", moduleName, base64String] ];
+            output = [output
+                stringByAppendingString:
+                    [NSString
+                        stringWithFormat:@"JSSynchronizeResponses['%@'] = JSON.parse(decodeURIComponent(atob('%@')));",
+                                         moduleName, base64String]];
         }
     }
     return output;
 }
 
 + (NSString *)assignArgs:(UIView *)webView {
-    NSString *output= @"";
+    NSString *output = @"";
     if ([webView isKindOfClass:[UIWebView class]]) {
         if ([webView respondsToSelector:NSSelectorFromString(@"lgo_args")]) {
             NSDictionary *args = [webView valueForKey:@"lgo_args"];
             if (args != nil) {
                 NSError *error = nil;
                 NSData *JSONData = [NSJSONSerialization dataWithJSONObject:args options:kNilOptions error:&error];
-                if (error == nil ) {
+                if (error == nil) {
                     NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
                     if (JSONString != nil) {
-                        JSONString = [JSONString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                        JSONString = [JSONString
+                            stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet
+                                                                                   URLQueryAllowedCharacterSet]];
                         if (JSONString != nil) {
-                            NSData *JSONData2 =  [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+                            NSData *JSONData2 = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
                             if (JSONData2 != nil) {
                                 NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
-                                output = [output stringByAppendingString:
-                                          [NSString stringWithFormat:@"window._args = {}; Object.assign(window._args, JSON.parse(decodeURIComponent(atob('%@'))));", base64String]];
+                                output = [output
+                                    stringByAppendingString:[NSString stringWithFormat:@"window._args = {}; "
+                                                                                       @"Object.assign(window._args, "
+                                                                                       @"JSON.parse("
+                                                                                       @"decodeURIComponent(atob('%@')"
+                                                                                       @")));",
+                                                                                       base64String]];
                             }
                         }
                     }
                 }
-                
             }
         }
     }
@@ -154,19 +179,18 @@
             }
             LGORequestContext *context = [[LGORequestContext alloc] init];
             context.sender = webView;
-            [message callWithCompletionBlock:^(NSDictionary<NSString *,id> * _Nonnull result) {
-                [self callbackWithID:message.callbackID result:result webView:webView];
-            } context:context];
-        }
-        else {
+            [message callWithCompletionBlock:^(NSDictionary<NSString *, id> *_Nonnull result) {
+              [self callbackWithID:message.callbackID result:result webView:webView];
+            }
+                                     context:context];
+        } else {
             NSData *data = [[NSData alloc] initWithBase64EncodedString:body options:kNilOptions];
             if (data != nil) {
                 NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 if (str != nil) {
                     NSLog(@"%@", str.stringByRemovingPercentEncoding);
                 }
-            }
-            else {
+            } else {
                 NSLog(@"%@", [body stringByRemovingPercentEncoding]);
             }
         }
@@ -178,7 +202,8 @@
     while (next != nil && ![next isKindOfClass:[UIViewController class]]) {
         next = [next nextResponder];
     }
-    if ([next isKindOfClass:[UIViewController class]] && ([(UIViewController *)next title] == nil || [(UIViewController *)next title].length == 0)) {
+    if ([next isKindOfClass:[UIViewController class]] &&
+        ([(UIViewController *)next title] == nil || [(UIViewController *)next title].length == 0)) {
         if ([title isString]) {
             [(UIViewController *)next setTitle:title.toString];
         }
@@ -191,12 +216,20 @@
         NSData *JSONData = [NSJSONSerialization dataWithJSONObject:result options:kNilOptions error:&err];
         if (err == nil && JSONData != nil) {
             NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
-            JSONString = [JSONString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-            NSString *base64String = [[JSONString dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:kNilOptions];
+            JSONString = [JSONString
+                stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            NSString *base64String =
+                [[JSONString dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:kNilOptions];
             if (base64String != nil) {
-                [webView stringByEvaluatingJavaScriptFromString:
-                 [NSString stringWithFormat:@"(function(){var JSONString = decodeURIComponent(atob('%@'));var JSCallbackParams = JSON.parse(JSONString);JSMessageCallbacks[%ld].call(null, JSCallbackParams)})()", base64String, (long)callbackID.integerValue]
-                 ];
+                [webView
+                    stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"(function(){var JSONString = "
+                                                                                      @"decodeURIComponent(atob('%@'))"
+                                                                                      @";var JSCallbackParams = "
+                                                                                      @"JSON.parse(JSONString);"
+                                                                                      @"JSMessageCallbacks[%ld].call("
+                                                                                      @"null, JSCallbackParams)})()",
+                                                                                      base64String,
+                                                                                      (long)callbackID.integerValue]];
             }
         }
     }
@@ -208,7 +241,7 @@
 
 + (void)configureWithJSContext:(JSContext *)context {
     [context setExceptionHandler:^(JSContext *context, JSValue *value) {
-        NSLog(@"%@", [value toString]);
+      NSLog(@"%@", [value toString]);
     }];
     [context setObject:[LGOJSBridge class] forKeyedSubscript:@"JSConsole"];
     [context setObject:[LGOJSBridge class] forKeyedSubscript:@"JSBridge"];

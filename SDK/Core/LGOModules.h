@@ -11,7 +11,7 @@
 
 @interface LGOModules : NSObject
 
-@property (nonatomic, strong) NSMutableDictionary<NSString *, LGOModule *> * _Nonnull items;
+@property(nonatomic, strong) NSMutableDictionary<NSString *, LGOModule *> *_Nonnull items;
 
 - (void)addModuleWithName:(nonnull NSString *)name instance:(nonnull LGOModule *)instance;
 
