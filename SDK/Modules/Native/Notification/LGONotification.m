@@ -6,7 +6,6 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGONotification.h"
 
@@ -98,7 +97,7 @@ static NSNumber *observersGCLock;
                       LGONotificationResponse *response = [LGONotificationResponse new];
                       response.object = object;
                       response.userInfo = userInfo;
-                      callbackBlock(response);
+                        callbackBlock([response accept:nil]);
                     }];
         if (self.request.context.sender != nil) {
             LGONotificationObserver *item = [LGONotificationObserver new];
@@ -122,6 +121,16 @@ static NSNumber *observersGCLock;
                                                             userInfo:self.request.aPostUserInfo];
         }];
     }
+    else{
+        callbackBlock([[LGOResponse new] reject: [NSError
+                                                  errorWithDomain:@"Native.Notification"
+                                                  code:-3
+                                                  userInfo: @{
+                                                        NSLocalizedDescriptionKey: @"Invalid opt value."
+                                                    }]]);
+    }
+    
+    
 }
 
 @end
@@ -168,7 +177,7 @@ static NSNumber *observersGCLock;
         operation.request = (LGONotificationRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"Native.Notification" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
@@ -195,7 +204,8 @@ static NSNumber *observersGCLock;
 
         return [self buildWithRequest:request];
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestParam Required: name"];
+    
+    return [LGORequestable rejectWithDomain:@"Native.Notification" code:-2 reason:@"Name require."];
 }
 
 @end

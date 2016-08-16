@@ -50,7 +50,7 @@
     } else {
         response.finished = NO;
     }
-    return response;
+    return [response accept: nil];
 }
 
 @end
@@ -63,7 +63,7 @@
         operation.request = (LGOOpenURLRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"Native.OpenURL" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
@@ -73,7 +73,7 @@
         request.URLString = URLString;
         return [self buildWithRequest:request];
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestParam Required: URL"];
+    return [LGORequestable rejectWithDomain:@"Native.OpenURL" code:-2 reason:@"URL require."];
 }
 
 @end

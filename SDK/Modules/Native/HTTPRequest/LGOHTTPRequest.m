@@ -117,6 +117,13 @@ return @"";
                                        queue:[LGOHTTPOperation aQueue]
                            completionHandler:^(NSURLResponse *_Nullable responseObject, NSData *_Nullable responseData,
                                                NSError *_Nullable error) {
+                             
+                               if (error) {
+                                   callbackBlock([[LGOResponse new] reject: [NSError
+                                                                             errorWithDomain:@"Native.HTTPRequest"
+                                                                             code:-4
+                                                                             userInfo:@{ NSLocalizedDescriptionKey: error.localizedDescription }]]);
+                               }
                              if (self.request.showActivityIndicator) {
                                  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                              }
@@ -134,7 +141,7 @@ return @"";
                                  returnResponse.responseText = @"";
                                  returnResponse.responseData = responseData;
                              }
-                             callbackBlock(returnResponse);
+                             callbackBlock([returnResponse accept: nil]);
                            }];
 }
 
@@ -148,46 +155,47 @@ return @"";
         operation.request = (LGOHTTPRequestObject *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"Native.HTTPRequest" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGOHTTPRequestObject *_Nullable requestObject = nil;
     NSString *_Nullable URLString = [dictionary[@"URL"] isKindOfClass:[NSString class]] ? dictionary[@"URL"] : nil;
-    if (URLString) {
-        if (![URLString hasPrefix:@"http://"] && ![URLString hasPrefix:@"https://"]) {
-            if ([context.requestWebView isKindOfClass:[UIWebView class]]) {
-                UIWebView *webView = (UIWebView *)context.requestWebView;
-                NSURL *activeURL = webView.request.URL;
-                NSURL *relativeURL = [NSURL URLWithString:URLString relativeToURL:activeURL];
-                if (relativeURL) {
-                    URLString = relativeURL.absoluteString;
-                }
-            }
-            if ([context.requestWebView isKindOfClass:[WKWebView class]]) {
-                WKWebView *webView = (WKWebView *)context.requestWebView;
-                NSURL *activeURL = webView.URL;
-                NSURL *relativeURL = [NSURL URLWithString:URLString relativeToURL:activeURL];
-                if (relativeURL) {
-                    URLString = relativeURL.absoluteString;
-                }
+    if (!URLString){
+        return [LGORequestable rejectWithDomain:@"Native.HTTPRequest" code:-2 reason:@"URL require."];
+    }
+    if (![URLString hasPrefix:@"http://"] && ![URLString hasPrefix:@"https://"]) {
+        if ([context.requestWebView isKindOfClass:[UIWebView class]]) {
+            UIWebView *webView = (UIWebView *)context.requestWebView;
+            NSURL *activeURL = webView.request.URL;
+            NSURL *relativeURL = [NSURL URLWithString:URLString relativeToURL:activeURL];
+            if (relativeURL) {
+                URLString = relativeURL.absoluteString;
             }
         }
+        if ([context.requestWebView isKindOfClass:[WKWebView class]]) {
+            WKWebView *webView = (WKWebView *)context.requestWebView;
+            NSURL *activeURL = webView.URL;
+            NSURL *relativeURL = [NSURL URLWithString:URLString relativeToURL:activeURL];
+            if (relativeURL) {
+                URLString = relativeURL.absoluteString;
+            }
+        }
+    }
 
-        NSString *_Nullable data = [dictionary[@"data"] isKindOfClass:[NSString class]] ? dictionary[@"data"] : nil;
-        if (data) {
-            NSData *base64Data = [[NSData alloc] initWithBase64EncodedString:data options:kNilOptions];
-            if (base64Data) {
-                requestObject = [[LGOHTTPRequestObject alloc] initWithURLString:URLString data:base64Data];
-            } else {
-                NSData *encodedData = [data dataUsingEncoding:NSUTF8StringEncoding];
-                if (encodedData) {
-                    requestObject = [[LGOHTTPRequestObject alloc] initWithURLString:URLString data:encodedData];
-                }
-            }
+    NSString *_Nullable data = [dictionary[@"data"] isKindOfClass:[NSString class]] ? dictionary[@"data"] : nil;
+    if (data) {
+        NSData *base64Data = [[NSData alloc] initWithBase64EncodedString:data options:kNilOptions];
+        if (base64Data) {
+            requestObject = [[LGOHTTPRequestObject alloc] initWithURLString:URLString data:base64Data];
         } else {
-            requestObject = [[LGOHTTPRequestObject alloc] initWithURLString:URLString];
+            NSData *encodedData = [data dataUsingEncoding:NSUTF8StringEncoding];
+            if (encodedData) {
+                requestObject = [[LGOHTTPRequestObject alloc] initWithURLString:URLString data:encodedData];
+            }
         }
+    } else {
+        requestObject = [[LGOHTTPRequestObject alloc] initWithURLString:URLString];
     }
 
     if (requestObject) {
@@ -214,7 +222,7 @@ return @"";
         return operation;
     }
 
-    return [LGOBuildFailed new];
+    return [LGORequestable rejectWithDomain:@"Native.HTTPRequest" code:-3 reason:@"Unknow."];
 }
 
 @end

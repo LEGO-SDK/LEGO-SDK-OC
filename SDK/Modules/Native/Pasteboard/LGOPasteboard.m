@@ -57,7 +57,7 @@
         [UIPasteboard generalPasteboard].string = @"";
     }
     response.string = nil;
-    return response;
+    return [response accept: nil];
 }
 
 @end
@@ -87,7 +87,7 @@
         operation.request = (LGOPasteboardRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"Request Downcase Failed"];
+    return [LGORequestable rejectWithDomain:@"Native.Pasteboard" code:-1 reason:@"Type error."];
 }
 
 @end

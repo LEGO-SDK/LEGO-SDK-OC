@@ -56,14 +56,15 @@
     if ([self.request.opt isEqual:@"read"]) {
         if ([sender isKindOfClass:[UIWebView class]]) {
             response.dataModel = ((UIWebView *)sender).dataModel;
-            return response;
+            return [response accept:nil];
         } else if ([sender isKindOfClass:[WKWebView class]]) {
             response.dataModel = ((WKWebView *)sender).dataModel;
-            return response;
+            return [response accept:nil];
         }
+    
     } else if ([self.request.opt isEqual:@"update"]) {
         if (!self.request.dataKey || self.request.dataValue == nil) {
-            return response;
+            return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.DataModel" code:-2 userInfo: @{ NSLocalizedDescriptionKey: @"DataKey & DataValue require." }]];
         }
         id dataValue = self.request.dataValue;
         if ([dataValue isKindOfClass:[NSString class]]) {
@@ -74,17 +75,29 @@
                 if (error == nil) {
                     dataValue = result;
                 }
+                else {
+                    return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.DataModel" code:-3 userInfo: @{ NSLocalizedDescriptionKey: @"JSON parse error." }]];
+                }
             }
+            else {
+                return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.DataModel" code:-4 userInfo: @{ NSLocalizedDescriptionKey: @"Data utf8 encode error." }]];
+            }
+        }
+        else {
+            return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.DataModel" code:-5 userInfo: @{ NSLocalizedDescriptionKey: @"Data Type error." }]];
         }
         if ([sender isKindOfClass:[UIWebView class]]) {
             [((UIWebView *)sender) updateDataModel:self.request.dataKey dataValue:dataValue];
-            return response;
+            return [response accept: nil];
         } else if ([sender isKindOfClass:[WKWebView class]]) {
             [((WKWebView *)sender) updateDataModel:self.request.dataKey dataValue:dataValue];
-            return response;
+            return [response accept: nil];
         }
     }
-    return response;
+    else {
+        return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.DataModel" code:-6 userInfo: @{ NSLocalizedDescriptionKey: @"Invalid opt value." }]];
+    }
+    return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.DataModel" code:-7 userInfo: @{ NSLocalizedDescriptionKey: @"Invalid webview." }]];
 }
 
 @end
@@ -97,7 +110,7 @@
         operation.request = (LGODataModelRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"Native.DataModel" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {

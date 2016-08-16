@@ -6,7 +6,7 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOBuildFailed.h"
+
 #import "LGOCheck.h"
 #import "LGOCore.h"
 
@@ -49,7 +49,7 @@
     }
     LGOCheckResponse *response = [[LGOCheckResponse alloc] init];
     response.checkResult = checkResult;
-    return response;
+    return [response accept:nil];
 }
 
 @end
@@ -62,7 +62,7 @@
         operation.request = (LGOCheckRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"Native.Check" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
@@ -87,7 +87,7 @@
     }
     LGOCheckResponse *response = [[LGOCheckResponse alloc] init];
     response.checkResult = [checkResult copy];
-    return [response resData];
+    return [[response accept:nil] resData];
 }
 
 @end

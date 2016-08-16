@@ -42,7 +42,7 @@
 
 @implementation LGOUserDefaultsResponse
 
-- (instancetype)initWithSucceed:(BOOL)succeed value:(id)value {
+- (instancetype)initWithValue:(id)value {
     self = [super init];
     if (self) {
         _value = value;
@@ -76,20 +76,24 @@
         if ([self.request.value isKindOfClass:[NSString class]] ||
             [self.request.value isKindOfClass:[NSNumber class]]) {
             [[self userDefault] setValue:self.request.value forKey:self.request.key];
-            return [[LGOUserDefaultsResponse alloc] initWithSucceed:YES value:@""];
+            return [[LGOResponse new] accept: nil];
         }
-        return [[LGOUserDefaultsResponse alloc] initWithSucceed:NO value:@""];
+        return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.UserDefaults" code:-3 userInfo: @{ NSLocalizedDescriptionKey: @"Invalid value." }]];
+        
     } else if ([self.request.opt isEqualToString:@"read"]) {
         id value = [[self userDefault] objectForKey:self.request.key];
         if (value != nil) {
-            return [[LGOUserDefaultsResponse alloc] initWithSucceed:YES value:value];
+            return [[[LGOUserDefaultsResponse alloc] initWithValue:value] accept: nil];
         }
-        return [[LGOUserDefaultsResponse alloc] initWithSucceed:NO value:@""];
+        return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.UserDefaults" code:-4 userInfo: @{ NSLocalizedDescriptionKey: @"Value is empty." }]];
+        
     } else if ([self.request.opt isEqualToString:@"delete"]) {
         [[self userDefault] removeObjectForKey:self.request.key];
-        return [[LGOUserDefaultsResponse alloc] initWithSucceed:YES value:@""];
+        return [[LGOResponse new] accept: nil];
     }
-    return [[LGOUserDefaultsResponse alloc] initWithSucceed:NO value:@""];
+    else {
+        return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.UserDefaults" code:-5 userInfo: @{ NSLocalizedDescriptionKey: @"Invalid opt value." }]];
+    }
 }
 
 @end
@@ -102,7 +106,7 @@
         operation.request = (LGOUserDefaultsRequest *)request;
         return operation;
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestObject Downcast Failed"];
+    return [LGORequestable rejectWithDomain:@"Native.UserDefaults" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
@@ -115,7 +119,7 @@
                                                                                 key:key
                                                                               value:dictionary[@"value"]]];
     }
-    return [[LGOBuildFailed alloc] initWithErrorString:@"RequestParam Required: opt, key"];
+    return [LGORequestable rejectWithDomain:@"Native.UserDefaults" code:-2 reason:@"Opt && key require."];
 }
 
 @end
