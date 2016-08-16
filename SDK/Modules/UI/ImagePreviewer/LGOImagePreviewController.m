@@ -10,8 +10,6 @@
 #import "LGOImagePreviewController.h"
 #import "LGOImagePreviewZoomingScrollView.h"
 
-static UIWindow *window;
-
 @interface LGOImagePreviewFrameController ()
 
 @property (nonatomic, strong) NSArray<NSURL*> *URLs;
@@ -22,12 +20,17 @@ static UIWindow *window;
 
 @implementation LGOImagePreviewFrameController
 
+static UIWindow *window;
+
 - (instancetype)initWithURLs:(NSArray<NSURL*>*)theURLs defaultURL:(NSURL*)defaultURL{
     self = [super initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     if (self) {
         _URLs = theURLs;
         _defaultURL = defaultURL;
         _imageCaches = [[NSMutableDictionary alloc] init];
+        if ([self respondsToSelector:NSSelectorFromString(@"lgo_navigationBarHidden")]) {
+            [self setValue:@(YES) forKey:@"lgo_navigationBarHidden"];
+        }
     }
     return self;
 }
@@ -53,17 +56,23 @@ static UIWindow *window;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (self.navigationController != nil){
-        self.navigationController.view.backgroundColor = [UIColor whiteColor];
-        [self.navigationController setNavigationBarHidden:YES animated:NO];
+    if ([self respondsToSelector:NSSelectorFromString(@"lgo_navigationBarHidden")]) {}
+    else {
+        if (self.navigationController != nil){
+            self.navigationController.view.backgroundColor = [UIColor whiteColor];
+            [self.navigationController setNavigationBarHidden:YES animated:NO];
+        }
     }
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    if (self.navigationController != nil){
-        [self.navigationController setNavigationBarHidden:NO animated:animated];
+    if ([self respondsToSelector:NSSelectorFromString(@"lgo_navigationBarHidden")]) {}
+    else {
+        if (self.navigationController != nil){
+            [self.navigationController setNavigationBarHidden:NO animated:animated];
+        }
     }
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
@@ -118,7 +127,6 @@ static UIWindow *window;
     return YES;
 }
 
-
 - (void)showInNavigationController:(UINavigationController*)navigationController{
     [navigationController pushViewController:self animated:YES];
 }
@@ -137,9 +145,10 @@ static UIWindow *window;
 }
 
 + (UIWindow *)window{
-    @synchronized (self) {
-        window = [UIWindow new];
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    });
     return window;
 }
 
@@ -177,6 +186,14 @@ static UIWindow *window;
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self configureZoom];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([self navigationController] != nil) {
+        [[self navigationController]setNavigationBarHidden:YES animated:NO];
+    }
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 }
 
 - (void)viewWillLayoutSubviews{
