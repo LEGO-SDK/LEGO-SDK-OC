@@ -83,7 +83,27 @@
 
 @end
 
+@interface LGORejecting : LGORequestable
+
+@property (nonatomic, strong) NSError *error;
+
+@end
+
+@implementation LGORejecting
+
+- (LGOResponse *)requestSynchronize {
+    return [[[LGOResponse alloc] init] reject:self.error];
+}
+
+@end
+
 @implementation LGORequestable
+
++ (LGORequestable *)rejectWithDomain:(NSString *)domain code:(NSInteger)code reason:(NSString *)reason {
+    LGORejecting *rejecting = [[LGORejecting alloc] init];
+    rejecting.error = [NSError errorWithDomain:(domain != nil ? domain : @"LEGO.SDK") code:code userInfo:@{NSLocalizedDescriptionKey: (reason != nil ? reason : @"")}];
+    return rejecting;
+}
 
 - (LGOResponse *)requestSynchronize {
     return [[LGOResponse alloc] init];

@@ -43,6 +43,8 @@ typedef void (^LGORequestableAsynchronizeBlock)(LGOResponse *_Nonnull response);
 
 @interface LGORequestable : NSObject
 
++ (nonnull LGORequestable *)rejectWithDomain:(nullable NSString *)domain code:(NSInteger)code reason:(nullable NSString *)reason;
+
 - (void)requestAsynchronize:(nonnull LGORequestableAsynchronizeBlock)callbackBlock;
 
 - (nonnull LGOResponse *)requestSynchronize;
