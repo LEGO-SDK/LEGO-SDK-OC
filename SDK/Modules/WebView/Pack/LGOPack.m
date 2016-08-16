@@ -104,12 +104,12 @@ static int serverPort = 10000;
                                                                                              [URL absoluteString],
                                                                                              [[NSDate date] timeIntervalSince1970]]]
                                                    completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                                       if (error == nil && location != nil) {
+                                                       if (error == nil && location != nil && [self isSameWithMD5:md5 fileURL:location]) {
                                                            [self createCacheDirectory];
                                                            NSError *err;
                                                            [[NSFileManager defaultManager] removeItemAtPath:[self cachePathWithURL:URL] error:NULL];
                                                            [[NSFileManager defaultManager] copyItemAtPath:[location path] toPath:[self cachePathWithURL:URL] error:&err];
-                                                           if (err == nil && noCache && [self isSameWithMD5:md5 URL:URL]) {
+                                                           if (err == nil && noCache) {
                                                                [self createFileServerWithURL:URL progressBlock:progressBlock completionBlock:completionBlock];
                                                            }
                                                        }
@@ -118,6 +118,14 @@ static int serverPort = 10000;
                                          }
                                      }] resume];
     }];
+}
+
++ (BOOL)isSameWithMD5:(NSString *)MD5 fileURL:(NSURL *)fileURL {
+    NSData *fileData = [NSData dataWithContentsOfFile:[fileURL path]];
+    if (fileData != nil) {
+        return [[[CocoaSecurity md5WithData:fileData] hex] isEqualToString:[MD5 uppercaseString]];
+    }
+    return NO;
 }
 
 + (BOOL)isSameWithMD5:(NSString *)MD5 URL:(NSURL *)URL {
