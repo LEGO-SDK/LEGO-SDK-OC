@@ -51,7 +51,7 @@
     }
 }
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     NSString *fileContents = [LGOFileManagerResponse stringFromFileContent:self.fileContents];
     return @{
         @"optSucceed" : [NSNumber numberWithBool:self.optSucceed],

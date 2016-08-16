@@ -29,7 +29,7 @@
 
 @implementation LGOPasteboardResponse
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     return @{ @"string" : self.string ? self.string : [NSNull null] };
 }
 

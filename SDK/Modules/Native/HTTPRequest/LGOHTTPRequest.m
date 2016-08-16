@@ -73,7 +73,7 @@
 
 @implementation LGOHTTPResponseObject
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     return
         @{ @"error" : self.error != nil ? self.error : [NSNull null],
            @"statusCode" : [NSNumber numberWithInteger:self.statusCode],

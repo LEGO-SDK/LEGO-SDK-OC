@@ -33,7 +33,7 @@
 
 @implementation LGONavigationItemResponse
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     return @{
         @"leftTapped" : [NSNumber numberWithBool:self.leftTapped],
         @"rightTapped" : [NSNumber numberWithBool:self.rightTapped]

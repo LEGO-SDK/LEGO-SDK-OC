@@ -31,11 +31,11 @@
 
 @implementation LGODataModelResponse
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     if ([NSJSONSerialization isValidJSONObject:self.dataModel]) {
         return self.dataModel;
     }
-    return [super toDictionary];
+    return [super resData];
 }
 
 @end

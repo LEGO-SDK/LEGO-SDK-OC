@@ -6,22 +6,23 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "SDKSampleJavaScriptListViewController.h"
 #import "SDKSampleJavaScriptItemViewController.h"
+#import "SDKSampleJavaScriptListViewController.h"
 #import "UIViewController+LGOViewController.h"
 
 @implementation SDKSampleJavaScriptListViewController
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SDKSampleJavaScriptItemViewController *viewController = [[UIStoryboard storyboardWithName:@"SDKSample" bundle:nil]
-                                                             instantiateViewControllerWithIdentifier:@"SDKSampleJavaScriptItemViewController"];
+        instantiateViewControllerWithIdentifier:@"SDKSampleJavaScriptItemViewController"];
     viewController.title = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
     viewController.file = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (IBAction)handleButtonTapped:(UIButton *)sender {
-    SDKSampleJavaScriptItemViewController *viewController = [[UIStoryboard storyboardWithName:@"SDKSample" bundle:nil] instantiateViewControllerWithIdentifier:@"SDKSampleJavaScriptItemViewController"];
+    SDKSampleJavaScriptItemViewController *viewController = [[UIStoryboard storyboardWithName:@"SDKSample" bundle:nil]
+        instantiateViewControllerWithIdentifier:@"SDKSampleJavaScriptItemViewController"];
     viewController.title = sender.accessibilityLabel;
     viewController.file = sender.accessibilityLabel;
     [self.navigationController pushViewController:viewController animated:YES];
@@ -30,10 +31,14 @@
 - (IBAction)handlePackButtonTapped:(UIButton *)sender {
     UIViewController *viewController = [UIViewController new];
     viewController.title = sender.accessibilityLabel;
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://uedfe.yypm.com/assets/spack/%@.zip", sender.accessibilityLabel]]];
-    [viewController lgo_openWebViewWithRequest:request args:nil renderFinishedBlock:^{
-        [self.navigationController pushViewController:viewController animated:YES];
-    }];
+    NSURLRequest *request = [NSURLRequest
+        requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://uedfe.yypm.com/assets/spack/%@.zip",
+                                                                       sender.accessibilityLabel]]];
+    [viewController lgo_openWebViewWithRequest:request
+                                          args:nil
+                           renderFinishedBlock:^{
+                             [self.navigationController pushViewController:viewController animated:YES];
+                           }];
 }
 
 @end

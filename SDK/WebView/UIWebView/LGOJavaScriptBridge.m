@@ -58,7 +58,7 @@
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
           [requestable requestAsynchronize:^(LGOResponse *_Nonnull response) {
             if (response != nil) {
-                completionBlock([response toDictionary]);
+                completionBlock([response metaData], [response resData]);
             }
           }];
         }];
@@ -179,8 +179,9 @@
             }
             LGORequestContext *context = [[LGORequestContext alloc] init];
             context.sender = webView;
-            [message callWithCompletionBlock:^(NSDictionary<NSString *, id> *_Nonnull result) {
-              [self callbackWithID:message.callbackID result:result webView:webView];
+            [message callWithCompletionBlock:^(NSDictionary<NSString *, id> *_Nonnull metaData,
+                                               NSDictionary<NSString *, id> *_Nonnull resData) {
+              [self callbackWithID:message.callbackID metaData:metaData resData:resData webView:webView];
             }
                                      context:context];
         } else {
@@ -210,26 +211,38 @@
     }
 }
 
-+ (void)callbackWithID:(NSNumber *)callbackID result:(NSDictionary *)result webView:(UIWebView *)webView {
-    if (callbackID.integerValue >= 0 && [NSJSONSerialization isValidJSONObject:result] && webView != nil) {
++ (void)callbackWithID:(NSNumber *)callbackID
+              metaData:(NSDictionary *)metaData
+               resData:(NSDictionary *)resData
+               webView:(UIWebView *)webView {
+    if (callbackID.integerValue >= 0 && [NSJSONSerialization isValidJSONObject:metaData] &&
+        [NSJSONSerialization isValidJSONObject:resData] && webView != nil) {
         NSError *err;
-        NSData *JSONData = [NSJSONSerialization dataWithJSONObject:result options:kNilOptions error:&err];
-        if (err == nil && JSONData != nil) {
-            NSString *JSONString = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
-            JSONString = [JSONString
+        NSData *JSONMetaData = [NSJSONSerialization dataWithJSONObject:metaData options:kNilOptions error:&err];
+        NSData *JSONResData = [NSJSONSerialization dataWithJSONObject:resData options:kNilOptions error:&err];
+        if (err == nil && JSONResData != nil && JSONMetaData != nil) {
+            NSString *JSONMetaString = [[NSString alloc] initWithData:JSONMetaData encoding:NSUTF8StringEncoding];
+            JSONMetaString = [JSONMetaString
                 stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-            NSString *base64String =
-                [[JSONString dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:kNilOptions];
-            if (base64String != nil) {
+            NSString *base64MetaString =
+                [[JSONMetaString dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:kNilOptions];
+            NSString *JSONResString = [[NSString alloc] initWithData:JSONResData encoding:NSUTF8StringEncoding];
+            JSONResString = [JSONResString
+                stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            NSString *base64ResString =
+                [[JSONResString dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:kNilOptions];
+            if (base64ResString != nil) {
                 [webView
-                    stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"(function(){var JSONString = "
-                                                                                      @"decodeURIComponent(atob('%@'))"
-                                                                                      @";var JSCallbackParams = "
-                                                                                      @"JSON.parse(JSONString);"
-                                                                                      @"JSMessageCallbacks[%ld].call("
-                                                                                      @"null, JSCallbackParams)})()",
-                                                                                      base64String,
-                                                                                      (long)callbackID.integerValue]];
+                    stringByEvaluatingJavaScriptFromString:
+                        [NSString stringWithFormat:@"(function(){var JSONMetaString = "
+                                                   @"decodeURIComponent(atob('%@'));var JSMetaParams = "
+                                                   @"JSON.parse(JSONMetaString);var JSONResString = "
+                                                   @"decodeURIComponent(atob('%@'))"
+                                                   @";var JSCallbackParams = "
+                                                   @"JSON.parse(JSONResString);"
+                                                   @"JSMessageCallbacks[%ld].call("
+                                                   @"null, JSMetaParams, JSCallbackParams)})()",
+                                                   base64MetaString, base64ResString, (long)callbackID.integerValue]];
             }
         }
     }

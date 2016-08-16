@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-@interface SDKSampleJavaScriptItemViewController: UIViewController
+@interface SDKSampleJavaScriptItemViewController : UIViewController
 
-@property (nonatomic, strong) WKWebView *webView;
+@property(nonatomic, strong) WKWebView *webView;
 
-@property (nonatomic, copy) NSString *file;
-@property (nonatomic, copy) NSString *zipURL;
+@property(nonatomic, copy) NSString *file;
+@property(nonatomic, copy) NSString *zipURL;
 
 @end

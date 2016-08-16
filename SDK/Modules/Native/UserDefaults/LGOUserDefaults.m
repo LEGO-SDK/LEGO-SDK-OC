@@ -45,17 +45,13 @@
 - (instancetype)initWithSucceed:(BOOL)succeed value:(id)value {
     self = [super init];
     if (self) {
-        self.succeed = succeed;
         _value = value;
     }
     return self;
 }
 
-- (NSDictionary *)toDictionary {
-    return @{
-        @"succeed" : [NSNumber numberWithBool:self.succeed],
-        @"value" : self.value != nil ? self.value : [NSNull null]
-    };
+- (NSDictionary *)resData {
+    return @{ @"value" : self.value != nil ? self.value : [NSNull null] };
 }
 
 @end

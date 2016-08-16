@@ -28,7 +28,7 @@
 
 @implementation LGOOpenURLResponse
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     return @{ @"finished" : [NSNumber numberWithBool:self.finished] };
 }
 

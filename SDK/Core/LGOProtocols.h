@@ -33,9 +33,11 @@ typedef void (^LGORequestableAsynchronizeBlock)(LGOResponse *_Nonnull response);
 
 @interface LGOResponse : NSObject
 
-@property(nonatomic, assign) BOOL succeed;
+@property(nonatomic, copy) NSDictionary *_Nonnull metaData;
 
-- (nonnull NSDictionary *)toDictionary;
+- (void)reject:(nonnull NSError *)error;
+- (void)accept:(nullable NSDictionary *)metaData;
+- (nonnull NSDictionary *)resData;
 
 @end
 

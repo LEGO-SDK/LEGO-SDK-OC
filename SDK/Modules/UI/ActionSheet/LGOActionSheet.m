@@ -40,7 +40,7 @@
 
 @implementation LGOActionSheetResponse
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     return @{ @"buttonIndex" : [NSNumber numberWithInteger:self.buttonIndex] };
 }
 

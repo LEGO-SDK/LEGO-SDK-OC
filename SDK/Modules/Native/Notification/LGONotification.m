@@ -47,7 +47,7 @@ static NSNumber *observersGCLock;
 
 @implementation LGONotificationResponse
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     id objectValue = @"";
     NSDictionary *userInfoValue = @{};
 

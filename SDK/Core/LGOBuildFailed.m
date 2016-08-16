@@ -31,7 +31,7 @@
     return self;
 }
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     return @{
         @"succeed" : @(false),
         @"error" : self.error,

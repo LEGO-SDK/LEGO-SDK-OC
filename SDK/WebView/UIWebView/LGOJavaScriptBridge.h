@@ -11,7 +11,8 @@
 
 @class LGORequestContext;
 
-typedef void (^LGOJSMessageCallCompletionBlock)(NSDictionary<NSString *, id> *_Nonnull result);
+typedef void (^LGOJSMessageCallCompletionBlock)(NSDictionary<NSString *, id> *_Nonnull metaData,
+                                                NSDictionary<NSString *, id> *_Nonnull resData);
 
 @interface LGOJSMessage : NSObject
 

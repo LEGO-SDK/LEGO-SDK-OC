@@ -28,7 +28,7 @@
 
 @implementation LGOCheckResponse
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     return @{ @"SDKVersion" : [LGOCore SDKVersion], @"checkResult" : self.checkResult };
 }
 
@@ -87,7 +87,7 @@
     }
     LGOCheckResponse *response = [[LGOCheckResponse alloc] init];
     response.checkResult = [checkResult copy];
-    return [response toDictionary];
+    return [response resData];
 }
 
 @end

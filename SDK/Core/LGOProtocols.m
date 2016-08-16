@@ -53,8 +53,30 @@
 
 @implementation LGOResponse
 
-- (NSDictionary *)toDictionary {
-    return @{ @"succeed" : [NSNumber numberWithBool:self.succeed] };
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _metaData = @{};
+    }
+    return self;
+}
+
+- (void)reject:(NSError *)error {
+    _metaData = @{
+        @"error" : @(YES),
+        @"code" : @(error.code),
+        @"reason" : error.localizedDescription != nil ? error.localizedDescription : @"",
+    };
+}
+
+- (void)accept:(NSDictionary *)metaData {
+    if (metaData != nil) {
+        _metaData = metaData;
+    }
+}
+
+- (NSDictionary *)resData {
+    return @{};
 }
 
 @end

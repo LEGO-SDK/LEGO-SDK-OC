@@ -10,7 +10,8 @@
 
 @class LGORequestContext;
 
-typedef void (^LGOWKMessageCallCompletionBlock)(NSDictionary<NSString *, id> *_Nonnull result);
+typedef void (^LGOWKMessageCallCompletionBlock)(NSDictionary<NSString *, id> *_Nonnull metaData,
+                                                NSDictionary<NSString *, id> *_Nonnull resData);
 
 @interface LGOWKMessage : NSObject
 

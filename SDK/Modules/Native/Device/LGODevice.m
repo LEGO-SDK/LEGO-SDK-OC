@@ -54,7 +54,7 @@
     return [[NSNumber alloc] initWithInt:0];
 }
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     self.deviceName = [UIDevice currentDevice].name;
     self.deviceModel = [UIDevice currentDevice].model;
     self.deviceOSName = [UIDevice currentDevice].systemName;
@@ -130,7 +130,7 @@ static NSDictionary *custom;
 }
 
 - (NSDictionary *)synchronizeResponse:(UIView *)webView {
-    return [[[LGODeviceOperation new] requestSynchronize] toDictionary];
+    return [[[LGODeviceOperation new] requestSynchronize] resData];
 }
 
 @end

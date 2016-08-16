@@ -28,7 +28,7 @@
 
 @implementation LGOCanOpenURLResponse
 
-- (NSDictionary *)toDictionary {
+- (NSDictionary *)resData {
     return @{ @"canOpen" : [NSNumber numberWithBool:self.canOpen] };
 }
 
