@@ -63,6 +63,10 @@
           }];
         }];
     }
+    else {
+        LGOResponse *nonModule = [[LGOResponse new] reject:[NSError errorWithDomain:@"LEGO.SDK" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Module not exists."}]];
+        completionBlock(nonModule.metaData, nonModule.resData);
+    }
 }
 
 @end
@@ -174,7 +178,8 @@
         LGOJSMessage *message = [LGOJSMessage newMessageWithJSONString:body];
         if (message != nil) {
             if (![LGOWatchDog checkModule:URL moduleName:message.moduleName]) {
-                NSLog(@"Received an JSMessage request. Module %@ require specific domain request.", message.moduleName);
+                LGOResponse *res = [[LGOResponse new] reject:[NSError errorWithDomain:@"LEGO.SDK" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Domain not in module white-list."}]];
+                [self callbackWithID:message.callbackID metaData:res.metaData resData:res.resData webView:webView];
                 return;
             }
             LGORequestContext *context = [[LGORequestContext alloc] init];
