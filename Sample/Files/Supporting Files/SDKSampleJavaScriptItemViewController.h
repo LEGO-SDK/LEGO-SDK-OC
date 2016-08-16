@@ -14,5 +14,6 @@
 @property (nonatomic, strong) WKWebView *webView;
 
 @property (nonatomic, copy) NSString *file;
+@property (nonatomic, copy) NSString *zipURL;
 
 @end

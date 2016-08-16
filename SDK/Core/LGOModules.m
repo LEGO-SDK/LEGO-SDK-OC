@@ -30,6 +30,7 @@
 #import "LGONavigationItem.h"
 #import "LGONavigationController.h"
 #import "LGONavigationBar.h"
+#import "LGOPack.h"
 
 @implementation LGOModules
 
@@ -61,6 +62,7 @@
                     @"UI.NavigationItem": [LGONavigationItem new],
                     @"UI.NavigationController": [LGONavigationController new],
                     @"UI.NavigationBar": [LGONavigationBar new],
+                    @"WebView.LGOPack": [LGOPack new],
                    } mutableCopy];
     }
     return self;

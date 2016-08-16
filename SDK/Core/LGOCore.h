@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "LGOModules.h"
-#import "LGOWebCache.h"
 
 @interface LGOCore : NSObject
 
@@ -21,7 +20,5 @@
 + (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)whiteModule;
 
 + (LGOModules *)modules;
-
-+ (LGOWebCache *)webCache;
 
 @end

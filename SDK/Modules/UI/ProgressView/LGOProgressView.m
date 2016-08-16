@@ -34,7 +34,7 @@
     [self.progressView setAlpha:1.0];
     [self.progressView setProgress:progress animated:YES];
     if (progress == 1.0) {
-        self.hiddenTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(hidesWithDelay) userInfo:nil repeats:NO];
+        self.hiddenTimer = [NSTimer scheduledTimerWithTimeInterval:0.80 target:self selector:@selector(hidesWithDelay) userInfo:nil repeats:NO];
     }
 }
 
