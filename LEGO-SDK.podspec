@@ -23,90 +23,90 @@ Pod::Spec.new do |s|
   s.subspec 'API' do |api|
     api.dependency 'LEGO-SDK/Core'
     api.subspec 'Native' do |native|
-      native.subspec 'Call' do |module|
-        module.source_files = 'SDK/Modules/Native/Call/*.{h,m}'
+      native.subspec 'Call' do |m|
+        m.source_files = 'SDK/Modules/Native/Call/*.{h,m}'
       end
-      native.subspec 'Check' do |module|
-        module.source_files = 'SDK/Modules/Native/Check/*.{h,m}'
+      native.subspec 'Check' do |m|
+        m.source_files = 'SDK/Modules/Native/Check/*.{h,m}'
       end
-      native.subspec 'DataModel' do |module|
-        module.source_files = 'SDK/Modules/Native/DataModel/*.{h,m}'
+      native.subspec 'DataModel' do |m|
+        m.source_files = 'SDK/Modules/Native/DataModel/*.{h,m}'
       end
-      native.subspec 'Device' do |module|
-        module.source_files = 'SDK/Modules/Native/Device/*.{h,m}'
+      native.subspec 'Device' do |m|
+        m.source_files = 'SDK/Modules/Native/Device/*.{h,m}'
       end
-      native.subspec 'FileManager' do |module|
-        module.source_files = 'SDK/Modules/Native/FileManager/*.{h,m}'
+      native.subspec 'FileManager' do |m|
+        m.source_files = 'SDK/Modules/Native/FileManager/*.{h,m}'
       end
-      native.subspec 'HTTPRequest' do |module|
-        module.source_files = 'SDK/Modules/Native/HTTPRequest/*.{h,m}'
+      native.subspec 'HTTPRequest' do |m|
+        m.source_files = 'SDK/Modules/Native/HTTPRequest/*.{h,m}'
       end
-      native.subspec 'Notification' do |module|
-        module.source_files = 'SDK/Modules/Native/Notification/*.{h,m}'
+      native.subspec 'Notification' do |m|
+        m.source_files = 'SDK/Modules/Native/Notification/*.{h,m}'
       end
-      native.subspec 'OpenURL' do |module|
-        module.source_files = 'SDK/Modules/Native/OpenURL/*.{h,m}'
+      native.subspec 'OpenURL' do |m|
+        m.source_files = 'SDK/Modules/Native/OpenURL/*.{h,m}'
       end
-      native.subspec 'Pasteboard' do |module|
-        module.source_files = 'SDK/Modules/Native/Pasteboard/*.{h,m}'
+      native.subspec 'Pasteboard' do |m|
+        m.source_files = 'SDK/Modules/Native/Pasteboard/*.{h,m}'
       end
-      native.subspec 'UserDefaults' do |module|
-        module.source_files = 'SDK/Modules/Native/UserDefaults/*.{h,m}'
+      native.subspec 'UserDefaults' do |m|
+        m.source_files = 'SDK/Modules/Native/UserDefaults/*.{h,m}'
       end
     end
     api.subspec 'UI' do |ui|
-      ui.subspec 'ActionSheet' do |module|
-        module.source_files = 'SDK/Modules/UI/ActionSheet/*.{h,m}'
+      ui.subspec 'ActionSheet' do |m|
+        m.source_files = 'SDK/Modules/UI/ActionSheet/*.{h,m}'
       end
-      ui.subspec 'AlertView' do |module|
-        module.source_files = 'SDK/Modules/UI/AlertView/*.{h,m}'
+      ui.subspec 'AlertView' do |m|
+        m.source_files = 'SDK/Modules/UI/AlertView/*.{h,m}'
       end
-      ui.subspec 'AppFrame' do |module|
-        module.source_files = 'SDK/Modules/UI/AppFrame/*.{h,m}'
-        module.dependency 'LEGO-SDK/API/UI/ViewController'
+      ui.subspec 'AppFrame' do |m|
+        m.source_files = 'SDK/Modules/UI/AppFrame/*.{h,m}'
+        m.dependency 'LEGO-SDK/API/UI/ViewController'
       end
-      ui.subspec 'Bounce' do |module|
-        module.source_files = 'SDK/Modules/UI/Bounce/*.{h,m}'
+      ui.subspec 'Bounce' do |m|
+        m.source_files = 'SDK/Modules/UI/Bounce/*.{h,m}'
       end
-      ui.subspec 'ImagePreviewer' do |module|
-        module.source_files = 'SDK/Modules/UI/ImagePreviewer/*.{h,m}'
+      ui.subspec 'ImagePreviewer' do |m|
+        m.source_files = 'SDK/Modules/UI/ImagePreviewer/*.{h,m}'
       end
-      ui.subspec 'IndicatorView' do |module|
-        module.source_files = 'SDK/Modules/UI/IndicatorView/*.{h,m}'
+      ui.subspec 'IndicatorView' do |m|
+        m.source_files = 'SDK/Modules/UI/IndicatorView/*.{h,m}'
       end
-      ui.subspec 'ModalController' do |module|
-        module.source_files = 'SDK/Modules/UI/ModalController/*.{h,m}'
-        module.dependency 'LEGO-SDK/API/UI/ViewController'
+      ui.subspec 'ModalController' do |m|
+        m.source_files = 'SDK/Modules/UI/ModalController/*.{h,m}'
+        m.dependency 'LEGO-SDK/API/UI/ViewController'
       end
-      ui.subspec 'NavigationBar' do |module|
-        module.source_files = 'SDK/Modules/UI/NavigationBar/*.{h,m}'
+      ui.subspec 'NavigationBar' do |m|
+        m.source_files = 'SDK/Modules/UI/NavigationBar/*.{h,m}'
       end
-      ui.subspec 'NavigationController' do |module|
-        module.source_files = 'SDK/Modules/UI/NavigationController/*.{h,m}'
-        module.dependency 'LEGO-SDK/API/UI/ViewController'
+      ui.subspec 'NavigationController' do |m|
+        m.source_files = 'SDK/Modules/UI/NavigationController/*.{h,m}'
+        m.dependency 'LEGO-SDK/API/UI/ViewController'
       end
-      ui.subspec 'NavigationItem' do |module|
-        module.source_files = 'SDK/Modules/UI/NavigationItem/*.{h,m}'
+      ui.subspec 'NavigationItem' do |m|
+        m.source_files = 'SDK/Modules/UI/NavigationItem/*.{h,m}'
       end
-      ui.subspec 'ProgressView' do |module|
-        module.source_files = 'SDK/Modules/UI/ProgressView/*.{h,m}'
+      ui.subspec 'ProgressView' do |m|
+        m.source_files = 'SDK/Modules/UI/ProgressView/*.{h,m}'
       end
-      ui.subspec 'Refresh' do |module|
-        module.source_files = 'SDK/Modules/UI/Refresh/*.{h,m}'
+      ui.subspec 'Refresh' do |m|
+        m.source_files = 'SDK/Modules/UI/Refresh/*.{h,m}'
       end
-      ui.subspec 'StatusBar' do |module|
-        module.source_files = 'SDK/Modules/UI/StatusBar/*.{h,m}'
+      ui.subspec 'StatusBar' do |m|
+        m.source_files = 'SDK/Modules/UI/StatusBar/*.{h,m}'
       end
-      ui.subspec 'ViewController' do |module|
-        module.source_files = 'SDK/Modules/UI/ViewController/*.{h,m}'
+      ui.subspec 'ViewController' do |m|
+        m.source_files = 'SDK/Modules/UI/ViewController/*.{h,m}'
       end
     end
     api.subspec 'WebView' do |webview|
-      webview.subspec 'Pack' do |pack|
-        module.source_files = 'SDK/Modules/WebView/Pack/*.{h,m}'
-        module.dependency 'GCDWebServer'
-        module.dependency 'SSZipArchive'
-        module.dependency 'CocoaSecurity'
+      webview.subspec 'Pack' do |m|
+        m.source_files = 'SDK/Modules/WebView/Pack/*.{h,m}'
+        m.dependency 'GCDWebServer'
+        m.dependency 'SSZipArchive'
+        m.dependency 'CocoaSecurity'
       end 
     end
   end
