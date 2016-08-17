@@ -110,6 +110,10 @@
 
 @implementation LGOUserDefaults
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.UserDefaults" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOUserDefaultsRequest class]]) {
         LGOUserDefaultsOperation *operation = [LGOUserDefaultsOperation new];

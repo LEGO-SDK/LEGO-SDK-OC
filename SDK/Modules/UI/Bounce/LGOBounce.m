@@ -49,6 +49,10 @@
 
 @implementation LGOBounce
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.Bounce" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOBounceRequest class]]) {
         LGOBounceOperation *operation = [LGOBounceOperation new];

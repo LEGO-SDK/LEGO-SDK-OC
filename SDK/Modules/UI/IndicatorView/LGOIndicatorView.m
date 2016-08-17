@@ -54,6 +54,10 @@
 
 @implementation LGOIndicatorView
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.IndicatorView" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOIndicatorViewRequest class]]) {
         LGOIndicatorViewOperation *operation = [LGOIndicatorViewOperation new];

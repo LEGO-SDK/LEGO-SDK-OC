@@ -76,6 +76,10 @@
 
 @implementation LGOImagePreviewer
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.ImagePreviewer" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOImagePreviewerRequest class]]) {
         LGOImagePreviewerOperation *operation = [LGOImagePreviewerOperation new];

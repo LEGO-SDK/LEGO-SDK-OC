@@ -55,6 +55,10 @@
 
 @implementation LGOCheck
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.Check" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOCheckRequest class]]) {
         LGOCheckOperation *operation = [LGOCheckOperation new];
@@ -81,8 +85,9 @@
 
 - (NSDictionary *)synchronizeResponse:(UIView *)webView {
     NSMutableDictionary *checkResult = [NSMutableDictionary dictionary];
-    for (NSString *module in LGOCore.modules.allModules) {
-        [checkResult setObject:[NSNumber numberWithBool:YES] forKey:module];
+    for (NSString *moduleName in LGOCore.modules.allModules) {
+        LGOModule *moduleInstance = [[LGOCore modules] moduleWithName:moduleName];
+        [checkResult setObject:[NSNumber numberWithInteger:moduleInstance.ver] forKey:moduleName];
     }
     LGOCheckResponse *response = [[LGOCheckResponse alloc] init];
     response.checkResult = [checkResult copy];

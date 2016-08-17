@@ -80,6 +80,10 @@ static LGOAlertViewOperation *currentOperation;
 
 @implementation LGOAlertView
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.AlertView" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOAlertViewRequest class]]) {
         LGOAlertViewOperation *operation = [LGOAlertViewOperation new];

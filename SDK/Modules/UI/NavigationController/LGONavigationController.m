@@ -126,6 +126,10 @@ static NSDate *lastPush;
 
 @implementation LGONavigationController
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.NavigationController" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGONavigationRequest class]]) {
         LGONavigationOperation *operation = [LGONavigationOperation new];

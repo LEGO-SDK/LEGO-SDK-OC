@@ -187,6 +187,10 @@ UInt16 LGONavigationItemOperationPinKey;
 
 @implementation LGONavigationItem
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.NavigationItem" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGONavigationItemRequest class]]) {
         LGONavigationItemOperation *operation = [LGONavigationItemOperation new];

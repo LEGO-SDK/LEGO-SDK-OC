@@ -63,6 +63,10 @@
 
 @implementation LGOPasteboard
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.Pasteboard" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGOPasteboardRequest *request = [LGOPasteboardRequest new];
     if ([dictionary[@"opt"] isKindOfClass:[NSString class]]) {

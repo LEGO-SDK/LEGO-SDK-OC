@@ -55,7 +55,9 @@ typedef void (^LGORequestableAsynchronizeBlock)(LGOResponse *_Nonnull response);
 
 @interface LGOModule : NSObject
 
-@property(nonatomic, assign) BOOL isSynchronize;
+@property (nonatomic, assign) BOOL isSynchronize;
+
+@property (nonatomic, assign) NSInteger ver;
 
 - (nonnull LGORequestable *)buildWithRequest:(nonnull LGORequest *)request;
 

@@ -163,6 +163,10 @@
 
 static NSArray<NSString *> *protecting;
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.FileManager" instance:[self new]];
+}
+
 + (NSArray *)protecting {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

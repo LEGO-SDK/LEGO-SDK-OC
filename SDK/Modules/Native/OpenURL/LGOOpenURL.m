@@ -56,6 +56,10 @@
 
 @implementation LGOOpenURL
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.OpenURL" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOOpenURLRequest class]]) {
         LGOOpenURLOperation *operation = [LGOOpenURLOperation new];

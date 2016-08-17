@@ -56,6 +56,10 @@
 
 @implementation LGOCanOpenURL
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.CanOpenURL" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOCanOpenURLRequest class]]) {
         LGOCanOpenURLOperation *operation = [LGOCanOpenURLOperation new];

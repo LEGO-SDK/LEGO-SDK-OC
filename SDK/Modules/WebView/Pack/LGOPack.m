@@ -10,6 +10,7 @@
 #import <GCDWebServer/GCDWebServer.h>
 #import <SSZipArchive/SSZipArchive.h>
 #import "LGOPack.h"
+#import "LGOCore.h"
 
 @implementation LGOPack
 
@@ -33,6 +34,7 @@ static int serverPort = 10000;
           }
       }
     });
+    [[LGOCore modules] addModuleWithName:@"WebView.Pack" instance:[self new]];
 }
 
 + (BOOL)localCachedWithURL:(NSURL *)URL {

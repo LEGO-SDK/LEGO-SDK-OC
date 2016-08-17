@@ -8,6 +8,7 @@
 
 #import "LGONavigationBar.h"
 #import "UIViewController+LGONavigationBar.h"
+#import "LGOCore.h"
 
 @interface LGONavigationBarRequest : LGORequest
 
@@ -50,6 +51,10 @@
 @end
 
 @implementation LGONavigationBar
+
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.NavigationBar" instance:[self new]];
+}
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGONavigationBarRequest class]]) {

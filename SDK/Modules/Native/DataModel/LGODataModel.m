@@ -7,6 +7,7 @@
 //
 
 #import "LGODataModel.h"
+#import "LGOCore.h"
 #import "LGOWKWebView+DataModel.h"
 #import "LGOWebView+DataModel.h"
 
@@ -125,6 +126,10 @@
 @end
 
 @implementation LGODataModel
+
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.DataModel" instance:[self new]];
+}
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGODataModelRequest class]]) {

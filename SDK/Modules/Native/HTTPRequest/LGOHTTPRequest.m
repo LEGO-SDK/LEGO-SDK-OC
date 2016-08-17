@@ -149,6 +149,10 @@ return @"";
 
 @implementation LGOHTTPRequest
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.HTTPRequest" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOHTTPRequestObject class]]) {
         LGOHTTPOperation *operation = [LGOHTTPOperation new];

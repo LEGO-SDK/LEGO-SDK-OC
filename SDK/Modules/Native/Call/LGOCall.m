@@ -8,6 +8,7 @@
 
 #import "LGOCall.h"
 #import "LGOCallable.h"
+#import "LGOCore.h"
 
 @interface LGOCallRequest : LGORequest
 
@@ -58,6 +59,10 @@
 @end
 
 @implementation LGOCall
+
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.Call" instance:[self new]];
+}
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOCallRequest class]]) {

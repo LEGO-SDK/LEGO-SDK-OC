@@ -84,7 +84,6 @@
 		90F8D3DB1D61805E00CBEDB2 /* UIWebView+LGOAutoInject.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3DA1D61805E00CBEDB2 /* UIWebView+LGOAutoInject.m */; };
 		90F8D3DE1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3DD1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m */; };
 		90F8D3E41D61CA7800CBEDB2 /* weui.zip in Resources */ = {isa = PBXBuildFile; fileRef = 90F8D3E31D61CA7800CBEDB2 /* weui.zip */; };
-		90F8D3F81D62B17600CBEDB2 /* LGOMIMETypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3F11D62B17600CBEDB2 /* LGOMIMETypes.m */; };
 		90F8D3F91D62B17600CBEDB2 /* LGOPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3F31D62B17600CBEDB2 /* LGOPack.m */; };
 		90F8D3FA1D62B17600CBEDB2 /* UIWebView+LGOPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3F51D62B17600CBEDB2 /* UIWebView+LGOPack.m */; };
 		90F8D3FB1D62B17600CBEDB2 /* WKWebView+LGOPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F8D3F71D62B17600CBEDB2 /* WKWebView+LGOPack.m */; };
@@ -241,8 +240,6 @@
 		90F8D3DC1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+LGOAutoInject.h"; sourceTree = "<group>"; };
 		90F8D3DD1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+LGOAutoInject.m"; sourceTree = "<group>"; };
 		90F8D3E31D61CA7800CBEDB2 /* weui.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = weui.zip; sourceTree = "<group>"; };
-		90F8D3F01D62B17600CBEDB2 /* LGOMIMETypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOMIMETypes.h; sourceTree = "<group>"; };
-		90F8D3F11D62B17600CBEDB2 /* LGOMIMETypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOMIMETypes.m; sourceTree = "<group>"; };
 		90F8D3F21D62B17600CBEDB2 /* LGOPack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPack.h; sourceTree = "<group>"; };
 		90F8D3F31D62B17600CBEDB2 /* LGOPack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPack.m; sourceTree = "<group>"; };
 		90F8D3F41D62B17600CBEDB2 /* UIWebView+LGOPack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+LGOPack.h"; sourceTree = "<group>"; };
@@ -746,8 +743,6 @@
 		90F8D3EF1D62B17600CBEDB2 /* Pack */ = {
 			isa = PBXGroup;
 			children = (
-				90F8D3F01D62B17600CBEDB2 /* LGOMIMETypes.h */,
-				90F8D3F11D62B17600CBEDB2 /* LGOMIMETypes.m */,
 				90F8D3F21D62B17600CBEDB2 /* LGOPack.h */,
 				90F8D3F31D62B17600CBEDB2 /* LGOPack.m */,
 				90F8D3F41D62B17600CBEDB2 /* UIWebView+LGOPack.h */,
@@ -949,7 +944,6 @@
 				90F8D3CF1D61550D00CBEDB2 /* UIViewController+LGONavigationBar.m in Sources */,
 				40608A451D581ACA00219874 /* LGOImagePreviewController.m in Sources */,
 				90F8D3D21D61581D00CBEDB2 /* UINavigationController+LGONavigationBar.m in Sources */,
-				90F8D3F81D62B17600CBEDB2 /* LGOMIMETypes.m in Sources */,
 				40608A211D5340A300219874 /* LGOIndicatorView.m in Sources */,
 				90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */,
 				40608A3F1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m in Sources */,

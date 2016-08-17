@@ -174,6 +174,10 @@
 
 @implementation LGOAppFrame
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.AppFrame" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOAppFrameRequest class]]) {
         LGOAppFrameOperation *operation = [LGOAppFrameOperation new];

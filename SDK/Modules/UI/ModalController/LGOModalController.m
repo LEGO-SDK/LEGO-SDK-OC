@@ -179,6 +179,10 @@ NSDate *lastPresent;
 
 @implementation LGOModalController
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.ModalController" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOModalRequest class]]) {
         LGOModalOperation *operation = [LGOModalOperation new];

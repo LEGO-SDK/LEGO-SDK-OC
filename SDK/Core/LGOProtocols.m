@@ -121,6 +121,15 @@
 
 @implementation LGOModule
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _ver = 1;
+    }
+    return self;
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     return [[LGORequestable alloc] init];
 }

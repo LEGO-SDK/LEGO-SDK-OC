@@ -133,6 +133,10 @@ static NSNumber *observersGCLock;
 
 @implementation LGONotification
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.Notification" instance:[self new]];
+}
+
 + (NSArray *)observers {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

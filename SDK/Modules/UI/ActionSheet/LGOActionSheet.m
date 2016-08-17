@@ -100,6 +100,10 @@ static LGOActionSheetOperation *currentOperation;
 
 @implementation LGOActionSheet
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.ActionSheet" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOActionSheetRequest class]]) {
         LGOActionSheetOperation *operation = [LGOActionSheetOperation new];

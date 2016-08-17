@@ -77,6 +77,10 @@
 
 @implementation LGOStatusBar
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"UI.StatusBar" instance:[self new]];
+}
+
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOStatusBarRequest class]]) {
         LGOStatusBarOperation *operation = [LGOStatusBarOperation new];

@@ -116,6 +116,10 @@ static NSDictionary *custom;
     return custom;
 }
 
++ (void)load {
+    [[LGOCore modules] addModuleWithName:@"Native.Device" instance:[self new]];
+}
+
 + (void)configureCustomDictionary:(NSDictionary *)dictionary {
     custom = (dictionary != nil ? dictionary : @{});
 }
