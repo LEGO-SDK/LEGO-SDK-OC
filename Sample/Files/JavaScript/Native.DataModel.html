@@ -19,7 +19,8 @@
 function init() {
     var message = JSMessage.newMessage()
     message.moduleName = "Native.DataModel"
-    message.call(function(dataModel){
+    message.call(function(meta, dataModel){
+                 if (meta.error){ return console.error(meta.reason) }
                  JSDataModel = dataModel
                  updateName()
                  })
@@ -45,7 +46,9 @@ function updateDataModel() {
         dataKey: "word",
         dataValue: "Hello, World!"
     }
-    message.call(null)
+    message.call(function(meta, _){
+                 if (meta.error){ return console.error(meta.reason) }
+                 })
 }
 
 setTimeout(updateDataModel, 5000)

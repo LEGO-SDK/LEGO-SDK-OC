@@ -21,7 +21,8 @@
         var message = JSMessage.newMessage()
         message.moduleName = "Native.UserDefaults"
         message.requestParams = {opt: "read", key: "test"}
-        message.call(function(result){
+        message.call(function(meta, result){
+                     if (meta.error){ return console.error(meta.reason) }
                      document.getElementById('anInput').value = result.value
                      })
     }

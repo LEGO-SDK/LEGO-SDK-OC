@@ -21,7 +21,9 @@
             opt: "update",
             string: "罗老板，还是你！"
         }
-        message.call(null)
+        message.call(function(meta, _){
+                     if (meta.error){ return console.error(meta.reason) }
+                     })
         setTimeout(read, 2000)
     }
 
@@ -31,7 +33,8 @@
         message.requestParams = {
             opt: "read"
         }
-        message.call(function(result){
+        message.call(function(meta, result){
+                     if (meta.error){ return console.error(meta.reason) }
                      JSConsole.log(result.string)
                      })
     }
@@ -42,7 +45,9 @@
         message.requestParams = {
             opt: "delete"
         }
-        message.call(null)
+        message.call(function(meta, result){
+                     if (meta.error){ return console.error(meta.reason) }
+                     })
     }
 
 </script>

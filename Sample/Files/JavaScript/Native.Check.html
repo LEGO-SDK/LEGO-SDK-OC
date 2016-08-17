@@ -18,7 +18,9 @@
         var message = JSMessage.newMessage()
         message.moduleName = "Native.Check"
         message.requestParams = {moduleList: apiList}
-        message.call(function(result) {
+        
+        message.call(function(meta, result){
+                     if (meta.error){ return JSConsole.log(meta.reason); }
                      document.getElementById('status').innerHTML = JSON.stringify(result)
                      })
     }

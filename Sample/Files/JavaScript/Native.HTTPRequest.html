@@ -17,7 +17,8 @@
         showActivityIndicator: true,
         headers: {aKey: "aValue"}
     }
-    message.call(function(result) {
+    message.call(function(meta, result) {
+                 if (meta.error){ return console.error(meta.reason) }
                  document.body.innerHTML = result.responseText
                  JSConsole.log(result.responseText)
                  })

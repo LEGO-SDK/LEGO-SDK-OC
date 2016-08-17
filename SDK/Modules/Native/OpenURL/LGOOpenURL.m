@@ -6,7 +6,6 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGOOpenURL.h"
 
@@ -20,20 +19,6 @@
 
 @end
 
-@interface LGOOpenURLResponse : LGOResponse
-
-@property(nonatomic, assign) BOOL finished;
-
-@end
-
-@implementation LGOOpenURLResponse
-
-- (NSDictionary *)resData {
-    return @{ @"finished" : [NSNumber numberWithBool:self.finished] };
-}
-
-@end
-
 @interface LGOOpenURLOperation : LGORequestable
 
 @property(nonatomic, strong) LGOOpenURLRequest *request;
@@ -43,14 +28,24 @@
 @implementation LGOOpenURLOperation
 
 - (LGOResponse *)requestSynchronize {
-    LGOOpenURLResponse *response = [LGOOpenURLResponse new];
+    LGOResponse *response = [LGOResponse new];
     NSURL *URL = [NSURL URLWithString:self.request.URLString];
     if (URL != nil) {
-        response.finished = [[UIApplication sharedApplication] openURL:URL];
+        if ([[UIApplication sharedApplication] openURL:URL]) {
+            return [response accept:nil];
+        }
+        return [response reject:[NSError errorWithDomain:@"Native.OpenURL"
+                                                    code:-3
+                                                userInfo:@{
+                                                    NSLocalizedDescriptionKey : @"Open failed."
+                                                }]];
     } else {
-        response.finished = NO;
+        return [response reject:[NSError errorWithDomain:@"Native.OpenURL"
+                                                    code:-4
+                                                userInfo:@{
+                                                    NSLocalizedDescriptionKey : @"Invalid url value."
+                                                }]];
     }
-    return [response accept: nil];
 }
 
 @end

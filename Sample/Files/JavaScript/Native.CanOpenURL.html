@@ -16,7 +16,8 @@
         var message = JSMessage.newMessage()
         message.moduleName = "Native.CanOpenURL"
         message.requestParams = {URL: "wechat://"}
-        message.call(function(result){
+        message.call(function(meta, result){
+                     if (meta.error){ return console.error(meta.reason) }
                      document.getElementById('wechat-installed').innerHTML = result.canOpen ? '已安装' : '未安装'
                      })
     }
@@ -25,7 +26,9 @@
         var message = JSMessage.newMessage()
         message.moduleName = "Native.OpenURL"
         message.requestParams = {URL: "wechat://"}
-        message.call(null)
+        message.call(function(meta, _){
+                     if (meta.error){ return console.error(meta.reason) }
+                     })
     }
 
     wechat()

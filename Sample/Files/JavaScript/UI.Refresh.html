@@ -20,7 +20,8 @@
         message.call(nowRefresh)
     }
 
-    function nowRefresh() {
+    function nowRefresh(error, _) {
+        if (meta.error){ return console.error(meta.reason) }
         setTimeout(function(){
                    var message = JSMessage.newMessage()
                    message.moduleName = "UI.Refresh"
