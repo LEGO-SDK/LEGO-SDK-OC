@@ -76,23 +76,34 @@
         if ([self.request.value isKindOfClass:[NSString class]] ||
             [self.request.value isKindOfClass:[NSNumber class]]) {
             [[self userDefault] setValue:self.request.value forKey:self.request.key];
-            return [[LGOResponse new] accept: nil];
+            return [[LGOResponse new] accept:nil];
         }
-        return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.UserDefaults" code:-3 userInfo: @{ NSLocalizedDescriptionKey: @"Invalid value." }]];
-        
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.UserDefaults"
+                                                             code:-3
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"Invalid value."
+                                                         }]];
+
     } else if ([self.request.opt isEqualToString:@"read"]) {
         id value = [[self userDefault] objectForKey:self.request.key];
         if (value != nil) {
-            return [[[LGOUserDefaultsResponse alloc] initWithValue:value] accept: nil];
+            return [[[LGOUserDefaultsResponse alloc] initWithValue:value] accept:nil];
         }
-        return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.UserDefaults" code:-4 userInfo: @{ NSLocalizedDescriptionKey: @"Value is empty." }]];
-        
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.UserDefaults"
+                                                             code:-4
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"Value is empty."
+                                                         }]];
+
     } else if ([self.request.opt isEqualToString:@"delete"]) {
         [[self userDefault] removeObjectForKey:self.request.key];
-        return [[LGOResponse new] accept: nil];
-    }
-    else {
-        return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.UserDefaults" code:-5 userInfo: @{ NSLocalizedDescriptionKey: @"Invalid opt value." }]];
+        return [[LGOResponse new] accept:nil];
+    } else {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.UserDefaults"
+                                                             code:-5
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"Invalid opt value."
+                                                         }]];
     }
 }
 

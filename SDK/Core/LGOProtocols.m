@@ -85,7 +85,7 @@
 
 @interface LGORejecting : LGORequestable
 
-@property (nonatomic, strong) NSError *error;
+@property(nonatomic, strong) NSError *error;
 
 @end
 
@@ -101,7 +101,11 @@
 
 + (LGORequestable *)rejectWithDomain:(NSString *)domain code:(NSInteger)code reason:(NSString *)reason {
     LGORejecting *rejecting = [[LGORejecting alloc] init];
-    rejecting.error = [NSError errorWithDomain:(domain != nil ? domain : @"LEGO.SDK") code:code userInfo:@{NSLocalizedDescriptionKey: (reason != nil ? reason : @"")}];
+    rejecting.error = [NSError errorWithDomain:(domain != nil ? domain : @"LEGO.SDK")
+                                          code:code
+                                      userInfo:@{
+                                          NSLocalizedDescriptionKey : (reason != nil ? reason : @"")
+                                      }];
     return rejecting;
 }
 

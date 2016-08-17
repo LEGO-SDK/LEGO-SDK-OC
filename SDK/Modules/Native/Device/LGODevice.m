@@ -100,7 +100,7 @@
 @implementation LGODeviceOperation
 
 - (LGOResponse *)requestSynchronize {
-    return [[LGODeviceResponse new] accept: nil];
+    return [[LGODeviceResponse new] accept:nil];
 }
 
 @end

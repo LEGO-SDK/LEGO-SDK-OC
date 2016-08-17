@@ -99,11 +99,20 @@
     NSString *filePath = [self filePathFromRequest:self.request];
 
     if (![self checkPermission]) {
-        return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.FileManager" code:-4 userInfo:@{ NSLocalizedDescriptionKey: @"Check permission fail." }]];
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.FileManager"
+                                                             code:-4
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"Check permission fail."
+                                                         }]];
     }
 
     if ([self.request.filePath length] == 0) {
-        return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.FileManager" code:-5 userInfo:@{ NSLocalizedDescriptionKey: @"FilePath not empty." }]];;
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.FileManager"
+                                                             code:-5
+                                                         userInfo:@{
+                                                             NSLocalizedDescriptionKey : @"FilePath not empty."
+                                                         }]];
+        ;
     }
 
     if ([self.request.opt isEqualToString:@"Read"]) {
@@ -111,9 +120,13 @@
         if (fileContents != nil) {
             response.optSucceed = YES;
             response.fileContents = fileContents;
-        }
-        else {
-            return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.FileManager" code:-6 userInfo:@{ NSLocalizedDescriptionKey: @"Data reading fail." }]];;
+        } else {
+            return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.FileManager"
+                                                                 code:-6
+                                                             userInfo:@{
+                                                                 NSLocalizedDescriptionKey : @"Data reading fail."
+                                                             }]];
+            ;
         }
     } else if ([self.request.opt isEqualToString:@"Write"]) {
         NSMutableArray *tmpArr = [[NSMutableArray alloc] initWithArray:[filePath componentsSeparatedByString:@"/"]];
@@ -127,9 +140,13 @@
         NSData *data = self.request.fileContents;
         if (data != nil) {
             [data writeToFile:filePath options:NSDataWritingAtomic error:nil];
-        }
-        else {
-            return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.FileManager" code:-7 userInfo:@{ NSLocalizedDescriptionKey: @"FileContents not empty." }]];;
+        } else {
+            return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.FileManager"
+                                                                 code:-7
+                                                             userInfo:@{
+                                                                 NSLocalizedDescriptionKey : @"FileContents not empty."
+                                                             }]];
+            ;
         }
         response.optSucceed = YES;
     } else if ([self.request.opt isEqualToString:@"Delete"]) {
@@ -138,7 +155,7 @@
     } else if ([self.request.opt isEqualToString:@"Check"]) {
         response.optSucceed = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
     }
-    return [response accept: nil];
+    return [response accept:nil];
 }
 
 @end
@@ -180,7 +197,8 @@ static NSArray<NSString *> *protecting;
         [dictionary[@"fileContents"] isKindOfClass:[NSString class]] ? dictionary[@"fileContents"] : nil;
 
     if (!suite || !opt || !filePath) {
-        return [LGORequestable rejectWithDomain:@"Native.FileManager" code:-2 reason:@"Suite && opt && filePath require."];
+        return
+            [LGORequestable rejectWithDomain:@"Native.FileManager" code:-2 reason:@"Suite && opt && filePath require."];
     }
     request.suite = suite;
     request.opt = opt;
@@ -194,8 +212,7 @@ static NSArray<NSString *> *protecting;
               return [contentString dataUsingEncoding:NSUTF8StringEncoding];
           }
         }(contentString);
-    }
-    else {
+    } else {
         return [LGORequestable rejectWithDomain:@"Native.FileManager" code:-3 reason:@"FileContents type error."];
     }
 

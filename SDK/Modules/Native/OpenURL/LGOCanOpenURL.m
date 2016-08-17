@@ -50,7 +50,7 @@
     } else {
         response.canOpen = NO;
     }
-    return [response accept: nil];
+    return [response accept:nil];
 }
 
 @end
