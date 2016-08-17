@@ -11,7 +11,7 @@
 @implementation LGOCore
 
 + (NSString *)SDKVersion {
-    return @"0.2.3";
+    return @"0.3.0";
 }
 
 + (NSMutableArray<NSString *> *)whiteList {
