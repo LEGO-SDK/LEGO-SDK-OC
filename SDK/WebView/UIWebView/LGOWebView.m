@@ -8,7 +8,6 @@
 
 #import "JSContext+LGOProps.h"
 #import "LGOJavaScriptBridge.h"
-#import "LGONotification.h"
 #import "LGOWebView.h"
 @import JavaScriptCore;
 
@@ -23,7 +22,6 @@
 - (void)dealloc {
     self.delegate = nil;
     self.context.lgo_webView = nil;
-    [LGONotification LGONotificationGC];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
