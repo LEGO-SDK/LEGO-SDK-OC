@@ -46,8 +46,13 @@
                                                                   userInfo:self.request.userInfo];
         return [[LGOResponse new] accept:nil];
     }
-    
-    return [[LGOResponse new] reject: [NSError errorWithDomain:@"Native.Call" code:-3 userInfo:@{ NSLocalizedDescriptionKey: @"ViewController Does not conforms LGOCallable." }]];
+
+    return [[LGOResponse new]
+        reject:[NSError errorWithDomain:@"Native.Call"
+                                   code:-3
+                               userInfo:@{
+                                   NSLocalizedDescriptionKey : @"ViewController Does not conforms LGOCallable."
+                               }]];
 }
 
 @end

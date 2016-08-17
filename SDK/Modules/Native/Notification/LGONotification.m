@@ -97,7 +97,7 @@ static NSNumber *observersGCLock;
                       LGONotificationResponse *response = [LGONotificationResponse new];
                       response.object = object;
                       response.userInfo = userInfo;
-                        callbackBlock([response accept:nil]);
+                      callbackBlock([response accept:nil]);
                     }];
         if (self.request.context.sender != nil) {
             LGONotificationObserver *item = [LGONotificationObserver new];
@@ -120,17 +120,13 @@ static NSNumber *observersGCLock;
                                                               object:self.request.aPostObject
                                                             userInfo:self.request.aPostUserInfo];
         }];
+    } else {
+        callbackBlock([[LGOResponse new] reject:[NSError errorWithDomain:@"Native.Notification"
+                                                                    code:-3
+                                                                userInfo:@{
+                                                                    NSLocalizedDescriptionKey : @"Invalid opt value."
+                                                                }]]);
     }
-    else{
-        callbackBlock([[LGOResponse new] reject: [NSError
-                                                  errorWithDomain:@"Native.Notification"
-                                                  code:-3
-                                                  userInfo: @{
-                                                        NSLocalizedDescriptionKey: @"Invalid opt value."
-                                                    }]]);
-    }
-    
-    
 }
 
 @end
@@ -204,7 +200,7 @@ static NSNumber *observersGCLock;
 
         return [self buildWithRequest:request];
     }
-    
+
     return [LGORequestable rejectWithDomain:@"Native.Notification" code:-2 reason:@"Name require."];
 }
 

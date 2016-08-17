@@ -171,6 +171,7 @@
                                                     NSLocalizedDescriptionKey : @"Invalid opt value."
                                                 }]];
     }
+    return [response accept:nil];
 }
 
 @end

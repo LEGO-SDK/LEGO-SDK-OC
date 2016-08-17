@@ -112,36 +112,37 @@ return @"";
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     }
 
-    [NSURLConnection sendAsynchronousRequest:self.request.nativeRequest
-                                       queue:[LGOHTTPOperation aQueue]
-                           completionHandler:^(NSURLResponse *_Nullable responseObject, NSData *_Nullable responseData,
-                                               NSError *_Nullable error) {
-                             
-                               if (error) {
-                                   callbackBlock([[LGOResponse new] reject: [NSError
-                                                                             errorWithDomain:@"Native.HTTPRequest"
-                                                                             code:-4
-                                                                             userInfo:@{ NSLocalizedDescriptionKey: error.localizedDescription }]]);
-                               }
-                             if (self.request.showActivityIndicator) {
-                                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                             }
-                             LGOHTTPResponseObject *returnResponse = [LGOHTTPResponseObject new];
-                             returnResponse.error = error ? error.description : @"";
-                             returnResponse.statusCode = [responseObject isKindOfClass:[NSHTTPURLResponse class]]
-                                                             ? [(NSHTTPURLResponse *)responseObject statusCode]
-                                                             : 500;
-                             NSString *utf8encodedString =
-                                 [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-                             if (utf8encodedString != nil) {
-                                 returnResponse.responseText = utf8encodedString;
-                                 returnResponse.responseData = nil;
-                             } else {
-                                 returnResponse.responseText = @"";
-                                 returnResponse.responseData = responseData;
-                             }
-                             callbackBlock([returnResponse accept: nil]);
-                           }];
+    [NSURLConnection
+        sendAsynchronousRequest:self.request.nativeRequest
+                          queue:[LGOHTTPOperation aQueue]
+              completionHandler:^(NSURLResponse *_Nullable responseObject, NSData *_Nullable responseData,
+                                  NSError *_Nullable error) {
+
+                if (error) {
+                    callbackBlock([[LGOResponse new]
+                        reject:[NSError errorWithDomain:@"Native.HTTPRequest"
+                                                   code:-4
+                                               userInfo:@{NSLocalizedDescriptionKey : error.localizedDescription}]]);
+                }
+                if (self.request.showActivityIndicator) {
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                }
+                LGOHTTPResponseObject *returnResponse = [LGOHTTPResponseObject new];
+                returnResponse.error = error ? error.description : @"";
+                returnResponse.statusCode = [responseObject isKindOfClass:[NSHTTPURLResponse class]]
+                                                ? [(NSHTTPURLResponse *)responseObject statusCode]
+                                                : 500;
+                NSString *utf8encodedString =
+                    [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+                if (utf8encodedString != nil) {
+                    returnResponse.responseText = utf8encodedString;
+                    returnResponse.responseData = nil;
+                } else {
+                    returnResponse.responseText = @"";
+                    returnResponse.responseData = responseData;
+                }
+                callbackBlock([returnResponse accept:nil]);
+              }];
 }
 
 @end
@@ -160,7 +161,7 @@ return @"";
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGOHTTPRequestObject *_Nullable requestObject = nil;
     NSString *_Nullable URLString = [dictionary[@"URL"] isKindOfClass:[NSString class]] ? dictionary[@"URL"] : nil;
-    if (!URLString){
+    if (!URLString) {
         return [LGORequestable rejectWithDomain:@"Native.HTTPRequest" code:-2 reason:@"URL require."];
     }
     if (![URLString hasPrefix:@"http://"] && ![URLString hasPrefix:@"https://"]) {
