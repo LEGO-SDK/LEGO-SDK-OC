@@ -7,7 +7,6 @@
 //
 
 #import <WebKit/WebKit.h>
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGOHTTPRequest.h"
 

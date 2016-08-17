@@ -6,7 +6,6 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 #import "LGODevice.h"
 #import "LGODeviceReachability.h"

@@ -8,7 +8,6 @@
 
 #import <WebKit/WebKit.h>
 #import "LGOBounce.h"
-#import "LGOBuildFailed.h"
 #import "LGOCore.h"
 
 @interface LGOBounceRequest : LGORequest

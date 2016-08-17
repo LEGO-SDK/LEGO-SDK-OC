@@ -72,7 +72,6 @@
 		90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD461D473BB5005F4746 /* LGOCore.m */; };
 		90E8CD4C1D473BB5005F4746 /* LGOModules.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD481D473BB5005F4746 /* LGOModules.m */; };
 		90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD4A1D473BB5005F4746 /* LGOProtocols.m */; };
-		90E8CD501D473C22005F4746 /* LGOBuildFailed.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD4F1D473C22005F4746 /* LGOBuildFailed.m */; };
 		90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD521D474353005F4746 /* LGOWatchDog.m */; };
 		90E8CD561D474EC1005F4746 /* SDKSample.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD551D474EC1005F4746 /* SDKSample.Storyboard */; };
 		90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */; };
@@ -220,8 +219,6 @@
 		90E8CD481D473BB5005F4746 /* LGOModules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOModules.m; sourceTree = "<group>"; };
 		90E8CD491D473BB5005F4746 /* LGOProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOProtocols.h; sourceTree = "<group>"; };
 		90E8CD4A1D473BB5005F4746 /* LGOProtocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOProtocols.m; sourceTree = "<group>"; };
-		90E8CD4E1D473C22005F4746 /* LGOBuildFailed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOBuildFailed.h; sourceTree = "<group>"; };
-		90E8CD4F1D473C22005F4746 /* LGOBuildFailed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOBuildFailed.m; sourceTree = "<group>"; };
 		90E8CD511D474353005F4746 /* LGOWatchDog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOWatchDog.h; sourceTree = "<group>"; };
 		90E8CD521D474353005F4746 /* LGOWatchDog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOWatchDog.m; sourceTree = "<group>"; };
 		90E8CD551D474EC1005F4746 /* SDKSample.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SDKSample.Storyboard; sourceTree = "<group>"; };
@@ -664,8 +661,6 @@
 				90E8CD481D473BB5005F4746 /* LGOModules.m */,
 				90E8CD491D473BB5005F4746 /* LGOProtocols.h */,
 				90E8CD4A1D473BB5005F4746 /* LGOProtocols.m */,
-				90E8CD4E1D473C22005F4746 /* LGOBuildFailed.h */,
-				90E8CD4F1D473C22005F4746 /* LGOBuildFailed.m */,
 				90E8CD511D474353005F4746 /* LGOWatchDog.h */,
 				90E8CD521D474353005F4746 /* LGOWatchDog.m */,
 			);
@@ -930,7 +925,6 @@
 				906F11EE1D5D9FD8001F64DF /* UITabBarController+LGOStatusBar.m in Sources */,
 				40608A391D54A5FA00219874 /* LGOImagePreviewer.m in Sources */,
 				90E8CD051D47115D005F4746 /* JSContext+LGOProps.m in Sources */,
-				90E8CD501D473C22005F4746 /* LGOBuildFailed.m in Sources */,
 				90E8CD4C1D473BB5005F4746 /* LGOModules.m in Sources */,
 				40608A071D51C99400219874 /* LGOCanOpenURL.m in Sources */,
 				40608A011D51A23000219874 /* LGOUserDefaults.m in Sources */,
