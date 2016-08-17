@@ -15,7 +15,9 @@
         var message = JSMessage.newMessage()
         message.moduleName = "Native.Notification"
         message.requestParams = {opt:"remove", name:""}
-        message.call(null)
+        message.call(function(meta, _){
+                     if (meta.error){ return console.error(meta.reason) }
+                     })
     }
 
     var i = 0;
@@ -25,7 +27,8 @@
         var message = JSMessage.newMessage()
         message.moduleName = "Native.Notification"
         message.requestParams = {name: "UIApplicationDidBecomeActiveNotification"}
-        message.call(function(){
+        message.call(function(meta, _){
+                     if (meta.error){ return console.error(meta.reason) }
                      document.body.innerHTML = ++i + "Application did become active."
                      })
     }
@@ -34,7 +37,8 @@
         var message = JSMessage.newMessage()
         message.moduleName = "Native.Notification"
         message.requestParams = {name: "Test"}
-        message.call(function(result){
+        message.call(function(meta, result){
+                     if (meta.error){ return console.error(meta.reason) }
                      console.log(++a);
                      JSConsole.log("WebView received Test nofitication.")
                      JSConsole.log("Params>>> object:" + result.object + ", userInfo:" + JSON.stringify(result.userInfo))
@@ -49,7 +53,9 @@
                var message = JSMessage.newMessage()
                message.moduleName = "Native.Notification"
                message.requestParams = {name: "Test", opt: "post", aPostObject: "This notification is post via WebView", aPostUserInfo: {aKey: "aValue"}}
-               message.call(null)
+               message.call(function(meta, _){
+                            if (meta.error){ return console.error(meta.reason) }
+                            })
                }, 10000)
     
 </script>

@@ -17,7 +17,8 @@
     function device() {
         var message = JSMessage.newMessage()
         message.moduleName = "Native.Device"
-        message.call(function(result) {
+        message.call(function(meta, result){
+                     if (meta.error){ return console.error(meta.reason) }
                      document.getElementById('deviceInfo').innerHTML = JSON.stringify(result)
                      })
     }

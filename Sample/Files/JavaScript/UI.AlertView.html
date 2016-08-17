@@ -18,7 +18,8 @@
             title: "即将毁灭地球，请确认。",
             buttonTitles: ["马上毁灭", "稍后再试"]
         }
-        message.call(function(result) {
+        message.call(function(meta, result) {
+                         if (meta.error){ return console.error(meta.reason) }
                          if (result.buttonIndex == 0) {
                              JSConsole.log("正在发射核弹...");
                          }

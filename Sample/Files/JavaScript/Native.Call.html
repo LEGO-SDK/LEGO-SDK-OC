@@ -27,7 +27,9 @@
                 }
             }
         }
-        message.call(null)
+        message.call(function(meta, _){
+                     if (meta.error){ return console.error(meta.reason) }
+                     })
     }
 
 </script>
