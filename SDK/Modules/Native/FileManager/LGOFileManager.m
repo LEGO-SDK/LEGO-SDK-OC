@@ -147,7 +147,7 @@
             return [response reject:[NSError errorWithDomain:@"Native.FileManager"
                                                         code:-8
                                                     userInfo:@{
-                                                        NSLocalizedDescriptionKey : @"FileContents not empty."
+                                                        NSLocalizedDescriptionKey : @"FileContents required."
                                                     }]];
             ;
         }
@@ -171,7 +171,6 @@
                                                     NSLocalizedDescriptionKey : @"Invalid opt value."
                                                 }]];
     }
-    return [response accept:nil];
 }
 
 @end

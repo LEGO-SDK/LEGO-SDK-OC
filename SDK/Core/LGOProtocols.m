@@ -51,6 +51,12 @@
 
 @end
 
+@interface LGOResponse ()
+
+@property (nonatomic, readwrite) int status;
+
+@end
+
 @implementation LGOResponse
 
 - (instancetype)init {
@@ -62,15 +68,20 @@
 }
 
 - (LGOResponse *)reject:(NSError *)error {
+    NSAssert(self.status != -1, @"Response has been accepted.");
+    self.status = -1;
     _metaData = @{
         @"error" : @(YES),
+        @"module": error.domain != nil ? error.domain : @"LEGO.SDK",
         @"code" : @(error.code),
-        @"reason" : error.localizedDescription != nil ? error.localizedDescription : @"",
+        @"reason" : error.localizedDescription != nil ? error.localizedDescription : @"unknown error.",
     };
     return self;
 }
 
 - (LGOResponse *)accept:(NSDictionary *)metaData {
+    NSAssert(self.status != -1, @"Response has been rejected.");
+    self.status = 1;
     if (metaData != nil) {
         _metaData = metaData;
     }

@@ -20,7 +20,7 @@
         message.call(nowRefresh)
     }
 
-    function nowRefresh(error, _) {
+    function nowRefresh(meta, _) {
         if (meta.error){ return console.error(meta.reason) }
         setTimeout(function(){
                    var message = JSMessage.newMessage()

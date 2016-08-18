@@ -55,6 +55,7 @@
         LGORequestable *requestable = [module buildWithDictionary:self.requestParams context:context];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
           [requestable requestAsynchronize:^(LGOResponse *_Nonnull response) {
+              NSAssert(response.status != 0, @"Response status still pedding.");
             if (response != nil) {
                 completionBlock([response metaData], [response resData]);
             }

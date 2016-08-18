@@ -21,27 +21,21 @@
 
 @implementation LGOHTTPRequestObject
 
-- (instancetype)initWithURLString:(NSString *)URLString {
+- (instancetype)initWithURL:(NSURL *)URL {
     self = [super init];
     if (self) {
-        NSURL *URL = [[NSURL alloc] initWithString:URLString];
-        if (URL != nil) {
-            _nativeRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
-        }
+        _nativeRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
     }
     return self;
 }
 
-- (instancetype)initWithURLString:(NSString *)URLString data:(NSData *)data {
+- (instancetype)initWithURL:(NSURL *)URL data:(NSData *)data {
     self = [super init];
     if (self) {
-        NSURL *URL = [[NSURL alloc] initWithString:URLString];
-        if (URL != nil) {
-            _nativeRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
-            _nativeRequest.HTTPMethod = @"POST";
-            _nativeRequest.HTTPBody = data;
-            _nativeRequest.HTTPShouldHandleCookies = false;
-        }
+        _nativeRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
+        _nativeRequest.HTTPMethod = @"POST";
+        _nativeRequest.HTTPBody = data;
+        _nativeRequest.HTTPShouldHandleCookies = false;
     }
     return self;
 }
@@ -63,7 +57,6 @@
 
 @interface LGOHTTPResponseObject : LGOResponse
 
-@property(nonatomic, strong) NSString *error;
 @property(nonatomic, assign) NSInteger statusCode;
 @property(nonatomic, strong) NSString *responseText;
 @property(nonatomic, strong) NSData *_Nullable responseData;
@@ -74,8 +67,7 @@
 
 - (NSDictionary *)resData {
     return
-        @{ @"error" : self.error != nil ? self.error : [NSNull null],
-           @"statusCode" : [NSNumber numberWithInteger:self.statusCode],
+        @{ @"statusCode" : [NSNumber numberWithInteger:self.statusCode],
            @"responseText" : self.responseText != nil ? self.responseText : [NSNull null],
            @"responseData" : ^(){
                if (self.responseData != nil){return [self.responseData base64EncodedStringWithOptions:kNilOptions];
@@ -111,24 +103,22 @@ return @"";
     if (self.request.showActivityIndicator) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     }
-
     [NSURLConnection
         sendAsynchronousRequest:self.request.nativeRequest
                           queue:[LGOHTTPOperation aQueue]
               completionHandler:^(NSURLResponse *_Nullable responseObject, NSData *_Nullable responseData,
                                   NSError *_Nullable error) {
-
-                if (error) {
-                    callbackBlock([[LGOResponse new]
-                        reject:[NSError errorWithDomain:@"Native.HTTPRequest"
-                                                   code:-4
-                                               userInfo:@{NSLocalizedDescriptionKey : error.localizedDescription}]]);
-                }
                 if (self.request.showActivityIndicator) {
                     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 }
+                if (error != nil) {
+                    callbackBlock([[LGOResponse new]
+                        reject:[NSError errorWithDomain:@"Native.HTTPRequest"
+                                                   code:-error.code
+                                               userInfo:@{NSLocalizedDescriptionKey : error.localizedDescription}]]);
+                    return;
+                }
                 LGOHTTPResponseObject *returnResponse = [LGOHTTPResponseObject new];
-                returnResponse.error = error ? error.description : @"";
                 returnResponse.statusCode = [responseObject isKindOfClass:[NSHTTPURLResponse class]]
                                                 ? [(NSHTTPURLResponse *)responseObject statusCode]
                                                 : 500;
@@ -163,10 +153,9 @@ return @"";
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
-    LGOHTTPRequestObject *_Nullable requestObject = nil;
     NSString *_Nullable URLString = [dictionary[@"URL"] isKindOfClass:[NSString class]] ? dictionary[@"URL"] : nil;
     if (!URLString) {
-        return [LGORequestable rejectWithDomain:@"Native.HTTPRequest" code:-2 reason:@"URL require."];
+        return [LGORequestable rejectWithDomain:@"Native.HTTPRequest" code:-2 reason:@"URL required."];
     }
     if (![URLString hasPrefix:@"http://"] && ![URLString hasPrefix:@"https://"]) {
         if ([context.requestWebView isKindOfClass:[UIWebView class]]) {
@@ -186,47 +175,45 @@ return @"";
             }
         }
     }
-
+    NSURL *URL = [NSURL URLWithString:URLString];
+    if (URL == nil) {
+        return [LGORequestable rejectWithDomain:@"Native.HTTPRequest" code:-3 reason:@"invalid URL."];
+    }
+    LGOHTTPRequestObject *_Nonnull requestObject;
     NSString *_Nullable data = [dictionary[@"data"] isKindOfClass:[NSString class]] ? dictionary[@"data"] : nil;
-    if (data) {
+    if (data != nil) {
         NSData *base64Data = [[NSData alloc] initWithBase64EncodedString:data options:kNilOptions];
-        if (base64Data) {
-            requestObject = [[LGOHTTPRequestObject alloc] initWithURLString:URLString data:base64Data];
+        if (base64Data != nil) {
+            requestObject = [[LGOHTTPRequestObject alloc] initWithURL:URL data:base64Data];
         } else {
             NSData *encodedData = [data dataUsingEncoding:NSUTF8StringEncoding];
             if (encodedData) {
-                requestObject = [[LGOHTTPRequestObject alloc] initWithURLString:URLString data:encodedData];
+                requestObject = [[LGOHTTPRequestObject alloc] initWithURL:URL data:encodedData];
+            } else {
+                requestObject = [[LGOHTTPRequestObject alloc] initWithURL:URL];
             }
         }
     } else {
-        requestObject = [[LGOHTTPRequestObject alloc] initWithURLString:URLString];
+        requestObject = [[LGOHTTPRequestObject alloc] initWithURL:URL];
     }
-
-    if (requestObject) {
-        requestObject.showActivityIndicator = ^{
-          NSNumber *isShow = dictionary[@"showActivityIndicator"];
-          if ([isShow isKindOfClass:[NSNumber class]]) {
-              return isShow.boolValue;
-          }
-          return NO;
-        }();
-
-        NSNumber *timeout = dictionary[@"timeout"];
-        if ([timeout isKindOfClass:[NSNumber class]]) {
-            [requestObject setTimeout:timeout.doubleValue];
-        }
-
-        NSDictionary *customHeaders = dictionary[@"headers"];
-        if ([customHeaders isKindOfClass:[NSDictionary class]]) {
-            [requestObject setHeaders:customHeaders];
-        }
-
-        LGOHTTPOperation *operation = [LGOHTTPOperation new];
-        operation.request = requestObject;
-        return operation;
+    requestObject.showActivityIndicator = ^{
+      NSNumber *isShow = dictionary[@"showActivityIndicator"];
+      if ([isShow isKindOfClass:[NSNumber class]]) {
+          return isShow.boolValue;
+      }
+      return NO;
+    }();
+    NSNumber *timeout = dictionary[@"timeout"];
+    if ([timeout isKindOfClass:[NSNumber class]]) {
+        [requestObject setTimeout:timeout.doubleValue];
     }
-
-    return [LGORequestable rejectWithDomain:@"Native.HTTPRequest" code:-3 reason:@"Unknow."];
+    NSDictionary *customHeaders = dictionary[@"headers"];
+    if ([customHeaders isKindOfClass:[NSDictionary class]]) {
+        [requestObject setHeaders:customHeaders];
+    }
+    LGOHTTPOperation *operation = [LGOHTTPOperation new];
+    operation.request = requestObject;
+    return operation;
 }
 
 @end
