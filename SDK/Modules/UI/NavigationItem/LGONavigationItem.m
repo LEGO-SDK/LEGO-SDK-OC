@@ -90,7 +90,7 @@ UInt16 LGONavigationItemOperationPinKey;
                        viewController.navigationItem.rightBarButtonItem = item;
                      }];
         } else {
-            UIBarButtonItem *rightItem = [self textBarButtonItem:self.request.backItem];
+            UIBarButtonItem *rightItem = [self textBarButtonItem:self.request.rightItem];
             if (rightItem != nil) {
                 rightItem.tag = 101;
                 viewController.navigationItem.rightBarButtonItem = rightItem;
