@@ -6,8 +6,8 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import "LGODataModel.h"
 #import "LGOCore.h"
+#import "LGODataModel.h"
 #import "LGOWKWebView+DataModel.h"
 #import "LGOWebView+DataModel.h"
 
@@ -76,7 +76,8 @@
             NSData *data = [((NSString *)dataValue) dataUsingEncoding:NSUTF8StringEncoding];
             if (data) {
                 NSError *error = nil;
-                id result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                id result =
+                    [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
                 if (error == nil) {
                     dataValue = result;
                 } else {
