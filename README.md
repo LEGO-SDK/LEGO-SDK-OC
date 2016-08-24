@@ -40,7 +40,7 @@ Try to request device information, may use above code.
 JSMessage.newMessage("Native.Device").call(function(err, result){console.log(result);})
 ```
 
-And then console log these things.
+And console log these.
 
 ```
 Object
@@ -56,13 +56,13 @@ We recommend use CocoaPods.
 
 ### All
 
-If you wonder install all modules. Just add following code to Podfile.
+If you're wondering install all modules. Just add following code to Podfile.
 
 pod 'LEGO-SDK'
 
 ### Core only
 
-If you just wondering JavascriptBridge, no needs modules. Add following code to Podfile.
+If you're just wondering JavascriptBridge, no needs modules. Add following code to Podfile.
 
 pod 'LEGO-SDK/Core'
 
@@ -72,8 +72,8 @@ AutoInject will inject JavascriptBridge to UIWebView & WKWebView automatically. 
 
 pod 'LEGO-SDK/AutoInject'
 
-### Install module stand alone
+### Install module Stand-alone
 
-You may install module stand alone. Just like this.
+You may install module Stand-alone. Just like this.
 
 pod 'LEGO-SDK/API/Native/Device'
