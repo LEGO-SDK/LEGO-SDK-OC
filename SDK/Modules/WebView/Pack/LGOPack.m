@@ -35,7 +35,6 @@ static int serverPort = 10000;
       }
     });
     [[LGOCore modules] addModuleWithName:@"WebView.Pack" instance:[self new]];
-    [[LGOCore whiteList] addObject:@"localhost"];
 }
 
 + (BOOL)localCachedWithURL:(NSURL *)URL {
@@ -64,6 +63,9 @@ static int serverPort = 10000;
 + (void)createFileServerWithURL:(NSURL *)URL
                   progressBlock:(LGOPackFileServerProgressBlock)progressBlock
                 completionBlock:(LGOPackFileServerCreatedBlock)completionBlock {
+    if ([[LGOCore whiteList] count] > 0) {
+        [[LGOCore whiteList] addObject:@"localhost"];
+    }
     NSString *zipName = [URL lastPathComponent];
     [[NSOperationQueue new] addOperationWithBlock:^{
       BOOL noCache = NO;
