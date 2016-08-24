@@ -12,6 +12,12 @@
 static NSMutableArray *observers;
 static NSNumber *observersGCLock;
 
+@interface LGONotification ()
+
++ (void)runGC;
+
+@end
+
 @interface LGONotificationObserver : NSObject
 
 @property(nonatomic) __weak NSObject *webView;
@@ -82,6 +88,7 @@ static NSNumber *observersGCLock;
 @implementation LGONotificationOperation
 
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock {
+    [LGONotification runGC];
     if ([self.request.opt isEqualToString:@"add"]) {
         id observer = [[NSNotificationCenter defaultCenter]
             addObserverForName:self.request.name
@@ -153,7 +160,7 @@ static NSNumber *observersGCLock;
     return observersGCLock;
 }
 
-+ (void)LGONotificationGC {
++ (void)runGC {
     @synchronized([self observersGCLock]) {
         NSMutableArray<LGONotificationObserver *> *weakObservers = [NSMutableArray new];
         NSMutableArray<LGONotificationObserver *> *nonweakObservers = [NSMutableArray new];
