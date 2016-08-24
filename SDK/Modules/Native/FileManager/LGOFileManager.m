@@ -51,7 +51,7 @@
 
 - (NSDictionary *)resData {
     NSString *fileContents = [LGOFileManagerResponse stringFromFileContent:self.fileContents];
-    return @{ @"fileContents" : fileContents ? fileContents : [NSNull null] };
+    return @{ @"fileContents" : fileContents != nil ? fileContents : [NSNull null] };
 }
 
 @end
@@ -109,7 +109,7 @@
         ;
     }
 
-    if ([self.request.opt isEqualToString:@"Read"]) {
+    if ([self.request.opt isEqualToString:@"read"]) {
         NSData *fileContents = [NSData dataWithContentsOfFile:filePath];
         if (fileContents != nil) {
             response.fileContents = fileContents;
@@ -122,7 +122,7 @@
                                                     }]];
             ;
         }
-    } else if ([self.request.opt isEqualToString:@"Write"]) {
+    } else if ([self.request.opt isEqualToString:@"update"]) {
         NSMutableArray *tmpArr = [[NSMutableArray alloc] initWithArray:[filePath componentsSeparatedByString:@"/"]];
         [tmpArr removeLastObject];
         NSString *dirPath = [tmpArr componentsJoinedByString:@"/"];
@@ -151,7 +151,7 @@
                                                     }]];
             ;
         }
-    } else if ([self.request.opt isEqualToString:@"Delete"]) {
+    } else if ([self.request.opt isEqualToString:@"delete"]) {
         NSError *error = nil;
         [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
         if (error != nil) {
@@ -161,7 +161,7 @@
                                                  userInfo:@{NSLocalizedDescriptionKey : error.localizedDescription}]];
         }
         return [response accept:nil];
-    } else if ([self.request.opt isEqualToString:@"Check"]) {
+    } else if ([self.request.opt isEqualToString:@"check"]) {
         BOOL fileExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
         return [response accept:@{ @"exist" : [NSNumber numberWithBool:fileExist] }];
     } else {
@@ -214,7 +214,6 @@ static NSArray<NSString *> *protecting;
     NSString *filePath = [dictionary[@"filePath"] isKindOfClass:[NSString class]] ? dictionary[@"filePath"] : nil;
     NSString *contentString =
         [dictionary[@"fileContents"] isKindOfClass:[NSString class]] ? dictionary[@"fileContents"] : nil;
-
     if (!suite || !opt || !filePath) {
         return
             [LGORequestable rejectWithDomain:@"Native.FileManager" code:-2 reason:@"Suite && opt && filePath require."];

@@ -47,7 +47,6 @@
                                                                   userInfo:self.request.userInfo];
         return [[LGOResponse new] accept:nil];
     }
-
     return [[LGOResponse new]
         reject:[NSError errorWithDomain:@"Native.Call"
                                    code:-3

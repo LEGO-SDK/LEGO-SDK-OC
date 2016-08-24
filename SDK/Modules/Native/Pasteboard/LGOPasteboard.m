@@ -11,7 +11,7 @@
 
 @interface LGOPasteboardRequest : LGORequest
 
-@property(nonatomic, strong) NSString *opt;  // update/read/delete
+@property(nonatomic, strong) NSString *opt;
 @property(nonatomic, strong) NSString *_Nullable string;
 
 @end
@@ -29,7 +29,7 @@
 @implementation LGOPasteboardResponse
 
 - (NSDictionary *)resData {
-    return @{ @"string" : self.string ? self.string : [NSNull null] };
+    return @{ @"string" : self.string != nil ? self.string : [NSNull null] };
 }
 
 @end
@@ -74,11 +74,9 @@
     } else {
         request.opt = @"read";
     }
-
     if ([dictionary[@"string"] isKindOfClass:[NSString class]]) {
         request.string = (NSString *)dictionary[@"string"];
     }
-
     LGOPasteboardOperation *operation = [LGOPasteboardOperation new];
     operation.request = request;
     return operation;

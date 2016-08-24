@@ -11,8 +11,6 @@
 
 @interface LGOCheckRequest : LGORequest
 
-@property(nonatomic, copy) NSArray *moduleList;
-
 @end
 
 @implementation LGOCheckRequest
@@ -28,6 +26,9 @@
 @implementation LGOCheckResponse
 
 - (NSDictionary *)resData {
+    if (self.checkResult == nil) {
+        return @{};
+    }
     return @{ @"SDKVersion" : [LGOCore SDKVersion], @"checkResult" : self.checkResult };
 }
 
@@ -43,7 +44,7 @@
 
 - (LGOResponse *)requestSynchronize {
     NSMutableDictionary *checkResult = [NSMutableDictionary dictionary];
-    for (NSString *module in self.request.moduleList) {
+    for (NSString *module in [[LGOCore modules] allModules]) {
         [checkResult setObject:[NSNumber numberWithBool:YES] forKey:module];
     }
     LGOCheckResponse *response = [[LGOCheckResponse alloc] init];
@@ -70,14 +71,6 @@
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGOCheckRequest *request = [[LGOCheckRequest alloc] initWithContext:context];
-    NSArray *moduleList =
-        [dictionary[@"moduleList"] isKindOfClass:[NSArray<NSString *> class]] ? dictionary[@"moduleList"] : @[];
-    if (moduleList.count) {
-        request.moduleList = moduleList;
-    } else {
-        request.moduleList = LGOCore.modules.allModules;
-    }
-
     LGOCheckOperation *operation = [LGOCheckOperation new];
     operation.request = request;
     return operation;

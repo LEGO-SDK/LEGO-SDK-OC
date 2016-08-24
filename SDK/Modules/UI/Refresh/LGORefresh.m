@@ -37,7 +37,7 @@ static int kRefreshOperationIdentifierKey;
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock {
     self.responseBlock = callbackBlock;
     NSObject *sender = self.request.context.sender;
-    if ([self.request.opt isEqualToString:@"add"]) {
+    if ([self.request.opt isEqualToString:@"create"]) {
         if ([sender isKindOfClass:[WKWebView class]]) {
             [((WKWebView *)sender) configureRefreshControl:self];
             objc_setAssociatedObject(sender, &kRefreshOperationIdentifierKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);

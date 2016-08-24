@@ -68,25 +68,24 @@
     self.appBuildNumber = [LGODeviceResponse requestBundleIntValueForKey:@"CFBundleVersion"];
     self.networkUsingWIFI = [NSNumber numberWithBool:[LGODeviceReachability LGODeviceUsingWifi]];
     self.networkCellularType = [NSNumber numberWithInt:[LGODeviceReachability LGODeviceCellularType]];
-
     return @{
         @"device" : @{
-            @"name" : self.deviceName,
-            @"model" : self.deviceModel,
-            @"osName" : self.deviceOSName,
-            @"osVersion" : self.deviceOSVersion,
-            @"IDFV" : self.deviceIDFV,
-            @"screenWidth" : self.deviceScreenWidth,
-            @"screenHeight" : self.deviceScreenHeight
+                @"name" : (self.deviceName != nil ? self.deviceName : @""),
+                @"model" : (self.deviceModel != nil ? self.deviceModel : @""),
+                @"osName" : (self.deviceOSName != nil ? self.deviceOSName : @""),
+                @"osVersion" : (self.deviceOSVersion != nil ? self.deviceOSVersion : @""),
+                @"IDFV" : (self.deviceIDFV != nil ? self.deviceIDFV : @""),
+                @"screenWidth" : (self.deviceScreenWidth != nil ? self.deviceScreenWidth : @(0)),
+                @"screenHeight" : (self.deviceScreenHeight != nil ? self.deviceScreenHeight : @(0))
         },
         @"application" : @{
-            @"name" : self.appName,
-            @"bundleIdentifier" : self.appBundleIdentifier,
-            @"shortVersion" : self.appShortVersion,
-            @"buildNumber" : self.appBuildNumber
+                @"name" : (self.appName != nil ? self.appName : @""),
+                @"bundleIdentifier" : (self.appBundleIdentifier != nil ? self.appBundleIdentifier : @""),
+                @"shortVersion" : (self.appShortVersion != nil ? self.appShortVersion : @""),
+                @"buildNumber" : (self.appBuildNumber != nil ? self.appBuildNumber : @"")
         },
         @"network" : @{@"usingWIFI" : self.networkUsingWIFI, @"cellularType" : self.networkCellularType},
-        @"custom" : [LGODevice custom]
+        @"custom" : ([LGODevice custom] != nil ? [LGODevice custom] : @{})
     };
 }
 
@@ -121,7 +120,7 @@ static NSDictionary *custom;
 }
 
 + (void)configureCustomDictionary:(NSDictionary *)dictionary {
-    custom = (dictionary != nil ? dictionary : @{});
+    custom = (dictionary != nil && [NSJSONSerialization isValidJSONObject:dictionary] ? dictionary : @{});
 }
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {

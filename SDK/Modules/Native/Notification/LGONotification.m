@@ -55,7 +55,6 @@ static NSNumber *observersGCLock;
 - (NSDictionary *)resData {
     id objectValue = @"";
     NSDictionary *userInfoValue = @{};
-
     if (self.object && ([self.object isKindOfClass:[NSString class]] || [self.object isKindOfClass:[NSNumber class]])) {
         objectValue = self.object;
     }
@@ -73,7 +72,6 @@ static NSNumber *observersGCLock;
             userInfoValue = [outputInfo copy];
         }
     }
-
     return @{ @"object" : objectValue, @"userInfo" : userInfoValue };
 }
 
@@ -89,7 +87,7 @@ static NSNumber *observersGCLock;
 
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock {
     [LGONotification runGC];
-    if ([self.request.opt isEqualToString:@"add"]) {
+    if ([self.request.opt isEqualToString:@"create"]) {
         id observer = [[NSNotificationCenter defaultCenter]
             addObserverForName:self.request.name
                         object:nil
@@ -113,7 +111,7 @@ static NSNumber *observersGCLock;
             item.observer = observer;
             [observers addObject:item];
         }
-    } else if ([self.request.opt isEqualToString:@"remove"]) {
+    } else if ([self.request.opt isEqualToString:@"delete"]) {
         for (LGONotificationObserver *item in observers) {
             if ([item.webView isEqual:self.request.context.sender]) {
                 if (self.request.name.length > 0 && [self.request.name isEqualToString:item.name]) {
@@ -190,28 +188,23 @@ static NSNumber *observersGCLock;
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     NSString *name = [dictionary[@"name"] isKindOfClass:[NSString class]] ? dictionary[@"name"] : nil;
     if (name != nil) {
-        NSString *opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : nil;
-        opt = opt.length > 0 ? opt : @"add";
+        NSString *opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : @"add";
         LGONotificationRequest *request = [LGONotificationRequest new];
         request.name = name;
         request.opt = opt;
         request.context = context;
-
         NSString *aPostObject =
             [dictionary[@"aPostObject"] isKindOfClass:[NSString class]] ? dictionary[@"aPostObject"] : nil;
         if (aPostObject != nil) {
             request.aPostObject = aPostObject;
         }
-
         NSDictionary *aPostUserInfo =
             [dictionary[@"aPostUserInfo"] isKindOfClass:[NSDictionary class]] ? dictionary[@"aPostUserInfo"] : nil;
         if (aPostUserInfo != nil) {
             request.aPostUserInfo = aPostUserInfo;
         }
-
         return [self buildWithRequest:request];
     }
-
     return [LGORequestable rejectWithDomain:@"Native.Notification" code:-2 reason:@"Name require."];
 }
 

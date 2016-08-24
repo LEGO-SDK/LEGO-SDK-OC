@@ -67,16 +67,11 @@
 
 - (NSDictionary *)resData {
     return
-        @{ @"statusCode" : [NSNumber numberWithInteger:self.statusCode],
-           @"responseText" : self.responseText != nil ? self.responseText : [NSNull null],
-           @"responseData" : ^(){
-               if (self.responseData != nil){return [self.responseData base64EncodedStringWithOptions:kNilOptions];
-}
-return @"";
-}
-()
-}
-;
+        @{
+          @"statusCode" : [NSNumber numberWithInteger:self.statusCode],
+          @"responseText" : self.responseText != nil ? self.responseText : [NSNull null],
+          @"responseData" : self.responseData != nil ? [self.responseData base64EncodedStringWithOptions:kNilOptions] : [NSNull null]
+        };
 }
 
 @end

@@ -139,7 +139,8 @@ UInt16 LGONavigationItemOperationPinKey;
     NSURLRequest *request =
         [[NSURLRequest alloc] initWithURL:URL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:15.0];
     CGFloat scale = 2.0;
-    if ([URL.absoluteString containsString:@"@3x.png"] || [URL.absoluteString containsString:@"%40"]) {
+    if ([URL.absoluteString rangeOfString:@"@3x.png"].location != NSNotFound ||
+        [URL.absoluteString rangeOfString:@"%40"].location != NSNotFound) {
         scale = 3.0;
     }
     [NSURLConnection sendAsynchronousRequest:request
