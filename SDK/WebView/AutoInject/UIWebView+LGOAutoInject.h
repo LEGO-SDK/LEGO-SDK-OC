@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class JSContext;
+
 @interface UIWebView (LGOAutoInject)
 
 @property(nonatomic, strong) JSContext *lgo_context;

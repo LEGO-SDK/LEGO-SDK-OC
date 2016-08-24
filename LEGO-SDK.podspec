@@ -10,10 +10,11 @@ Pod::Spec.new do |s|
   s.license      = "Apache License, Version 2.0"
   s.author             = { "PonyCui" => "cuis@vip.qq.com" }
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "http://code.yy.com/LEGO-SDK/LEGO-SDK-OC.git" }
+  s.source       = { :git => "https://github.com/LEGO-SDK/LEGO-SDK-OC.git", :tag => "0.3.0" }
   s.requires_arc = true
   s.subspec 'Core' do |core|
     core.source_files = 'SDK/Core/*.{h,m}', 'SDK/WebView/UIWebView/*.{h,m}', 'SDK/WebView/WKWebView/*.{h,m}'
+    core.framework = 'JavaScriptCore'
     core.weak_framework = 'WebKit'
   end
   s.subspec 'AutoInject' do |auto|
