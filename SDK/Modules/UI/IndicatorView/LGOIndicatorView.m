@@ -42,7 +42,7 @@
         ((WKWebView *)webView).scrollView.scrollIndicatorInsets = self.request.insets;
         return [[LGOResponse new] accept:nil];
     } else {
-        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.Bounce"
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.IndicatorView"
                                                              code:-3
                                                          userInfo:@{
                                                              NSLocalizedDescriptionKey : @"WebView not found."

@@ -17,8 +17,8 @@
 @property(nonatomic, copy) NSString *path;              // an URLString.
 @property(nonatomic, assign) BOOL animated;             // push or pop need animation. Defaults to true.
 @property(nonatomic, copy) NSString *title;             // next title.
-@property(nonatomic, assign) BOOL statusBarHidden;      // next title.
-@property(nonatomic, assign) BOOL navigationBarHidden;  // next title.
+@property(nonatomic, assign) BOOL statusBarHidden;      // next statusBarHidden.
+@property(nonatomic, assign) BOOL navigationBarHidden;  // next navigationBarHidden.
 @property(nonatomic, copy) NSDictionary *args;          // deliver context to next ViewController.
 
 @end
