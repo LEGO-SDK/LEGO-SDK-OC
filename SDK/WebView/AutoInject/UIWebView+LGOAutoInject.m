@@ -6,7 +6,6 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import <JavaScriptCore/JavaScriptCore.h>
 #import <objc/runtime.h>
 #import "JSContext+LGOProps.h"
 #import "LGOJavaScriptBridge.h"

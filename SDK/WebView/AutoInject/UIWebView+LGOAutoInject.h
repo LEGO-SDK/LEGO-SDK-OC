@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class JSContext;
+#import <JavaScriptCore/JavaScriptCore.h>
 
 @interface UIWebView (LGOAutoInject)
 
