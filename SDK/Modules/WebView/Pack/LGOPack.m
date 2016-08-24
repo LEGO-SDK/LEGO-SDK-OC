@@ -35,6 +35,7 @@ static int serverPort = 10000;
       }
     });
     [[LGOCore modules] addModuleWithName:@"WebView.Pack" instance:[self new]];
+    [[LGOCore whiteList] addObject:@"localhost"];
 }
 
 + (BOOL)localCachedWithURL:(NSURL *)URL {

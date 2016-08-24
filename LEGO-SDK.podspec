@@ -20,6 +20,8 @@ Pod::Spec.new do |s|
   s.subspec 'AutoInject' do |auto|
     auto.source_files = 'SDK/WebView/AutoInject/*.{h,m}'
     auto.dependency 'LEGO-SDK/Core'
+    auto.framework = 'JavaScriptCore'
+    auto.weak_framework = 'WebKit'
   end
   s.subspec 'API' do |api|
     api.dependency 'LEGO-SDK/Core'
