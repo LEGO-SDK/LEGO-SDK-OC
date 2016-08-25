@@ -9,12 +9,6 @@
 #import "LGOCore.h"
 #import "LGOFileManager.h"
 
-@interface LGOFileManager ()
-
-+ (NSArray *)protecting;
-
-@end
-
 @interface LGOFileManagerRequest : LGORequest
 
 @property(nonatomic, strong) NSString *suite;
@@ -64,20 +58,6 @@
 
 @implementation LGOFileManagerOperation
 
-- (BOOL)checkPermission {
-    NSString *requestPath = self.request.filePath;
-    while ([requestPath rangeOfString:@"//"].location != NSNotFound) {
-        requestPath = [requestPath stringByReplacingOccurrencesOfString:@"//" withString:@"/"];
-    }
-    NSString *targetPath = [NSString stringWithFormat:@"/%@/%@", self.request.suite, requestPath];
-    for (NSString *item in [LGOFileManager protecting]) {
-        if ([targetPath.lowercaseString hasPrefix:item.lowercaseString]) {
-            return NO;
-        }
-    }
-    return YES;
-}
-
 - (NSString *)filePathFromRequest:(LGOFileManagerRequest *)request {
     NSString *directory = NSTemporaryDirectory();
     if ([request.suite isEqualToString:@"Document"]) {
@@ -85,21 +65,12 @@
     } else if ([request.suite isEqualToString:@"Caches"]) {
         directory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true) firstObject];
     }
-    return [NSString stringWithFormat:@"%@/%@", directory, request.filePath];
+    return [NSString stringWithFormat:@"%@/LGOFileManager/%@", directory, request.filePath];
 }
 
 - (LGOResponse *)requestSynchronize {
     LGOFileManagerResponse *response = [LGOFileManagerResponse new];
     NSString *filePath = [self filePathFromRequest:self.request];
-
-    if (![self checkPermission]) {
-        return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.FileManager"
-                                                             code:-4
-                                                         userInfo:@{
-                                                             NSLocalizedDescriptionKey : @"Check permission fail."
-                                                         }]];
-    }
-
     if ([self.request.filePath length] == 0) {
         return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.FileManager"
                                                              code:-5
@@ -177,25 +148,8 @@
 
 @implementation LGOFileManager
 
-static NSArray<NSString *> *protecting;
-
 + (void)load {
     [[LGOCore modules] addModuleWithName:@"Native.FileManager" instance:[self new]];
-}
-
-+ (NSArray *)protecting {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-      protecting = @[];
-    });
-    return protecting;
-}
-
-+ (void)configureProtecting:(NSArray *)array {
-    if (array == nil) {
-        return;
-    }
-    protecting = array;
 }
 
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
@@ -212,6 +166,7 @@ static NSArray<NSString *> *protecting;
     NSString *suite = [dictionary[@"suite"] isKindOfClass:[NSString class]] ? dictionary[@"suite"] : nil;
     NSString *opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : nil;
     NSString *filePath = [dictionary[@"filePath"] isKindOfClass:[NSString class]] ? dictionary[@"filePath"] : nil;
+    filePath = [filePath stringByReplacingOccurrencesOfString:@".." withString:@"."];
     NSString *contentString =
         [dictionary[@"fileContents"] isKindOfClass:[NSString class]] ? dictionary[@"fileContents"] : nil;
     if (!suite || !opt || !filePath) {

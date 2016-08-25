@@ -27,7 +27,7 @@
         document.getElementById("anImageView").src = "data:image/png;base64,"+imageData
         var message = JSMessage.newMessage()
         message.moduleName = "Native.FileManager"
-        message.requestParams = {suite: "Caches", opt: "Write", filePath: "test.png",
+        message.requestParams = {suite: "Caches", opt: "update", filePath: "../test.png",
             fileContents: imageData}
         message.call(function(meta, _){
                      if (meta.error){ return console.error(meta.reason) }
@@ -37,7 +37,7 @@
     function read() {
         var message = JSMessage.newMessage()
         message.moduleName = "Native.FileManager"
-        message.requestParams = {suite: "Caches", opt: "Read", filePath: "test.png"}
+        message.requestParams = {suite: "Caches", opt: "read", filePath: "../test.png"}
         message.call(function(meta, result){
                      if (meta.error){ return console.error(meta.reason) }
                      document.getElementById("anImageView").src = "data:image/png;base64,"+result.fileContents
