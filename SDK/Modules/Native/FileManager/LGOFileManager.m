@@ -186,7 +186,7 @@ static NSArray<NSString *> *protecting;
 + (NSArray *)protecting {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      protecting = @[ @"/Caches/LGOCache/" ];
+      protecting = @[];
     });
     return protecting;
 }
