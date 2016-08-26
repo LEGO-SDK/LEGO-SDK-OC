@@ -21,15 +21,9 @@
 
 @interface LGOCanOpenURLResponse : LGOResponse
 
-@property(nonatomic, assign) BOOL canOpen;
-
 @end
 
 @implementation LGOCanOpenURLResponse
-
-- (NSDictionary *)resData {
-    return @{ @"canOpen" : [NSNumber numberWithBool:self.canOpen] };
-}
 
 @end
 
@@ -44,12 +38,12 @@
 - (LGOResponse *)requestSynchronize {
     LGOCanOpenURLResponse *response = [LGOCanOpenURLResponse new];
     NSURL *URL = [NSURL URLWithString:self.request.URLString];
-    if (URL != nil) {
-        response.canOpen = [[UIApplication sharedApplication] canOpenURL:URL];
-    } else {
-        response.canOpen = NO;
+    if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        return [response accept:nil];
     }
-    return [response accept:nil];
+    else {
+        return [response reject:[NSError errorWithDomain:@"Native.CanOpenURL" code:-3 userInfo:@{NSLocalizedDescriptionKey: @"Can not openURL."}]];
+    }
 }
 
 @end
