@@ -47,7 +47,7 @@
 
     if ([[self.request opt] isEqualToString:@"read"]) {
         response.string = [UIPasteboard generalPasteboard].string;
-        return response;
+        return [response accept:nil];
     } else if ([[self.request opt] isEqualToString:@"update"]) {
         if (self.request.string) {
             [UIPasteboard generalPasteboard].string = self.request.string;

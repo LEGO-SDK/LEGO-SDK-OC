@@ -119,6 +119,7 @@ static NSNumber *observersGCLock;
                 }
             }
         }
+        callbackBlock([[LGOResponse new] accept:nil]);
     } else if ([self.request.opt isEqualToString:@"post"]) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
           [[NSNotificationCenter defaultCenter] postNotificationName:self.request.name
