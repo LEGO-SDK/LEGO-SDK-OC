@@ -13,19 +13,47 @@
 #import "LGOModalController.h"
 #import "UIViewController+LGOViewController.h"
 
+typedef enum : NSUInteger {
+    LGOModalTypeNormal = 0,
+    LGOModalTypeCenter = 1,
+    LGOModalTypeTop = 2,
+    LGOModalTypeLeft = 3,
+    LGOModalTypeBottom = 4,
+    LGOModalTypeRight = 5,
+} LGOModalType;
+
+@interface LGOModalStyle : NSObject
+
+@property (nonatomic, assign) LGOModalType type;
+@property (nonatomic, assign) CGSize size;
+
+@end
+
+@implementation LGOModalStyle
+
+@end
+
 @interface LGOModalRequest : LGORequest
 
 @property(nonatomic, copy) NSString *opt;               // present/dismiss
 @property(nonatomic, copy) NSString *path;              // an URLString or LGOViewControllerMapping[path]
 @property(nonatomic, assign) BOOL animated;             // push or pop need animation. Defaults to true.
 @property(nonatomic, copy) NSString *title;             // next title.
-@property(nonatomic, assign) BOOL statusBarHidden;      // next title.
-@property(nonatomic, assign) BOOL navigationBarHidden;  // next title.
+@property(nonatomic, assign) BOOL statusBarHidden;      // next statusBarHidden.
+@property(nonatomic, assign) BOOL navigationBarHidden;  // next navigationBarHidden.
 @property(nonatomic, strong) NSDictionary *args;        // deliver args to next ViewController
+@property(nonatomic, strong) LGOModalStyle *modalStyle; // next modal style.
 
 @end
 
 @implementation LGOModalRequest
+
+- (LGOModalStyle *)modalStyle {
+    if (_modalStyle == nil) {
+        _modalStyle = [LGOModalStyle new];
+    }
+    return _modalStyle;
+}
 
 @end
 
@@ -35,7 +63,9 @@ LGOModalOperation *lastOperation;
 
 NSDate *lastPresent;
 
-@interface LGOModalOperation : LGORequestable
+@interface LGOModalOperation : LGORequestable<UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning> {
+    BOOL _presented;
+}
 
 @property(nonatomic, strong) LGOModalRequest *request;
 
@@ -89,6 +119,7 @@ NSDate *lastPresent;
                                                              NSLocalizedDescriptionKey : @"present interval too short."
                                                          }]];
     } else {
+        lastOperation = self;
         lastPresent = [NSDate new];
     }
     NSURL *relativeURL = nil;
@@ -137,6 +168,10 @@ NSDate *lastPresent;
     } else {
         presentingViewController = nextViewController;
     }
+    if (self.request.modalStyle.type != LGOModalTypeNormal) {
+        presentingViewController.modalPresentationStyle = UIModalPresentationCustom;
+        presentingViewController.transitioningDelegate = self;
+    }
     [viewController presentViewController:presentingViewController animated:YES completion:nil];
     return [[LGOResponse new] accept:nil];
 }
@@ -175,6 +210,164 @@ NSDate *lastPresent;
     return nil;
 }
 
+#pragma mark - UIViewControllerTransitioningDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                  presentingController:(UIViewController *)presenting
+                                                                      sourceController:(UIViewController *)source {
+    return self;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    return self;
+}
+
+#pragma mark - UIViewControllerAnimatedTransitioning
+
+- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
+    return 0.25;
+}
+
+- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    if (!_presented) {
+        UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+        UIView *containerView = [transitionContext containerView];
+        UIView *maskView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        maskView.userInteractionEnabled = YES;
+        [maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
+        maskView.tag = 9999;
+        maskView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.75];
+        [containerView addSubview:maskView];
+        [containerView addSubview:toView];
+        if (self.request.modalStyle.type == LGOModalTypeCenter) {
+            toView.layer.cornerRadius = 8.0;
+            toView.layer.masksToBounds = YES;
+            [toView setFrame:CGRectMake((containerView.bounds.size.width - self.request.modalStyle.size.width) / 2.0,
+                                        (containerView.bounds.size.height - self.request.modalStyle.size.height) / 2.0,
+                                        self.request.modalStyle.size.width,
+                                        self.request.modalStyle.size.height)];
+            [toView setTransform:CGAffineTransformMake(0.75, 0.0, 0.0, 0.75, 0.0, 0.0)];
+            toView.alpha = 0.0;
+            maskView.alpha = 0.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                [toView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)];
+                toView.alpha = 1.0;
+                maskView.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        else if (self.request.modalStyle.type == LGOModalTypeTop) {
+            [toView setFrame:CGRectMake(0.0,
+                                        0.0,
+                                        containerView.bounds.size.width,
+                                        self.request.modalStyle.size.height)];
+            [toView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, -self.request.modalStyle.size.height)];
+            maskView.alpha = 0.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                [toView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)];
+                maskView.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        else if (self.request.modalStyle.type == LGOModalTypeBottom) {
+            [toView setFrame:CGRectMake(0.0,
+                                        containerView.bounds.size.height - self.request.modalStyle.size.height,
+                                        containerView.bounds.size.width,
+                                        self.request.modalStyle.size.height)];
+            [toView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, self.request.modalStyle.size.height)];
+            maskView.alpha = 0.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                [toView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)];
+                maskView.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        else if (self.request.modalStyle.type == LGOModalTypeLeft) {
+            [toView setFrame:CGRectMake(0.0,
+                                        0.0,
+                                        self.request.modalStyle.size.width,
+                                        containerView.bounds.size.height)];
+            [toView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, -self.request.modalStyle.size.width, 0.0)];
+            maskView.alpha = 0.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                [toView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)];
+                maskView.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        else if (self.request.modalStyle.type == LGOModalTypeRight) {
+            [toView setFrame:CGRectMake(containerView.bounds.size.width - self.request.modalStyle.size.width,
+                                        0.0,
+                                        self.request.modalStyle.size.width,
+                                        containerView.bounds.size.height)];
+            [toView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, self.request.modalStyle.size.width, 0.0)];
+            maskView.alpha = 0.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                [toView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)];
+                maskView.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        _presented = YES;
+    }
+    else {
+        UIView *containerView = [transitionContext containerView];
+        UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+        UIView *maskView = [containerView viewWithTag:9999];
+        if (self.request.modalStyle.type == LGOModalTypeCenter) {
+            fromView.alpha = 1.0;
+            maskView.alpha = 1.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                fromView.alpha = 0.0;
+                maskView.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        else if (self.request.modalStyle.type == LGOModalTypeTop) {
+            maskView.alpha = 1.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                [fromView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, -fromView.bounds.size.height)];
+                maskView.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        else if (self.request.modalStyle.type == LGOModalTypeBottom) {
+            maskView.alpha = 1.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                [fromView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, 0.0, fromView.bounds.size.height)];
+                maskView.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        else if (self.request.modalStyle.type == LGOModalTypeLeft) {
+            maskView.alpha = 1.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                [fromView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, -fromView.bounds.size.width, 0.0)];
+                maskView.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        else if (self.request.modalStyle.type == LGOModalTypeRight) {
+            maskView.alpha = 1.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                [fromView setTransform:CGAffineTransformMake(1.0, 0.0, 0.0, 1.0, fromView.bounds.size.width, 0.0)];
+                maskView.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+    }
+}
+
 @end
 
 @implementation LGOModalController
@@ -208,6 +401,11 @@ NSDate *lastPresent;
                                       ? [dictionary[@"navigationBarHidden"] boolValue]
                                       : NO;
     request.args = [dictionary[@"args"] isKindOfClass:[NSDictionary class]] ? dictionary[@"args"] : @{};
+    if ([dictionary[@"modalType"] isKindOfClass:[NSNumber class]]) {
+        request.modalStyle.type = [dictionary[@"modalType"] integerValue];
+        request.modalStyle.size = CGSizeMake([dictionary[@"modalWidth"] isKindOfClass:[NSNumber class]] ? [dictionary[@"modalWidth"] floatValue] : 0.0,
+                                             [dictionary[@"modalHeight"] isKindOfClass:[NSNumber class]] ? [dictionary[@"modalHeight"] floatValue] : 0.0);
+    }
     return [self buildWithRequest:request];
 }
 
