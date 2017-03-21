@@ -14,7 +14,6 @@
 - (void)lgo_setNeedsNavigationBarAppearanceUpdate:(BOOL)animated {
     if (self.navigationController != nil) {
         [self.navigationController setNavigationBarHidden:self.lgo_navigationBarHidden animated:animated];
-        [self setAutomaticallyAdjustsScrollViewInsets:!self.lgo_navigationBarHidden];
     }
 }
 

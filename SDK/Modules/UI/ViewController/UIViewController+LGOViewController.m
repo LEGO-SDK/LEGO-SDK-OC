@@ -18,6 +18,7 @@
 static UIWindow *renderWindow;
 
 - (void)lgo_openWebViewWithRequest:(NSURLRequest *)request args:(NSDictionary *)args {
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
     if (self.lgo_webView == nil) {
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
             self.lgo_webView = NSClassFromString(@"LGOWKWebView")
@@ -38,8 +39,20 @@ static UIWindow *renderWindow;
             [(UIWebView *)self.lgo_webView loadRequest:request];
         }
     }
-    self.lgo_webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.lgo_webView];
+    self.lgo_webView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[topLayout]-0-[webView]-0-[bottomLayout]-0-|"
+                                                                      options:kNilOptions
+                                                                      metrics:nil
+                                                                        views:@{
+                                                                                @"topLayout": self.topLayoutGuide,
+                                                                                @"webView": self.lgo_webView,
+                                                                                @"bottomLayout": self.bottomLayoutGuide,
+                                                                                }]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[webView]-0-|"
+                                                                      options:kNilOptions
+                                                                      metrics:nil
+                                                                        views:@{@"webView": self.lgo_webView}]];
     [self lgo_loadRequest:request];
 }
 
