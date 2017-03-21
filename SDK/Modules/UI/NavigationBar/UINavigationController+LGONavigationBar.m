@@ -35,6 +35,9 @@
 }
 
 - (void)lgo_setNeedsNavigationBarAppearanceUpdate {
+    if (self.presentedViewController != nil) {
+        return;
+    }
     [[self view] setBackgroundColor:[UIColor whiteColor]];
     [self setNavigationBarHidden:self.visibleViewController.lgo_navigationBarHidden animated:NO];
     [self lgo_setNeedsNavigationBarAppearanceUpdate];
