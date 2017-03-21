@@ -41,6 +41,9 @@ typedef enum : NSUInteger {
 @property(nonatomic, copy) NSString *title;             // next title.
 @property(nonatomic, assign) BOOL statusBarHidden;      // next statusBarHidden.
 @property(nonatomic, assign) BOOL navigationBarHidden;  // next navigationBarHidden.
+@property(nonatomic, assign) BOOL clearWebView;         // webview background should be cleared.
+@property(nonatomic, assign) BOOL clearMask;            // maskview background should be cleared.
+@property(nonatomic, assign) BOOL nonMask;              // maskview will not be rended.
 @property(nonatomic, strong) NSDictionary *args;        // deliver args to next ViewController
 @property(nonatomic, strong) LGOModalStyle *modalStyle; // next modal style.
 
@@ -172,6 +175,12 @@ NSDate *lastPresent;
         presentingViewController.modalPresentationStyle = UIModalPresentationCustom;
         presentingViewController.transitioningDelegate = self;
     }
+    if (self.request.clearWebView) {
+        [nextViewController.lgo_webView setOpaque:NO];
+        [nextViewController.lgo_webView setBackgroundColor:[UIColor clearColor]];
+        [nextViewController.view setBackgroundColor:[UIColor clearColor]];
+        [presentingViewController.view setBackgroundColor:[UIColor clearColor]];
+    }
     [viewController presentViewController:presentingViewController animated:YES completion:nil];
     return [[LGOResponse new] accept:nil];
 }
@@ -236,7 +245,8 @@ NSDate *lastPresent;
         maskView.userInteractionEnabled = YES;
         [maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
         maskView.tag = 9999;
-        maskView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.75];
+        maskView.backgroundColor = self.request.clearMask ? [UIColor clearColor] : [UIColor colorWithWhite:0.0 alpha:0.75];
+        maskView.hidden = self.request.nonMask;
         [containerView addSubview:maskView];
         [containerView addSubview:toView];
         if (self.request.modalStyle.type == LGOModalTypeCenter) {
@@ -390,16 +400,13 @@ NSDate *lastPresent;
     request.context = context;
     request.opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : @"present";
     request.path = [dictionary[@"path"] isKindOfClass:[NSString class]] ? dictionary[@"path"] : @"";
-    request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]]
-                           ? ((NSNumber *)dictionary[@"animated"]).boolValue
-                           : YES;
+    request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]] ? ((NSNumber *)dictionary[@"animated"]).boolValue : YES;
     request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : @"";
-    request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]]
-                                  ? [dictionary[@"statusBarHidden"] boolValue]
-                                  : NO;
-    request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]]
-                                      ? [dictionary[@"navigationBarHidden"] boolValue]
-                                      : NO;
+    request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"statusBarHidden"] boolValue] : NO;
+    request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"navigationBarHidden"] boolValue] : NO;
+    request.clearWebView = [dictionary[@"clearWebView"] isKindOfClass:[NSNumber class]] ? [dictionary[@"clearWebView"] boolValue] : NO;
+    request.clearMask = [dictionary[@"clearMask"] isKindOfClass:[NSNumber class]] ? [dictionary[@"clearMask"] boolValue] : NO;
+    request.nonMask = [dictionary[@"nonMask"] isKindOfClass:[NSNumber class]] ? [dictionary[@"nonMask"] boolValue] : NO;
     request.args = [dictionary[@"args"] isKindOfClass:[NSDictionary class]] ? dictionary[@"args"] : @{};
     if ([dictionary[@"modalType"] isKindOfClass:[NSNumber class]]) {
         request.modalStyle.type = [dictionary[@"modalType"] integerValue];
