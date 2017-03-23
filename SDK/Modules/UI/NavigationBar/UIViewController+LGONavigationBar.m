@@ -12,7 +12,7 @@
 @implementation UIViewController (LGONavigationBar)
 
 - (void)lgo_setNeedsNavigationBarAppearanceUpdate:(BOOL)animated {
-    if (self.navigationController != nil) {
+    if (self.navigationController != nil && self.navigationController.visibleViewController == self) {
         [self.navigationController setNavigationBarHidden:self.lgo_navigationBarHidden animated:animated];
     }
 }

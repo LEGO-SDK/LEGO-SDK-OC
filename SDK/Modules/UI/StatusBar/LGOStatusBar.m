@@ -43,6 +43,23 @@
 
 - (LGOResponse *)requestSynchronize {
     UIViewController *viewController = [self.request.context requestViewController];
+    if (viewController.tabBarController != nil &&
+        viewController.tabBarController.selectedViewController != viewController &&
+        viewController.tabBarController.selectedViewController != viewController.navigationController) {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.StatusBar"
+                                                             code:-3
+                                                         userInfo:@{
+                                                                    NSLocalizedDescriptionKey : @"Current request ViewController in-actived."
+                                                                    }]];;
+    }
+    if (viewController.navigationController != nil &&
+        viewController.navigationController.visibleViewController != viewController) {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.StatusBar"
+                                                             code:-3
+                                                         userInfo:@{
+                                                                    NSLocalizedDescriptionKey : @"Current request ViewController in-actived."
+                                                                    }]];;
+    }
     if (viewController != nil) {
         if ([self.request.style isEqualToString:@"light"]) {
             viewController.lgo_statusBarStyle = UIStatusBarStyleLightContent;

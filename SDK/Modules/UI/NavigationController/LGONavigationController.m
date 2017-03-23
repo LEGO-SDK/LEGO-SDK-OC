@@ -10,8 +10,6 @@
 #import "LGOCore.h"
 #import "LGONavigationController.h"
 #import "UIViewController+LGOViewController.h"
-#import "UIViewController+LGONavigationBar.h"
-#import "UIViewController+LGOStatusBar.h"
 
 @interface LGONavigationRequest : LGORequest
 
@@ -111,14 +109,17 @@ static NSDate *lastPush;
     if ([nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarHidden")]) {
         [nextViewController setValue:@(self.request.statusBarHidden) forKey:@"lgo_statusBarHidden"];
     }
-    if ([self.request.statusBarStyle isEqualToString:@"light"]) {
-        nextViewController.lgo_statusBarStyle = UIStatusBarStyleLightContent;
+    if ([self.request.statusBarStyle isEqualToString:@"light"] &&
+        [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarStyle")]) {
+        [nextViewController setValue:@(UIStatusBarStyleLightContent) forKey:@"lgo_statusBarStyle"];
     }
-    else if ([self.request.statusBarStyle isEqualToString:@"default"]) {
-        nextViewController.lgo_statusBarStyle = UIStatusBarStyleDefault;
+    else if ([self.request.statusBarStyle isEqualToString:@"default"] &&
+             [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarStyle")]) {
+        [nextViewController setValue:@(UIStatusBarStyleDefault) forKey:@"lgo_statusBarStyle"];
     }
-    else if (self.request.statusBarStyle != nil) {
-        nextViewController.lgo_statusBarStyle = [[self.request.context requestViewController] lgo_statusBarStyle];
+    else if (self.request.statusBarStyle != nil &&
+             [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarStyle")]) {
+        [nextViewController setValue:[[self.request.context requestViewController] valueForKey:@"lgo_statusBarStyle"] forKey:@"lgo_statusBarStyle"];
     }
     UINavigationController *navigationController = [[self.request.context requestViewController] navigationController];
     if (navigationController == nil) {
@@ -131,8 +132,11 @@ static NSDate *lastPush;
     }
     [navigationController pushViewController:nextViewController animated:self.request.animated];
     [nextViewController.view setBackgroundColor:[UIColor whiteColor]];
-    if (nextViewController.lgo_statusBarHidden != [[self.request.context requestViewController] lgo_statusBarHidden] ||
-        nextViewController.lgo_navigationBarHidden != [[self.request.context requestViewController] lgo_navigationBarHidden]) {
+    BOOL lgo_statusBarHidden = [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarHidden")] &&
+    [[nextViewController valueForKey:@"lgo_statusBarHidden"] boolValue] != [[[self.request.context requestViewController] valueForKey:@"lgo_statusBarHidden"] boolValue];
+    BOOL lgo_navigationBarHidden = [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_navigationBarHidden")] &&
+    [[nextViewController valueForKey:@"lgo_navigationBarHidden"] boolValue] != [[[self.request.context requestViewController] valueForKey:@"lgo_navigationBarHidden"] boolValue];
+    if (lgo_statusBarHidden || lgo_navigationBarHidden) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:self.request.args];
         });
