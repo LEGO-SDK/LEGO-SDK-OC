@@ -44,6 +44,8 @@
 		906F11EE1D5D9FD8001F64DF /* UITabBarController+LGOStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11ED1D5D9FD8001F64DF /* UITabBarController+LGOStatusBar.m */; };
 		906F11F21D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11F11D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m */; };
 		906F11F51D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11F41D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.m */; };
+		90A2D4DA1E8F7F7F001596C7 /* LGOPackRSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4D91E8F7F7F001596C7 /* LGOPackRSA.m */; };
+		90A2D4DE1E8FA870001596C7 /* weui.zip.pub in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4DD1E8FA870001596C7 /* weui.zip.pub */; };
 		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
 		90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCD21D470892005F4746 /* AppDelegate.m */; };
 		90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCDA1D470892005F4746 /* Assets.xcassets */; };
@@ -181,6 +183,9 @@
 		906F11F11D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+LGOViewControllerArgs.m"; sourceTree = "<group>"; };
 		906F11F31D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+LGOViewControllerArgs.h"; sourceTree = "<group>"; };
 		906F11F41D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+LGOViewControllerArgs.m"; sourceTree = "<group>"; };
+		90A2D4D81E8F7F7F001596C7 /* LGOPackRSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPackRSA.h; sourceTree = "<group>"; };
+		90A2D4D91E8F7F7F001596C7 /* LGOPackRSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPackRSA.m; sourceTree = "<group>"; };
+		90A2D4DD1E8FA870001596C7 /* weui.zip.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = weui.zip.pub; sourceTree = "<group>"; };
 		90E8CCCC1D470892005F4746 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E8CCCF1D470892005F4746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90E8CCD11D470892005F4746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -558,6 +563,7 @@
 				90E8CCDC1D470892005F4746 /* LaunchScreen.storyboard */,
 				90E8CCDF1D470892005F4746 /* Info.plist */,
 				90F8D3E31D61CA7800CBEDB2 /* weui.zip */,
+				90A2D4DD1E8FA870001596C7 /* weui.zip.pub */,
 				90E8CCCE1D470892005F4746 /* Supporting Files */,
 			);
 			path = Sample;
@@ -745,6 +751,8 @@
 			children = (
 				90F8D3F21D62B17600CBEDB2 /* LGOPack.h */,
 				90F8D3F31D62B17600CBEDB2 /* LGOPack.m */,
+				90A2D4D81E8F7F7F001596C7 /* LGOPackRSA.h */,
+				90A2D4D91E8F7F7F001596C7 /* LGOPackRSA.m */,
 				90F8D3F41D62B17600CBEDB2 /* UIWebView+LGOPack.h */,
 				90F8D3F51D62B17600CBEDB2 /* UIWebView+LGOPack.m */,
 				90F8D3F61D62B17600CBEDB2 /* WKWebView+LGOPack.h */,
@@ -838,6 +846,7 @@
 				90E8CD2F1D47341B005F4746 /* UI.IndicatorView.html in Resources */,
 				90E8CD2A1D47341B005F4746 /* UI.ActionSheet.html in Resources */,
 				90E8CD211D47341B005F4746 /* Native.CanOpenURL.html in Resources */,
+				90A2D4DE1E8FA870001596C7 /* weui.zip.pub in Resources */,
 				90E8CD231D47341B005F4746 /* Native.DataModel.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -964,6 +973,7 @@
 				90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */,
 				90F8D3FB1D62B17600CBEDB2 /* WKWebView+LGOPack.m in Sources */,
 				402EA9C21D4F010200E01F88 /* LGODataModel.m in Sources */,
+				90A2D4DA1E8F7F7F001596C7 /* LGOPackRSA.m in Sources */,
 				90673F911D5C29C0009B9D9B /* LGOWebView+RefreshControl.m in Sources */,
 				40608A041D51C3D900219874 /* LGOOpenURL.m in Sources */,
 				90F8D3DB1D61805E00CBEDB2 /* UIWebView+LGOAutoInject.m in Sources */,

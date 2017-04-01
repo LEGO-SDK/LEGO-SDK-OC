@@ -14,6 +14,8 @@ typedef void (^LGOPackFileServerCreatedBlock)(NSString *finalPath);
 
 @interface LGOPack : LGOModule
 
++ (void)setPublicKey:(NSString *)publicKey forDomain:(NSString *)domain;
+
 + (BOOL)localCachedWithURL:(NSURL *)URL;
 
 + (void)createFileServerWithURL:(NSURL *)URL

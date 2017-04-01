@@ -11,10 +11,12 @@
 #import <SSZipArchive/SSZipArchive.h>
 #import "LGOPack.h"
 #import "LGOCore.h"
+#import "LGOPackRSA.h"
 
 @implementation LGOPack
 
 static GCDWebServer *sharedServer;
+static NSMutableDictionary *sharedPublicKeys;
 static int serverPort = 10000;
 
 + (void)load {
@@ -33,8 +35,15 @@ static int serverPort = 10000;
               break;
           }
       }
+      sharedPublicKeys = [NSMutableDictionary dictionary];
     });
     [[LGOCore modules] addModuleWithName:@"WebView.Pack" instance:[self new]];
+}
+
++ (void)setPublicKey:(NSString *)publicKey forDomain:(NSString *)domain {
+    if (publicKey != nil && domain != nil) {
+        [sharedPublicKeys setObject:publicKey forKey:domain];
+    }
 }
 
 + (BOOL)localCachedWithURL:(NSURL *)URL {
@@ -114,7 +123,13 @@ static int serverPort = 10000;
                                                                             [[NSDate date] timeIntervalSince1970]]]
           completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
             if (data != nil) {
-                NSString *md5 = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSString *md5 = nil;
+                if (URL.host != nil && sharedPublicKeys[URL.host] != nil) {
+                    NSData *decryptData = [LGOPackRSA decryptData:data publicKey:sharedPublicKeys[URL.host]];
+                    if (decryptData != nil) {
+                        md5 = [[NSString alloc] initWithData:decryptData encoding:NSUTF8StringEncoding];
+                    }
+                }
                 if (md5 != nil && md5.length == 32 && ![self isSameWithMD5:md5 URL:URL]) {
                     [[[NSURLSession sharedSession]
                         downloadTaskWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?_t=%f",

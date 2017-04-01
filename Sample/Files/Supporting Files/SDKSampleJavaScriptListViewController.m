@@ -9,6 +9,7 @@
 #import "SDKSampleJavaScriptItemViewController.h"
 #import "SDKSampleJavaScriptListViewController.h"
 #import "UIViewController+LGOViewController.h"
+#import "LGOPack.h"
 
 @implementation SDKSampleJavaScriptListViewController
 
@@ -29,6 +30,11 @@
 }
 
 - (IBAction)handlePackButtonTapped:(UIButton *)sender {
+    [LGOPack setPublicKey:[NSString stringWithContentsOfFile:[[NSBundle mainBundle]
+                                                              pathForResource:@"weui.zip"
+                                                              ofType:@"pub"]
+                                                    encoding:NSUTF8StringEncoding error:nil]
+                forDomain:@"raw.githubusercontent.com"];
     UIViewController *viewController = [UIViewController new];
     viewController.title = sender.accessibilityLabel;
     NSURLRequest *request = [NSURLRequest
