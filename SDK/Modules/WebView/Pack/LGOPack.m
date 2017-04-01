@@ -46,6 +46,12 @@ static int serverPort = 10000;
     }
 }
 
++ (void)setPublicKey:(NSString *)publicKey forURI:(NSString *)URI {
+    if (publicKey != nil && URI != nil) {
+        [sharedPublicKeys setObject:publicKey forKey:URI];
+    }
+}
+
 + (BOOL)localCachedWithURL:(NSURL *)URL {
     NSString *zipName = [URL lastPathComponent];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:zipName ofType:@""]]) {
@@ -124,10 +130,10 @@ static int serverPort = 10000;
           completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
             if (data != nil) {
                 NSString *md5 = nil;
-                if (URL.host != nil && sharedPublicKeys[URL.host] != nil) {
+                if (URL.host != nil && [self requestPublicKey:URL] != nil) {
                     NSString *encodedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                     if (encodedString != nil) {
-                        md5 = [LGOPackRSA decryptString:encodedString publicKey:sharedPublicKeys[URL.host]];
+                        md5 = [LGOPackRSA decryptString:encodedString publicKey:[self requestPublicKey:URL]];
                     }
                 }
                 if (md5 != nil && md5.length == 32 && ![self isSameWithMD5:md5 URL:URL]) {
@@ -157,6 +163,20 @@ static int serverPort = 10000;
             }
           }] resume];
     }];
+}
+
++ (NSString *)requestPublicKey:(NSURL *)URL {
+    for (NSString *aKey in sharedPublicKeys) {
+        if ([URL.absoluteString hasPrefix:aKey]) {
+            return sharedPublicKeys[aKey];
+        }
+    }
+    for (NSString *aKey in sharedPublicKeys) {
+        if ([URL.host isEqualToString:aKey]) {
+            return sharedPublicKeys[aKey];
+        }
+    }
+    return nil;
 }
 
 + (BOOL)isSameWithMD5:(NSString *)MD5 fileURL:(NSURL *)fileURL {
