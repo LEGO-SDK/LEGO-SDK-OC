@@ -39,10 +39,13 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 - (void)lgo_PackLoadRequest:(NSURLRequest *)request {
     if ([[request.URL lastPathComponent] hasSuffix:@".zip"]) {
-        if (![LGOWatchDog checkURL:request.URL] || ![LGOWatchDog checkSSL:request.URL]) {
+        NSURL *zipURL = [NSURL URLWithString:[[request.URL.absoluteString componentsSeparatedByString:@"?"] firstObject]];
+        NSString *zipInnerPath = [request.URL.absoluteString rangeOfString:@"?"].location != NSNotFound ?
+        [[request.URL.absoluteString componentsSeparatedByString:@"?"] lastObject] : nil;
+        if (![LGOWatchDog checkURL:zipURL] || ![LGOWatchDog checkSSL:zipURL]) {
             return [self lgo_PackLoadRequest:request];
         }
-        if ([LGOPack localCachedWithURL:request.URL]) {
+        if ([LGOPack localCachedWithURL:zipURL]) {
             if ([self respondsToSelector:NSSelectorFromString(@"lgo_progressView")]) {
                 NSObject *progressView = [self performSelector:NSSelectorFromString(@"lgo_progressView")];
                 if ([progressView respondsToSelector:NSSelectorFromString(@"progressView")]) {
@@ -52,18 +55,24 @@
                     }
                 }
             }
-            [LGOPack createFileServerWithURL:request.URL
+            [LGOPack createFileServerWithURL:zipURL
                 progressBlock:^(double progress) {
                 }
                 completionBlock:^(NSString *finalPath) {
+                    if (zipInnerPath != nil) {
+                        finalPath = [finalPath stringByAppendingString:zipInnerPath];
+                    }
                   [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
                 }];
         } else {
-            [LGOPack createFileServerWithURL:request.URL
+            [LGOPack createFileServerWithURL:zipURL
                 progressBlock:^(double progress) {
                 }
                 completionBlock:^(NSString *finalPath) {
-                  [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
+                    if (zipInnerPath != nil) {
+                        finalPath = [finalPath stringByAppendingString:zipInnerPath];
+                    }
+                    [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
                 }];
         }
         return [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];

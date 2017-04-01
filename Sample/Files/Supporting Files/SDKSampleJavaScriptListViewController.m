@@ -38,7 +38,7 @@
     UIViewController *viewController = [UIViewController new];
     viewController.title = sender.accessibilityLabel;
     NSURLRequest *request = [NSURLRequest
-        requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://raw.githubusercontent.com/LEGO-SDK/LEGO-SDK-OC/master/Resources/%@.zip",
+        requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://raw.githubusercontent.com/LEGO-SDK/LEGO-SDK-OC/master/Resources/%@.zip?sample.html",
                                                                        sender.accessibilityLabel]]];
     [viewController lgo_openWebViewWithRequest:request
                                           args:nil
