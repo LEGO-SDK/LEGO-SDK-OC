@@ -43,13 +43,13 @@
 
 @interface LGONavigationItemOperation : LGORequestable
 
-@property(nonatomic, retain) LGONavigationItemRequest *request;
+@property (nonatomic, copy) LGORequestableAsynchronizeBlock responseBlock;
+@property (nonatomic, retain) LGONavigationItemRequest *request;
 
 @end
 
 @implementation LGONavigationItemOperation
 
-static LGORequestableAsynchronizeBlock responseBlock;
 UInt16 LGONavigationItemOperationPinKey;
 
 - (LGOResponse *)requestSynchronize {
@@ -113,7 +113,7 @@ UInt16 LGONavigationItemOperationPinKey;
 }
 
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock {
-    responseBlock = callbackBlock;
+    self.responseBlock = callbackBlock;
     callbackBlock([self requestSynchronize]);
 }
 
@@ -176,11 +176,11 @@ UInt16 LGONavigationItemOperationPinKey;
 }
 
 - (void)handleBarButtonItemTapped:(UIBarButtonItem *)sender {
-    if (responseBlock) {
+    if (self.responseBlock) {
         LGONavigationItemResponse *response = [LGONavigationItemResponse new];
         response.leftTapped = sender.tag == 100;
         response.rightTapped = sender.tag == 101;
-        responseBlock([response accept:nil]);
+        self.responseBlock([response accept:nil]);
     }
 }
 
