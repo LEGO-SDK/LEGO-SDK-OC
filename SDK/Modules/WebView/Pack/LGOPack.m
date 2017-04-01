@@ -125,9 +125,9 @@ static int serverPort = 10000;
             if (data != nil) {
                 NSString *md5 = nil;
                 if (URL.host != nil && sharedPublicKeys[URL.host] != nil) {
-                    NSData *decryptData = [LGOPackRSA decryptData:data publicKey:sharedPublicKeys[URL.host]];
-                    if (decryptData != nil) {
-                        md5 = [[NSString alloc] initWithData:decryptData encoding:NSUTF8StringEncoding];
+                    NSString *encodedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    if (encodedString != nil) {
+                        md5 = [LGOPackRSA decryptString:encodedString publicKey:sharedPublicKeys[URL.host]];
                     }
                 }
                 if (md5 != nil && md5.length == 32 && ![self isSameWithMD5:md5 URL:URL]) {
