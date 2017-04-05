@@ -41,14 +41,16 @@
 
 @interface LGOPageOperation : LGORequestable
 
-@property (nonatomic, strong) LGOPageRequest *request;
+@property (nonatomic, strong) NSArray<LGOPageRequest *> *requests;
 
 @end
 
 @implementation LGOPageOperation
 
 - (LGOResponse *)requestSynchronize {
-    [[LGOPageStore sharedStore] addItem:self.request];
+    for (LGOPageRequest *request in self.requests) {
+        [[LGOPageStore sharedStore] addItem:request];
+    }
     return [[LGOResponse new] accept:nil];
 }
 
@@ -67,26 +69,41 @@
 - (LGORequestable *)buildWithRequest:(LGORequest *)request {
     if ([request isKindOfClass:[LGOPageRequest class]]) {
         LGOPageOperation *operation = [LGOPageOperation new];
-        operation.request = (id)request;
+        operation.requests = @[(id)request];
         return operation;
     }
     return [LGORequestable rejectWithDomain:@"UI.Page" code:-1 reason:@"Type error."];
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
-    LGOPageRequest *request = [LGOPageRequest new];
-    request.urlPattern = [dictionary[@"urlPattern"] isKindOfClass:[NSString class]] ? dictionary[@"urlPattern"] : nil;
-    request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : nil;
-    request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"statusBarHidden"] boolValue] : NO;
-    request.statusBarStyle = [dictionary[@"statusBarStyle"] isKindOfClass:[NSString class]] ? ([dictionary[@"statusBarStyle"] isEqualToString:@"light"] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault) : UIStatusBarStyleDefault;
-    request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"navigationBarHidden"] boolValue] : NO;
-    request.navigationBarSeparatorHidden = [dictionary[@"navigationBarSeparatorHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"navigationBarSeparatorHidden"] boolValue] : NO;
-    request.navigationBarBackgroundColor = [dictionary[@"navigationBarBackgroundColor"] isKindOfClass:[NSString class]] ? [LGOPage colorWithHex:dictionary[@"navigationBarBackgroundColor"]] : nil;
-    request.navigationBarTintColor = [dictionary[@"navigationBarTintColor"] isKindOfClass:[NSString class]] ? [LGOPage colorWithHex:dictionary[@"navigationBarTintColor"]] : nil;
-    request.fullScreenContent = [dictionary[@"fullScreenContent"] isKindOfClass:[NSNumber class]] ? [dictionary[@"fullScreenContent"] boolValue] : NO;
-    request.allowBounce = [dictionary[@"allowBounce"] isKindOfClass:[NSNumber class]] ? [dictionary[@"allowBounce"] boolValue] : YES;
-    request.showsIndicator = [dictionary[@"showsIndicator"] isKindOfClass:[NSNumber class]] ? [dictionary[@"showsIndicator"] boolValue] : YES;
-    return [self buildWithRequest:request];
+    NSMutableArray *requests = [NSMutableArray array];
+    NSMutableArray *items = [NSMutableArray array];
+    if ([dictionary[@"items"] isKindOfClass:[NSArray class]]) {
+        [items addObjectsFromArray:dictionary[@"items"]];
+    }
+    else {
+        [items addObject:dictionary];
+    }
+    for (NSDictionary *item in items) {
+        if ([item isKindOfClass:[NSDictionary class]]) {
+            LGOPageRequest *request = [LGOPageRequest new];
+            request.urlPattern = [dictionary[@"urlPattern"] isKindOfClass:[NSString class]] ? dictionary[@"urlPattern"] : nil;
+            request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : nil;
+            request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"statusBarHidden"] boolValue] : NO;
+            request.statusBarStyle = [dictionary[@"statusBarStyle"] isKindOfClass:[NSString class]] ? ([dictionary[@"statusBarStyle"] isEqualToString:@"light"] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault) : UIStatusBarStyleDefault;
+            request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"navigationBarHidden"] boolValue] : NO;
+            request.navigationBarSeparatorHidden = [dictionary[@"navigationBarSeparatorHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"navigationBarSeparatorHidden"] boolValue] : NO;
+            request.navigationBarBackgroundColor = [dictionary[@"navigationBarBackgroundColor"] isKindOfClass:[NSString class]] ? [LGOPage colorWithHex:dictionary[@"navigationBarBackgroundColor"]] : nil;
+            request.navigationBarTintColor = [dictionary[@"navigationBarTintColor"] isKindOfClass:[NSString class]] ? [LGOPage colorWithHex:dictionary[@"navigationBarTintColor"]] : nil;
+            request.fullScreenContent = [dictionary[@"fullScreenContent"] isKindOfClass:[NSNumber class]] ? [dictionary[@"fullScreenContent"] boolValue] : NO;
+            request.allowBounce = [dictionary[@"allowBounce"] isKindOfClass:[NSNumber class]] ? [dictionary[@"allowBounce"] boolValue] : YES;
+            request.showsIndicator = [dictionary[@"showsIndicator"] isKindOfClass:[NSNumber class]] ? [dictionary[@"showsIndicator"] boolValue] : YES;
+            [requests addObject:request];
+        }
+    }
+    LGOPageOperation *operation = [LGOPageOperation new];
+    operation.requests = [requests copy];
+    return operation;
 }
 
 #pragma mark - Helpers

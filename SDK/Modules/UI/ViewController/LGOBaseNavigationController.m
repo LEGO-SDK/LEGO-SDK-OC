@@ -123,7 +123,7 @@
     NSInteger atIndex = 0;
     for (UIViewController *childViewController in self.childViewControllers) {
         CALayer *layer = self.defaultBackgroundLayer ? self.defaultBackgroundLayer : [CALayer layer];
-        if (self.defaultBackgroundLayer != nil) {
+        if (self.defaultBackgroundLayer == nil) {
             layer.backgroundColor = self.navigationBar.barTintColor.CGColor;
         }
         if ([childViewController isKindOfClass:[LGOBaseViewController class]]) {
@@ -135,7 +135,9 @@
                     }
                 }
                 else {
-                    layer.backgroundColor = [[(LGOBaseViewController *)childViewController setting] navigationBarBackgroundColor].CGColor;
+                    if ([[(LGOBaseViewController *)childViewController setting] navigationBarBackgroundColor] != nil) {
+                        layer.backgroundColor = [[(LGOBaseViewController *)childViewController setting] navigationBarBackgroundColor].CGColor;
+                    }
                 }
                 [self.navigationBar setShadowImage:([[(LGOBaseViewController *)childViewController setting] navigationBarSeparatorHidden] ? [UIImage new] : nil)];
             }
