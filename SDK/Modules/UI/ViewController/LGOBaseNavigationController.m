@@ -12,6 +12,7 @@
 @interface LGOBaseNavigationController ()<UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIViewController *popingViewController;
+@property (nonatomic, assign) BOOL barHidden;
 @property (nonatomic, assign) BOOL barWillAppear;
 @property (nonatomic, strong) CALayer *barTintLayer;
 
@@ -19,13 +20,35 @@
 
 @implementation LGOBaseNavigationController
 
+- (void)dealloc {
+    [self.navigationBar removeObserver:self forKeyPath:@"bounds"];
+    [self.navigationBar removeObserver:self forKeyPath:@"alpha"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.delegate = self;
     self.navigationBar.translucent = YES;
+    self.navigationBar.barTintColor = [UIColor whiteColor];
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar.subviews.firstObject.layer addSublayer:self.barTintLayer];
+    [self.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
+    [self.navigationBar addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
     [self.interactivePopGestureRecognizer addTarget:self action:@selector(onInteractivePopGestureRecognizer:)];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (object == self.navigationBar && [keyPath isEqualToString:@"bounds"]) {
+        self.barTintLayer.frame = self.barTintLayer.superlayer.bounds;
+        for (CALayer *sublayer in self.barTintLayer.sublayers) {
+            sublayer.frame = self.barTintLayer.bounds;
+        }
+    }
+    if (object == self.navigationBar && [keyPath isEqualToString:@"alpha"]) {
+        if (self.navigationBar.alpha > 0.0 && self.barHidden && !self.barWillAppear) {
+            self.navigationBar.alpha = 0.0;
+        }
+    }
 }
 
 - (void)onInteractivePopGestureRecognizer:(UIScreenEdgePanGestureRecognizer *)sender {
@@ -93,6 +116,7 @@
     [self resetBarTintLayer];
     if ([viewController isKindOfClass:[LGOBaseViewController class]]) {
         self.navigationBar.alpha = [(LGOBaseViewController *)viewController setting].navigationBarHidden ? 0.0 : 1.0;
+        self.barHidden = [(LGOBaseViewController *)viewController setting].navigationBarHidden;
         if ([(LGOBaseViewController *)viewController setting].navigationBarTintColor != nil) {
             self.navigationBar.tintColor = [(LGOBaseViewController *)viewController setting].navigationBarTintColor;
             self.navigationBar.titleTextAttributes = @{
@@ -149,20 +173,30 @@
     }
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    self.barTintLayer.frame = self.barTintLayer.superlayer.bounds;
-    for (CALayer *sublayer in self.barTintLayer.sublayers) {
-        sublayer.frame = self.barTintLayer.bounds;
-    }
-}
-
 - (UIViewController *)childViewControllerForStatusBarStyle {
-    return [self visibleViewController];
+    if ([self presentedViewController] != nil && ![self presentedViewController].beingDismissed) {
+        return [self presentedViewController];
+    }
+    return [self childViewControllers].lastObject;
 }
 
 - (UIViewController *)childViewControllerForStatusBarHidden {
-    return [self visibleViewController];
+    if ([self presentedViewController] != nil && ![self presentedViewController].beingDismissed) {
+        return [self presentedViewController];
+    }
+    return [self childViewControllers].lastObject;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return [self childViewControllerForStatusBarHidden].prefersStatusBarHidden;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return [self childViewControllerForStatusBarStyle].preferredStatusBarStyle;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return [self childViewControllerForStatusBarStyle].preferredStatusBarUpdateAnimation;
 }
 
 - (CALayer *)barTintLayer {

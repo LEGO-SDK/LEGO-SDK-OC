@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSDictionary *args;
 @property (nonatomic, readonly) LGOPageRequest *setting;
+@property (nonatomic, readonly) UIView *webView;
 
 @end

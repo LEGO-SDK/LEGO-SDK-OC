@@ -29,7 +29,7 @@
     function setRightButton() {
         var message = JSMessage.newMessage()
         message.moduleName = "UI.NavigationItem"
-        message.requestParams = {rightItem: "https://raw.githubusercontent.com/Redtory/Product-Roadmap/master/barbuttonicon_addfriends%403x.png"}
+        message.requestParams = {rightItem: "测试"}
         message.call(handleRightButtonTapped)
     }
 
@@ -40,15 +40,7 @@
         }
     }
 
-    function setBackButton() {
-        var message = JSMessage.newMessage()
-        message.moduleName = "UI.NavigationItem"
-        message.requestParams = {backItem: "https://raw.githubusercontent.com/Redtory/Product-Roadmap/master/barbuttonicon_addfriends%403x.png"}
-        message.call(handleRightButtonTapped)
-    }
-
     setRightButton()
-    setBackButton()
     
     function pop() {
         var message = JSMessage.newMessage()
@@ -64,8 +56,12 @@
             urlPattern: "http://duowan.cn/*",
             title: "多玩游戏",
             navigationBarHidden: false,
-            statusBarStyle: "default",
+            statusBarStyle: "light",
             statusBarHidden: false,
+            navigationBarBackgroundColor: "#000000",
+            navigationBarTintColor: "#ffffff",
+            navigationBarHidden: true,
+            backgroundColor: "#f2f2f2",
         };
         setting.call(function() {
                          var message = JSMessage.newMessage()
@@ -97,21 +93,31 @@
     }
 
     function present_github() {
-        var message = JSMessage.newMessage()
-        message.moduleName = "UI.ModalController"
-        message.requestParams = {
-            opt: "present",
-            path: "https://github.com/index.html",
+        var setting = JSMessage.newMessage();
+        setting.moduleName = "UI.Page";
+        setting.requestParams = {
+            urlPattern: "https://github.com/*",
             title: "GitHub",
-            statusBarHidden: true,
+            statusBarHidden: false,
+            statusBarStyle: "light",
             navigationBarHidden: false,
-            modalType: 3,
-            modalWidth: 320,
-            args: {
-                customID: 8888,
-            }
-        }
-        message.call(null)
+            navigationBarBackgroundColor: "#000000",
+            navigationBarTintColor: "#ffffff",
+        };
+        setting.call(function() {
+                         var message = JSMessage.newMessage()
+                         message.moduleName = "UI.ModalController";
+                         message.requestParams = {
+                             opt: "present",
+                             path: "https://github.com/index.html",
+                             modalType: 3,
+                             modalWidth: 320,
+                             args: {
+                                 customID: 8888,
+                             }
+                         }
+                         message.call(null);
+                     });
     }
 
 </script>

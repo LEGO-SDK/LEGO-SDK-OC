@@ -64,25 +64,12 @@ Pod::Spec.new do |s|
       ui.subspec 'AlertView' do |m|
         m.source_files = 'SDK/Modules/UI/AlertView/*.{h,m}'
       end
-      ui.subspec 'AppFrame' do |m|
-        m.source_files = 'SDK/Modules/UI/AppFrame/*.{h,m}'
-        m.dependency 'LEGO-SDK/API/UI/ViewController'
-      end
-      ui.subspec 'Bounce' do |m|
-        m.source_files = 'SDK/Modules/UI/Bounce/*.{h,m}'
-      end
       ui.subspec 'ImagePreviewer' do |m|
         m.source_files = 'SDK/Modules/UI/ImagePreviewer/*.{h,m}'
-      end
-      ui.subspec 'IndicatorView' do |m|
-        m.source_files = 'SDK/Modules/UI/IndicatorView/*.{h,m}'
       end
       ui.subspec 'ModalController' do |m|
         m.source_files = 'SDK/Modules/UI/ModalController/*.{h,m}'
         m.dependency 'LEGO-SDK/API/UI/ViewController'
-      end
-      ui.subspec 'NavigationBar' do |m|
-        m.source_files = 'SDK/Modules/UI/NavigationBar/*.{h,m}'
       end
       ui.subspec 'NavigationController' do |m|
         m.source_files = 'SDK/Modules/UI/NavigationController/*.{h,m}'
@@ -96,9 +83,6 @@ Pod::Spec.new do |s|
       end
       ui.subspec 'Refresh' do |m|
         m.source_files = 'SDK/Modules/UI/Refresh/*.{h,m}'
-      end
-      ui.subspec 'StatusBar' do |m|
-        m.source_files = 'SDK/Modules/UI/StatusBar/*.{h,m}'
       end
       ui.subspec 'ViewController' do |m|
         m.source_files = 'SDK/Modules/UI/ViewController/*.{h,m}'

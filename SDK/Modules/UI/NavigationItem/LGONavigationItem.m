@@ -7,6 +7,7 @@
 //
 
 #import <objc/runtime.h>
+#import <WebKit/WebKit.h>
 #import "LGOCore.h"
 #import "LGONavigationItem.h"
 
@@ -65,14 +66,25 @@ UInt16 LGONavigationItemOperationPinKey;
         viewController.title = self.request.title;
     }
     if (self.request.leftItem != nil) {
-        NSURL *URL = [NSURL URLWithString:self.request.leftItem];
-        if (URL != nil && URL.host) {
-            [self imageBarButtonItem:URL
-                     completionBlock:^(UIBarButtonItem *item) {
-                       item.tag = 100;
-                       viewController.navigationItem.leftBarButtonItem = item;
-                     }];
-        } else {
+        if ([self.request.leftItem rangeOfString:@".png"].location != NSNotFound) {
+            NSURL *relativeURL = nil;
+            UIView *webView = self.request.context.requestWebView;
+            if (webView != nil && [webView isKindOfClass:[UIWebView class]]) {
+                relativeURL = ((UIWebView *)webView).request.URL;
+            }
+            if (webView != nil && [webView isKindOfClass:[WKWebView class]]) {
+                relativeURL = ((WKWebView *)webView).URL;
+            }
+            NSURL *URL = [NSURL URLWithString:self.request.leftItem relativeToURL:relativeURL];
+            if (URL != nil) {
+                [self imageBarButtonItem:URL
+                         completionBlock:^(UIBarButtonItem *item) {
+                             item.tag = 100;
+                             viewController.navigationItem.leftBarButtonItem = item;
+                         }];
+            }
+        }
+        else {
             UIBarButtonItem *leftItem = [self textBarButtonItem:self.request.leftItem];
             if (leftItem != nil) {
                 leftItem.tag = 100;
@@ -82,14 +94,25 @@ UInt16 LGONavigationItemOperationPinKey;
         [self pinToViewController:viewController];
     }
     if (self.request.rightItem != nil) {
-        NSURL *URL = [NSURL URLWithString:self.request.rightItem];
-        if (URL != nil && URL.host != nil) {
-            [self imageBarButtonItem:URL
-                     completionBlock:^(UIBarButtonItem *item) {
-                       item.tag = 101;
-                       viewController.navigationItem.rightBarButtonItem = item;
-                     }];
-        } else {
+        if ([self.request.rightItem rangeOfString:@".png"].location != NSNotFound) {
+            NSURL *relativeURL = nil;
+            UIView *webView = self.request.context.requestWebView;
+            if (webView != nil && [webView isKindOfClass:[UIWebView class]]) {
+                relativeURL = ((UIWebView *)webView).request.URL;
+            }
+            if (webView != nil && [webView isKindOfClass:[WKWebView class]]) {
+                relativeURL = ((WKWebView *)webView).URL;
+            }
+            NSURL *URL = [NSURL URLWithString:self.request.rightItem relativeToURL:relativeURL];
+            if (URL != nil) {
+                [self imageBarButtonItem:URL
+                         completionBlock:^(UIBarButtonItem *item) {
+                             item.tag = 101;
+                             viewController.navigationItem.rightBarButtonItem = item;
+                         }];
+            }
+        }
+        else {
             UIBarButtonItem *rightItem = [self textBarButtonItem:self.request.rightItem];
             if (rightItem != nil) {
                 rightItem.tag = 101;
@@ -97,14 +120,6 @@ UInt16 LGONavigationItemOperationPinKey;
             }
         }
         [self pinToViewController:viewController];
-    }
-    if (self.request.backItem != nil) {
-        UIBarButtonItem *backItem = [self textBarButtonItem:self.request.backItem];
-        if (backItem != nil) {
-            backItem.target = nil;
-            backItem.action = nil;
-            viewController.navigationItem.backBarButtonItem = backItem;
-        }
     }
     LGONavigationItemResponse *response = [LGONavigationItemResponse new];
     response.leftTapped = NO;

@@ -34,7 +34,6 @@
 		906F11DE1D5C7C2B001F64DF /* LGOModalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11D31D5C7C2B001F64DF /* LGOModalController.m */; };
 		906F11E11D5C7C2B001F64DF /* LGONavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11DA1D5C7C2B001F64DF /* LGONavigationController.m */; };
 		906F11E21D5C7C2B001F64DF /* LGONavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11DD1D5C7C2B001F64DF /* LGONavigationItem.m */; };
-		906F11E51D5C7C40001F64DF /* UIViewController+LGOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11E41D5C7C40001F64DF /* UIViewController+LGOViewController.m */; };
 		906F11F21D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11F11D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m */; };
 		906F11F51D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.m in Sources */ = {isa = PBXBuildFile; fileRef = 906F11F41D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.m */; };
 		90A2D4DA1E8F7F7F001596C7 /* LGOPackRSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4D91E8F7F7F001596C7 /* LGOPackRSA.m */; };
@@ -157,8 +156,6 @@
 		906F11DA1D5C7C2B001F64DF /* LGONavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGONavigationController.m; sourceTree = "<group>"; };
 		906F11DC1D5C7C2B001F64DF /* LGONavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGONavigationItem.h; sourceTree = "<group>"; };
 		906F11DD1D5C7C2B001F64DF /* LGONavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGONavigationItem.m; sourceTree = "<group>"; };
-		906F11E31D5C7C40001F64DF /* UIViewController+LGOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LGOViewController.h"; sourceTree = "<group>"; };
-		906F11E41D5C7C40001F64DF /* UIViewController+LGOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LGOViewController.m"; sourceTree = "<group>"; };
 		906F11F01D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+LGOViewControllerArgs.h"; sourceTree = "<group>"; };
 		906F11F11D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+LGOViewControllerArgs.m"; sourceTree = "<group>"; };
 		906F11F31D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+LGOViewControllerArgs.h"; sourceTree = "<group>"; };
@@ -415,8 +412,6 @@
 				90A2D4F91E949214001596C7 /* LGOBaseViewController.m */,
 				90A2D4FB1E949B22001596C7 /* LGOBaseNavigationController.h */,
 				90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */,
-				906F11E31D5C7C40001F64DF /* UIViewController+LGOViewController.h */,
-				906F11E41D5C7C40001F64DF /* UIViewController+LGOViewController.m */,
 				906F11F01D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.h */,
 				906F11F11D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m */,
 				906F11F31D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.h */,
@@ -891,7 +886,6 @@
 				9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */,
 				90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */,
 				90F8D3DE1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m in Sources */,
-				906F11E51D5C7C40001F64DF /* UIViewController+LGOViewController.m in Sources */,
 				90E8CD021D470ACF005F4746 /* LGOJavaScriptBridge.m in Sources */,
 				90673F921D5C29C0009B9D9B /* LGOWKWebView+RefreshControl.m in Sources */,
 				402EA9C61D4F278B00E01F88 /* LGODevice.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import "SDKSampleJavaScriptItemViewController.h"
 #import "SDKSampleJavaScriptListViewController.h"
-#import "UIViewController+LGOViewController.h"
+#import "LGOBaseViewController.h"
 #import "LGOPack.h"
 
 @implementation SDKSampleJavaScriptListViewController
@@ -35,16 +35,10 @@
                                                               ofType:@"pub"]
                                                     encoding:NSUTF8StringEncoding error:nil]
                 forDomain:@"raw.githubusercontent.com"];
-    UIViewController *viewController = [UIViewController new];
+    LGOBaseViewController *viewController = [LGOBaseViewController new];
     viewController.title = sender.accessibilityLabel;
-    NSURLRequest *request = [NSURLRequest
-        requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://raw.githubusercontent.com/LEGO-SDK/LEGO-SDK-OC/master/Resources/%@.zip?sample.html",
-                                                                       sender.accessibilityLabel]]];
-    [viewController lgo_openWebViewWithRequest:request
-                                          args:nil
-                           renderFinishedBlock:^{
-                             [self.navigationController pushViewController:viewController animated:YES];
-                           }];
+    viewController.url = [NSURL URLWithString:[NSString stringWithFormat:@"https://raw.githubusercontent.com/LEGO-SDK/LEGO-SDK-OC/master/Resources/%@.zip?sample.html", sender.accessibilityLabel]];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

@@ -44,17 +44,23 @@
     if (self.setting) {
         self.automaticallyAdjustsScrollViewInsets = !self.setting.fullScreenContent;
         self.title = self.setting.title;
-        [self setNeedsStatusBarAppearanceUpdate];
         if ([self.webView isKindOfClass:[WKWebView class]]) {
             [(WKWebView *)self.webView scrollView].bounces = self.setting.allowBounce;
             [(WKWebView *)self.webView scrollView].showsVerticalScrollIndicator = self.setting.showsIndicator;
             [(WKWebView *)self.webView scrollView].showsHorizontalScrollIndicator = self.setting.showsIndicator;
+            if (self.setting.backgroundColor != nil) {
+                [(WKWebView *)self.webView scrollView].backgroundColor = self.setting.backgroundColor;
+            }
         }
         else if ([self.webView isKindOfClass:[UIWebView class]]) {
             [(UIWebView *)self.webView scrollView].bounces = self.setting.allowBounce;
             [(UIWebView *)self.webView scrollView].showsVerticalScrollIndicator = self.setting.showsIndicator;
             [(UIWebView *)self.webView scrollView].showsHorizontalScrollIndicator = self.setting.showsIndicator;
+            if (self.setting.backgroundColor != nil) {
+                [(UIWebView *)self.webView scrollView].backgroundColor = self.setting.backgroundColor;
+            }
         }
+        [self setNeedsStatusBarAppearanceUpdate];
     }
 }
 
@@ -66,6 +72,27 @@
 - (void)setUrl:(NSURL *)url {
     _url = url;
     _setting = [[LGOPageStore sharedStore] requestItem:url];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.setting) {
+        [[UIApplication sharedApplication] setStatusBarStyle:self.setting.statusBarStyle animated:NO];
+        [[UIApplication sharedApplication] setStatusBarHidden:self.setting.statusBarHidden withAnimation:UIStatusBarAnimationNone];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.setting) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden {

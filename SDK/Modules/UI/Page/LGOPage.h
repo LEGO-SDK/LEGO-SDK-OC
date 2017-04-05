@@ -15,6 +15,8 @@
 
 @property (nonatomic, readonly) NSString *title;
 
+@property (nonatomic, readonly) UIColor *backgroundColor;
+
 @property (nonatomic, readonly) BOOL statusBarHidden;
 
 @property (nonatomic, readonly) UIStatusBarStyle statusBarStyle;

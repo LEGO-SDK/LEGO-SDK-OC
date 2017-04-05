@@ -11,7 +11,8 @@
 #import <objc/runtime.h>
 #import "LGOCore.h"
 #import "LGOModalController.h"
-#import "UIViewController+LGOViewController.h"
+#import "LGOBaseNavigationController.h"
+#import "LGOBaseViewController.h"
 
 typedef enum : NSUInteger {
     LGOModalTypeNormal = 0,
@@ -152,10 +153,9 @@ NSDate *lastPresent;
                                                              NSLocalizedDescriptionKey : @"ViewController not found."
                                                          }]];
     }
-    UIViewController *nextViewController = [UIViewController new];
-    [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:self.request.args];
-    nextViewController.hidesBottomBarWhenPushed = YES;
-    nextViewController.title = self.request.title;
+    LGOBaseViewController *nextViewController = [LGOBaseViewController new];
+    nextViewController.url = URL;
+    nextViewController.args = self.request.args;
     UIViewController *presentingViewController = nextViewController;
     UINavigationController *navigationController = [self requestNavigationController:nextViewController];
     if (navigationController != nil) {
@@ -168,8 +168,8 @@ NSDate *lastPresent;
         presentingViewController.transitioningDelegate = self;
     }
     if (self.request.clearWebView) {
-        [nextViewController.lgo_webView setOpaque:NO];
-        [nextViewController.lgo_webView setBackgroundColor:[UIColor clearColor]];
+        [nextViewController.webView setOpaque:NO];
+        [nextViewController.webView setBackgroundColor:[UIColor clearColor]];
         [nextViewController.view setBackgroundColor:[UIColor clearColor]];
         [presentingViewController.view setBackgroundColor:[UIColor clearColor]];
     }
@@ -183,14 +183,9 @@ NSDate *lastPresent;
         Class naviClz = [requestVC.navigationController class];
         UINavigationController *naviController = [[naviClz alloc] init];
         [naviController setViewControllers:@[ rootViewController ] animated:NO];
-        rootViewController.navigationItem.rightBarButtonItem =
-            [[UIBarButtonItem alloc] initWithTitle:@"关闭"
-                                             style:UIBarButtonItemStylePlain
-                                            target:naviController
-                                            action:@selector(lgo_dismiss)];
         return naviController;
     }
-    return nil;
+    return [[LGOBaseNavigationController alloc] initWithRootViewController:rootViewController];
 }
 
 - (UIViewController *)requestViewController {

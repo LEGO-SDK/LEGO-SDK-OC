@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) NSString *title;
 
+@property (nonatomic, strong) UIColor *backgroundColor;
+
 @property (nonatomic, assign) BOOL statusBarHidden;
 
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
@@ -89,6 +91,7 @@
             LGOPageRequest *request = [LGOPageRequest new];
             request.urlPattern = [dictionary[@"urlPattern"] isKindOfClass:[NSString class]] ? dictionary[@"urlPattern"] : nil;
             request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : nil;
+            request.backgroundColor = [dictionary[@"backgroundColor"] isKindOfClass:[NSString class]] ? [LGOPage colorWithHex:dictionary[@"backgroundColor"]] : nil;
             request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"statusBarHidden"] boolValue] : NO;
             request.statusBarStyle = [dictionary[@"statusBarStyle"] isKindOfClass:[NSString class]] ? ([dictionary[@"statusBarStyle"] isEqualToString:@"light"] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault) : UIStatusBarStyleDefault;
             request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"navigationBarHidden"] boolValue] : NO;
