@@ -9,17 +9,13 @@
 #import <WebKit/WebKit.h>
 #import "LGOCore.h"
 #import "LGONavigationController.h"
-#import "UIViewController+LGOViewController.h"
+#import "LGOBaseViewController.h"
 
 @interface LGONavigationRequest : LGORequest
 
 @property(nonatomic, copy) NSString *opt;               // push/pop.
 @property(nonatomic, copy) NSString *path;              // an URLString.
 @property(nonatomic, assign) BOOL animated;             // push or pop need animation. Defaults to true.
-@property(nonatomic, copy) NSString *title;             // next title.
-@property(nonatomic, assign) BOOL statusBarHidden;      // next statusBarHidden.
-@property(nonatomic, copy) NSString *statusBarStyle;    // next statusBarStyle.
-@property(nonatomic, assign) BOOL navigationBarHidden;  // next navigationBarHidden.
 @property(nonatomic, copy) NSDictionary *args;          // deliver context to next ViewController.
 
 @end
@@ -100,27 +96,10 @@ static NSDate *lastPush;
 }
 
 - (LGOResponse *)pushWebView:(NSURL *)URL {
-    UIViewController *nextViewController = [UIViewController new];
+    LGOBaseViewController *nextViewController = [LGOBaseViewController new];
     nextViewController.hidesBottomBarWhenPushed = YES;
-    nextViewController.title = self.request.title;
-    if ([nextViewController respondsToSelector:NSSelectorFromString(@"lgo_navigationBarHidden")]) {
-        [nextViewController setValue:@(self.request.navigationBarHidden) forKey:@"lgo_navigationBarHidden"];
-    }
-    if ([nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarHidden")]) {
-        [nextViewController setValue:@(self.request.statusBarHidden) forKey:@"lgo_statusBarHidden"];
-    }
-    if ([self.request.statusBarStyle isEqualToString:@"light"] &&
-        [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarStyle")]) {
-        [nextViewController setValue:@(UIStatusBarStyleLightContent) forKey:@"lgo_statusBarStyle"];
-    }
-    else if ([self.request.statusBarStyle isEqualToString:@"default"] &&
-             [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarStyle")]) {
-        [nextViewController setValue:@(UIStatusBarStyleDefault) forKey:@"lgo_statusBarStyle"];
-    }
-    else if (self.request.statusBarStyle != nil &&
-             [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarStyle")]) {
-        [nextViewController setValue:[[self.request.context requestViewController] valueForKey:@"lgo_statusBarStyle"] forKey:@"lgo_statusBarStyle"];
-    }
+    nextViewController.url = URL;
+    nextViewController.args = self.request.args;
     UINavigationController *navigationController = [[self.request.context requestViewController] navigationController];
     if (navigationController == nil) {
         return
@@ -131,19 +110,6 @@ static NSDate *lastPush;
                                                              }]];
     }
     [navigationController pushViewController:nextViewController animated:self.request.animated];
-    [nextViewController.view setBackgroundColor:[UIColor whiteColor]];
-    BOOL lgo_statusBarHidden = [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_statusBarHidden")] &&
-    [[nextViewController valueForKey:@"lgo_statusBarHidden"] boolValue] != [[[self.request.context requestViewController] valueForKey:@"lgo_statusBarHidden"] boolValue];
-    BOOL lgo_navigationBarHidden = [nextViewController respondsToSelector:NSSelectorFromString(@"lgo_navigationBarHidden")] &&
-    [[nextViewController valueForKey:@"lgo_navigationBarHidden"] boolValue] != [[[self.request.context requestViewController] valueForKey:@"lgo_navigationBarHidden"] boolValue];
-    if (lgo_statusBarHidden || lgo_navigationBarHidden) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:self.request.args];
-        });
-    }
-    else {
-        [nextViewController lgo_openWebViewWithRequest:[[NSURLRequest alloc] initWithURL:URL] args:self.request.args];
-    }
     return [[LGOResponse new] accept:nil];
 }
 
@@ -171,15 +137,7 @@ static NSDate *lastPush;
     request.path = [dictionary[@"path"] isKindOfClass:[NSString class]] ? dictionary[@"path"] : @"";
     request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]]
     ? ((NSNumber *)dictionary[@"animated"]).boolValue
-    : YES;
-    request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : @"";
-    request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]]
-    ? [dictionary[@"statusBarHidden"] boolValue]
-    : NO;
-    request.statusBarStyle = [dictionary[@"statusBarStyle"] isKindOfClass:[NSString class]] ? dictionary[@"statusBarStyle"] : nil;
-    request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]]
-    ? [dictionary[@"navigationBarHidden"] boolValue]
-    : NO;
+    : YES; 
     request.args = [dictionary[@"args"] isKindOfClass:[NSDictionary class]] ? dictionary[@"args"] : @{};
     return [self buildWithRequest:request];
 }

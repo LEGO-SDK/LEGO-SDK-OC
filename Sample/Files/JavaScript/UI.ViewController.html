@@ -58,18 +58,32 @@
     }
 
     function push_duowan() {
-        var message = JSMessage.newMessage()
-        message.moduleName = "UI.NavigationController"
-        message.requestParams = {
-            opt: "push",
-            path: "http://duowan.cn/",
+        var setting = JSMessage.newMessage();
+        setting.moduleName = "UI.Page";
+        setting.requestParams = {
+            urlPattern: "http://duowan.cn/*",
             title: "多玩游戏",
+            navigationBarHidden: false,
+            navigationBarBackgroundColor: "#00000000",
+            navigationBarSeparatorHidden: true,
+            navigationBarTintColor: "#ffffff",
+            statusBarStyle: "default",
             statusBarHidden: false,
-            args: {
-                customID: 8888,
-            }
-        }
-        message.call(null)
+            fullScreenContent: false,
+            allowBounce: true,
+        };
+        setting.call(function() {
+                         var message = JSMessage.newMessage()
+                         message.moduleName = "UI.NavigationController"
+                         message.requestParams = {
+                             opt: "push",
+                             path: "http://duowan.cn/index.html",
+                             args: {
+                                 customID: 8888,
+                             }
+                         }
+                         message.call(null)
+                     });
     }
 
     function push_github() {
