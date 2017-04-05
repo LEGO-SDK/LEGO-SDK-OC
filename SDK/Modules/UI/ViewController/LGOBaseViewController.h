@@ -16,4 +16,6 @@
 @property (nonatomic, readonly) LGOPageRequest *setting;
 @property (nonatomic, readonly) UIView *webView;
 
+- (void)reloadSetting:(LGOPageRequest *)newSetting;
+
 @end

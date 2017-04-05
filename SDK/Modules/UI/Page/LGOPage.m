@@ -8,6 +8,8 @@
 
 #import "LGOPage.h"
 #import "LGOPageStore.h"
+#import "LGOBaseViewController.h"
+#import <WebKit/WebKit.h>
 
 @interface LGOPageRequest ()
 
@@ -43,6 +45,8 @@
 
 @interface LGOPageOperation : LGORequestable
 
+@property (nonatomic, strong) LGORequestContext *context;
+
 @property (nonatomic, strong) NSArray<LGOPageRequest *> *requests;
 
 @end
@@ -52,12 +56,36 @@
 - (LGOResponse *)requestSynchronize {
     for (LGOPageRequest *request in self.requests) {
         [[LGOPageStore sharedStore] addItem:request];
+        if (request.urlPattern == nil) {
+            UIViewController *viewController = [self requestViewController];
+            if ([viewController isKindOfClass:[LGOBaseViewController class]]) {
+                [(LGOBaseViewController *)viewController reloadSetting:request];
+            }
+        }
     }
     return [[LGOResponse new] accept:nil];
 }
 
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock {
     callbackBlock([self requestSynchronize]);
+}
+
+- (UIViewController *)requestViewController {
+    UIView *view =
+    [self.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.context.sender : nil;
+    if (view) {
+        UIResponder *next = [view nextResponder];
+        for (int count = 0; count < 100; count++) {
+            if ([next isKindOfClass:[UIViewController class]]) {
+                return (UIViewController *)next;
+            } else {
+                if (next != nil) {
+                    next = [next nextResponder];
+                }
+            }
+        }
+    }
+    return nil;
 }
 
 @end
@@ -78,6 +106,14 @@
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
+    NSURL *currentURL = nil;
+    UIView *webView = context.requestWebView;
+    if (webView != nil && [webView isKindOfClass:[UIWebView class]]) {
+        currentURL = ((UIWebView *)webView).request.URL;
+    }
+    if (webView != nil && [webView isKindOfClass:[WKWebView class]]) {
+        currentURL = ((WKWebView *)webView).URL;
+    }
     NSMutableArray *requests = [NSMutableArray array];
     NSMutableArray *items = [NSMutableArray array];
     if ([dictionary[@"items"] isKindOfClass:[NSArray class]]) {
@@ -91,7 +127,7 @@
             LGOPageRequest *request = [LGOPageRequest new];
             request.urlPattern = [dictionary[@"urlPattern"] isKindOfClass:[NSString class]] ? dictionary[@"urlPattern"] : nil;
             request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : nil;
-            request.backgroundColor = [dictionary[@"backgroundColor"] isKindOfClass:[NSString class]] ? [LGOPage colorWithHex:dictionary[@"backgroundColor"]] : nil;
+            request.backgroundColor = [dictionary[@"backgroundColor"] isKindOfClass:[NSString class]] ? [LGOPage colorWithHex:dictionary[@"backgroundColor"]] : [UIColor whiteColor];
             request.statusBarHidden = [dictionary[@"statusBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"statusBarHidden"] boolValue] : NO;
             request.statusBarStyle = [dictionary[@"statusBarStyle"] isKindOfClass:[NSString class]] ? ([dictionary[@"statusBarStyle"] isEqualToString:@"light"] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault) : UIStatusBarStyleDefault;
             request.navigationBarHidden = [dictionary[@"navigationBarHidden"] isKindOfClass:[NSNumber class]] ? [dictionary[@"navigationBarHidden"] boolValue] : NO;
@@ -105,6 +141,7 @@
         }
     }
     LGOPageOperation *operation = [LGOPageOperation new];
+    operation.context = context;
     operation.requests = [requests copy];
     return operation;
 }

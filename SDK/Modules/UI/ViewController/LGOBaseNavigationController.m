@@ -37,6 +37,10 @@
     [self.interactivePopGestureRecognizer addTarget:self action:@selector(onInteractivePopGestureRecognizer:)];
 }
 
+- (void)reloadSetting {
+    [self navigationController:self didShowViewController:[self.childViewControllers lastObject] animated:NO];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (object == self.navigationBar && [keyPath isEqualToString:@"bounds"]) {
         self.barTintLayer.frame = self.barTintLayer.superlayer.bounds;
@@ -113,10 +117,9 @@
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    [self resetBarTintLayer];
     if ([viewController isKindOfClass:[LGOBaseViewController class]]) {
-        self.navigationBar.alpha = [(LGOBaseViewController *)viewController setting].navigationBarHidden ? 0.0 : 1.0;
         self.barHidden = [(LGOBaseViewController *)viewController setting].navigationBarHidden;
+        self.navigationBar.alpha = [(LGOBaseViewController *)viewController setting].navigationBarHidden ? 0.0 : 1.0;
         if ([(LGOBaseViewController *)viewController setting].navigationBarTintColor != nil) {
             self.navigationBar.tintColor = [(LGOBaseViewController *)viewController setting].navigationBarTintColor;
             self.navigationBar.titleTextAttributes = @{
@@ -131,6 +134,7 @@
         }
     }
     else {
+        self.barHidden = NO;
         self.navigationBar.alpha = 1.0;
         if (self.defaultTintColor != nil) {
             self.navigationBar.tintColor = self.defaultTintColor;
@@ -139,6 +143,7 @@
                                                        };
         }
     }
+    [self resetBarTintLayer];
     self.popingViewController = self.viewControllers.lastObject;
 }
 

@@ -13,4 +13,6 @@
 @property (nonatomic, strong) CALayer *defaultBackgroundLayer;
 @property (nonatomic, strong) IBInspectable UIColor *defaultTintColor;
 
+- (void)reloadSetting;
+
 @end

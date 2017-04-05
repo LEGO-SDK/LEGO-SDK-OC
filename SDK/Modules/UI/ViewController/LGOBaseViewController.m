@@ -11,6 +11,7 @@
 #import "UIWebView+LGOViewControllerArgs.h"
 #import "WKWebView+LGOViewControllerArgs.h"
 #import "LGOJavaScriptUserContentController.h"
+#import "LGOBaseNavigationController.h"
 #import <WebKit/WebKit.h>
 
 @interface LGOBaseViewController ()
@@ -24,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.webView];
     [self loadSetting];
     [self loadRequest];
@@ -41,14 +44,14 @@
 }
 
 - (void)loadSetting {
-    if (self.setting) {
-        self.automaticallyAdjustsScrollViewInsets = !self.setting.fullScreenContent;
+    if (self.setting != nil) {
         self.title = self.setting.title;
         if ([self.webView isKindOfClass:[WKWebView class]]) {
             [(WKWebView *)self.webView scrollView].bounces = self.setting.allowBounce;
             [(WKWebView *)self.webView scrollView].showsVerticalScrollIndicator = self.setting.showsIndicator;
             [(WKWebView *)self.webView scrollView].showsHorizontalScrollIndicator = self.setting.showsIndicator;
             if (self.setting.backgroundColor != nil) {
+                self.view.backgroundColor = self.setting.backgroundColor;
                 [(WKWebView *)self.webView scrollView].backgroundColor = self.setting.backgroundColor;
             }
         }
@@ -57,6 +60,7 @@
             [(UIWebView *)self.webView scrollView].showsVerticalScrollIndicator = self.setting.showsIndicator;
             [(UIWebView *)self.webView scrollView].showsHorizontalScrollIndicator = self.setting.showsIndicator;
             if (self.setting.backgroundColor != nil) {
+                self.view.backgroundColor = self.setting.backgroundColor;
                 [(UIWebView *)self.webView scrollView].backgroundColor = self.setting.backgroundColor;
             }
         }
@@ -64,9 +68,43 @@
     }
 }
 
+- (void)reloadSetting:(LGOPageRequest *)newSetting {
+    self.setting = newSetting;
+    [self loadSetting];
+    if ([self.navigationController isKindOfClass:[LGOBaseNavigationController class]]) {
+        [(LGOBaseNavigationController *)self.navigationController reloadSetting];
+    }
+    [self resetLayout];
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    self.webView.frame = self.view.bounds;
+    [self resetLayout];
+}
+
+- (void)resetLayout {
+    if (self.setting != nil) {
+        if (self.setting.fullScreenContent) {
+            self.webView.frame = self.view.bounds;
+        }
+        else {
+            CGFloat topLength = 0.0;
+            if (!self.setting.statusBarHidden) {
+                topLength += 20.0;
+            }
+            if (!self.setting.navigationBarHidden) {
+                topLength += self.navigationController.navigationBar.bounds.size.height;
+            }
+            CGFloat bottomLength = self.tabBarController.tabBar.bounds.size.height;
+            self.webView.frame = CGRectMake(0.0,
+                                            topLength,
+                                            self.view.bounds.size.width,
+                                            self.view.bounds.size.height - topLength - bottomLength);
+        }
+    }
+    else {
+        self.webView.frame = self.view.bounds;
+    }
 }
 
 - (void)setUrl:(NSURL *)url {

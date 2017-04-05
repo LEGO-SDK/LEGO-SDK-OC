@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LEGO-SDK"
-  s.version      = "0.0.1-A007"
+  s.version      = "0.0.1-A008"
   s.summary      = "LEGO-SDK is bridge via WebView and Native."
   s.description  = <<-DESC
                       LEGO-SDK is bridge via WebView and Native.
@@ -86,6 +86,7 @@ Pod::Spec.new do |s|
       end
       ui.subspec 'ViewController' do |m|
         m.source_files = 'SDK/Modules/UI/ViewController/*.{h,m}'
+        m.source_files = 'SDK/Modules/UI/Page/*.{h,m}'
       end
     end
     api.subspec 'WebView' do |webview|
