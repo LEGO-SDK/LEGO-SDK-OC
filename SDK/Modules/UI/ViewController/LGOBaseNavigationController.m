@@ -71,7 +71,7 @@
     else if (sender.state == UIGestureRecognizerStateEnded) {
         if ([sender velocityInView:nil].x < 500 && [sender translationInView:nil].x < [UIScreen mainScreen].bounds.size.width / 2.0) {
             if (self.popingViewController != nil) {
-                [self navigationController:self willShowViewController:self.popingViewController animated:YES];
+                [self navigationController:self didShowViewController:self.popingViewController animated:YES];
                 self.barTintLayer.sublayers.lastObject.opacity = 1.0;
             }
         }
