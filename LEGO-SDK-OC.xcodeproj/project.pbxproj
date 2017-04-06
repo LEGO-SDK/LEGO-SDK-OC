@@ -44,6 +44,7 @@
 		90A2D4FD1E949B22001596C7 /* LGOBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */; };
 		90A2D4FF1E949B50001596C7 /* SDKSample.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */; };
 		90BCE6331E95DD3D00A8299D /* LGOPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BCE6321E95DD3D00A8299D /* LGOPicker.m */; };
+		90BCE6381E95EAD000A8299D /* UI.Picker.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BCE6371E95EAD000A8299D /* UI.Picker.html */; };
 		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
 		90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCD21D470892005F4746 /* AppDelegate.m */; };
 		90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCDA1D470892005F4746 /* Assets.xcassets */; };
@@ -175,6 +176,7 @@
 		90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SDKSample.storyboard; sourceTree = "<group>"; };
 		90BCE6311E95DD3D00A8299D /* LGOPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPicker.h; sourceTree = "<group>"; };
 		90BCE6321E95DD3D00A8299D /* LGOPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPicker.m; sourceTree = "<group>"; };
+		90BCE6371E95EAD000A8299D /* UI.Picker.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.Picker.html; sourceTree = "<group>"; };
 		90E8CCCC1D470892005F4746 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E8CCCF1D470892005F4746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90E8CCD11D470892005F4746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 				90E8CD171D47341B005F4746 /* UI.IndicatorView.html */,
 				90E8CD181D47341B005F4746 /* UI.Refresh.html */,
 				90E8CD191D47341B005F4746 /* UI.ViewController.html */,
+				90BCE6371E95EAD000A8299D /* UI.Picker.html */,
 			);
 			path = JavaScript;
 			sourceTree = "<group>";
@@ -774,6 +777,7 @@
 				90E8CD201D47341B005F4746 /* Native.Call.html in Resources */,
 				90E8CD301D47341B005F4746 /* UI.Refresh.html in Resources */,
 				90E8CD271D47341B005F4746 /* Native.Notification.html in Resources */,
+				90BCE6381E95EAD000A8299D /* UI.Picker.html in Resources */,
 				90E8CD221D47341B005F4746 /* Native.Check.html in Resources */,
 				90E8CD241D47341B005F4746 /* Native.Device.html in Resources */,
 				90E8CCDE1D470892005F4746 /* LaunchScreen.storyboard in Resources */,

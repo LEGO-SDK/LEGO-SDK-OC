@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+            </head>
+    <body>
+        <a onclick="showPicker()">Show Picker</a>
+    </body>
+</html>
+
+<script>
+    
+    window.JSBridge && eval(window.JSBridge.bridgeScript())
+    
+    function showPicker() {
+        var message = JSMessage.newMessage()
+        message.moduleName = "UI.Picker"
+        message.requestParams = {
+            title: "会议时间",
+            columns: [
+              ["A", "B", "C", "D", "E", "F", "G", "H"],
+              ["A", "B", "C", "D", "E", "F", "G", "H"],
+              ["A", "B", "C", "D", "E", "F", "G", "H"],
+            ],
+            columnTitles: ["日期", "开始时间", "结束时间"],
+            defaultValues: ["C", "E", "H"],
+        }
+        message.call(function(meta, res){
+                     JSConsole.log(res.selectedValues);
+                     });
+    }
+
+    </script>

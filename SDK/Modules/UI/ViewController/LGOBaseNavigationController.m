@@ -21,8 +21,10 @@
 @implementation LGOBaseNavigationController
 
 - (void)dealloc {
-    [self.navigationBar removeObserver:self forKeyPath:@"bounds"];
-    [self.navigationBar removeObserver:self forKeyPath:@"alpha"];
+    if (self.viewLoaded) {
+        [self.navigationBar removeObserver:self forKeyPath:@"bounds"];
+        [self.navigationBar removeObserver:self forKeyPath:@"alpha"];
+    }
 }
 
 - (void)viewDidLoad {
