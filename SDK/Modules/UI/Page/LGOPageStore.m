@@ -41,7 +41,8 @@
     }
     NSString *urlString = url.absoluteString;
     for (NSString *urlPattern in self.pages) {
-        NSRegularExpression *exp = [NSRegularExpression regularExpressionWithPattern:urlPattern options:kNilOptions error:nil];
+        NSError *error = nil;
+        NSRegularExpression *exp = [NSRegularExpression regularExpressionWithPattern:urlPattern options:kNilOptions error:&error];
         if (exp != nil) {
             if ([exp matchesInString:urlString options:NSMatchingReportCompletion range:NSMakeRange(0, urlString.length)].count > 0) {
                 return self.pages[urlPattern];

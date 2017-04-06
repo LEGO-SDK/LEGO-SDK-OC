@@ -43,6 +43,7 @@
 		90A2D4FA1E949214001596C7 /* LGOBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4F91E949214001596C7 /* LGOBaseViewController.m */; };
 		90A2D4FD1E949B22001596C7 /* LGOBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */; };
 		90A2D4FF1E949B50001596C7 /* SDKSample.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */; };
+		90BCE6331E95DD3D00A8299D /* LGOPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BCE6321E95DD3D00A8299D /* LGOPicker.m */; };
 		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
 		90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCD21D470892005F4746 /* AppDelegate.m */; };
 		90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCDA1D470892005F4746 /* Assets.xcassets */; };
@@ -172,6 +173,8 @@
 		90A2D4FB1E949B22001596C7 /* LGOBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOBaseNavigationController.h; sourceTree = "<group>"; };
 		90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOBaseNavigationController.m; sourceTree = "<group>"; };
 		90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SDKSample.storyboard; sourceTree = "<group>"; };
+		90BCE6311E95DD3D00A8299D /* LGOPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPicker.h; sourceTree = "<group>"; };
+		90BCE6321E95DD3D00A8299D /* LGOPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPicker.m; sourceTree = "<group>"; };
 		90E8CCCC1D470892005F4746 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E8CCCF1D470892005F4746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90E8CCD11D470892005F4746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -347,6 +350,7 @@
 		40608A0C1D52F0D200219874 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				90BCE6301E95DD3000A8299D /* Picker */,
 				90A2D4F11E948759001596C7 /* Page */,
 				90F8D3D41D61620E00CBEDB2 /* ProgressView */,
 				906F11D11D5C7C2B001F64DF /* ModalController */,
@@ -465,6 +469,15 @@
 				90A2D4F61E9489EC001596C7 /* LGOPageStore.m */,
 			);
 			path = Page;
+			sourceTree = "<group>";
+		};
+		90BCE6301E95DD3000A8299D /* Picker */ = {
+			isa = PBXGroup;
+			children = (
+				90BCE6311E95DD3D00A8299D /* LGOPicker.h */,
+				90BCE6321E95DD3D00A8299D /* LGOPicker.m */,
+			);
+			path = Picker;
 			sourceTree = "<group>";
 		};
 		90E8CCA51D4707E8005F4746 = {
@@ -892,6 +905,7 @@
 				90F8D3F91D62B17600CBEDB2 /* LGOPack.m in Sources */,
 				402EA9CE1D4F964000E01F88 /* LGOHTTPRequest.m in Sources */,
 				40608A1B1D532BB200219874 /* LGOAlertView.m in Sources */,
+				90BCE6331E95DD3D00A8299D /* LGOPicker.m in Sources */,
 				906F11F21D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m in Sources */,
 				90E8CCD01D470892005F4746 /* main.m in Sources */,
 				90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */,
