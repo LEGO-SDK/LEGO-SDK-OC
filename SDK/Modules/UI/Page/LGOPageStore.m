@@ -44,7 +44,8 @@
         NSError *error = nil;
         NSRegularExpression *exp = [NSRegularExpression regularExpressionWithPattern:urlPattern options:kNilOptions error:&error];
         if (exp != nil) {
-            if ([exp matchesInString:urlString options:NSMatchingReportCompletion range:NSMakeRange(0, urlString.length)].count > 0) {
+            NSTextCheckingResult *firstMatch = [exp firstMatchInString:urlString options:NSMatchingReportCompletion range:NSMakeRange(0, urlString.length)];
+            if (firstMatch != nil && NSEqualRanges(firstMatch.range, NSMakeRange(0, urlString.length))) {
                 return self.pages[urlPattern];
             }
         }
