@@ -63,9 +63,35 @@
 
 @implementation LGOUserDefaultsOperation
 
+static NSMutableDictionary *memorySuite;
+static NSMutableDictionary *cacheSuite;
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        memorySuite = [NSMutableDictionary dictionary];
+        cacheSuite = [NSMutableDictionary dictionary];
+    });
+}
+
 - (NSUserDefaults *)userDefault {
     if (self.request.suite.length > 0) {
-        return [[NSUserDefaults alloc] initWithSuiteName:self.request.suite];
+        if ([self.request.suite hasPrefix:@"memory://"]) {
+            if (memorySuite[self.request.suite] == nil) {
+                [memorySuite setObject:[NSMutableDictionary dictionary] forKey:self.request.suite];
+            }
+            return memorySuite[self.request.suite];
+        }
+        else if ([self.request.suite hasPrefix:@"cache://"]) {
+            if (cacheSuite[self.request.suite] == nil) {
+                NSCache *cacheStore = [[NSCache alloc] init];
+                [cacheSuite setObject:cacheStore forKey:self.request.suite];
+            }
+            return cacheSuite[self.request.suite];
+        }
+        else {
+            return [[NSUserDefaults alloc] initWithSuiteName:self.request.suite];
+        }
     }
     return [NSUserDefaults standardUserDefaults];
 }
@@ -74,7 +100,7 @@
     if ([self.request.opt isEqualToString:@"create"] || [self.request.opt isEqualToString:@"update"]) {
         if ([self.request.value isKindOfClass:[NSString class]] ||
             [self.request.value isKindOfClass:[NSNumber class]]) {
-            [[self userDefault] setValue:self.request.value forKey:self.request.key];
+            [[self userDefault] setObject:self.request.value forKey:self.request.key];
             return [[LGOResponse new] accept:nil];
         }
         return [[LGOResponse new] reject:[NSError errorWithDomain:@"Native.UserDefaults"

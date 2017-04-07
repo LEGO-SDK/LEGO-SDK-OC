@@ -95,7 +95,7 @@
             if (!self.setting.navigationBarHidden) {
                 topLength += self.navigationController.navigationBar.bounds.size.height;
             }
-            CGFloat bottomLength = self.tabBarController.tabBar.bounds.size.height;
+            CGFloat bottomLength = self.hidesBottomBarWhenPushed ? 0.0 : self.tabBarController.tabBar.bounds.size.height;
             self.webView.frame = CGRectMake(0.0,
                                             topLength,
                                             self.view.bounds.size.width,
