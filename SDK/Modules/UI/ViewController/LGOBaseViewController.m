@@ -69,6 +69,9 @@
 }
 
 - (void)reloadSetting:(LGOPageRequest *)newSetting {
+    if (newSetting == nil && [[LGOPageStore sharedStore] requestItem:self.url] == nil) {
+        return;
+    }
     self.setting = newSetting == nil ? [[LGOPageStore sharedStore] requestItem:self.url] : newSetting;
     [self loadSetting];
     if ([self.navigationController isKindOfClass:[LGOBaseNavigationController class]]) {
