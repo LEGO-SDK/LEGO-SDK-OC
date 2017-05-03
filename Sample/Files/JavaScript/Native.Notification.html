@@ -14,7 +14,7 @@
     function removeObserver() {
         var message = JSMessage.newMessage()
         message.moduleName = "Native.Notification"
-        message.requestParams = {opt:"remove", name:""}
+        message.requestParams = {opt:"delete", name:"UIApplicationDidBecomeActiveNotification"}
         message.call(function(meta, _){
                      if (meta.error){ return console.error(meta.reason) }
                      })
@@ -26,7 +26,7 @@
     function addObserver() {
         var message = JSMessage.newMessage()
         message.moduleName = "Native.Notification"
-        message.requestParams = {name: "UIApplicationDidBecomeActiveNotification"}
+        message.requestParams = {opt: "create", name: "UIApplicationDidBecomeActiveNotification"}
         message.call(function(meta, _){
                      if (meta.error){ return console.error(meta.reason) }
                      document.body.innerHTML = ++i + "Application did become active."
@@ -36,7 +36,7 @@
     function addTestObserver() {
         var message = JSMessage.newMessage()
         message.moduleName = "Native.Notification"
-        message.requestParams = {name: "Test"}
+        message.requestParams = {opt: "create", name: "Test"}
         message.call(function(meta, result){
                      if (meta.error){ return console.error(meta.reason) }
                      console.log(++a);

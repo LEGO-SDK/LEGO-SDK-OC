@@ -20,6 +20,7 @@ static NSNumber *observersGCLock;
 
 @interface LGONotificationObserver : NSObject
 
+@property(nonatomic, assign) BOOL deleted;
 @property(nonatomic) __weak NSObject *webView;
 @property(nonatomic, assign) NSString *name;
 @property(nonatomic, assign) id observer;
@@ -113,8 +114,9 @@ static NSNumber *observersGCLock;
         }
     } else if ([self.request.opt isEqualToString:@"delete"]) {
         for (LGONotificationObserver *item in observers) {
-            if ([item.webView isEqual:self.request.context.sender]) {
+            if (!item.deleted && [item.webView isEqual:self.request.context.sender]) {
                 if (self.request.name.length > 0 && [self.request.name isEqualToString:item.name]) {
+                    item.deleted = YES;
                     [[NSNotificationCenter defaultCenter] removeObserver:item.observer];
                 }
             }
@@ -164,15 +166,21 @@ static NSNumber *observersGCLock;
         NSMutableArray<LGONotificationObserver *> *weakObservers = [NSMutableArray new];
         NSMutableArray<LGONotificationObserver *> *nonweakObservers = [NSMutableArray new];
         for (LGONotificationObserver *item in [self observers]) {
-            if (item.webView != nil) {
+            if (item.deleted) {
+                [weakObservers addObject:item];
+            }
+            else if (item.webView != nil) {
                 [nonweakObservers addObject:item];
-            } else {
+            }
+            else {
                 [weakObservers addObject:item];
             }
         }
         observers = nonweakObservers;
         for (LGONotificationObserver *item in weakObservers) {
-            [[NSNotificationCenter defaultCenter] removeObserver:item.observer];
+            if (!item.deleted && item.observer != nil) {
+                [[NSNotificationCenter defaultCenter] removeObserver:item.observer];
+            }
         }
     }
 }
