@@ -64,10 +64,7 @@
 		90E8CD291D47341B005F4746 /* Native.UserDefaults.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD111D47341B005F4746 /* Native.UserDefaults.html */; };
 		90E8CD2A1D47341B005F4746 /* UI.ActionSheet.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD121D47341B005F4746 /* UI.ActionSheet.html */; };
 		90E8CD2B1D47341B005F4746 /* UI.AlertView.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD131D47341B005F4746 /* UI.AlertView.html */; };
-		90E8CD2C1D47341B005F4746 /* UI.AppFrame.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD141D47341B005F4746 /* UI.AppFrame.html */; };
-		90E8CD2D1D47341B005F4746 /* UI.Bounce.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD151D47341B005F4746 /* UI.Bounce.html */; };
 		90E8CD2E1D47341B005F4746 /* UI.ImagePreviewer.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD161D47341B005F4746 /* UI.ImagePreviewer.html */; };
-		90E8CD2F1D47341B005F4746 /* UI.IndicatorView.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD171D47341B005F4746 /* UI.IndicatorView.html */; };
 		90E8CD301D47341B005F4746 /* UI.Refresh.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD181D47341B005F4746 /* UI.Refresh.html */; };
 		90E8CD311D47341B005F4746 /* UI.ViewController.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CD191D47341B005F4746 /* UI.ViewController.html */; };
 		90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CD461D473BB5005F4746 /* LGOCore.m */; };
@@ -202,10 +199,7 @@
 		90E8CD111D47341B005F4746 /* Native.UserDefaults.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Native.UserDefaults.html; sourceTree = "<group>"; };
 		90E8CD121D47341B005F4746 /* UI.ActionSheet.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.ActionSheet.html; sourceTree = "<group>"; };
 		90E8CD131D47341B005F4746 /* UI.AlertView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.AlertView.html; sourceTree = "<group>"; };
-		90E8CD141D47341B005F4746 /* UI.AppFrame.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.AppFrame.html; sourceTree = "<group>"; };
-		90E8CD151D47341B005F4746 /* UI.Bounce.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.Bounce.html; sourceTree = "<group>"; };
 		90E8CD161D47341B005F4746 /* UI.ImagePreviewer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.ImagePreviewer.html; sourceTree = "<group>"; };
-		90E8CD171D47341B005F4746 /* UI.IndicatorView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.IndicatorView.html; sourceTree = "<group>"; };
 		90E8CD181D47341B005F4746 /* UI.Refresh.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.Refresh.html; sourceTree = "<group>"; };
 		90E8CD191D47341B005F4746 /* UI.ViewController.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.ViewController.html; sourceTree = "<group>"; };
 		90E8CD451D473BB5005F4746 /* LGOCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOCore.h; sourceTree = "<group>"; };
@@ -593,10 +587,7 @@
 				90E8CD111D47341B005F4746 /* Native.UserDefaults.html */,
 				90E8CD121D47341B005F4746 /* UI.ActionSheet.html */,
 				90E8CD131D47341B005F4746 /* UI.AlertView.html */,
-				90E8CD141D47341B005F4746 /* UI.AppFrame.html */,
-				90E8CD151D47341B005F4746 /* UI.Bounce.html */,
 				90E8CD161D47341B005F4746 /* UI.ImagePreviewer.html */,
-				90E8CD171D47341B005F4746 /* UI.IndicatorView.html */,
 				90E8CD181D47341B005F4746 /* UI.Refresh.html */,
 				90E8CD191D47341B005F4746 /* UI.ViewController.html */,
 				90BCE6371E95EAD000A8299D /* UI.Picker.html */,
@@ -785,14 +776,11 @@
 				90E8CD261D47341B005F4746 /* Native.HTTPRequest.html in Resources */,
 				90E8CD2E1D47341B005F4746 /* UI.ImagePreviewer.html in Resources */,
 				90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */,
-				90E8CD2D1D47341B005F4746 /* UI.Bounce.html in Resources */,
 				90E8CD281D47341B005F4746 /* Native.Pasteboard.html in Resources */,
 				90E8CD2B1D47341B005F4746 /* UI.AlertView.html in Resources */,
 				90E8CD311D47341B005F4746 /* UI.ViewController.html in Resources */,
 				90E8CD251D47341B005F4746 /* Native.FileManager.html in Resources */,
 				90F8D3E41D61CA7800CBEDB2 /* weui.zip in Resources */,
-				90E8CD2C1D47341B005F4746 /* UI.AppFrame.html in Resources */,
-				90E8CD2F1D47341B005F4746 /* UI.IndicatorView.html in Resources */,
 				90E8CD2A1D47341B005F4746 /* UI.ActionSheet.html in Resources */,
 				90A2D4FF1E949B50001596C7 /* SDKSample.storyboard in Resources */,
 				90E8CD211D47341B005F4746 /* Native.CanOpenURL.html in Resources */,
