@@ -39,7 +39,6 @@ typedef enum : NSUInteger {
 @property(nonatomic, copy) NSString *opt;               // present/dismiss
 @property(nonatomic, copy) NSString *path;              // an URLString or LGOViewControllerMapping[path]
 @property(nonatomic, assign) BOOL animated;             // push or pop need animation. Defaults to true.
-@property(nonatomic, copy) NSString *title;             // next title.
 @property(nonatomic, assign) BOOL clearWebView;         // webview background should be cleared.
 @property(nonatomic, assign) BOOL clearMask;            // maskview background should be cleared.
 @property(nonatomic, assign) BOOL nonMask;              // maskview will not be rended.
@@ -388,7 +387,6 @@ NSDate *lastPresent;
     request.opt = [dictionary[@"opt"] isKindOfClass:[NSString class]] ? dictionary[@"opt"] : @"present";
     request.path = [dictionary[@"path"] isKindOfClass:[NSString class]] ? dictionary[@"path"] : @"";
     request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]] ? ((NSNumber *)dictionary[@"animated"]).boolValue : YES;
-    request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : @"";
     request.clearWebView = [dictionary[@"clearWebView"] isKindOfClass:[NSNumber class]] ? [dictionary[@"clearWebView"] boolValue] : NO;
     request.clearMask = [dictionary[@"clearMask"] isKindOfClass:[NSNumber class]] ? [dictionary[@"clearMask"] boolValue] : NO;
     request.nonMask = [dictionary[@"nonMask"] isKindOfClass:[NSNumber class]] ? [dictionary[@"nonMask"] boolValue] : NO;
