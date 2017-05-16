@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIViewController *popingViewController;
 @property (nonatomic, assign) BOOL barHidden;
 @property (nonatomic, assign) BOOL barWillAppear;
+@property (nonatomic, assign) BOOL barWillDisappear;
 @property (nonatomic, strong) CALayer *barTintLayer;
 
 @end
@@ -68,19 +69,21 @@
         if (self.barWillAppear) {
             self.navigationBar.alpha = MAX(self.navigationBar.alpha, progress);
         }
+        else if (self.barWillDisappear) {
+            self.navigationBar.alpha = MAX(0.0, 1.0 - progress);
+        }
         [CATransaction setDisableActions:NO];
     }
     else if (sender.state == UIGestureRecognizerStateEnded) {
-        if ([sender velocityInView:nil].x < 500 && [sender translationInView:nil].x < [UIScreen mainScreen].bounds.size.width / 2.0) {
-            if (self.popingViewController != nil) {
-                [self navigationController:self didShowViewController:self.popingViewController animated:YES];
-                self.barTintLayer.sublayers.lastObject.opacity = 1.0;
-            }
-        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.30 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self navigationController:self didShowViewController:[self.viewControllers lastObject] animated:NO];
+        });
     }
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    self.barWillAppear = NO;
+    self.barWillDisappear = NO;
     if (self.interactivePopGestureRecognizer.state == UIGestureRecognizerStateBegan ||
         self.interactivePopGestureRecognizer.state == UIGestureRecognizerStateChanged ||
         self.interactivePopGestureRecognizer.state == UIGestureRecognizerStateEnded) {
@@ -91,6 +94,9 @@
     if ([viewController isKindOfClass:[LGOBaseViewController class]]) {
         if (self.navigationBar.alpha <= 0.0) {
             self.barWillAppear = ![(LGOBaseViewController *)viewController setting].navigationBarHidden;
+        }
+        else if (self.navigationBar.alpha > 0) {
+            self.barWillDisappear = [(LGOBaseViewController *)viewController setting].navigationBarHidden;
         }
         if ([(LGOBaseViewController *)viewController setting].navigationBarTintColor != nil) {
             self.navigationBar.tintColor = [(LGOBaseViewController *)viewController setting].navigationBarTintColor;
@@ -115,6 +121,11 @@
                                                        NSForegroundColorAttributeName: self.defaultTintColor,
                                                        };
         }
+    }
+    if (self.barWillAppear && animated) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.navigationBar.alpha = 1.0;
+        }];
     }
 }
 
