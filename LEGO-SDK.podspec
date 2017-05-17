@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LEGO-SDK"
-  s.version      = "0.3.0"
+  s.version      = "0.4.0"
   s.summary      = "LEGO-SDK is bridge via WebView and Native."
   s.description  = <<-DESC
                       LEGO-SDK is bridge via WebView and Native.
@@ -9,8 +9,8 @@ Pod::Spec.new do |s|
   s.homepage     = "http://code.yy.com/LEGO-SDK/LEGO-SDK-OC"
   s.license      = "Apache License, Version 2.0"
   s.author             = { "PonyCui" => "cuis@vip.qq.com" }
-  s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/LEGO-SDK/LEGO-SDK-OC.git", :tag => "0.3.0" }
+  s.platform     = :ios, "8.0"
+  s.source       = { :git => "https://github.com/LEGO-SDK/LEGO-SDK-OC.git", :tag => "0.4.0" }
   s.requires_arc = true
   s.subspec 'Core' do |core|
     core.source_files = 'SDK/Core/*.{h,m}', 'SDK/WebView/UIWebView/*.{h,m}', 'SDK/WebView/WKWebView/*.{h,m}'
@@ -64,25 +64,12 @@ Pod::Spec.new do |s|
       ui.subspec 'AlertView' do |m|
         m.source_files = 'SDK/Modules/UI/AlertView/*.{h,m}'
       end
-      ui.subspec 'AppFrame' do |m|
-        m.source_files = 'SDK/Modules/UI/AppFrame/*.{h,m}'
-        m.dependency 'LEGO-SDK/API/UI/ViewController'
-      end
-      ui.subspec 'Bounce' do |m|
-        m.source_files = 'SDK/Modules/UI/Bounce/*.{h,m}'
-      end
       ui.subspec 'ImagePreviewer' do |m|
         m.source_files = 'SDK/Modules/UI/ImagePreviewer/*.{h,m}'
-      end
-      ui.subspec 'IndicatorView' do |m|
-        m.source_files = 'SDK/Modules/UI/IndicatorView/*.{h,m}'
       end
       ui.subspec 'ModalController' do |m|
         m.source_files = 'SDK/Modules/UI/ModalController/*.{h,m}'
         m.dependency 'LEGO-SDK/API/UI/ViewController'
-      end
-      ui.subspec 'NavigationBar' do |m|
-        m.source_files = 'SDK/Modules/UI/NavigationBar/*.{h,m}'
       end
       ui.subspec 'NavigationController' do |m|
         m.source_files = 'SDK/Modules/UI/NavigationController/*.{h,m}'
@@ -97,11 +84,11 @@ Pod::Spec.new do |s|
       ui.subspec 'Refresh' do |m|
         m.source_files = 'SDK/Modules/UI/Refresh/*.{h,m}'
       end
-      ui.subspec 'StatusBar' do |m|
-        m.source_files = 'SDK/Modules/UI/StatusBar/*.{h,m}'
-      end
       ui.subspec 'ViewController' do |m|
-        m.source_files = 'SDK/Modules/UI/ViewController/*.{h,m}'
+        m.source_files = 'SDK/Modules/UI/ViewController/*.{h,m}', 'SDK/Modules/UI/Page/*.{h,m}'
+      end
+      ui.subspec 'Picker' do |m|
+        m.source_files = 'SDK/Modules/UI/Picker/*.{h,m}'
       end
     end
     api.subspec 'WebView' do |webview|
@@ -110,7 +97,7 @@ Pod::Spec.new do |s|
         m.dependency 'GCDWebServer'
         m.dependency 'SSZipArchive'
         m.dependency 'CocoaSecurity'
-      end 
+      end
     end
   end
 end
