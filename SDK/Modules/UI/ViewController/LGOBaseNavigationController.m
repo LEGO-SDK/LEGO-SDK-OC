@@ -12,7 +12,6 @@
 @interface LGOBaseNavigationController ()<UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIViewController *popingViewController;
-@property (nonatomic, assign) BOOL barHidden;
 @property (nonatomic, assign) BOOL barWillAppear;
 @property (nonatomic, assign) BOOL barWillDisappear;
 @property (nonatomic, strong) CALayer *barTintLayer;
@@ -24,7 +23,6 @@
 - (void)dealloc {
     if (self.viewLoaded) {
         [self.navigationBar removeObserver:self forKeyPath:@"bounds"];
-        [self.navigationBar removeObserver:self forKeyPath:@"alpha"];
     }
 }
 
@@ -36,12 +34,41 @@
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar.subviews.firstObject.layer addSublayer:self.barTintLayer];
     [self.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
-    [self.navigationBar addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
     [self.interactivePopGestureRecognizer addTarget:self action:@selector(onInteractivePopGestureRecognizer:)];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([[self.childViewControllers lastObject] isKindOfClass:[LGOBaseViewController class]]) {
+        LGOBaseViewController *baseViewController = [self.childViewControllers lastObject];
+        if (baseViewController.setting.navigationBarHidden) {
+            self.navigationBar.hidden = YES;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.navigationBar.hidden = NO;
+            });
+        }
+        [self reloadSetting];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([[self.childViewControllers lastObject] isKindOfClass:[LGOBaseViewController class]]) {
+        LGOBaseViewController *baseViewController = [self.childViewControllers lastObject];
+        if (baseViewController.setting.navigationBarHidden) {
+            self.navigationBar.hidden = YES;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.navigationBar.hidden = NO;
+            });
+        }
+        [self reloadSetting];
+    }
+}
+
 - (void)reloadSetting {
-    [self navigationController:self didShowViewController:[self.childViewControllers lastObject] animated:NO];
+    [self navigationController:self
+         didShowViewController:[self.childViewControllers lastObject]
+                      animated:NO];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -49,11 +76,6 @@
         self.barTintLayer.frame = self.barTintLayer.superlayer.bounds;
         for (CALayer *sublayer in self.barTintLayer.sublayers) {
             sublayer.frame = self.barTintLayer.bounds;
-        }
-    }
-    if (object == self.navigationBar && [keyPath isEqualToString:@"alpha"]) {
-        if (self.navigationBar.alpha > 0.0 && self.barHidden && !self.barWillAppear) {
-            self.navigationBar.alpha = 0.0;
         }
     }
 }
@@ -131,7 +153,6 @@
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ([viewController isKindOfClass:[LGOBaseViewController class]]) {
-        self.barHidden = [(LGOBaseViewController *)viewController setting].navigationBarHidden;
         self.navigationBar.alpha = [(LGOBaseViewController *)viewController setting].navigationBarHidden ? 0.0 : 1.0;
         if ([(LGOBaseViewController *)viewController setting].navigationBarTintColor != nil) {
             self.navigationBar.tintColor = [(LGOBaseViewController *)viewController setting].navigationBarTintColor;
@@ -147,7 +168,6 @@
         }
     }
     else {
-        self.barHidden = NO;
         self.navigationBar.alpha = 1.0;
         if (self.defaultTintColor != nil) {
             self.navigationBar.tintColor = self.defaultTintColor;
