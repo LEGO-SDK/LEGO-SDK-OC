@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSArray<NSString *> *columnTitles;
 @property (nonatomic, copy) NSArray<NSArray<NSString *> *> *columns;
 @property (nonatomic, copy) NSArray<NSString *> *defaultValues;
-
+@property (nonatomic, assign) BOOL isColumnsRelated; //标识是否是联动picker
 @end
 
 @implementation LGOPickerRequest
@@ -50,7 +50,7 @@
 @property (nonatomic, strong) UIView *maskView;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIPickerView *pickerView;
-
+@property (nonatomic,strong) NSMutableArray<NSString *> *currentSelectRows;  //当前选中行的值
 @end
 
 @implementation LGOPickerOperation
@@ -58,7 +58,10 @@
 static UIWindow *optWindow;
 static LGOPickerOperation *currentOperation;
 
-- (void)showPickerView {
+- (void)showPickerView
+{
+    self.currentSelectRows = self.request.defaultValues.mutableCopy;
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         optWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -86,29 +89,83 @@ static LGOPickerOperation *currentOperation;
     [[optWindow subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if (self.responseBlock) {
         LGOPickerResponse *response = [LGOPickerResponse new];
-        NSMutableArray *selectedValues = [NSMutableArray array];
-        for (NSInteger i = 0; i < self.request.columns.count; i++) {
-            if ([self.pickerView selectedRowInComponent:i] < self.request.columns[i].count) {
-                [selectedValues addObject:self.request.columns[i][[self.pickerView selectedRowInComponent:i]]];
-            }
+        
+        if (self.request.isColumnsRelated)
+        {
+            response.selectedValues = self.currentSelectRows;
         }
-        response.selectedValues = selectedValues;
+        else
+        {
+            NSMutableArray *selectedValues = [NSMutableArray array];
+            for (NSInteger i = 0; i < self.request.columns.count; i++) {
+                if ([self.pickerView selectedRowInComponent:i] < self.request.columns[i].count) {
+                    [selectedValues addObject:self.request.columns[i][[self.pickerView selectedRowInComponent:i]]];
+                }
+            }
+            response.selectedValues = selectedValues;
+
+        }
         self.responseBlock([response accept:nil]);
     }
 }
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+#pragma mark pickView dataSource & delegate
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    if (self.request.isColumnsRelated)
+    {
+        return self.request.defaultValues.count;
+    }
+    
     return self.request.columns.count;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (component < self.request.columns.count) {
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if (self.request.isColumnsRelated)
+    {
+        id obj = [self targetWithColumn:component];
+        
+        if ([obj isKindOfClass:[NSArray class]])
+        {
+            NSArray *targetArray = (NSArray *)obj;
+            
+            return targetArray.count;
+        }
+    }
+    
+    if (component < self.request.columns.count)
+    {
         return self.request.columns[component].count;
     }
     return 0;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    if (self.request.isColumnsRelated)
+    {
+        id obj = [self targetWithColumn:component];
+        
+        if ([obj isKindOfClass:[NSArray class]])
+        {
+            NSArray *targetArray = (NSArray *)obj;
+            
+            if (row < targetArray.count)
+            {
+                id target = targetArray[row];
+                
+                return [self titleOfObject:target];
+            }
+            
+        }
+        
+        return @"";
+    }
+    
+    
     if (component < self.request.columns.count) {
         if (row < self.request.columns[component].count) {
             return self.request.columns[component][row];
@@ -117,12 +174,46 @@ static LGOPickerOperation *currentOperation;
     return @"";
 }
 
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if (self.request.isColumnsRelated)
+    {
+        for (NSInteger i = component; i < self.currentSelectRows.count; i++)
+        {
+            id target = [self targetWithColumn:i];
+            
+            if ([target isKindOfClass:[NSArray class]])
+            {
+                NSArray *targetArray = (NSArray *)target;
+                
+                if (i > component)
+                {
+                    
+                    self.currentSelectRows[i] = [self titleOfObject:targetArray[0]];
+                }
+                else
+                {
+                    
+                    self.currentSelectRows[i] = [self titleOfObject:targetArray[row]];
+                }
+            }
+        }
+        
+        [self pickViewer:pickerView resetSelectedValue:self.currentSelectRows];
+        
+        [pickerView reloadAllComponents];
+    }
+    
+}
+
+#pragma mark OverWrite
 - (void)requestAsynchronize:(LGORequestableAsynchronizeBlock)callbackBlock {
     currentOperation = self;
     self.responseBlock = callbackBlock;
     [self showPickerView];
 }
 
+#pragma mark Getter
 - (UIView *)maskView {
     if (_maskView == nil) {
         _maskView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -168,13 +259,43 @@ static LGOPickerOperation *currentOperation;
     return _contentView;
 }
 
-- (UIView *)headerTitleView {
+- (UIView *)headerTitleView
+{
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, [UIScreen mainScreen].bounds.size.width, 30)];
-    if (self.request.columns.count == 0) {
+    
+    if (self.request.isColumnsRelated)
+    {
+        if (self.currentSelectRows.count == 0)
+        {
+            return titleView;
+        }
+        
+        CGFloat eachWidth = [UIScreen mainScreen].bounds.size.width / self.currentSelectRows.count;
+        for (NSInteger i = 0; i < self.currentSelectRows.count; i++)
+        {
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(i * eachWidth, 0, eachWidth, 30.0)];
+            titleLabel.font = [UIFont systemFontOfSize:13.0];
+            titleLabel.textColor = [UIColor colorWithRed:0x44 / 255.0 green:0x4a / 255.0 blue:0x53 / 255.0 alpha:1.0];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            if (i < self.request.columnTitles.count) {
+                titleLabel.text = self.request.columnTitles[i];
+            }
+            [titleView addSubview:titleLabel];
+        }
         return titleView;
     }
+    
+    
+    
+    
+    if (self.request.columns.count == 0)
+    {
+        return titleView;
+    }
+    
     CGFloat eachWidth = [UIScreen mainScreen].bounds.size.width / self.request.columns.count;
-    for (NSInteger i = 0; i < self.request.columns.count; i++) {
+    for (NSInteger i = 0; i < self.request.columns.count; i++)
+    {
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(i * eachWidth, 0, eachWidth, 30.0)];
         titleLabel.font = [UIFont systemFontOfSize:13.0];
         titleLabel.textColor = [UIColor colorWithRed:0x44 / 255.0 green:0x4a / 255.0 blue:0x53 / 255.0 alpha:1.0];
@@ -193,18 +314,141 @@ static LGOPickerOperation *currentOperation;
         _pickerView.backgroundColor = [UIColor whiteColor];
         _pickerView.delegate = self;
         _pickerView.dataSource = self;
-        [self.request.defaultValues enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (idx < self.request.columns.count) {
-                NSInteger sIdx = [self.request.columns[idx] indexOfObject:obj];
-                if (sIdx != NSNotFound) {
-                    [_pickerView selectRow:sIdx inComponent:idx animated:NO];
+        
+        if (self.request.isColumnsRelated)
+        {
+            [self pickViewer:_pickerView resetSelectedValue:self.request.defaultValues];
+        }
+        else
+        {
+            [self.request.defaultValues enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx < self.request.columns.count) {
+                    NSInteger sIdx = [self.request.columns[idx] indexOfObject:obj];
+                    if (sIdx != NSNotFound) {
+                        [_pickerView selectRow:sIdx inComponent:idx animated:NO];
+                    }
                 }
-            }
-        }];
+            }];
+        }
     }
     return _pickerView;
 }
 
+#pragma mark Private
+- (id)targetWithColumn:(NSInteger)column
+{
+    NSInteger traverseCount = 0;
+    
+    NSArray *obj = self.request.columns.copy;
+    
+    id target;
+    
+    while (traverseCount <= column)
+    {
+        if ([obj isKindOfClass:[NSArray class]])
+        {
+            NSArray *realObj = (NSArray *)obj;
+            
+            if (column <= self.currentSelectRows.count - 1 && column > 0) //最后一层是Array不需要取 && 第一层数据不需要遍历去除
+            {
+                NSString *levelKey = self.currentSelectRows[traverseCount];
+                
+                for (id tempObj in realObj)
+                {
+                    if ([tempObj isKindOfClass:[NSDictionary class]])
+                    {
+                        NSDictionary *tempObjDic = (NSDictionary *)tempObj;
+                        
+                        if ([tempObjDic[@"title"] isKindOfClass:[NSString class]])
+                        {
+                            if ([tempObjDic[@"title"] isEqualToString:levelKey])
+                            {
+                                obj = tempObjDic[@"item"];
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            traverseCount ++ ;
+            
+            if (traverseCount >= column)
+            {
+                target = obj;
+                break;
+            }
+        }
+        else
+        {
+            return nil;
+        }
+    }
+    
+    return target;
+}
+
+- (void)pickViewer:(UIPickerView *)pickerView resetSelectedValue:(NSArray *)selectArray
+{
+    [selectArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        {
+            if (idx < self.currentSelectRows.count)
+            {
+                id target = [self targetWithColumn:idx];
+                
+                if ([target isKindOfClass:[NSArray class]])
+                {
+                    NSArray *targetArray = (NSArray *)target;
+                    
+                    [targetArray enumerateObjectsUsingBlock:^(id  _Nonnull tempObj, NSUInteger tempIdx, BOOL * _Nonnull tempStop) {
+                        
+                        if ([tempObj isKindOfClass:[NSDictionary class]])
+                        {
+                            NSDictionary *tempObjDic = (NSDictionary *)tempObj;
+                            
+                            if ([tempObjDic[@"title"] isKindOfClass:[NSString class]])
+                            {
+                                if ([tempObjDic[@"title"] isEqualToString:obj])
+                                {
+                                    [pickerView selectRow:tempIdx inComponent:idx animated:NO];
+                                }
+                            }
+                        }
+                        else if ([tempObj isKindOfClass:[NSString class]])
+                        {
+                            NSString *tempObjString = (NSString *)tempObj;
+                            if ([tempObjString isEqualToString:obj])
+                            {
+                                [pickerView selectRow:tempIdx inComponent:idx animated:NO];
+                            }
+                        }
+                        
+                    }];
+                }
+            }
+        }
+        
+    }];
+}
+
+- (NSString *)titleOfObject:(id)object
+{
+    if ([object isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *objectDic = (NSDictionary *)object;
+        
+        id result = objectDic[@"title"];
+        
+        return ([result isKindOfClass:[NSString class]]) ? (NSString *)result : @"";
+    }
+    else if ([object isKindOfClass:[NSString class]])
+    {
+        return (NSString *)object;
+    }
+    
+    return @"";
+}
 @end
 
 @implementation LGOPicker
@@ -224,49 +468,97 @@ static LGOPickerOperation *currentOperation;
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     LGOPickerRequest *request = [LGOPickerRequest new];
+    
+    request.isColumnsRelated = [dictionary[@"isColumnsRelated"] boolValue];
+    
     request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : nil;
+    
+    if (request.isColumnsRelated)
     {
-        NSMutableArray *outColumns = [NSMutableArray array];
-        if ([dictionary[@"columns"] isKindOfClass:[NSArray class]]) {
-            for (NSArray *column in dictionary[@"columns"]) {
-                if ([column isKindOfClass:[NSArray class]]) {
-                    NSMutableArray *outColumn = [NSMutableArray array];
-                    for (NSString *element in column) {
-                        if ([element isKindOfClass:[NSString class]]) {
-                            [outColumn addObject:element];
-                        }
+        if ([dictionary[@"columns"] isKindOfClass:[NSArray class]])
+        {
+            request.columns = [dictionary[@"columns"] copy];
+        }
+        
+        {
+            
+            NSMutableArray *outDefaultValues = [NSMutableArray array];
+            if ([dictionary[@"defaultValues"] isKindOfClass:[NSArray class]]) {
+                for (NSArray *defaultValue in dictionary[@"defaultValues"]) {
+                    if ([defaultValue isKindOfClass:[NSString class]]) {
+                        [outDefaultValues addObject:defaultValue];
                     }
-                    [outColumns addObject:outColumn];
                 }
             }
+            request.defaultValues = outDefaultValues;
         }
-        request.columns = outColumns;
+        {
+            NSMutableArray *outColumnTitles = [NSMutableArray array];
+            if ([dictionary[@"defaultValues"] isKindOfClass:[NSArray class]]) {
+                for (NSArray *columnTitle in dictionary[@"columnTitles"]) {
+                    if ([columnTitle isKindOfClass:[NSString class]]) {
+                        [outColumnTitles addObject:columnTitle];
+                    }
+                    else {
+                        [outColumnTitles addObject:@""];
+                    }
+                }
+            }
+            request.columnTitles = outColumnTitles;
+        }
     }
+    else
     {
-        NSMutableArray *outDefaultValues = [NSMutableArray array];
-        if ([dictionary[@"defaultValues"] isKindOfClass:[NSArray class]]) {
-            for (NSArray *defaultValue in dictionary[@"defaultValues"]) {
-                if ([defaultValue isKindOfClass:[NSString class]]) {
-                    [outDefaultValues addObject:defaultValue];
+        {
+            
+            NSMutableArray *outColumns = [NSMutableArray array];
+            if ([dictionary[@"columns"] isKindOfClass:[NSArray class]]) {
+                for (NSArray *column in dictionary[@"columns"]) {
+                    if ([column isKindOfClass:[NSArray class]]) {
+                        NSMutableArray *outColumn = [NSMutableArray array];
+                        for (NSString *element in column) {
+                            if ([element isKindOfClass:[NSString class]]) {
+                                [outColumn addObject:element];
+                            }
+                        }
+                        [outColumns addObject:outColumn];
+                    }
                 }
             }
+            
+            request.columns = outColumns;
+            
         }
-        request.defaultValues = outDefaultValues;
-    }
-    {
-        NSMutableArray *outColumnTitles = [NSMutableArray array];
-        if ([dictionary[@"defaultValues"] isKindOfClass:[NSArray class]]) {
-            for (NSArray *columnTitle in dictionary[@"columnTitles"]) {
-                if ([columnTitle isKindOfClass:[NSString class]]) {
-                    [outColumnTitles addObject:columnTitle];
-                }
-                else {
-                    [outColumnTitles addObject:@""];
+        {
+            
+            NSMutableArray *outDefaultValues = [NSMutableArray array];
+            if ([dictionary[@"defaultValues"] isKindOfClass:[NSArray class]]) {
+                for (NSArray *defaultValue in dictionary[@"defaultValues"]) {
+                    if ([defaultValue isKindOfClass:[NSString class]]) {
+                        [outDefaultValues addObject:defaultValue];
+                    }
                 }
             }
+            request.defaultValues = outDefaultValues;
         }
-        request.columnTitles = outColumnTitles;
+        {
+            NSMutableArray *outColumnTitles = [NSMutableArray array];
+            if ([dictionary[@"defaultValues"] isKindOfClass:[NSArray class]]) {
+                for (NSArray *columnTitle in dictionary[@"columnTitles"]) {
+                    if ([columnTitle isKindOfClass:[NSString class]]) {
+                        [outColumnTitles addObject:columnTitle];
+                    }
+                    else {
+                        [outColumnTitles addObject:@""];
+                    }
+                }
+            }
+            request.columnTitles = outColumnTitles;
+        }
     }
+    
+    
+    
     return [self buildWithRequest:request];
 }
 
