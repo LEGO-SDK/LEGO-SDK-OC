@@ -23,6 +23,7 @@
 - (void)dealloc {
     if (self.viewLoaded) {
         [self.navigationBar removeObserver:self forKeyPath:@"bounds"];
+        [self.navigationBar removeObserver:self forKeyPath:@"alpha"];
     }
 }
 
@@ -34,6 +35,7 @@
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar.subviews.firstObject.layer addSublayer:self.barTintLayer];
     [self.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
+    [self.navigationBar addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
     [self.interactivePopGestureRecognizer addTarget:self action:@selector(onInteractivePopGestureRecognizer:)];
 }
 
@@ -76,6 +78,14 @@
         self.barTintLayer.frame = self.barTintLayer.superlayer.bounds;
         for (CALayer *sublayer in self.barTintLayer.sublayers) {
             sublayer.frame = self.barTintLayer.bounds;
+        }
+    }
+    else if (object == self.navigationBar && [keyPath isEqualToString:@"alpha"] && self.navigationBar.alpha == 1.0) {
+        LGOBaseViewController *viewController = self.viewControllers.lastObject;
+        if ([viewController isKindOfClass:[LGOBaseViewController class]]) {
+            if (viewController.setting.navigationBarHidden) {
+                self.navigationBar.alpha = 0.0;
+            }
         }
     }
 }
