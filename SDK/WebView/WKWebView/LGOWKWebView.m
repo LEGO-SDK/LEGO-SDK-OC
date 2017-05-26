@@ -21,7 +21,9 @@
     LGOJavaScriptUserContentController *userContentController = [[LGOJavaScriptUserContentController alloc] init];
     configuration.userContentController = userContentController;
     configuration.allowsInlineMediaPlayback = YES;
-    configuration.requiresUserActionForMediaPlayback = NO;
+    if ([configuration respondsToSelector:@selector(requiresUserActionForMediaPlayback)]) {
+        configuration.requiresUserActionForMediaPlayback = NO;
+    }
     return configuration;
 }
 
