@@ -141,6 +141,9 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
+    if (self.setting == nil && [self.navigationController isKindOfClass:[LGOBaseNavigationController class]]) {
+        return [(LGOBaseNavigationController *)self.navigationController defaultStatusBarStyle];
+    }
     return self.setting.statusBarStyle;
 }
 

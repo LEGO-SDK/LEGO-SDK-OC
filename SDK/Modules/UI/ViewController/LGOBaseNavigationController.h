@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) CALayer *defaultBackgroundLayer;
 @property (nonatomic, strong) IBInspectable UIColor *defaultTintColor;
+@property (nonatomic, assign) UIStatusBarStyle defaultStatusBarStyle;
 
 - (void)reloadSetting;
 
