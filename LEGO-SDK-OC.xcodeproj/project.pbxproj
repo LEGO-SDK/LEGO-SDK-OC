@@ -44,6 +44,7 @@
 		90A2D4FD1E949B22001596C7 /* LGOBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */; };
 		90A2D4FF1E949B50001596C7 /* SDKSample.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */; };
 		90ABC40E1EE795CC005C4CDB /* LGOPageState.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ABC40D1EE795CC005C4CDB /* LGOPageState.m */; };
+		90ABC4121EE7A271005C4CDB /* LGOToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ABC4111EE7A271005C4CDB /* LGOToast.m */; };
 		90BCE6331E95DD3D00A8299D /* LGOPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BCE6321E95DD3D00A8299D /* LGOPicker.m */; };
 		90BCE6381E95EAD000A8299D /* UI.Picker.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BCE6371E95EAD000A8299D /* UI.Picker.html */; };
 		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
@@ -174,6 +175,8 @@
 		90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SDKSample.storyboard; sourceTree = "<group>"; };
 		90ABC40C1EE795CC005C4CDB /* LGOPageState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPageState.h; sourceTree = "<group>"; };
 		90ABC40D1EE795CC005C4CDB /* LGOPageState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPageState.m; sourceTree = "<group>"; };
+		90ABC4101EE7A271005C4CDB /* LGOToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOToast.h; sourceTree = "<group>"; };
+		90ABC4111EE7A271005C4CDB /* LGOToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOToast.m; sourceTree = "<group>"; };
 		90BCE6311E95DD3D00A8299D /* LGOPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPicker.h; sourceTree = "<group>"; };
 		90BCE6321E95DD3D00A8299D /* LGOPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPicker.m; sourceTree = "<group>"; };
 		90BCE6371E95EAD000A8299D /* UI.Picker.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.Picker.html; sourceTree = "<group>"; };
@@ -349,6 +352,7 @@
 		40608A0C1D52F0D200219874 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				90ABC40F1EE7A25F005C4CDB /* Toast */,
 				90ABC40B1EE795BE005C4CDB /* PageState */,
 				90BCE6301E95DD3000A8299D /* Picker */,
 				90A2D4F11E948759001596C7 /* Page */,
@@ -478,6 +482,15 @@
 				90ABC40D1EE795CC005C4CDB /* LGOPageState.m */,
 			);
 			path = PageState;
+			sourceTree = "<group>";
+		};
+		90ABC40F1EE7A25F005C4CDB /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				90ABC4101EE7A271005C4CDB /* LGOToast.h */,
+				90ABC4111EE7A271005C4CDB /* LGOToast.m */,
+			);
+			path = Toast;
 			sourceTree = "<group>";
 		};
 		90BCE6301E95DD3000A8299D /* Picker */ = {
@@ -882,6 +895,7 @@
 				90E8CD051D47115D005F4746 /* JSContext+LGOProps.m in Sources */,
 				90E8CD4C1D473BB5005F4746 /* LGOModules.m in Sources */,
 				40608A071D51C99400219874 /* LGOCanOpenURL.m in Sources */,
+				90ABC4121EE7A271005C4CDB /* LGOToast.m in Sources */,
 				40608A011D51A23000219874 /* LGOUserDefaults.m in Sources */,
 				402EA9CA1D4F3B9700E01F88 /* LGOFileManager.m in Sources */,
 				40608A0B1D51CC2800219874 /* LGONotification.m in Sources */,

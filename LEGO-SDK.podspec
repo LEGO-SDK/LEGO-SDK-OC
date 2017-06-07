@@ -90,6 +90,9 @@ Pod::Spec.new do |s|
       ui.subspec 'Refresh' do |m|
         m.source_files = 'SDK/Modules/UI/Refresh/*.{h,m}'
       end
+      ui.subspec 'Toast' do |m|
+        m.source_files = 'SDK/Modules/UI/Toast/*.{h,m}'
+      end
       ui.subspec 'ViewController' do |m|
         m.source_files = 'SDK/Modules/UI/ViewController/*.{h,m}', 'SDK/Modules/UI/Page/*.{h,m}'
       end
