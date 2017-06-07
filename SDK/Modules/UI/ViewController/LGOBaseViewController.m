@@ -23,6 +23,14 @@
 
 @implementation LGOBaseViewController
 
+- (void)addHook:(LGOBaseViewControllerHookBlock)hookBlock forMethod:(NSString *)forMethod {
+    NSMutableDictionary *hooks = [self.hooks mutableCopy] ?: [NSMutableDictionary dictionary];
+    NSMutableArray *hookTarget = [hooks[forMethod] mutableCopy] ?: [NSMutableArray array];
+    [hookTarget addObject:hookBlock];
+    [hooks setObject:[hookTarget copy] forKey:forMethod];
+    self.hooks = hooks;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -30,6 +38,9 @@
     [self.view addSubview:self.webView];
     [self loadSetting];
     [self loadRequest];
+    for (LGOBaseViewControllerHookBlock hookBlock in self.hooks[@"viewDidLoad"]) {
+        hookBlock();
+    }
 }
 
 - (void)loadRequest {
@@ -40,6 +51,9 @@
         if ([self.webView isKindOfClass:[UIWebView class]]) {
             [(UIWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
         }
+    }
+    for (LGOBaseViewControllerHookBlock hookBlock in self.hooks[@"loadRequest"]) {
+        hookBlock();
     }
 }
 
@@ -121,11 +135,17 @@
         [[UIApplication sharedApplication] setStatusBarStyle:self.setting.statusBarStyle animated:NO];
         [[UIApplication sharedApplication] setStatusBarHidden:self.setting.statusBarHidden withAnimation:UIStatusBarAnimationNone];
     }
+    for (LGOBaseViewControllerHookBlock hookBlock in self.hooks[@"viewWillAppear"]) {
+        hookBlock();
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self setNeedsStatusBarAppearanceUpdate];
+    for (LGOBaseViewControllerHookBlock hookBlock in self.hooks[@"viewDidAppear"]) {
+        hookBlock();
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -133,6 +153,16 @@
     if (self.setting) {
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    }
+    for (LGOBaseViewControllerHookBlock hookBlock in self.hooks[@"viewWillDisappear"]) {
+        hookBlock();
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    for (LGOBaseViewControllerHookBlock hookBlock in self.hooks[@"viewDidDisappear"]) {
+        hookBlock();
     }
 }
 

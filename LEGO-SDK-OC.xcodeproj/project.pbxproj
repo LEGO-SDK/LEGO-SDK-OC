@@ -43,6 +43,7 @@
 		90A2D4FA1E949214001596C7 /* LGOBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4F91E949214001596C7 /* LGOBaseViewController.m */; };
 		90A2D4FD1E949B22001596C7 /* LGOBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */; };
 		90A2D4FF1E949B50001596C7 /* SDKSample.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */; };
+		90ABC40E1EE795CC005C4CDB /* LGOPageState.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ABC40D1EE795CC005C4CDB /* LGOPageState.m */; };
 		90BCE6331E95DD3D00A8299D /* LGOPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BCE6321E95DD3D00A8299D /* LGOPicker.m */; };
 		90BCE6381E95EAD000A8299D /* UI.Picker.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BCE6371E95EAD000A8299D /* UI.Picker.html */; };
 		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
@@ -171,6 +172,8 @@
 		90A2D4FB1E949B22001596C7 /* LGOBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOBaseNavigationController.h; sourceTree = "<group>"; };
 		90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOBaseNavigationController.m; sourceTree = "<group>"; };
 		90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SDKSample.storyboard; sourceTree = "<group>"; };
+		90ABC40C1EE795CC005C4CDB /* LGOPageState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPageState.h; sourceTree = "<group>"; };
+		90ABC40D1EE795CC005C4CDB /* LGOPageState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPageState.m; sourceTree = "<group>"; };
 		90BCE6311E95DD3D00A8299D /* LGOPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPicker.h; sourceTree = "<group>"; };
 		90BCE6321E95DD3D00A8299D /* LGOPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPicker.m; sourceTree = "<group>"; };
 		90BCE6371E95EAD000A8299D /* UI.Picker.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.Picker.html; sourceTree = "<group>"; };
@@ -346,6 +349,7 @@
 		40608A0C1D52F0D200219874 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				90ABC40B1EE795BE005C4CDB /* PageState */,
 				90BCE6301E95DD3000A8299D /* Picker */,
 				90A2D4F11E948759001596C7 /* Page */,
 				90F8D3D41D61620E00CBEDB2 /* ProgressView */,
@@ -465,6 +469,15 @@
 				90A2D4F61E9489EC001596C7 /* LGOPageStore.m */,
 			);
 			path = Page;
+			sourceTree = "<group>";
+		};
+		90ABC40B1EE795BE005C4CDB /* PageState */ = {
+			isa = PBXGroup;
+			children = (
+				90ABC40C1EE795CC005C4CDB /* LGOPageState.h */,
+				90ABC40D1EE795CC005C4CDB /* LGOPageState.m */,
+			);
+			path = PageState;
 			sourceTree = "<group>";
 		};
 		90BCE6301E95DD3000A8299D /* Picker */ = {
@@ -889,6 +902,7 @@
 				90E8CD651D4760D7005F4746 /* LGOCheck.m in Sources */,
 				40608A3F1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m in Sources */,
 				9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */,
+				90ABC40E1EE795CC005C4CDB /* LGOPageState.m in Sources */,
 				90E8CCFF1D470AB7005F4746 /* LGOWebView.m in Sources */,
 				90F8D3DE1D6181B200CBEDB2 /* WKWebView+LGOAutoInject.m in Sources */,
 				90E8CD021D470ACF005F4746 /* LGOJavaScriptBridge.m in Sources */,

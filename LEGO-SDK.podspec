@@ -78,6 +78,12 @@ Pod::Spec.new do |s|
       ui.subspec 'NavigationItem' do |m|
         m.source_files = 'SDK/Modules/UI/NavigationItem/*.{h,m}'
       end
+      ui.subspec 'PageState' do |m|
+        m.source_files = 'SDK/Modules/UI/PageState/*.{h,m}'
+      end
+      ui.subspec 'Picker' do |m|
+        m.source_files = 'SDK/Modules/UI/Picker/*.{h,m}'
+      end
       ui.subspec 'ProgressView' do |m|
         m.source_files = 'SDK/Modules/UI/ProgressView/*.{h,m}'
       end
@@ -86,9 +92,6 @@ Pod::Spec.new do |s|
       end
       ui.subspec 'ViewController' do |m|
         m.source_files = 'SDK/Modules/UI/ViewController/*.{h,m}', 'SDK/Modules/UI/Page/*.{h,m}'
-      end
-      ui.subspec 'Picker' do |m|
-        m.source_files = 'SDK/Modules/UI/Picker/*.{h,m}'
       end
     end
     api.subspec 'WebView' do |webview|

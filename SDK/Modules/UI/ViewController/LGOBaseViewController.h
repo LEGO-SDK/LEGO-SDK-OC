@@ -9,13 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "LGOPage.h"
 
+typedef void(^LGOBaseViewControllerHookBlock)();
+
 @interface LGOBaseViewController : UIViewController
 
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSDictionary *args;
 @property (nonatomic, readonly) LGOPageRequest *setting;
 @property (nonatomic, readonly) UIView *webView;
+@property (nonatomic, copy) NSDictionary<NSString *, NSArray<LGOBaseViewControllerHookBlock> *> *hooks;
 
 - (void)reloadSetting:(LGOPageRequest *)newSetting;
+
+- (void)addHook:(LGOBaseViewControllerHookBlock)hookBlock forMethod:(NSString *)forMethod;
 
 @end
