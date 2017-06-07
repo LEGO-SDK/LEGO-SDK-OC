@@ -64,6 +64,30 @@
 
 @end
 
+@interface LGOToastMockViewController : UIViewController
+
+@end
+
+@implementation LGOToastMockViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.hidden = YES;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    UIViewController *targetViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    if ([targetViewController isKindOfClass:[UITabBarController class]]) {
+        targetViewController = [(UITabBarController *)targetViewController selectedViewController];
+    }
+    if ([targetViewController isKindOfClass:[UINavigationController class]]) {
+        targetViewController = [(UINavigationController *)targetViewController visibleViewController];
+    }
+    return [targetViewController preferredStatusBarStyle];
+}
+
+@end
+
 @interface LGOToastOperation : LGORequestable
 
 @property (nonatomic, strong) LGOToastRequest *request;
@@ -84,8 +108,10 @@ static NSTimer *timer;
         else {
             if (window == nil) {
                 window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                window.windowLevel = UIWindowLevelStatusBar + 1;
             }
             [[window subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            [window setRootViewController:[LGOToastMockViewController new]];
             [window addSubview:[self.request toastView]];
             window.hidden = NO;
             [timer invalidate];

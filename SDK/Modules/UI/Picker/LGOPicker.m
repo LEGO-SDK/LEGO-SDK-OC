@@ -43,6 +43,30 @@
 
 @end
 
+@interface LGOPickerMockViewController : UIViewController
+
+@end
+
+@implementation LGOPickerMockViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.hidden = YES;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    UIViewController *targetViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    if ([targetViewController isKindOfClass:[UITabBarController class]]) {
+        targetViewController = [(UITabBarController *)targetViewController selectedViewController];
+    }
+    if ([targetViewController isKindOfClass:[UINavigationController class]]) {
+        targetViewController = [(UINavigationController *)targetViewController visibleViewController];
+    }
+    return [targetViewController preferredStatusBarStyle];
+}
+
+@end
+
 @interface LGOPickerOperation : LGORequestable<UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic, strong) LGOPickerRequest *request;
@@ -67,6 +91,7 @@ static LGOPickerOperation *currentOperation;
         optWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         optWindow.windowLevel = UIWindowLevelStatusBar + 1;
     });
+    [optWindow setRootViewController:[LGOPickerMockViewController new]];
     [[optWindow subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [optWindow addSubview:self.maskView];
     [optWindow addSubview:self.contentView];
