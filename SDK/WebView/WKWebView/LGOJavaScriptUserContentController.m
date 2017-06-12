@@ -55,7 +55,7 @@
         LGORequestable *requestable = [module buildWithDictionary:self.requestParams context:context];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
           [requestable requestAsynchronize:^(LGOResponse *_Nonnull response) {
-              NSAssert(response.status != 0, @"Response status still pedding.");
+            NSAssert(response.status != 0, @"Response status still pedding.");
             if (response != nil) {
                 completionBlock([response metaData], [response resData]);
             }
@@ -174,17 +174,16 @@
                             NSData *JSONData2 = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
                             if (JSONData2 != nil) {
                                 NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
-                                [self
-                                    addUserScript:[[WKUserScript alloc]
-                                                        initWithSource:[NSString stringWithFormat:@"window._args = {}; "
-                                                                                                  @"Object.assign("
-                                                                                                  @"window._args, "
-                                                                                                  @"JSON.parse("
-                                                                                                  @"decodeURIComponent"
-                                                                                                  @"(atob('%@'))));",
-                                                                                                  base64String]
-                                                         injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-                                                      forMainFrameOnly:NO]];
+                                [self addUserScript:[[WKUserScript alloc]
+                                                          initWithSource:[NSString
+                                                                             stringWithFormat:@"window._args = {}; "
+                                                                                              @"try { window._args = "
+                                                                                              @"JSON.parse("
+                                                                                              @"decodeURIComponent("
+                                                                                              @"atob('%@'))); }",
+                                                                                              base64String]
+                                                           injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                        forMainFrameOnly:NO]];
                             }
                         }
                     }
