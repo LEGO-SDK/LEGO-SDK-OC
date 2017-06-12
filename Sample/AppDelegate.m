@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "LGOCore.h"
-#import <CocoaSecurity/CocoaSecurity.h>
 
 @interface AppDelegate ()
 

@@ -6,9 +6,9 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import <CocoaSecurity/CocoaSecurity.h>
 #import <GCDWebServer/GCDWebServer.h>
 #import <SSZipArchive/SSZipArchive.h>
+#import <CommonCrypto/CommonDigest.h>
 #import "LGOPack.h"
 #import "LGOCore.h"
 #import "LGOPackRSA.h"
@@ -182,7 +182,7 @@ static int serverPort = 10000;
 + (BOOL)isSameWithMD5:(NSString *)MD5 fileURL:(NSURL *)fileURL {
     NSData *fileData = [NSData dataWithContentsOfFile:[fileURL path]];
     if (fileData != nil) {
-        return [[[CocoaSecurity md5WithData:fileData] hex] isEqualToString:[MD5 uppercaseString]];
+        return [[self requestMD5WithData:fileData] isEqualToString:[MD5 lowercaseString]];
     }
     return NO;
 }
@@ -191,34 +191,57 @@ static int serverPort = 10000;
     if ([[NSFileManager defaultManager] fileExistsAtPath:[self cachePathWithURL:URL]]) {
         NSData *fileData = [NSData dataWithContentsOfFile:[self cachePathWithURL:URL]];
         if (fileData != nil) {
-            return [[[CocoaSecurity md5WithData:fileData] hex] isEqualToString:[MD5 uppercaseString]];
+            return [[self requestMD5WithData:fileData] isEqualToString:[MD5 lowercaseString]];
         }
     } else if ([[NSFileManager defaultManager]
                    fileExistsAtPath:[[NSBundle mainBundle] pathForResource:[URL lastPathComponent] ofType:@""]]) {
         NSData *fileData =
             [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[URL lastPathComponent] ofType:@""]];
         if (fileData != nil) {
-            return [[[CocoaSecurity md5WithData:fileData] hex] isEqualToString:[MD5 uppercaseString]];
+            return [[self requestMD5WithData:fileData] isEqualToString:[MD5 lowercaseString]];
         }
     }
     return NO;
 }
 
++ (NSString *)cacheKey:(NSURL *)URL {
+    return [self requestMD5WithString:[[URL.absoluteString componentsSeparatedByString:@"?"] firstObject]];
+}
+
 + (NSString *)cachePathWithURL:(NSURL *)URL {
-    return [NSString
-        stringWithFormat:@"%@/LGOPack/%@",
-                         NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject,
-                         [[CocoaSecurity md5:[URL absoluteString]] hex]];
+    return [NSString stringWithFormat:@"%@/LGOPack/%@",
+                            NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject,
+                            [self cacheKey:URL]];
 }
 
 + (NSString *)fileServerPathWithURL:(NSURL *)URL {
-    return [NSString
-        stringWithFormat:@"%@/LGOPack/%@", NSTemporaryDirectory(), [[CocoaSecurity md5:[URL absoluteString]] hex]];
+    return [NSString stringWithFormat:@"%@/LGOPack/%@", NSTemporaryDirectory(), [self cacheKey:URL]];
 }
 
 + (NSString *)fileServerAddressWithURL:(NSURL *)URL {
-    return [NSString
-        stringWithFormat:@"http://localhost:%d/%@/", serverPort, [[CocoaSecurity md5:[URL absoluteString]] hex]];
+    return [NSString stringWithFormat:@"http://localhost:%d/%@/", serverPort, [self cacheKey:URL]];
+}
+
++ (NSString *)requestMD5WithString:(NSString *)str
+{
+    const char* input = [str UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(input, (CC_LONG)strlen(input), result);
+    NSMutableString *digest = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for (NSInteger i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+        [digest appendFormat:@"%02x", result[i]];
+    }
+    return [digest lowercaseString];
+}
+
++ (NSString *)requestMD5WithData:(NSData *)data {
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(data.bytes, (CC_LONG)data.length, result);
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH*2];
+    for (int i = 0; i<CC_MD5_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return [ret lowercaseString];
 }
 
 @end

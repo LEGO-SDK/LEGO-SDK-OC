@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LEGO-SDK"
-  s.version      = "0.0.1-A018"
+  s.version      = "0.0.1-A019"
   s.summary      = "LEGO-SDK is bridge via WebView and Native."
   s.description  = <<-DESC
                       LEGO-SDK is bridge via WebView and Native.
@@ -102,7 +102,6 @@ Pod::Spec.new do |s|
         m.source_files = 'SDK/Modules/WebView/Pack/*.{h,m}'
         m.dependency 'GCDWebServer'
         m.dependency 'SSZipArchive'
-        m.dependency 'CocoaSecurity'
       end
     end
   end
