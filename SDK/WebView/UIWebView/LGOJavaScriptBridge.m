@@ -144,13 +144,13 @@
                             NSData *JSONData2 = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
                             if (JSONData2 != nil) {
                                 NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
-                                output =
-                                    [output stringByAppendingString:[NSString stringWithFormat:@"window._args = {}; "
-                                                                                               @"try { window._args = "
-                                                                                               @"JSON.parse("
-                                                                                               @"decodeURIComponent("
-                                                                                               @"atob('%@'))); }",
-                                                                                               base64String]];
+                                output = [output
+                                    stringByAppendingString:[NSString stringWithFormat:@"window._args = {}; "
+                                                                                       @"try { window._args = "
+                                                                                       @"JSON.parse("
+                                                                                       @"decodeURIComponent("
+                                                                                       @"atob('%@'))); } catch (e) {}",
+                                                                                       base64String]];
                             }
                         }
                     }

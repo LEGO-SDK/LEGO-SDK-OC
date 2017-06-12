@@ -175,13 +175,13 @@
                             if (JSONData2 != nil) {
                                 NSString *base64String = [JSONData2 base64EncodedStringWithOptions:kNilOptions];
                                 [self addUserScript:[[WKUserScript alloc]
-                                                          initWithSource:[NSString
-                                                                             stringWithFormat:@"window._args = {}; "
-                                                                                              @"try { window._args = "
-                                                                                              @"JSON.parse("
-                                                                                              @"decodeURIComponent("
-                                                                                              @"atob('%@'))); }",
-                                                                                              base64String]
+                                                          initWithSource:[NSString stringWithFormat:
+                                                                                       @"window._args = {}; "
+                                                                                       @"try { window._args = "
+                                                                                       @"JSON.parse("
+                                                                                       @"decodeURIComponent("
+                                                                                       @"atob('%@'))); } catch (e) {}",
+                                                                                       base64String]
                                                            injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                         forMainFrameOnly:NO]];
                             }
