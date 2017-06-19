@@ -86,6 +86,9 @@
     if (newSetting == nil && [[LGOPageStore sharedStore] requestItem:self.url] == nil) {
         return;
     }
+    if (newSetting == nil && (self.setting.urlPattern == nil || self.setting.urlPattern.length == 0)) {
+        return;
+    }
     self.setting = newSetting == nil ? [[LGOPageStore sharedStore] requestItem:self.url] : newSetting;
     [self loadSetting];
     if ([self.navigationController isKindOfClass:[LGOBaseNavigationController class]]) {

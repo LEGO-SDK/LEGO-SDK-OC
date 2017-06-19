@@ -42,14 +42,77 @@ function showPicker() {
     message.requestParams = {
         isColumnsRelated: true,
         title: "地区",
-        columns: [{"title":"广东","item":[{"title":"广州","item":[{"title":"区1","item":[{"title":"街1","item":["路1","路2","路3","路4","路5"]},{"title":"街2","item":["路6","路7"]},{"title":"街3","item":["路8","路9","路10","路11"]}]},{"title":"区2","item":[{"title":"街4","item":["路12","路13","路14"]},{"title":"街5","item":["路15","路16","路17","路18","路19","路20","路21","路21"]},{"title":"街6","item":["路22","路23"]},{"title":"街7","item":["路24"]}]},{"title":"区3","item":[{"title":"街8","item":["路25","路26","路27"]}]}]},{"title":"汕头","item":[{"title":"区4","item":[{"title":"街9","item":["路28","路29","路30"]},{"title":"街10","item":["路31","路32"]}]},{"title":"区5","item":[{"title":"街11","item":["路33"]},{"title":"街12","item":["路34","路35","路36","路37"]},{"title":"街13","item":["路38","路39"]}]}]}]},{"title":"福建","item":[{"title":"福州","item":[{"title":"区6","item":[{"title":"街14","item":["路40","路41","路42","路43","路44"]},{"title":"街15","item":["路45","路46"]},{"title":"街16","item":["路47","路48","路49","路50"]}]},{"title":"区7","item":[{"title":"街17","item":["路51","路52","路53"]},{"title":"街18","item":["路54","路55","路56","路57"]},{"title":"街19","item":["路58","路59"]},{"title":"街20","item":["路60"]}]}]},{"title":"泉州","item":[{"title":"区8","item":[{"title":"街21","item":["路61","路62","路63"]},{"title":"街22","item":["路64","路65"]}]},{"title":"区9","item":[{"title":"街23","item":["路66"]},{"title":"街24","item":["路67","路68","路69","路70"]},{"title":"街25","item":["路71","路72"]}]}]}]}],
-        columnTitles: ["省", "市", "区","街","路"],
-        defaultValues: ["福建","泉州","区9","街24","路69"],
+        columns: [
+                  {
+                  "title": "广东省",
+                  "item": [
+                           {
+                           "title": "广州市",
+                           "item": [
+                                    {
+                                    "title": "天河区",
+                                    },
+                                    {
+                                    "title": "越秀区",
+                                    },
+                                    {
+                                    "title": "荔湾区",
+                                    },
+                                    {
+                                    "title": "大学城",
+                                    }
+                                    ]
+                           },
+                           {
+                           "title": "汕头市",
+                           "item": [
+                                    {
+                                    "title": "澄海区",
+                                    },
+                                    {
+                                    "title": "潮安区",
+                                    }
+                                    ]
+                           }
+                           ]
+                  },
+                  {
+                  "title": "海南省",
+                  "item": [
+                           {
+                           "title": "海口市",
+                           "item": [
+                                    {
+                                    "title": "美兰区",
+                                    },
+                                    {
+                                    "title": "秀英港",
+                                    }
+                                    ]
+                           },
+                           {
+                           "title": "三亚市",
+                           "item": [
+                                    {
+                                    "title": "市区",
+                                    },
+                                    {
+                                    "title": "亚龙湾",
+                                    }
+                                    ]
+                           }
+                           ]
+                  }
+                  ],
+                  columnTitles: ["省", "市", "区"],
+                  defaultValues: ["广东省", "汕头市", "潮安区"],
     }
-    message.call(function(meta, res){
+    message.call(function (meta, res) {
                  JSConsole.log(res.selectedValues);
                  });
 }
+
+showPicker()
 
 
 /*
