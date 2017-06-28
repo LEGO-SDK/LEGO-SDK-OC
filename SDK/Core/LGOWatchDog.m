@@ -58,7 +58,21 @@
     NSString *host = URL.host;
     if (host == nil && [LGOCore.whiteList count] == 0) {
         return YES;
-    } else if (host != nil) {
+    }
+    else if (host == nil) {
+        NSArray<NSString *> *moduleSettings = LGOCore.whiteModule[moduleName];
+        if (moduleSettings != nil) {
+            for (NSString *moduleSetting in moduleSettings) {
+                if ([URL.absoluteString hasPrefix:moduleSetting]) {
+                    return YES;
+                }
+            }
+        }
+        else {
+            return YES;
+        }
+    }
+    else if (host != nil) {
         NSArray<NSString *> *moduleSettings = LGOCore.whiteModule[moduleName];
         if (moduleSettings != nil) {
             for (NSString *moduleSetting in moduleSettings) {
