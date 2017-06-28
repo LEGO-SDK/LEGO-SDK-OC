@@ -14,7 +14,7 @@
 #import "LGOBaseNavigationController.h"
 #import <WebKit/WebKit.h>
 
-@interface LGOBaseViewController ()
+@interface LGOBaseViewController ()<WKNavigationDelegate>
 
 @property (nonatomic, strong) UIView *webView;
 @property (nonatomic, strong) LGOPageRequest *setting;
@@ -191,6 +191,7 @@
             ? [[NSClassFromString(@"LGOWKWebView") alloc] initWithFrame:self.view.bounds]
             : [[WKWebView alloc] initWithFrame:self.view.bounds];
             [(WKWebView *)_webView setLgo_args:self.args];
+            [(WKWebView *)_webView setNavigationDelegate:self];
             if ([[[(WKWebView *)_webView configuration] userContentController]
                  isKindOfClass:[LGOJavaScriptUserContentController class]]) {
                 [(LGOJavaScriptUserContentController *)[[(WKWebView *)_webView configuration]
@@ -204,6 +205,12 @@
         }
     }
     return _webView;
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
+    [webView reload];
 }
 
 @end
