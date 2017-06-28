@@ -80,6 +80,7 @@ Pod::Spec.new do |s|
       end
       ui.subspec 'PageState' do |m|
         m.source_files = 'SDK/Modules/UI/PageState/*.{h,m}'
+        m.dependency 'LEGO-SDK/API/UI/ViewController'
       end
       ui.subspec 'Picker' do |m|
         m.source_files = 'SDK/Modules/UI/Picker/*.{h,m}'
