@@ -158,24 +158,42 @@ UInt16 LGONavigationItemOperationPinKey;
         [URL.absoluteString rangeOfString:@"%403x"].location != NSNotFound) {
         scale = 3.0;
     }
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *_Nullable response, NSData *_Nullable data,
-                                               NSError *_Nullable connectionError) {
-                             if (data == nil) {
-                                 return;
-                             }
-                             UIImage *image = [[UIImage alloc] initWithData:data scale:scale];
-                             if (image == nil) {
-                                 return;
-                             }
-                             UIBarButtonItem *item = [[UIBarButtonItem alloc]
+    if ([URL.scheme isEqualToString:@"file"]) {
+        NSData *data = [NSData dataWithContentsOfURL:URL];
+        if (data == nil) {
+            return;
+        }
+        UIImage *image = [[UIImage alloc] initWithData:data scale:scale];
+        if (image == nil) {
+            return;
+        }
+        UIBarButtonItem *item = [[UIBarButtonItem alloc]
                                  initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                         style:UIBarButtonItemStylePlain
-                                        target:self
-                                        action:@selector(handleBarButtonItemTapped:)];
-                             completionBlock(item);
-                           }];
+                                 style:UIBarButtonItemStylePlain
+                                 target:self
+                                 action:@selector(handleBarButtonItemTapped:)];
+        completionBlock(item);
+    }
+    else {
+        [NSURLConnection sendAsynchronousRequest:request
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *_Nullable response, NSData *_Nullable data,
+                                                   NSError *_Nullable connectionError) {
+                                   if (data == nil) {
+                                       return;
+                                   }
+                                   UIImage *image = [[UIImage alloc] initWithData:data scale:scale];
+                                   if (image == nil) {
+                                       return;
+                                   }
+                                   UIBarButtonItem *item = [[UIBarButtonItem alloc]
+                                                            initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                            style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(handleBarButtonItemTapped:)];
+                                   completionBlock(item);
+                               }];
+    }   
 }
 
 - (UIBarButtonItem *)textBarButtonItem:(NSString *)text {

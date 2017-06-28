@@ -141,7 +141,9 @@
             request.fullScreenContent = [item[@"fullScreenContent"] isKindOfClass:[NSNumber class]] ? [item[@"fullScreenContent"] boolValue] : NO;
             request.allowBounce = [item[@"allowBounce"] isKindOfClass:[NSNumber class]] ? [item[@"allowBounce"] boolValue] : YES;
             request.showsIndicator = [item[@"showsIndicator"] isKindOfClass:[NSNumber class]] ? [item[@"showsIndicator"] boolValue] : YES;
-            if ([NSURL URLWithString:request.urlPattern].host.length > 0 || request.urlPattern == nil) {
+            if ([NSURL URLWithString:request.urlPattern].host.length > 0 ||
+                [[NSURL URLWithString:request.urlPattern].scheme isEqualToString:@"file"] ||
+                request.urlPattern == nil) {
                 [requests addObject:request];
             }
         }
