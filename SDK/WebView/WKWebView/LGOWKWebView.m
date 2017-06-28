@@ -20,7 +20,6 @@ static NSArray *webViewPool;
 
 + (void)setPoolSize:(NSInteger)size {
     webViewPoolSize = size;
-    [self refillPool];
 }
 
 + (WKWebView *)requestWebViewFromPool {
@@ -31,6 +30,9 @@ static NSArray *webViewPool;
         webViewPool = [mutablePool copy];
         [self refillPool];
         return webView;
+    }
+    else {
+        [self refillPool];
     }
     return nil;
 }
