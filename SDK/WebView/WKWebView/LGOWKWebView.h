@@ -10,6 +10,10 @@
 
 @interface LGOWKWebView : WKWebView
 
++ (void)setPoolSize:(NSInteger)size;
+
++ (WKWebView *)requestWebViewFromPool;
+
 @property(nonatomic, strong) UIRefreshControl *refreshControl;
 
 @property(nonatomic, strong) NSMutableDictionary *dataModel;

@@ -11,6 +11,40 @@
 
 @implementation LGOWKWebView
 
+static NSInteger webViewPoolSize;
+static NSArray *webViewPool;
+
++ (void)load {
+    [self setPoolSize:2];
+}
+
++ (void)setPoolSize:(NSInteger)size {
+    webViewPoolSize = size;
+    [self refillPool];
+}
+
++ (WKWebView *)requestWebViewFromPool {
+    if (webViewPool.count > 0) {
+        NSMutableArray *mutablePool = [webViewPool mutableCopy];
+        LGOWKWebView *webView = [mutablePool firstObject];
+        [mutablePool removeObjectAtIndex:0];
+        webViewPool = [mutablePool copy];
+        [self refillPool];
+        return webView;
+    }
+    return nil;
+}
+
++ (void)refillPool {
+    if (webViewPool.count < webViewPoolSize) {
+        NSMutableArray *mutablePool = [webViewPool mutableCopy] ?: [NSMutableArray array];
+        for (NSInteger i = 0; i < webViewPoolSize - webViewPool.count; i++) {
+            [mutablePool addObject:[[LGOWKWebView alloc] initWithFrame:CGRectZero]];
+        }
+        webViewPool = [mutablePool copy];
+    }
+}
+
 - (void)dealloc {
     self.navigationDelegate = nil;
     self.UIDelegate = nil;

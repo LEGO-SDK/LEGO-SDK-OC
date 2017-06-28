@@ -12,6 +12,7 @@
 #import "WKWebView+LGOViewControllerArgs.h"
 #import "LGOJavaScriptUserContentController.h"
 #import "LGOBaseNavigationController.h"
+#import "LGOWKWebView.h"
 #import <WebKit/WebKit.h>
 
 @interface LGOBaseViewController ()<WKNavigationDelegate>
@@ -187,9 +188,12 @@
 - (UIView *)webView {
     if (_webView == nil) {
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            _webView = NSClassFromString(@"LGOWKWebView")
-            ? [[NSClassFromString(@"LGOWKWebView") alloc] initWithFrame:self.view.bounds]
-            : [[WKWebView alloc] initWithFrame:self.view.bounds];
+            _webView = [LGOWKWebView requestWebViewFromPool];
+            if (_webView == nil) {
+                _webView = NSClassFromString(@"LGOWKWebView")
+                ? [[NSClassFromString(@"LGOWKWebView") alloc] initWithFrame:self.view.bounds]
+                : [[WKWebView alloc] initWithFrame:self.view.bounds];
+            }
             [(WKWebView *)_webView setLgo_args:self.args];
             [(WKWebView *)_webView setNavigationDelegate:self];
             if ([[[(WKWebView *)_webView configuration] userContentController]
