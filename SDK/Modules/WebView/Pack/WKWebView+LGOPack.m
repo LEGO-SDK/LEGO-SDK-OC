@@ -45,35 +45,21 @@
         if (![LGOWatchDog checkURL:zipURL] || ![LGOWatchDog checkSSL:zipURL]) {
             return [self lgo_PackLoadRequest:request];
         }
-        if ([LGOPack localCachedWithURL:zipURL]) {
-            if ([self respondsToSelector:NSSelectorFromString(@"lgo_progressView")]) {
-                NSObject *progressView = [self performSelector:NSSelectorFromString(@"lgo_progressView")];
-                if ([progressView respondsToSelector:NSSelectorFromString(@"progressView")]) {
-                    UIView *view = [progressView performSelector:NSSelectorFromString(@"progressView")];
-                    if ([view isKindOfClass:[UIView class]]) {
-                        [view setHidden:YES];
-                    }
-                }
+        __block BOOL loaded = NO;
+        [LGOPack createFileServerWithURL:zipURL progressBlock:^(double progress) {
+            
+        } completionBlock:^(NSString *finalPath) {
+            if (zipInnerPath != nil) {
+                finalPath = [finalPath stringByAppendingString:zipInnerPath];
             }
-            [LGOPack createFileServerWithURL:zipURL
-                progressBlock:^(double progress) {
-                }
-                completionBlock:^(NSString *finalPath) {
-                  if (zipInnerPath != nil) {
-                      finalPath = [finalPath stringByAppendingString:zipInnerPath];
-                  }
-                  [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
-                }];
-        } else {
-            [LGOPack createFileServerWithURL:zipURL
-                progressBlock:^(double progress) {
-                }
-                completionBlock:^(NSString *finalPath) {
-                    if (zipInnerPath != nil) {
-                        finalPath = [finalPath stringByAppendingString:zipInnerPath];
-                    }
-                    [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
-                }];
+            else {
+                finalPath = [finalPath stringByAppendingString:@"index.html"];
+            }
+            [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
+            loaded = YES;
+        }];
+        if (loaded) {
+            return nil;
         }
         return [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
     }

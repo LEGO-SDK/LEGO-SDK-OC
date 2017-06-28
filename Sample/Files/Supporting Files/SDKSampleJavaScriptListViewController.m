@@ -37,7 +37,7 @@
                 forDomain:@"raw.githubusercontent.com"];
     LGOBaseViewController *viewController = [LGOBaseViewController new];
     viewController.title = sender.accessibilityLabel;
-    viewController.url = [NSURL URLWithString:[NSString stringWithFormat:@"https://raw.githubusercontent.com/LEGO-SDK/LEGO-SDK-OC/master/Resources/%@.zip?sample.html", sender.accessibilityLabel]];
+    viewController.url = [NSURL URLWithString:[NSString stringWithFormat:@"https://raw.githubusercontent.com/LEGO-SDK/LEGO-SDK-OC/master/Resources/%@.zip?index.html", sender.accessibilityLabel]];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

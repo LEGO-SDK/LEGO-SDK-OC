@@ -6,7 +6,6 @@
 //  Copyright © 2016年 UED Center. All rights reserved.
 //
 
-#import <GCDWebServer/GCDWebServer.h>
 #import <SSZipArchive/SSZipArchive.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "LGOPack.h"
@@ -15,154 +14,108 @@
 
 @implementation LGOPack
 
-static GCDWebServer *sharedServer;
-static NSMutableDictionary *sharedPublicKeys;
-static int serverPort = 10000;
+static NSDictionary *sharedPublicKeys;
 
 + (void)load {
-    [GCDWebServer setLogLevel:4];
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-      sharedServer = [[GCDWebServer alloc] init];
-      [sharedServer addGETHandlerForBasePath:@"/"
-                               directoryPath:[NSString stringWithFormat:@"%@/LGOPack/", NSTemporaryDirectory()]
-                               indexFilename:@"index.html"
-                                    cacheAge:0
-                          allowRangeRequests:YES];
-      for (int i = serverPort; i < serverPort + 100; i++) {
-          if ([sharedServer startWithPort:i bonjourName:nil]) {
-              serverPort = i;
-              break;
-          }
-      }
-      sharedPublicKeys = [NSMutableDictionary dictionary];
-    });
     [[LGOCore modules] addModuleWithName:@"WebView.Pack" instance:[self new]];
 }
 
 + (void)setPublicKey:(NSString *)publicKey forDomain:(NSString *)domain {
+    NSMutableDictionary *mutable = [sharedPublicKeys mutableCopy] ?: [NSMutableDictionary dictionary];
     if (publicKey != nil && domain != nil) {
-        [sharedPublicKeys setObject:publicKey forKey:domain];
+        [mutable setObject:publicKey forKey:domain];
     }
+    sharedPublicKeys = [mutable copy];
 }
 
 + (void)setPublicKey:(NSString *)publicKey forURI:(NSString *)URI {
+    NSMutableDictionary *mutable = [sharedPublicKeys mutableCopy] ?: [NSMutableDictionary dictionary];
     if (publicKey != nil && URI != nil) {
-        [sharedPublicKeys setObject:publicKey forKey:URI];
+        [mutable setObject:publicKey forKey:URI];
     }
-}
-
-+ (BOOL)localCachedWithURL:(NSURL *)URL {
-    NSString *zipName = [URL lastPathComponent];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[[NSBundle mainBundle] pathForResource:zipName ofType:@""]]) {
-        return YES;
-    } else if ([[NSFileManager defaultManager] fileExistsAtPath:[self cachePathWithURL:URL]]) {
-        return YES;
-    }
-    return NO;
-}
-
-+ (void)createCacheDirectory {
-    NSURL *cacheURL =
-        [NSURL URLWithString:[NSString stringWithFormat:@"%@/LGOPack", NSSearchPathForDirectoriesInDomains(
-                                                                           NSCachesDirectory, NSUserDomainMask, YES)
-                                                                           .firstObject]];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[cacheURL path]]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:[self cachePathWithURL:cacheURL]
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil
-                                                        error:nil];
-    }
+    sharedPublicKeys = [mutable copy];
 }
 
 + (void)createFileServerWithURL:(NSURL *)URL
                   progressBlock:(LGOPackFileServerProgressBlock)progressBlock
                 completionBlock:(LGOPackFileServerCreatedBlock)completionBlock {
-    if ([[LGOCore whiteList] count] > 0) {
-        [[LGOCore whiteList] addObject:@"localhost"];
+    if ([LGOCore whiteList].count > 0 && [[LGOCore whiteList] indexOfObject:[self requestDocumentPath:URL]] == NSNotFound) {
+        [[LGOCore whiteList] addObject:[[NSURL fileURLWithPath:[self requestDocumentPath:URL]] absoluteString]];
     }
-    NSString *zipName = [URL lastPathComponent];
-    [[NSOperationQueue new] addOperationWithBlock:^{
-      BOOL noCache = NO;
-      if ([[NSFileManager defaultManager] fileExistsAtPath:[self cachePathWithURL:URL]]) {
-          [SSZipArchive unzipFileAtPath:[self cachePathWithURL:URL]
-              toDestination:[self fileServerPathWithURL:URL]
-              overwrite:YES
-              password:nil
-              progressHandler:^(NSString *_Nonnull entry, unz_file_info zipInfo, long entryNumber, long total) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                  if (progressBlock) {
-                      progressBlock((double)entryNumber / (double)total);
-                  }
-                }];
-              }
-              completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                  completionBlock([self fileServerAddressWithURL:URL]);
-                }];
-              }];
-      } else if ([[NSFileManager defaultManager]
-                     fileExistsAtPath:[[NSBundle mainBundle] pathForResource:zipName ofType:@""]]) {
-          [SSZipArchive unzipFileAtPath:[[NSBundle mainBundle] pathForResource:zipName ofType:@""]
-              toDestination:[self fileServerPathWithURL:URL]
-              overwrite:YES
-              password:nil
-              progressHandler:^(NSString *_Nonnull entry, unz_file_info zipInfo, long entryNumber, long total) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                  if (progressBlock) {
-                      progressBlock((double)entryNumber / (double)total);
-                  }
-                }];
-              }
-              completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                  completionBlock([self fileServerAddressWithURL:URL]);
-                }];
-              }];
-      } else {
-          noCache = YES;
-      }
-      [[[NSURLSession sharedSession]
-            dataTaskWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?_t=%f",
-                                                                            [[URL URLByAppendingPathExtension:@"hash"]
-                                                                                absoluteString],
-                                                                            [[NSDate date] timeIntervalSince1970]]]
-          completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-            if (data != nil) {
-                NSString *md5 = nil;
-                if (URL.host != nil && [self requestPublicKey:URL] != nil) {
-                    NSString *encodedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    if (encodedString != nil) {
-                        md5 = [LGOPackRSA decryptString:encodedString publicKey:[self requestPublicKey:URL]];
-                    }
+    NSString *documentHash = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/.lgopack.hash", [self requestDocumentPath:URL]]
+                                                       encoding:NSUTF8StringEncoding
+                                                          error:NULL];
+    if (documentHash != nil) {
+        completionBlock([[NSURL fileURLWithPath:[self requestDocumentPath:URL]] absoluteString]);
+        [self updateFileServerWithURL:URL localHash:documentHash completionBlock:nil];
+    }
+    else {
+        NSString *bundleFile = [[NSBundle mainBundle] pathForResource:[URL lastPathComponent] ofType:@""];
+        if (bundleFile != nil) {
+            [SSZipArchive unzipFileAtPath:bundleFile toDestination:[self requestDocumentPath:URL] progressHandler:^(NSString * _Nonnull entry, unz_file_info zipInfo, long entryNumber, long total) {
+                if (progressBlock) {
+                    progressBlock((double)entryNumber / (double)total);
                 }
-                if (md5 != nil && md5.length == 32 && ![self isSameWithMD5:md5 URL:URL]) {
-                    [[[NSURLSession sharedSession]
-                        downloadTaskWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?_t=%f",
-                                                                                            [URL absoluteString],
-                                                                                            [[NSDate date]
-                                                                                                timeIntervalSince1970]]]
-                          completionHandler:^(NSURL *_Nullable location, NSURLResponse *_Nullable response,
-                                              NSError *_Nullable error) {
-                            if (error == nil && location != nil && [self isSameWithMD5:md5 fileURL:location]) {
-                                [self createCacheDirectory];
-                                NSError *err;
-                                [[NSFileManager defaultManager] removeItemAtPath:[self cachePathWithURL:URL]
-                                                                           error:NULL];
-                                [[NSFileManager defaultManager] copyItemAtPath:[location path]
-                                                                        toPath:[self cachePathWithURL:URL]
-                                                                         error:&err];
-                                if (err == nil && noCache) {
-                                    [self createFileServerWithURL:URL
-                                                    progressBlock:progressBlock
-                                                  completionBlock:completionBlock];
-                                }
-                            }
-                          }] resume];
+            } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nullable error) {
+                if (error == nil) {
+                    NSString *md5 = [self requestMD5WithData:[NSData dataWithContentsOfFile:bundleFile]];
+                    [md5 writeToFile:[NSString stringWithFormat:@"%@/.lgopack.hash", [self requestDocumentPath:URL]]
+                          atomically:YES
+                            encoding:NSUTF8StringEncoding
+                               error:NULL];
+                    completionBlock([[NSURL fileURLWithPath:[self requestDocumentPath:URL]] absoluteString]);
+                    [self updateFileServerWithURL:URL localHash:documentHash completionBlock: completionBlock];
+                }
+            }];
+        }
+        else {
+            [self updateFileServerWithURL:URL localHash:documentHash completionBlock: completionBlock];
+        }
+    }
+}
+
++ (void)updateFileServerWithURL:(NSURL *)URL localHash:(NSString *)localHash completionBlock:(LGOPackFileServerCreatedBlock)completionBlock {
+    NSString *remoteHashURLString = [NSString stringWithFormat:@"%@?_t=%f", [[URL URLByAppendingPathExtension:@"hash"] absoluteString], [[NSDate date] timeIntervalSince1970]];
+    [[[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:remoteHashURLString] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data != nil) {
+            NSString *remoteHash = nil;
+            if (URL.host != nil && [self requestPublicKey:URL] != nil) {
+                NSString *encodedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                if (encodedString != nil) {
+                    remoteHash = [LGOPackRSA decryptString:encodedString publicKey:[self requestPublicKey:URL]];
                 }
             }
-          }] resume];
-    }];
+            if (remoteHash != nil && remoteHash.length == 32 && ![localHash isEqualToString:remoteHash]) {
+                [[[NSURLSession sharedSession] downloadTaskWithURL:URL completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    if (error == nil && location != nil) {
+                        NSError *err;
+                        [[NSFileManager defaultManager] createDirectoryAtPath:[self requestPackageCachePath:URL] withIntermediateDirectories:YES attributes:nil error:NULL];
+                        [[NSFileManager defaultManager] removeItemAtPath:[self requestPackageCachePath:URL]
+                                                                   error:NULL];
+                        [[NSFileManager defaultManager] copyItemAtPath:[location path]
+                                                                toPath:[self requestPackageCachePath:URL]
+                                                                 error:&err];
+                        if (err == nil) {
+                            NSString *downloadedHash = [self requestMD5WithData:[NSData dataWithContentsOfFile:[self requestPackageCachePath:URL]]];
+                            if ([downloadedHash isEqualToString:remoteHash]) {
+                                [SSZipArchive unzipFileAtPath:[self requestPackageCachePath:URL] toDestination:[self requestDocumentPath:URL] progressHandler:^(NSString * _Nonnull entry, unz_file_info zipInfo, long entryNumber, long total) { } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nullable error) {
+                                    if (error == nil) {
+                                        [downloadedHash writeToFile:[NSString stringWithFormat:@"%@/.lgopack.hash", [self requestDocumentPath:URL]]
+                                              atomically:YES
+                                                encoding:NSUTF8StringEncoding
+                                                   error:NULL];
+                                        if (completionBlock) {
+                                            completionBlock([[NSURL fileURLWithPath:[self requestDocumentPath:URL]] absoluteString]);
+                                        }
+                                    }
+                                }];
+                            }
+                        }
+                    }
+                }] resume];
+            }
+        }
+    }] resume];
 }
 
 + (NSString *)requestPublicKey:(NSURL *)URL {
@@ -179,47 +132,18 @@ static int serverPort = 10000;
     return nil;
 }
 
-+ (BOOL)isSameWithMD5:(NSString *)MD5 fileURL:(NSURL *)fileURL {
-    NSData *fileData = [NSData dataWithContentsOfFile:[fileURL path]];
-    if (fileData != nil) {
-        return [[self requestMD5WithData:fileData] isEqualToString:[MD5 lowercaseString]];
-    }
-    return NO;
-}
-
-+ (BOOL)isSameWithMD5:(NSString *)MD5 URL:(NSURL *)URL {
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[self cachePathWithURL:URL]]) {
-        NSData *fileData = [NSData dataWithContentsOfFile:[self cachePathWithURL:URL]];
-        if (fileData != nil) {
-            return [[self requestMD5WithData:fileData] isEqualToString:[MD5 lowercaseString]];
-        }
-    } else if ([[NSFileManager defaultManager]
-                   fileExistsAtPath:[[NSBundle mainBundle] pathForResource:[URL lastPathComponent] ofType:@""]]) {
-        NSData *fileData =
-            [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[URL lastPathComponent] ofType:@""]];
-        if (fileData != nil) {
-            return [[self requestMD5WithData:fileData] isEqualToString:[MD5 lowercaseString]];
-        }
-    }
-    return NO;
-}
-
-+ (NSString *)cacheKey:(NSURL *)URL {
++ (NSString *)requestCacheKey:(NSURL *)URL {
     return [self requestMD5WithString:[[URL.absoluteString componentsSeparatedByString:@"?"] firstObject]];
 }
 
-+ (NSString *)cachePathWithURL:(NSURL *)URL {
-    return [NSString stringWithFormat:@"%@/LGOPack/%@",
++ (NSString *)requestPackageCachePath:(NSURL *)URL {
+    return [NSString stringWithFormat:@"%@/LGOPack/%@.zip",
                             NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject,
-                            [self cacheKey:URL]];
+                            [self requestCacheKey:URL]];
 }
 
-+ (NSString *)fileServerPathWithURL:(NSURL *)URL {
-    return [NSString stringWithFormat:@"%@/LGOPack/%@", NSTemporaryDirectory(), [self cacheKey:URL]];
-}
-
-+ (NSString *)fileServerAddressWithURL:(NSURL *)URL {
-    return [NSString stringWithFormat:@"http://localhost:%d/%@/", serverPort, [self cacheKey:URL]];
++ (NSString *)requestDocumentPath:(NSURL *)URL {
+    return [NSString stringWithFormat:@"%@LGOPack/%@", NSTemporaryDirectory(), [self requestCacheKey:URL]];
 }
 
 + (NSString *)requestMD5WithString:(NSString *)str

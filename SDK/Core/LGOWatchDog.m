@@ -23,6 +23,13 @@
             }
         }
     }
+    else {
+        for (NSString *whiteItem in [LGOCore.whiteList copy]) {
+            if ([URL.absoluteString hasPrefix:whiteItem]) {
+                return YES;
+            }
+        }
+    }
     return NO;
 }
 

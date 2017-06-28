@@ -101,7 +101,6 @@ Pod::Spec.new do |s|
     api.subspec 'WebView' do |webview|
       webview.subspec 'Pack' do |m|
         m.source_files = 'SDK/Modules/WebView/Pack/*.{h,m}'
-        m.dependency 'GCDWebServer'
         m.dependency 'SSZipArchive'
       end
     end
