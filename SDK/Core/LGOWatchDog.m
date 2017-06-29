@@ -48,6 +48,9 @@
         }
         return YES;
     }
+    else if ([URL.scheme isEqualToString:@"file"]) {
+        return YES;
+    }
     return NO;
 }
 
