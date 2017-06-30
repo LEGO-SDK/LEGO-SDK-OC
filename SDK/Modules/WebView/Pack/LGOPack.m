@@ -64,12 +64,12 @@ static NSDictionary *sharedPublicKeys;
                             encoding:NSUTF8StringEncoding
                                error:NULL];
                     completionBlock([[NSURL fileURLWithPath:[self requestDocumentPath:URL]] absoluteString]);
-                    [self updateFileServerWithURL:URL localHash:documentHash completionBlock: completionBlock];
+                    [self updateFileServerWithURL:URL localHash:md5 completionBlock: completionBlock];
                 }
             }];
         }
         else {
-            [self updateFileServerWithURL:URL localHash:documentHash completionBlock: completionBlock];
+            [self updateFileServerWithURL:URL localHash:nil completionBlock: completionBlock];
         }
     }
 }
