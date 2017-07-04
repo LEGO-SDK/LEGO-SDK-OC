@@ -46,13 +46,7 @@ static NSDictionary *sharedPublicKeys;
                                                        encoding:NSUTF8StringEncoding
                                                           error:NULL];
     if (documentHash != nil) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:[self requestTmpPath:URL]
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil
-                                                        error:NULL];
-        [[NSFileManager defaultManager] copyItemAtPath:[self requestDocumentPath:URL]
-                                                toPath:[self requestTmpPath:URL]
-                                                 error:NULL];
+        [self cloneFromPath:[self requestDocumentPath:URL] toPath:[self requestTmpPath:URL]];
         completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
         [self updateFileServerWithURL:URL localHash:documentHash completionBlock:nil];
     }
@@ -70,13 +64,7 @@ static NSDictionary *sharedPublicKeys;
                           atomically:YES
                             encoding:NSUTF8StringEncoding
                                error:NULL];
-                    [[NSFileManager defaultManager] createDirectoryAtPath:[self requestTmpPath:URL]
-                                              withIntermediateDirectories:YES
-                                                               attributes:nil
-                                                                    error:NULL];
-                    [[NSFileManager defaultManager] copyItemAtPath:[self requestDocumentPath:URL]
-                                                            toPath:[self requestTmpPath:URL]
-                                                             error:NULL];
+                    [self cloneFromPath:[self requestDocumentPath:URL] toPath:[self requestTmpPath:URL]];
                     completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
                     [self updateFileServerWithURL:URL localHash:md5 completionBlock: completionBlock];
                 }
@@ -118,13 +106,7 @@ static NSDictionary *sharedPublicKeys;
                                                          atomically:YES
                                                            encoding:NSUTF8StringEncoding
                                                               error:NULL];
-                                        [[NSFileManager defaultManager] createDirectoryAtPath:[self requestTmpPath:URL]
-                                                                  withIntermediateDirectories:YES
-                                                                                   attributes:nil
-                                                                                        error:NULL];
-                                        [[NSFileManager defaultManager] copyItemAtPath:[self requestDocumentPath:URL]
-                                                                                toPath:[self requestTmpPath:URL]
-                                                                                 error:NULL];
+                                        [self cloneFromPath:[self requestDocumentPath:URL] toPath:[self requestTmpPath:URL]];
                                         if (completionBlock) {
                                             completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
                                         }
@@ -137,6 +119,18 @@ static NSDictionary *sharedPublicKeys;
             }
         }
     }] resume];
+}
+
++ (void)cloneFromPath:(NSString *)fromPath toPath:(NSString *)toPath {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:toPath]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:toPath withIntermediateDirectories:YES attributes:nil error:NULL];
+    }
+    [[NSFileManager defaultManager] replaceItemAtURL:[NSURL URLWithString:toPath]
+                                       withItemAtURL:[NSURL URLWithString:fromPath]
+                                      backupItemName:nil
+                                             options:kNilOptions
+                                    resultingItemURL:nil
+                                               error:NULL];
 }
 
 + (NSString *)requestPublicKey:(NSURL *)URL {
