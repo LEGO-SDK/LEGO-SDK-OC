@@ -143,7 +143,9 @@ static NSDictionary *sharedPublicKeys;
 }
 
 + (NSString *)requestDocumentPath:(NSURL *)URL {
-    return [NSString stringWithFormat:@"%@LGOPack/%@", NSTemporaryDirectory(), [self requestCacheKey:URL]];
+    return [NSString stringWithFormat:@"%@/LGOPack/%@",
+            NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject,
+            [self requestCacheKey:URL]];
 }
 
 + (NSString *)requestMD5WithString:(NSString *)str
