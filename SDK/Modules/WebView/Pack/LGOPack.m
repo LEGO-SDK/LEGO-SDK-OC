@@ -122,15 +122,14 @@ static NSDictionary *sharedPublicKeys;
 }
 
 + (void)cloneFromPath:(NSString *)fromPath toPath:(NSString *)toPath {
-    if (![[NSFileManager defaultManager] fileExistsAtPath:toPath]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:toPath withIntermediateDirectories:YES attributes:nil error:NULL];
+    [[NSFileManager defaultManager] removeItemAtPath:toPath error:NULL];
+    [[NSFileManager defaultManager] createDirectoryAtPath:toPath withIntermediateDirectories:YES attributes:nil error:NULL];
+    for (NSString *currentPath in [[NSFileManager defaultManager] enumeratorAtPath:fromPath]) {
+        [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithFormat:@"%@/%@", fromPath, currentPath]
+                                                toPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath]
+                                                 error:NULL];
     }
-    [[NSFileManager defaultManager] replaceItemAtURL:[NSURL URLWithString:toPath]
-                                       withItemAtURL:[NSURL URLWithString:fromPath]
-                                      backupItemName:nil
-                                             options:kNilOptions
-                                    resultingItemURL:nil
-                                               error:NULL];
+    [[NSFileManager defaultManager] copyItemAtPath:fromPath toPath:toPath error:NULL];
 }
 
 + (NSString *)requestPublicKey:(NSURL *)URL {
