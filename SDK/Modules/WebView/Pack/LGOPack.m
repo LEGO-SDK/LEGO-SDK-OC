@@ -39,14 +39,21 @@ static NSDictionary *sharedPublicKeys;
 + (void)createFileServerWithURL:(NSURL *)URL
                   progressBlock:(LGOPackFileServerProgressBlock)progressBlock
                 completionBlock:(LGOPackFileServerCreatedBlock)completionBlock {
-    if ([LGOCore whiteList].count > 0 && [[LGOCore whiteList] indexOfObject:[self requestDocumentPath:URL]] == NSNotFound) {
-        [[LGOCore whiteList] addObject:[[NSURL fileURLWithPath:[self requestDocumentPath:URL]] absoluteString]];
+    if ([LGOCore whiteList].count > 0 && [[LGOCore whiteList] indexOfObject:[self requestTmpPath:URL]] == NSNotFound) {
+        [[LGOCore whiteList] addObject:[[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]];
     }
     NSString *documentHash = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/.lgopack.hash", [self requestDocumentPath:URL]]
                                                        encoding:NSUTF8StringEncoding
                                                           error:NULL];
     if (documentHash != nil) {
-        completionBlock([[NSURL fileURLWithPath:[self requestDocumentPath:URL]] absoluteString]);
+        [[NSFileManager defaultManager] createDirectoryAtPath:[self requestTmpPath:URL]
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:NULL];
+        [[NSFileManager defaultManager] copyItemAtPath:[self requestDocumentPath:URL]
+                                                toPath:[self requestTmpPath:URL]
+                                                 error:NULL];
+        completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
         [self updateFileServerWithURL:URL localHash:documentHash completionBlock:nil];
     }
     else {
@@ -63,7 +70,14 @@ static NSDictionary *sharedPublicKeys;
                           atomically:YES
                             encoding:NSUTF8StringEncoding
                                error:NULL];
-                    completionBlock([[NSURL fileURLWithPath:[self requestDocumentPath:URL]] absoluteString]);
+                    [[NSFileManager defaultManager] createDirectoryAtPath:[self requestTmpPath:URL]
+                                              withIntermediateDirectories:YES
+                                                               attributes:nil
+                                                                    error:NULL];
+                    [[NSFileManager defaultManager] copyItemAtPath:[self requestDocumentPath:URL]
+                                                            toPath:[self requestTmpPath:URL]
+                                                             error:NULL];
+                    completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
                     [self updateFileServerWithURL:URL localHash:md5 completionBlock: completionBlock];
                 }
             }];
@@ -101,11 +115,18 @@ static NSDictionary *sharedPublicKeys;
                                 [SSZipArchive unzipFileAtPath:[self requestPackageCachePath:URL] toDestination:[self requestDocumentPath:URL] progressHandler:^(NSString * _Nonnull entry, unz_file_info zipInfo, long entryNumber, long total) { } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nullable error) {
                                     if (error == nil) {
                                         [downloadedHash writeToFile:[NSString stringWithFormat:@"%@/.lgopack.hash", [self requestDocumentPath:URL]]
-                                              atomically:YES
-                                                encoding:NSUTF8StringEncoding
-                                                   error:NULL];
+                                                         atomically:YES
+                                                           encoding:NSUTF8StringEncoding
+                                                              error:NULL];
+                                        [[NSFileManager defaultManager] createDirectoryAtPath:[self requestTmpPath:URL]
+                                                                  withIntermediateDirectories:YES
+                                                                                   attributes:nil
+                                                                                        error:NULL];
+                                        [[NSFileManager defaultManager] copyItemAtPath:[self requestDocumentPath:URL]
+                                                                                toPath:[self requestTmpPath:URL]
+                                                                                 error:NULL];
                                         if (completionBlock) {
-                                            completionBlock([[NSURL fileURLWithPath:[self requestDocumentPath:URL]] absoluteString]);
+                                            completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
                                         }
                                     }
                                 }];
@@ -138,13 +159,19 @@ static NSDictionary *sharedPublicKeys;
 
 + (NSString *)requestPackageCachePath:(NSURL *)URL {
     return [NSString stringWithFormat:@"%@/LGOPack/%@.zip",
-                            NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject,
-                            [self requestCacheKey:URL]];
+            NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject,
+            [self requestCacheKey:URL]];
 }
 
 + (NSString *)requestDocumentPath:(NSURL *)URL {
     return [NSString stringWithFormat:@"%@/LGOPack/%@",
             NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject,
+            [self requestCacheKey:URL]];
+}
+
++ (NSString *)requestTmpPath:(NSURL *)URL {
+    return [NSString stringWithFormat:@"%@/LGOPack/%@",
+            NSTemporaryDirectory(),
             [self requestCacheKey:URL]];
 }
 
