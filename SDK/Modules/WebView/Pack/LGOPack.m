@@ -125,11 +125,11 @@ static NSDictionary *sharedPublicKeys;
     [[NSFileManager defaultManager] removeItemAtPath:toPath error:NULL];
     [[NSFileManager defaultManager] createDirectoryAtPath:toPath withIntermediateDirectories:YES attributes:nil error:NULL];
     for (NSString *currentPath in [[NSFileManager defaultManager] enumeratorAtPath:fromPath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath] error:NULL];
         [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithFormat:@"%@/%@", fromPath, currentPath]
                                                 toPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath]
                                                  error:NULL];
     }
-    [[NSFileManager defaultManager] copyItemAtPath:fromPath toPath:toPath error:NULL];
 }
 
 + (NSString *)requestPublicKey:(NSURL *)URL {
