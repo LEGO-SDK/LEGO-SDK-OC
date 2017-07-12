@@ -226,12 +226,14 @@
                                                @"JSON.parse(JSONResString);JSMessageCallbacks[%ld].call("
                                                @"null, JSMetaParams, JSCallbackParams)})()",
                                                base64MetaString, base64ResString, (long)callbackID.integerValue];
-                [webView evaluateJavaScript:code
-                          completionHandler:^(id _Nullable _, NSError *_Nullable error) {
-                            if (error != nil) {
-                                NSLog(@"%@", error);
-                            }
-                          }];
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [webView evaluateJavaScript:code
+                              completionHandler:^(id _Nullable _, NSError *_Nullable error) {
+                                if (error != nil) {
+                                    NSLog(@"%@", error);
+                                }
+                              }];
+                }];
             }
         }
     }
@@ -292,12 +294,14 @@
         }
         if ([next isKindOfClass:[UIViewController class]] &&
             ([(UIViewController *)next title] == nil || [(UIViewController *)next title].length == 0)) {
-            [self.webView evaluateJavaScript:@"document.title"
-                           completionHandler:^(id _Nullable title, NSError *_Nullable error) {
-                             if ([title isKindOfClass:[NSString class]]) {
-                                 [(UIViewController *)next setTitle:title];
-                             }
-                           }];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self.webView evaluateJavaScript:@"document.title"
+                               completionHandler:^(id _Nullable title, NSError *_Nullable error) {
+                                   if ([title isKindOfClass:[NSString class]]) {
+                                       [(UIViewController *)next setTitle:title];
+                                   }
+                               }];
+            }];
         }
     }
 }
