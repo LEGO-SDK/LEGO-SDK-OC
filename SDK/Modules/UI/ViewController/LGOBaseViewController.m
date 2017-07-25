@@ -37,6 +37,14 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.webView];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    if ([[LGOCore modules] moduleWithName:@"WebView.Skeleton"] != nil) {
+        if ([[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] respondsToSelector:@selector(attachSkeleton:URL:)]) {
+            [[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] performSelector:@selector(attachSkeleton:URL:) withObject:self.view withObject:self.url];
+        }
+    }
+#pragma clang diagnostic pop
     [self loadSetting];
     [self loadRequest];
     for (LGOBaseViewControllerHookBlock hookBlock in self.hooks[@"viewDidLoad"]) {
@@ -215,6 +223,17 @@
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
     [webView reload];
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    if ([[LGOCore modules] moduleWithName:@"WebView.Skeleton"] != nil) {
+        if ([[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] respondsToSelector:@selector(dismiss:)]) {
+            [[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] performSelector:@selector(dismiss:) withObject:nil];
+        }
+    }
+#pragma clang diagnostic pop
 }
 
 @end

@@ -47,6 +47,8 @@
 		90ABC4121EE7A271005C4CDB /* LGOToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ABC4111EE7A271005C4CDB /* LGOToast.m */; };
 		90BCE6331E95DD3D00A8299D /* LGOPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BCE6321E95DD3D00A8299D /* LGOPicker.m */; };
 		90BCE6381E95EAD000A8299D /* UI.Picker.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BCE6371E95EAD000A8299D /* UI.Picker.html */; };
+		90E2365A1F27436900DDFEAA /* skeleton.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E236591F27436900DDFEAA /* skeleton.html */; };
+		90E2365E1F2743D100DDFEAA /* LGOSkeleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E2365D1F2743D100DDFEAA /* LGOSkeleton.m */; };
 		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
 		90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCD21D470892005F4746 /* AppDelegate.m */; };
 		90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E8CCDA1D470892005F4746 /* Assets.xcassets */; };
@@ -180,6 +182,9 @@
 		90BCE6311E95DD3D00A8299D /* LGOPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPicker.h; sourceTree = "<group>"; };
 		90BCE6321E95DD3D00A8299D /* LGOPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPicker.m; sourceTree = "<group>"; };
 		90BCE6371E95EAD000A8299D /* UI.Picker.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.Picker.html; sourceTree = "<group>"; };
+		90E236591F27436900DDFEAA /* skeleton.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = skeleton.html; sourceTree = "<group>"; };
+		90E2365C1F2743D100DDFEAA /* LGOSkeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOSkeleton.h; sourceTree = "<group>"; };
+		90E2365D1F2743D100DDFEAA /* LGOSkeleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOSkeleton.m; sourceTree = "<group>"; };
 		90E8CCCC1D470892005F4746 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E8CCCF1D470892005F4746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90E8CCD11D470892005F4746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -502,6 +507,15 @@
 			path = Picker;
 			sourceTree = "<group>";
 		};
+		90E2365B1F2743B900DDFEAA /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				90E2365C1F2743D100DDFEAA /* LGOSkeleton.h */,
+				90E2365D1F2743D100DDFEAA /* LGOSkeleton.m */,
+			);
+			path = Skeleton;
+			sourceTree = "<group>";
+		};
 		90E8CCA51D4707E8005F4746 = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +544,7 @@
 				90E8CCDA1D470892005F4746 /* Assets.xcassets */,
 				90E8CCDC1D470892005F4746 /* LaunchScreen.storyboard */,
 				90E8CCDF1D470892005F4746 /* Info.plist */,
+				90E236591F27436900DDFEAA /* skeleton.html */,
 				90F8D3E31D61CA7800CBEDB2 /* weui.zip */,
 				90A2D4DD1E8FA870001596C7 /* weui.zip.pub */,
 				90E8CCCE1D470892005F4746 /* Supporting Files */,
@@ -707,6 +722,7 @@
 		90F8D3EE1D62B17600CBEDB2 /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				90E2365B1F2743B900DDFEAA /* Skeleton */,
 				90F8D3EF1D62B17600CBEDB2 /* Pack */,
 			);
 			path = WebView;
@@ -808,6 +824,7 @@
 				90E8CD251D47341B005F4746 /* Native.FileManager.html in Resources */,
 				90F8D3E41D61CA7800CBEDB2 /* weui.zip in Resources */,
 				90E8CD2A1D47341B005F4746 /* UI.ActionSheet.html in Resources */,
+				90E2365A1F27436900DDFEAA /* skeleton.html in Resources */,
 				90A2D4FF1E949B50001596C7 /* SDKSample.storyboard in Resources */,
 				90E8CD211D47341B005F4746 /* Native.CanOpenURL.html in Resources */,
 				90A2D4DE1E8FA870001596C7 /* weui.zip.pub in Resources */,
@@ -887,6 +904,7 @@
 			files = (
 				40608A3C1D5759DC00219874 /* LGORefresh.m in Sources */,
 				90A2D4FD1E949B22001596C7 /* LGOBaseNavigationController.m in Sources */,
+				90E2365E1F2743D100DDFEAA /* LGOSkeleton.m in Sources */,
 				906F11DE1D5C7C2B001F64DF /* LGOModalController.m in Sources */,
 				90A2D4FA1E949214001596C7 /* LGOBaseViewController.m in Sources */,
 				90F8D3D71D6162CB00CBEDB2 /* LGOProgressView.m in Sources */,
@@ -1047,7 +1065,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8M2FQ87SLP;
 				INFOPLIST_FILE = Sample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1064,7 +1082,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8M2FQ87SLP;
 				INFOPLIST_FILE = Sample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
