@@ -56,7 +56,7 @@ static BOOL handleDismiss = NO;
         }
         [self.webView removeFromSuperview];
         handleDismiss = NO;
-        [self.webView evaluateJavaScript:@"handleRequest('%@')" completionHandler:^(id _Nullable value, NSError * _Nullable error) {
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"handleRequest('%@')", URL.absoluteString] completionHandler:^(id _Nullable value, NSError * _Nullable error) {
             if ([value isKindOfClass:[NSNumber class]]) {
                 if ([value boolValue]) {
                     handleDismiss = YES;
