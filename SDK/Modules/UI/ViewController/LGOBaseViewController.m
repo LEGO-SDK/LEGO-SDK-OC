@@ -132,7 +132,12 @@
         }
     }
     else {
-        self.webView.frame = self.view.bounds;
+        CGFloat topLength = self.topLayoutGuide.length;
+        CGFloat bottomLength = self.bottomLayoutGuide.length;
+        self.webView.frame = CGRectMake(0.0,
+                                        topLength,
+                                        self.view.bounds.size.width,
+                                        self.view.bounds.size.height - topLength - bottomLength);
     }
 }
 
