@@ -42,7 +42,7 @@ static NSDictionary *sharedPublicKeys;
     if ([LGOCore whiteList].count > 0 && [[LGOCore whiteList] indexOfObject:[self requestTmpPath:URL]] == NSNotFound) {
         [[LGOCore whiteList] addObject:[[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]];
     }
-    NSString *documentHash = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/.lgopack.hash", [self requestDocumentPath:URL]]
+    NSString *documentHash = [NSString stringWithContentsOfFile:[self requestLocalHashPath:URL]
                                                        encoding:NSUTF8StringEncoding
                                                           error:NULL];
     if (documentHash != nil) {
@@ -60,7 +60,7 @@ static NSDictionary *sharedPublicKeys;
             } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nullable error) {
                 if (error == nil) {
                     NSString *md5 = [self requestMD5WithData:[NSData dataWithContentsOfFile:bundleFile]];
-                    [md5 writeToFile:[NSString stringWithFormat:@"%@/.lgopack.hash", [self requestDocumentPath:URL]]
+                    [md5 writeToFile:[self requestLocalHashPath:URL]
                           atomically:YES
                             encoding:NSUTF8StringEncoding
                                error:NULL];
@@ -102,7 +102,7 @@ static NSDictionary *sharedPublicKeys;
                             if ([downloadedHash isEqualToString:remoteHash]) {
                                 [SSZipArchive unzipFileAtPath:[self requestPackageCachePath:URL] toDestination:[self requestDocumentPath:URL] progressHandler:^(NSString * _Nonnull entry, unz_file_info zipInfo, long entryNumber, long total) { } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nullable error) {
                                     if (error == nil) {
-                                        [downloadedHash writeToFile:[NSString stringWithFormat:@"%@/.lgopack.hash", [self requestDocumentPath:URL]]
+                                        [downloadedHash writeToFile:[self requestLocalHashPath:URL]
                                                          atomically:YES
                                                            encoding:NSUTF8StringEncoding
                                                               error:NULL];
@@ -144,6 +144,13 @@ static NSDictionary *sharedPublicKeys;
         }
     }
     return nil;
+}
+
++ (NSString *)requestLocalHashPath:(NSURL *)URL {
+    NSString *appVersionString = [NSString stringWithFormat:@".%@.%@",
+                                  [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"],
+                                  [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
+    return [NSString stringWithFormat:@"%@/.lgopack%@.hash", [self requestDocumentPath:URL], appVersionString];
 }
 
 + (NSString *)requestCacheKey:(NSURL *)URL {
