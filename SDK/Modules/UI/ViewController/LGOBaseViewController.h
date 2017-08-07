@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "LGOPage.h"
 
+@class WKWebView, WKNavigation;
+
 typedef void(^LGOBaseViewControllerHookBlock)();
 
 @interface LGOBaseViewController : UIViewController
@@ -23,5 +25,11 @@ typedef void(^LGOBaseViewControllerHookBlock)();
 - (void)reloadSetting:(LGOPageRequest *)newSetting;
 
 - (void)addHook:(LGOBaseViewControllerHookBlock)hookBlock forMethod:(NSString *)forMethod;
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView;
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation;
 
 @end

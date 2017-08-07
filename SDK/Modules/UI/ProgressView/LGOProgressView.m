@@ -24,6 +24,7 @@
     self = [super init];
     if (self) {
         _progressView = [[UIProgressView alloc] init];
+        _progressView.trackTintColor = [UIColor clearColor];
     }
     return self;
 }
