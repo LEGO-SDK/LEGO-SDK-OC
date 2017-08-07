@@ -17,6 +17,7 @@
 @property(nonatomic, copy) NSString *path;              // an URLString.
 @property(nonatomic, assign) BOOL animated;             // push or pop need animation. Defaults to true.
 @property(nonatomic, copy) NSDictionary *args;          // deliver context to next ViewController.
+@property(nonatomic, copy) NSString *preloadToken;      // token for LGOPreload
 
 @end
 
@@ -100,6 +101,7 @@ static NSDate *lastPush;
     nextViewController.hidesBottomBarWhenPushed = YES;
     nextViewController.url = URL;
     nextViewController.args = self.request.args;
+    nextViewController.preloadToken = self.request.preloadToken;
     UINavigationController *navigationController = [[self.request.context requestViewController] navigationController];
     if (navigationController == nil) {
         return
@@ -139,6 +141,7 @@ static NSDate *lastPush;
     ? ((NSNumber *)dictionary[@"animated"]).boolValue
     : YES; 
     request.args = [dictionary[@"args"] isKindOfClass:[NSDictionary class]] ? dictionary[@"args"] : @{};
+    request.preloadToken = [dictionary[@"preloadToken"] isKindOfClass:[NSString class]] ? dictionary[@"preloadToken"] : nil;
     return [self buildWithRequest:request];
 }
 

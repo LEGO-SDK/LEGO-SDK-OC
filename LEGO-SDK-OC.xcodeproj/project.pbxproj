@@ -47,6 +47,7 @@
 		90ABC4121EE7A271005C4CDB /* LGOToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ABC4111EE7A271005C4CDB /* LGOToast.m */; };
 		90BCE6331E95DD3D00A8299D /* LGOPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BCE6321E95DD3D00A8299D /* LGOPicker.m */; };
 		90BCE6381E95EAD000A8299D /* UI.Picker.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BCE6371E95EAD000A8299D /* UI.Picker.html */; };
+		90C6C2F91F381FED002ECF0C /* LGOPreload.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6C2F81F381FED002ECF0C /* LGOPreload.m */; };
 		90E2365A1F27436900DDFEAA /* skeleton.html in Resources */ = {isa = PBXBuildFile; fileRef = 90E236591F27436900DDFEAA /* skeleton.html */; };
 		90E2365E1F2743D100DDFEAA /* LGOSkeleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E2365D1F2743D100DDFEAA /* LGOSkeleton.m */; };
 		90E8CCD01D470892005F4746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E8CCCF1D470892005F4746 /* main.m */; };
@@ -182,6 +183,8 @@
 		90BCE6311E95DD3D00A8299D /* LGOPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPicker.h; sourceTree = "<group>"; };
 		90BCE6321E95DD3D00A8299D /* LGOPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPicker.m; sourceTree = "<group>"; };
 		90BCE6371E95EAD000A8299D /* UI.Picker.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UI.Picker.html; sourceTree = "<group>"; };
+		90C6C2F71F381FED002ECF0C /* LGOPreload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPreload.h; sourceTree = "<group>"; };
+		90C6C2F81F381FED002ECF0C /* LGOPreload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPreload.m; sourceTree = "<group>"; };
 		90E236591F27436900DDFEAA /* skeleton.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = skeleton.html; sourceTree = "<group>"; };
 		90E2365C1F2743D100DDFEAA /* LGOSkeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOSkeleton.h; sourceTree = "<group>"; };
 		90E2365D1F2743D100DDFEAA /* LGOSkeleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOSkeleton.m; sourceTree = "<group>"; };
@@ -507,6 +510,15 @@
 			path = Picker;
 			sourceTree = "<group>";
 		};
+		90C6C2F61F381FD8002ECF0C /* Preload */ = {
+			isa = PBXGroup;
+			children = (
+				90C6C2F71F381FED002ECF0C /* LGOPreload.h */,
+				90C6C2F81F381FED002ECF0C /* LGOPreload.m */,
+			);
+			path = Preload;
+			sourceTree = "<group>";
+		};
 		90E2365B1F2743B900DDFEAA /* Skeleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -722,6 +734,7 @@
 		90F8D3EE1D62B17600CBEDB2 /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				90C6C2F61F381FD8002ECF0C /* Preload */,
 				90E2365B1F2743B900DDFEAA /* Skeleton */,
 				90F8D3EF1D62B17600CBEDB2 /* Pack */,
 			);
@@ -926,6 +939,7 @@
 				9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */,
 				906F11E11D5C7C2B001F64DF /* LGONavigationController.m in Sources */,
 				40608A181D52F0F200219874 /* LGOActionSheet.m in Sources */,
+				90C6C2F91F381FED002ECF0C /* LGOPreload.m in Sources */,
 				90E8CCD31D470892005F4746 /* AppDelegate.m in Sources */,
 				90F8D3FA1D62B17600CBEDB2 /* UIWebView+LGOPack.m in Sources */,
 				90E8CD4D1D473BB5005F4746 /* LGOProtocols.m in Sources */,

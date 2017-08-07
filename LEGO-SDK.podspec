@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LEGO-SDK"
-  s.version      = "0.4.3.5"
+  s.version      = "0.5.0"
   s.summary      = "LEGO-SDK is bridge via WebView and Native."
   s.description  = <<-DESC
                       LEGO-SDK is bridge via WebView and Native.
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.license      = "Apache License, Version 2.0"
   s.author             = { "PonyCui" => "cuis@vip.qq.com" }
   s.platform     = :ios, "8.0"
-  s.source       = { :git => "https://github.com/LEGO-SDK/LEGO-SDK-OC.git", :tag => "0.4.3.5" }
+  s.source       = { :git => "https://github.com/LEGO-SDK/LEGO-SDK-OC.git", :tag => "0.5.0" }
   s.requires_arc = true
   s.subspec 'Core' do |core|
     core.source_files = 'SDK/Core/*.{h,m}', 'SDK/WebView/UIWebView/*.{h,m}', 'SDK/WebView/WKWebView/*.{h,m}'
@@ -102,6 +102,9 @@ Pod::Spec.new do |s|
       webview.subspec 'Pack' do |m|
         m.source_files = 'SDK/Modules/WebView/Pack/*.{h,m}'
         m.dependency 'SSZipArchive'
+      end
+      webview.subspec 'Skeleton' do |m|
+        m.source_files = 'SDK/Modules/WebView/Skeleton/*.{h,m}'
       end
     end
   end

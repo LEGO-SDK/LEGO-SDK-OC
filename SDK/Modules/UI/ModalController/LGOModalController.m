@@ -44,6 +44,7 @@ typedef enum : NSUInteger {
 @property(nonatomic, assign) BOOL nonMask;              // maskview will not be rended.
 @property(nonatomic, strong) NSDictionary *args;        // deliver args to next ViewController
 @property(nonatomic, strong) LGOModalStyle *modalStyle; // next modal style.
+@property(nonatomic, copy) NSString *preloadToken;      // token for LGOPreload
 
 @end
 
@@ -155,6 +156,7 @@ NSDate *lastPresent;
     LGOBaseViewController *nextViewController = [LGOBaseViewController new];
     nextViewController.url = URL;
     nextViewController.args = self.request.args;
+    nextViewController.preloadToken = self.request.preloadToken;
     UIViewController *presentingViewController = nextViewController;
     UINavigationController *navigationController = [self requestNavigationController:nextViewController];
     if (navigationController != nil) {
@@ -396,6 +398,7 @@ NSDate *lastPresent;
         request.modalStyle.size = CGSizeMake([dictionary[@"modalWidth"] isKindOfClass:[NSNumber class]] ? [dictionary[@"modalWidth"] floatValue] : 0.0,
                                              [dictionary[@"modalHeight"] isKindOfClass:[NSNumber class]] ? [dictionary[@"modalHeight"] floatValue] : 0.0);
     }
+    request.preloadToken = [dictionary[@"preloadToken"] isKindOfClass:[NSString class]] ? dictionary[@"preloadToken"] : nil;
     return [self buildWithRequest:request];
 }
 

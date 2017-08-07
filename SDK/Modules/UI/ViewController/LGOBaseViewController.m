@@ -56,6 +56,9 @@
     if (self.url != nil) {
         if ([self.webView isKindOfClass:[WKWebView class]]) {
             [(WKWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
+            if (self.title.length == 0) {
+                self.title = [(WKWebView *)self.webView title];
+            }
         }
         if ([self.webView isKindOfClass:[UIWebView class]]) {
             [(UIWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
@@ -201,7 +204,15 @@
 - (UIView *)webView {
     if (_webView == nil) {
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            _webView = [LGOWKWebView requestWebViewFromPool];
+            if (_webView == nil && self.preloadToken != nil && [[LGOCore modules] moduleWithName:@"WebView.Preload"] != nil) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+                _webView = [[[LGOCore modules] moduleWithName:@"WebView.Preload"] performSelector:@selector(fetchWebView:) withObject:self.preloadToken];
+#pragma clang diagnostic pop
+            }
+            if (_webView == nil) {
+                _webView = [LGOWKWebView requestWebViewFromPool];
+            }
             if (_webView == nil) {
                 _webView = NSClassFromString(@"LGOWKWebView")
                 ? [[NSClassFromString(@"LGOWKWebView") alloc] initWithFrame:self.view.bounds]

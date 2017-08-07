@@ -13,6 +13,7 @@ typedef void(^LGOBaseViewControllerHookBlock)();
 
 @interface LGOBaseViewController : UIViewController
 
+@property (nonatomic, copy) NSString *preloadToken;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSDictionary *args;
 @property (nonatomic, readonly) LGOPageRequest *setting;
