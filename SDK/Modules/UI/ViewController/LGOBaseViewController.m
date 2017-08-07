@@ -55,7 +55,12 @@
 - (void)loadRequest {
     if (self.url != nil) {
         if ([self.webView isKindOfClass:[WKWebView class]]) {
-            [(WKWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
+            if (self.preloadToken != nil) {
+                [(WKWebView *)self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.location.href = '%@'", self.url] completionHandler:nil];
+            }
+            else {
+                [(WKWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
+            }
             if (self.title.length == 0) {
                 self.title = [(WKWebView *)self.webView title];
             }
