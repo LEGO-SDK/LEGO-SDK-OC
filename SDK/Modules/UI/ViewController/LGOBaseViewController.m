@@ -41,7 +41,7 @@
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     if ([[LGOCore modules] moduleWithName:@"WebView.Skeleton"] != nil) {
         if ([[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] respondsToSelector:@selector(attachSkeleton:URL:)]) {
-            [[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] performSelector:@selector(attachSkeleton:URL:) withObject:self.view withObject:self.url];
+            [[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] performSelector:@selector(attachSkeleton:URL:) withObject:self.webView withObject:self.url];
         }
     }
 #pragma clang diagnostic pop

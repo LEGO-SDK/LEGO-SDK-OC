@@ -7,13 +7,122 @@
 //
 
 #import "LGOSkeleton.h"
+#import "LGOWKWebView.h"
 #import <WebKit/WebKit.h>
+#import <CommonCrypto/CommonDigest.h>
 
 @interface LGOSkeleton ()
 
 @property (nonatomic, assign) BOOL skeletonNotExists;
 @property (nonatomic, assign) BOOL skeletonLoaded;
 @property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) UIImageView *snapshotImageView;
+
+@end
+
+@interface LGOSkeletonSnapshotRequest : LGORequest
+
+@property (nonatomic, copy) NSString *targetURL;
+@property (nonatomic, copy) NSString *snapshotURL;
+
+@end
+
+@implementation LGOSkeletonSnapshotRequest
+
+@end
+
+@interface LGOSkeletonSnapshotOperation : LGORequestable<WKNavigationDelegate>
+
+@property (nonatomic, strong) LGOSkeletonSnapshotRequest *request;
+@property (nonatomic, strong) LGOWKWebView *webView;
+
+@end
+
+@implementation LGOSkeletonSnapshotOperation
+
+static NSMutableSet *pids;
+
++ (void)load {
+    pids = [NSMutableSet set];
+}
+
+- (NSString *)snapshotCacheKey {
+    NSString *str = [NSString stringWithFormat:@"%@.%@.%@.png",
+                     self.request.targetURL,
+                     [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"],
+                     [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
+    return [LGOSkeletonSnapshotOperation requestMD5WithString:str];
+}
+
+- (NSString *)snapshotCachePath {
+    NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+    NSString *cachePath = [NSString stringWithFormat:@"%@/LGOSkeleton/%@", cacheDir, [self snapshotCacheKey]];
+    return cachePath;
+}
+
+- (BOOL)exists {
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self snapshotCachePath]];
+}
+
+- (LGOResponse *)requestSynchronize {
+    if (self.request.targetURL == nil || self.request.snapshotURL == nil) {
+        return [[LGOResponse new] reject:[NSError errorWithDomain:@"WebView.Skeletion" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"targetURL, snapshotURL required."}]];
+    }
+    else {
+        if (![self exists]) {
+            if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
+                [pids addObject:self];
+                self.webView = [[LGOWKWebView alloc] initWithFrame:CGRectMake(9999, 9999, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                [self.webView setNavigationDelegate:self];
+                [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.request.snapshotURL]]];
+                self.webView.userInteractionEnabled = NO;
+                [[UIApplication sharedApplication].keyWindow insertSubview:self.webView atIndex:0];
+                __weak id welf = self;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(15.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    __strong id strongSelf = welf;
+                    if (strongSelf != nil) {
+                        self.webView.navigationDelegate = nil;
+                        [self.webView removeFromSuperview];
+                        [pids removeObject:strongSelf];
+                    }
+                });
+            }
+        }
+        return [[LGOResponse new] accept:nil];
+    }
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIGraphicsBeginImageContextWithOptions(webView.bounds.size, NO, [UIScreen mainScreen].scale);
+        [webView drawViewHierarchyInRect:webView.bounds afterScreenUpdates:YES];
+        UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        if (snapshotImage != nil) {
+            NSData *imageData = UIImagePNGRepresentation(snapshotImage);
+            if (imageData != nil) {
+                NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+                [[NSFileManager defaultManager] createDirectoryAtPath:[cacheDir stringByAppendingString:@"/LGOSkeleton"] withIntermediateDirectories:YES attributes:nil error:NULL];
+                [imageData writeToFile:[self snapshotCachePath] atomically:YES];
+            }
+        }
+        self.webView.navigationDelegate = nil;
+        [self.webView removeFromSuperview];
+        [pids removeObject:self];
+    });
+}
+
++ (NSString *)requestMD5WithString:(NSString *)str
+{
+    const char* input = [str UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(input, (CC_LONG)strlen(input), result);
+    NSMutableString *digest = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for (NSInteger i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+        [digest appendFormat:@"%02x", result[i]];
+    }
+    return [digest lowercaseString];
+}
 
 @end
 
@@ -26,6 +135,24 @@ static BOOL handleDismiss = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [(LGOSkeleton *)[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] loadSkeleton];
     });
+}
+
+- (NSString *)snapshotCacheKey:(NSURL *)URL {
+    NSString *str = [NSString stringWithFormat:@"%@.%@.%@.png",
+                     URL.absoluteString,
+                     [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"],
+                     [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
+    return [LGOSkeletonSnapshotOperation requestMD5WithString:str];
+}
+
+- (NSString *)snapshotCachePath:(NSURL *)URL {
+    NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+    NSString *cachePath = [NSString stringWithFormat:@"%@/LGOSkeleton/%@", cacheDir, [self snapshotCacheKey: URL]];
+    return cachePath;
+}
+
+- (BOOL)snapshotExists:(NSURL *)URL {
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self snapshotCachePath: URL]];
 }
 
 - (void)loadSkeleton {
@@ -41,6 +168,21 @@ static BOOL handleDismiss = NO;
 }
 
 - (void)attachSkeleton:(UIView *)toView URL:(NSURL *)URL {
+    if ([self snapshotExists:URL]) {
+        UIImage *snapshot = [UIImage imageWithContentsOfFile:[self snapshotCachePath:URL]];
+        if (snapshot != nil && snapshot.size.width > 0 && snapshot.size.height > 0) {
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+            imageView.translatesAutoresizingMaskIntoConstraints = NO;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.image = snapshot;
+            [toView addSubview:imageView];
+            [toView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[iv]-0-|" options:kNilOptions metrics:@{} views:@{@"iv": imageView}]];
+            [toView addConstraint:[NSLayoutConstraint constraintWithItem:toView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:imageView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0]];
+            [toView addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:imageView attribute:NSLayoutAttributeHeight multiplier:snapshot.size.width / snapshot.size.height constant:0.0]];
+            self.snapshotImageView = imageView;
+            return;
+        }
+    }
     if (self.skeletonNotExists) {
         return;
     }
@@ -88,8 +230,11 @@ static BOOL handleDismiss = NO;
     }
     [UIView animateWithDuration:0.30 animations:^{
         self.webView.alpha = 0.0;
+        self.snapshotImageView.alpha = 0.0;
     } completion:^(BOOL finished) {
         [self.webView removeFromSuperview];
+        [self.snapshotImageView removeFromSuperview];
+        self.snapshotImageView = nil;
         self.webView.alpha = 1.0;
     }];
 }
@@ -97,6 +242,14 @@ static BOOL handleDismiss = NO;
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     if ([dictionary[@"opt"] isKindOfClass:[NSString class]] && [dictionary[@"opt"] isEqualToString:@"dismiss"]) {
         [self dismiss:YES];
+    }
+    if ([dictionary[@"opt"] isKindOfClass:[NSString class]] && [dictionary[@"opt"] isEqualToString:@"snapshot"]) {
+        LGOSkeletonSnapshotRequest *request = [LGOSkeletonSnapshotRequest new];
+        request.targetURL = [dictionary[@"targetURL"] isKindOfClass:[NSString class]] ? dictionary[@"targetURL"] : nil;
+        request.snapshotURL = [dictionary[@"snapshotURL"] isKindOfClass:[NSString class]] ? dictionary[@"snapshotURL"] : nil;
+        LGOSkeletonSnapshotOperation *operation = [LGOSkeletonSnapshotOperation new];
+        operation.request = request;
+        return operation;
     }
     return nil;
 }
