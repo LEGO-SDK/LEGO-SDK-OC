@@ -251,7 +251,7 @@
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     if ([[LGOCore modules] moduleWithName:@"WebView.Skeleton"] != nil) {
         if ([[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] respondsToSelector:@selector(dismiss:)]) {
-            [[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] performSelector:@selector(dismiss:) withObject:nil];
+            [[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] performSelector:@selector(dismiss:) withObject:nil afterDelay:2.0];
         }
     }
 #pragma clang diagnostic pop

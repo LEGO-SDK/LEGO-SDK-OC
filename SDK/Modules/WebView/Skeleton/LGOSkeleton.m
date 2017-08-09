@@ -40,11 +40,8 @@
 
 @implementation LGOSkeletonSnapshotOperation
 
-static NSMutableSet *pids;
-
-+ (void)load {
-    pids = [NSMutableSet set];
-}
+static NSArray *snapshotOperationQueue;
+static LGOSkeletonSnapshotOperation *currentOperation;
 
 - (NSString *)snapshotCacheKey {
     NSString *str = [NSString stringWithFormat:@"%@.%@.%@.png",
@@ -65,13 +62,23 @@ static NSMutableSet *pids;
 }
 
 - (LGOResponse *)requestSynchronize {
-    if (self.request.targetURL == nil || self.request.snapshotURL == nil) {
-        return [[LGOResponse new] reject:[NSError errorWithDomain:@"WebView.Skeletion" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"targetURL, snapshotURL required."}]];
-    }
-    else {
-        if (![self exists]) {
-            if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
-                [pids addObject:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (currentOperation != nil) {
+            if ([snapshotOperationQueue indexOfObject:self] == NSNotFound) {
+                NSMutableArray *queue = [snapshotOperationQueue mutableCopy] ?: [NSMutableArray array];
+                [queue addObject:self];
+                snapshotOperationQueue = [queue copy];
+            }
+            return ;
+        }
+        else {
+            currentOperation = self;
+        }
+        if (self.request.targetURL == nil || self.request.snapshotURL == nil) {
+            return ;
+        }
+        else {
+            if (![self exists]) {
                 self.webView = [[LGOWKWebView alloc] initWithFrame:CGRectMake(9999, 9999, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
                 [self.webView setNavigationDelegate:self];
                 [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.request.snapshotURL]]];
@@ -83,12 +90,28 @@ static NSMutableSet *pids;
                     if (strongSelf != nil) {
                         self.webView.navigationDelegate = nil;
                         [self.webView removeFromSuperview];
-                        [pids removeObject:strongSelf];
                     }
                 });
             }
+            else {
+                [self doNext];
+            }
         }
-        return [[LGOResponse new] accept:nil];
+    });
+    return [[LGOResponse new] accept:nil];
+}
+
+- (void)doNext {
+    currentOperation = nil;
+    NSMutableArray *queue = [snapshotOperationQueue mutableCopy] ?: [NSMutableArray array];
+    [queue removeObject:self];
+    LGOSkeletonSnapshotOperation *nextOperation = [queue firstObject];
+    if (nextOperation != nil) {
+        [queue removeObjectAtIndex:0];
+    }
+    snapshotOperationQueue = [queue copy];
+    if (nextOperation) {
+        [nextOperation requestSynchronize];
     }
 }
 
@@ -108,7 +131,7 @@ static NSMutableSet *pids;
         }
         self.webView.navigationDelegate = nil;
         [self.webView removeFromSuperview];
-        [pids removeObject:self];
+        [self doNext];
     });
 }
 
@@ -228,7 +251,7 @@ static BOOL handleDismiss = NO;
     if (!force && handleDismiss) {
         return;
     }
-    [UIView animateWithDuration:0.30 animations:^{
+    [UIView animateWithDuration:0.30 delay:0.15 options:kNilOptions animations:^{
         self.webView.alpha = 0.0;
         self.snapshotImageView.alpha = 0.0;
     } completion:^(BOOL finished) {
@@ -243,7 +266,7 @@ static BOOL handleDismiss = NO;
     if ([dictionary[@"opt"] isKindOfClass:[NSString class]] && [dictionary[@"opt"] isEqualToString:@"dismiss"]) {
         [self dismiss:YES];
     }
-    if ([dictionary[@"opt"] isKindOfClass:[NSString class]] && [dictionary[@"opt"] isEqualToString:@"snapshot"]) {
+    if (([UIDevice currentDevice].systemVersion.floatValue >= 8.0) && [dictionary[@"opt"] isKindOfClass:[NSString class]] && [dictionary[@"opt"] isEqualToString:@"snapshot"]) {
         LGOSkeletonSnapshotRequest *request = [LGOSkeletonSnapshotRequest new];
         request.targetURL = [dictionary[@"targetURL"] isKindOfClass:[NSString class]] ? dictionary[@"targetURL"] : nil;
         request.snapshotURL = [dictionary[@"snapshotURL"] isKindOfClass:[NSString class]] ? dictionary[@"snapshotURL"] : nil;
