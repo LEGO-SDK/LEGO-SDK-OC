@@ -117,7 +117,7 @@ static LGOSkeletonSnapshotOperation *currentOperation;
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIGraphicsBeginImageContextWithOptions(webView.bounds.size, NO, [UIScreen mainScreen].scale);
+        UIGraphicsBeginImageContextWithOptions(webView.bounds.size, YES, [UIScreen mainScreen].scale);
         [webView drawViewHierarchyInRect:webView.bounds afterScreenUpdates:YES];
         UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
