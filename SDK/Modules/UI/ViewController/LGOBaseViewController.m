@@ -57,6 +57,7 @@
         if ([self.webView isKindOfClass:[WKWebView class]]) {
             if (self.preloadToken != nil) {
                 [(WKWebView *)self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.location.href = '%@'", self.url] completionHandler:nil];
+                [self webView:(WKWebView *)self.webView didFinishNavigation:nil];
             }
             else {
                 [(WKWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
