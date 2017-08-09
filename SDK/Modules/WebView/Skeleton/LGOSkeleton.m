@@ -7,8 +7,7 @@
 //
 
 #import "LGOSkeleton.h"
-#import "LGOWKWebView.h"
-#import <WebKit/WebKit.h>
+#import "LGOSnapshot.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @interface LGOSkeleton ()
@@ -17,135 +16,6 @@
 @property (nonatomic, assign) BOOL skeletonLoaded;
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIImageView *snapshotImageView;
-
-@end
-
-@interface LGOSkeletonSnapshotRequest : LGORequest
-
-@property (nonatomic, copy) NSString *targetURL;
-@property (nonatomic, copy) NSString *snapshotURL;
-
-@end
-
-@implementation LGOSkeletonSnapshotRequest
-
-@end
-
-@interface LGOSkeletonSnapshotOperation : LGORequestable<WKNavigationDelegate>
-
-@property (nonatomic, strong) LGOSkeletonSnapshotRequest *request;
-@property (nonatomic, strong) LGOWKWebView *webView;
-
-@end
-
-@implementation LGOSkeletonSnapshotOperation
-
-static NSArray *snapshotOperationQueue;
-static LGOSkeletonSnapshotOperation *currentOperation;
-
-- (NSString *)snapshotCacheKey {
-    NSString *str = [NSString stringWithFormat:@"%@.%@.%@.png",
-                     self.request.targetURL,
-                     [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"],
-                     [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
-    return [LGOSkeletonSnapshotOperation requestMD5WithString:str];
-}
-
-- (NSString *)snapshotCachePath {
-    NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-    NSString *cachePath = [NSString stringWithFormat:@"%@/LGOSkeleton/%@", cacheDir, [self snapshotCacheKey]];
-    return cachePath;
-}
-
-- (BOOL)exists {
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self snapshotCachePath]];
-}
-
-- (LGOResponse *)requestSynchronize {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (currentOperation != nil) {
-            if ([snapshotOperationQueue indexOfObject:self] == NSNotFound) {
-                NSMutableArray *queue = [snapshotOperationQueue mutableCopy] ?: [NSMutableArray array];
-                [queue addObject:self];
-                snapshotOperationQueue = [queue copy];
-            }
-            return ;
-        }
-        else {
-            currentOperation = self;
-        }
-        if (self.request.targetURL == nil || self.request.snapshotURL == nil) {
-            return ;
-        }
-        else {
-            if (![self exists]) {
-                self.webView = [[LGOWKWebView alloc] initWithFrame:CGRectMake(9999, 9999, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-                [self.webView setNavigationDelegate:self];
-                [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.request.snapshotURL]]];
-                self.webView.userInteractionEnabled = NO;
-                [[UIApplication sharedApplication].keyWindow insertSubview:self.webView atIndex:0];
-                __weak id welf = self;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(15.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    __strong id strongSelf = welf;
-                    if (strongSelf != nil) {
-                        self.webView.navigationDelegate = nil;
-                        [self.webView removeFromSuperview];
-                    }
-                });
-            }
-            else {
-                [self doNext];
-            }
-        }
-    });
-    return [[LGOResponse new] accept:nil];
-}
-
-- (void)doNext {
-    currentOperation = nil;
-    NSMutableArray *queue = [snapshotOperationQueue mutableCopy] ?: [NSMutableArray array];
-    [queue removeObject:self];
-    LGOSkeletonSnapshotOperation *nextOperation = [queue firstObject];
-    if (nextOperation != nil) {
-        [queue removeObjectAtIndex:0];
-    }
-    snapshotOperationQueue = [queue copy];
-    if (nextOperation) {
-        [nextOperation requestSynchronize];
-    }
-}
-
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIGraphicsBeginImageContextWithOptions(webView.bounds.size, YES, [UIScreen mainScreen].scale);
-        [webView drawViewHierarchyInRect:webView.bounds afterScreenUpdates:YES];
-        UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        if (snapshotImage != nil) {
-            NSData *imageData = UIImagePNGRepresentation(snapshotImage);
-            if (imageData != nil) {
-                NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-                [[NSFileManager defaultManager] createDirectoryAtPath:[cacheDir stringByAppendingString:@"/LGOSkeleton"] withIntermediateDirectories:YES attributes:nil error:NULL];
-                [imageData writeToFile:[self snapshotCachePath] atomically:YES];
-            }
-        }
-        self.webView.navigationDelegate = nil;
-        [self.webView removeFromSuperview];
-        [self doNext];
-    });
-}
-
-+ (NSString *)requestMD5WithString:(NSString *)str
-{
-    const char* input = [str UTF8String];
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(input, (CC_LONG)strlen(input), result);
-    NSMutableString *digest = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for (NSInteger i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
-        [digest appendFormat:@"%02x", result[i]];
-    }
-    return [digest lowercaseString];
-}
 
 @end
 
@@ -158,24 +28,6 @@ static BOOL handleDismiss = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [(LGOSkeleton *)[[LGOCore modules] moduleWithName:@"WebView.Skeleton"] loadSkeleton];
     });
-}
-
-- (NSString *)snapshotCacheKey:(NSURL *)URL {
-    NSString *str = [NSString stringWithFormat:@"%@.%@.%@.png",
-                     URL.absoluteString,
-                     [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"],
-                     [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
-    return [LGOSkeletonSnapshotOperation requestMD5WithString:str];
-}
-
-- (NSString *)snapshotCachePath:(NSURL *)URL {
-    NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-    NSString *cachePath = [NSString stringWithFormat:@"%@/LGOSkeleton/%@", cacheDir, [self snapshotCacheKey: URL]];
-    return cachePath;
-}
-
-- (BOOL)snapshotExists:(NSURL *)URL {
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self snapshotCachePath: URL]];
 }
 
 - (void)loadSkeleton {
@@ -191,8 +43,8 @@ static BOOL handleDismiss = NO;
 }
 
 - (void)attachSkeleton:(UIView *)toView URL:(NSURL *)URL {
-    if ([self snapshotExists:URL]) {
-        UIImage *snapshot = [UIImage imageWithContentsOfFile:[self snapshotCachePath:URL]];
+    if ([LGOSkeletonSnapshot snapshotExists:URL]) {
+        UIImage *snapshot = [UIImage imageWithContentsOfFile:[LGOSkeletonSnapshot snapshotCachePath:URL]];
         if (snapshot != nil && snapshot.size.width > 0 && snapshot.size.height > 0) {
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
             imageView.translatesAutoresizingMaskIntoConstraints = NO;

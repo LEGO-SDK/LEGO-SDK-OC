@@ -24,6 +24,7 @@
 		40608A3F1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A3E1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m */; };
 		40608A451D581ACA00219874 /* LGOImagePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A441D581ACA00219874 /* LGOImagePreviewController.m */; };
 		40608A481D5888FC00219874 /* LGODeviceReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A471D5888FC00219874 /* LGODeviceReachability.m */; };
+		904EAF771F3B000E00E99FB2 /* LGOSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 904EAF761F3B000E00E99FB2 /* LGOSnapshot.m */; };
 		9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4F71D484D2600306F9E /* LGOWKWebView.m */; };
 		9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4FA1D4850F700306F9E /* LGOJavaScriptUserContentController.m */; };
 		9050A5191D48914A00306F9E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9050A5181D48914A00306F9E /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -140,6 +141,8 @@
 		40608A471D5888FC00219874 /* LGODeviceReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGODeviceReachability.m; sourceTree = "<group>"; };
 		7A12488A39AF61C14C802E57 /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
 		8CE4102F338A29E34675421B /* Pods-Sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.release.xcconfig"; sourceTree = "<group>"; };
+		904EAF751F3B000E00E99FB2 /* LGOSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOSnapshot.h; sourceTree = "<group>"; };
+		904EAF761F3B000E00E99FB2 /* LGOSnapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOSnapshot.m; sourceTree = "<group>"; };
 		9050A4F61D484D2600306F9E /* LGOWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOWKWebView.h; sourceTree = "<group>"; };
 		9050A4F71D484D2600306F9E /* LGOWKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOWKWebView.m; sourceTree = "<group>"; };
 		9050A4F91D4850F700306F9E /* LGOJavaScriptUserContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOJavaScriptUserContentController.h; sourceTree = "<group>"; };
@@ -524,6 +527,8 @@
 			children = (
 				90E2365C1F2743D100DDFEAA /* LGOSkeleton.h */,
 				90E2365D1F2743D100DDFEAA /* LGOSkeleton.m */,
+				904EAF751F3B000E00E99FB2 /* LGOSnapshot.h */,
+				904EAF761F3B000E00E99FB2 /* LGOSnapshot.m */,
 			);
 			path = Skeleton;
 			sourceTree = "<group>";
@@ -961,6 +966,7 @@
 				906F11F21D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m in Sources */,
 				90E8CCD01D470892005F4746 /* main.m in Sources */,
 				90E8CD5C1D475293005F4746 /* SDKSampleJavaScriptListViewController.m in Sources */,
+				904EAF771F3B000E00E99FB2 /* LGOSnapshot.m in Sources */,
 				90E8CD5F1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.m in Sources */,
 				90A2D4F71E9489EC001596C7 /* LGOPageStore.m in Sources */,
 				90F8D3FB1D62B17600CBEDB2 /* WKWebView+LGOPack.m in Sources */,

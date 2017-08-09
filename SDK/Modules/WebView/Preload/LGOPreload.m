@@ -58,6 +58,11 @@
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
+    if (self.pool.count >= 3) {
+        return [LGORequestable rejectWithDomain:@"WebView.Preload"
+                                           code:-2
+                                         reason:@"Too much preload webview. max limit 3."];
+    }
     LGOPreloadRequest *request = [LGOPreloadRequest new];
     request.token = [dictionary[@"token"] isKindOfClass:[NSString class]] ? dictionary[@"token"] : nil;
     request.url = [dictionary[@"url"] isKindOfClass:[NSString class]] ? dictionary[@"url"] : nil;
