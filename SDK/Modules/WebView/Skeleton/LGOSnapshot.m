@@ -77,12 +77,23 @@ static LGOSkeletonSnapshotOperation *currentOperation;
         else {
             currentOperation = self;
         }
-        if (self.request.targetURL == nil || self.request.snapshotURL == nil) {
+        if (self.request.targetURL == nil ||
+            self.request.snapshotURL == nil ||
+            [NSURL URLWithString:self.request.targetURL] == nil ||
+            [NSURL URLWithString:self.request.snapshotURL] == nil) {
             return ;
         }
         else {
+            if ([LGOSkeletonSnapshot snapshotExists:[NSURL URLWithString:self.request.snapshotURL]]) {
+                NSData *data = [NSData dataWithContentsOfFile:[LGOSkeletonSnapshot snapshotCachePath:[NSURL URLWithString:self.request.snapshotURL]]];
+                if (data != nil) {
+                    [data writeToFile:[LGOSkeletonSnapshot snapshotCachePath:[NSURL URLWithString:self.request.targetURL]] atomically:YES];
+                    [self doNext];
+                    return;
+                }
+            }
             if (![self exists]) {
-                self.webView = [[LGOWKWebView alloc] initWithFrame:CGRectMake(9999, 9999, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+                self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(9999, 9999, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
                 [self.webView setNavigationDelegate:self];
                 [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.request.snapshotURL]]];
                 self.webView.userInteractionEnabled = NO;
@@ -130,6 +141,7 @@ static LGOSkeletonSnapshotOperation *currentOperation;
                 NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
                 [[NSFileManager defaultManager] createDirectoryAtPath:[cacheDir stringByAppendingString:@"/LGOSkeleton"] withIntermediateDirectories:YES attributes:nil error:NULL];
                 [imageData writeToFile:[self snapshotCachePath] atomically:YES];
+                [imageData writeToFile:[LGOSkeletonSnapshot snapshotCachePath:[NSURL URLWithString:self.request.snapshotURL]] atomically:YES];
             }
         }
         self.webView.navigationDelegate = nil;

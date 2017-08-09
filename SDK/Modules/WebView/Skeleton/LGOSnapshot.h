@@ -28,6 +28,6 @@
 @interface LGOSkeletonSnapshotOperation : LGORequestable<WKNavigationDelegate>
 
 @property (nonatomic, strong) LGOSkeletonSnapshotRequest *request;
-@property (nonatomic, strong) LGOWKWebView *webView;
+@property (nonatomic, strong) WKWebView *webView;
 
 @end
