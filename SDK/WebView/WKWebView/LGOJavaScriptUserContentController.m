@@ -184,6 +184,13 @@
                                                                                        base64String]
                                                            injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                         forMainFrameOnly:NO]];
+                                [(WKWebView *)webView evaluateJavaScript:[NSString stringWithFormat:
+                                                                          @"window._args = {}; "
+                                                                          @"try { window._args = "
+                                                                          @"JSON.parse("
+                                                                          @"decodeURIComponent("
+                                                                          @"atob('%@'))); } catch (e) {}",
+                                                                          base64String] completionHandler:nil];
                             }
                         }
                     }
