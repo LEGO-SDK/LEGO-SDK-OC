@@ -132,18 +132,23 @@ static LGOSkeletonSnapshotOperation *currentOperation;
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         UIGraphicsBeginImageContextWithOptions(webView.bounds.size, YES, [UIScreen mainScreen].scale);
-        [webView drawViewHierarchyInRect:webView.bounds afterScreenUpdates:YES];
-        UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        if (snapshotImage != nil) {
-            NSData *imageData = UIImagePNGRepresentation(snapshotImage);
-            if (imageData != nil) {
-                NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-                [[NSFileManager defaultManager] createDirectoryAtPath:[cacheDir stringByAppendingString:@"/LGOSkeleton"] withIntermediateDirectories:YES attributes:nil error:NULL];
-                [imageData writeToFile:[self snapshotCachePath] atomically:YES];
-                [imageData writeToFile:[LGOSkeletonSnapshot snapshotCachePath:[NSURL URLWithString:self.request.snapshotURL]] atomically:YES];
+        if ([webView drawViewHierarchyInRect:webView.bounds afterScreenUpdates:NO]) {
+            UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            if (snapshotImage != nil) {
+                NSData *imageData = UIImagePNGRepresentation(snapshotImage);
+                if (imageData != nil) {
+                    NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+                    [[NSFileManager defaultManager] createDirectoryAtPath:[cacheDir stringByAppendingString:@"/LGOSkeleton"] withIntermediateDirectories:YES attributes:nil error:NULL];
+                    [imageData writeToFile:[self snapshotCachePath] atomically:YES];
+                    [imageData writeToFile:[LGOSkeletonSnapshot snapshotCachePath:[NSURL URLWithString:self.request.snapshotURL]] atomically:YES];
+                }
             }
         }
+        else {
+            UIGraphicsEndImageContext();
+        }
+        [UIView setAnimationsEnabled:YES];
         self.webView.navigationDelegate = nil;
         [self.webView removeFromSuperview];
         [self doNext];

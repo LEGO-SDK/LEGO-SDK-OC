@@ -55,7 +55,7 @@
 - (void)loadRequest {
     if (self.url != nil) {
         if ([self.webView isKindOfClass:[WKWebView class]]) {
-            if (self.preloadToken != nil) {
+            if (self.preloadToken != nil && [[(WKWebView *)self.webView URL].scheme isEqualToString:@"file"] && ![(WKWebView *)self.webView isLoading]) {
                 [(WKWebView *)self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.location.href = '%@'", self.url] completionHandler:nil];
                 [self webView:(WKWebView *)self.webView didFinishNavigation:nil];
             }
