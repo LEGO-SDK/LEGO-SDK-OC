@@ -33,6 +33,8 @@
 
 @property (nonatomic, readonly) BOOL allowBounce;
 
+@property (nonatomic, readonly) BOOL alwaysBounce;
+
 @property (nonatomic, readonly) BOOL showsIndicator;
 
 @end

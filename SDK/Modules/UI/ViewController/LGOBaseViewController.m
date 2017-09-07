@@ -80,6 +80,7 @@
         self.title = self.setting.title;
         if ([self.webView isKindOfClass:[WKWebView class]]) {
             [(WKWebView *)self.webView scrollView].bounces = self.setting.allowBounce;
+            [(WKWebView *)self.webView scrollView].alwaysBounceVertical = self.setting.alwaysBounce;
             [(WKWebView *)self.webView scrollView].showsVerticalScrollIndicator = self.setting.showsIndicator;
             [(WKWebView *)self.webView scrollView].showsHorizontalScrollIndicator = self.setting.showsIndicator;
             if (self.setting.backgroundColor != nil) {
@@ -89,6 +90,7 @@
         }
         else if ([self.webView isKindOfClass:[UIWebView class]]) {
             [(UIWebView *)self.webView scrollView].bounces = self.setting.allowBounce;
+            [(UIWebView *)self.webView scrollView].alwaysBounceVertical = self.setting.alwaysBounce;
             [(UIWebView *)self.webView scrollView].showsVerticalScrollIndicator = self.setting.showsIndicator;
             [(UIWebView *)self.webView scrollView].showsHorizontalScrollIndicator = self.setting.showsIndicator;
             if (self.setting.backgroundColor != nil) {

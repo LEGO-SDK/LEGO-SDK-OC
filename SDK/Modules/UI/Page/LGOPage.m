@@ -35,6 +35,8 @@
 
 @property (nonatomic, assign) BOOL allowBounce;
 
+@property (nonatomic, assign) BOOL alwaysBounce;
+
 @property (nonatomic, assign) BOOL showsIndicator;
 
 @end
@@ -140,6 +142,7 @@
             request.navigationBarTintColor = [item[@"navigationBarTintColor"] isKindOfClass:[NSString class]] ? [LGOPage colorWithHex:item[@"navigationBarTintColor"]] : nil;
             request.fullScreenContent = [item[@"fullScreenContent"] isKindOfClass:[NSNumber class]] ? [item[@"fullScreenContent"] boolValue] : NO;
             request.allowBounce = [item[@"allowBounce"] isKindOfClass:[NSNumber class]] ? [item[@"allowBounce"] boolValue] : YES;
+            request.alwaysBounce = [item[@"alwaysBounce"] isKindOfClass:[NSNumber class]] ? [item[@"alwaysBounce"] boolValue] : YES;
             request.showsIndicator = [item[@"showsIndicator"] isKindOfClass:[NSNumber class]] ? [item[@"showsIndicator"] boolValue] : YES;
             if ([NSURL URLWithString:request.urlPattern].host.length > 0 ||
                 [[NSURL URLWithString:request.urlPattern].scheme isEqualToString:@"file"] ||

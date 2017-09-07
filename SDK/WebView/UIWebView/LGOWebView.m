@@ -31,6 +31,8 @@
         self.keyboardDisplayRequiresUserAction = NO;
         self.allowsInlineMediaPlayback = YES;
         self.mediaPlaybackRequiresUserAction = NO;
+        self.scrollView.alwaysBounceHorizontal = NO;
+        self.scrollView.alwaysBounceVertical = NO;
     }
     return self;
 }
@@ -42,6 +44,8 @@
         self.keyboardDisplayRequiresUserAction = NO;
         self.allowsInlineMediaPlayback = YES;
         self.mediaPlaybackRequiresUserAction = NO;
+        self.scrollView.alwaysBounceHorizontal = NO;
+        self.scrollView.alwaysBounceVertical = NO;
     }
     return self;
 }

@@ -68,6 +68,8 @@ static NSArray *webViewPool;
     if (self) {
         [(LGOJavaScriptUserContentController *)self.configuration.userContentController setWebView:self];
         _dataModel = [NSMutableDictionary new];
+        self.scrollView.alwaysBounceHorizontal = NO;
+        self.scrollView.alwaysBounceVertical = NO;
     }
     return self;
 }
@@ -81,6 +83,8 @@ static NSArray *webViewPool;
     if (self) {
         [(LGOJavaScriptUserContentController *)self.configuration.userContentController setWebView:self];
         _dataModel = [NSMutableDictionary new];
+        self.scrollView.alwaysBounceHorizontal = NO;
+        self.scrollView.alwaysBounceVertical = NO;
     }
     return self;
 }
