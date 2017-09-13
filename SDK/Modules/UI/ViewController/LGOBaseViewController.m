@@ -126,6 +126,16 @@
     if (self.setting != nil) {
         if (self.setting.fullScreenContent) {
             self.webView.frame = self.view.bounds;
+#ifdef __IPHONE_11_0
+            if ([UIDevice currentDevice].systemVersion.floatValue >= 11.0 && CGRectEqualToRect(self.view.bounds, [UIScreen mainScreen].bounds)) {
+                self.webView.frame = CGRectMake(0.0, -20, self.view.bounds.size.width, self.view.bounds.size.height + 20);
+                for (NSLayoutConstraint *constraint in self.webView.constraints) {
+                    if (constraint.firstAttribute == NSLayoutAttributeTop || constraint.secondAttribute == NSLayoutAttributeTop) {
+                        constraint.constant = -20;
+                    }
+                }
+            }
+#endif
         }
         else {
             CGFloat topLength = 0.0;
