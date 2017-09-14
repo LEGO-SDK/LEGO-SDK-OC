@@ -203,6 +203,7 @@ static LGOPickerOperation *currentOperation;
 {
     if (self.request.isColumnsRelated)
     {
+        NSMutableArray *tempCurrentSelectRows = self.currentSelectRows.mutableCopy;
         for (NSInteger i = component; i < self.currentSelectRows.count; i++)
         {
             id target = [self targetWithColumn:i];
@@ -210,23 +211,53 @@ static LGOPickerOperation *currentOperation;
             if ([target isKindOfClass:[NSArray class]])
             {
                 NSArray *targetArray = (NSArray *)target;
-                
+
                 if (i > component)
                 {
-                    
-                    self.currentSelectRows[i] = [self titleOfObject:targetArray[0]];
+                    id object = nil;
+                    if (i > component) {
+                        if ([tempCurrentSelectRows[i] isKindOfClass:[NSString class]]) {
+                            for (int k = 0; k < targetArray.count; k++) {
+                                if ([targetArray[k] isKindOfClass:[NSDictionary class]] && [targetArray[k][@"title"] isKindOfClass:[NSString class]]) {
+                                    if ([((NSString *)targetArray[k][@"title"]) isEqualToString:self.currentSelectRows[i]]) {
+                                        object = targetArray[k];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (object) {
+                        self.currentSelectRows[i] = [self titleOfObject:object];
+                    } else {
+                        self.currentSelectRows[i] = [self titleOfObject:targetArray[0]];
+                    }
                 }
                 else
                 {
-                    
-                    self.currentSelectRows[i] = [self titleOfObject:targetArray[row]];
+                    id object = nil;
+                    if (i > component) {
+                        if ([tempCurrentSelectRows[i] isKindOfClass:[NSString class]]) {
+                            for (int k = 0; k < targetArray.count; k++) {
+                                if ([targetArray[k] isKindOfClass:[NSDictionary class]]) {
+                                    NSString *tempTitle = ((NSDictionary *) targetArray[k])[@"title"];
+                                    if ([tempTitle isKindOfClass:[NSString class]] && [tempTitle isEqualToString:self.currentSelectRows[i]]) {
+                                        object = targetArray[k];
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (object) {
+                        self.currentSelectRows[i] = [self titleOfObject:object];
+                    } else {
+                        self.currentSelectRows[i] = [self titleOfObject:targetArray[row]];
+                    }
                 }
             }
         }
         
         [self pickViewer:pickerView resetSelectedValue:self.currentSelectRows];
-        
-        [pickerView reloadAllComponents];
     }
     
 }
@@ -437,6 +468,7 @@ static LGOPickerOperation *currentOperation;
                                 if ([tempObjDic[@"title"] isEqualToString:obj])
                                 {
                                     [pickerView selectRow:tempIdx inComponent:idx animated:NO];
+                                    [pickerView reloadAllComponents];
                                 }
                             }
                         }
@@ -446,6 +478,7 @@ static LGOPickerOperation *currentOperation;
                             if ([tempObjString isEqualToString:obj])
                             {
                                 [pickerView selectRow:tempIdx inComponent:idx animated:NO];
+                                [pickerView reloadAllComponents];
                             }
                         }
                         
