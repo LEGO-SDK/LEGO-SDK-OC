@@ -47,8 +47,10 @@ static NSDictionary *sharedPublicKeys;
                                                           error:NULL];
     if (documentHash != nil) {
         [self cloneFromPath:[self requestDocumentPath:URL] toPath:[self requestTmpPath:URL]];
-        completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
-        [self updateFileServerWithURL:URL localHash:documentHash completionBlock:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
+            [self updateFileServerWithURL:URL localHash:documentHash completionBlock:nil];
+        });
     }
     else {
         NSString *bundleFile = [[NSBundle mainBundle] pathForResource:[URL lastPathComponent] ofType:@""];
@@ -65,8 +67,10 @@ static NSDictionary *sharedPublicKeys;
                             encoding:NSUTF8StringEncoding
                                error:NULL];
                     [self cloneFromPath:[self requestDocumentPath:URL] toPath:[self requestTmpPath:URL]];
-                    completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
-                    [self updateFileServerWithURL:URL localHash:md5 completionBlock: completionBlock];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
+                        [self updateFileServerWithURL:URL localHash:md5 completionBlock: completionBlock];
+                    });
                 }
             }];
         }
@@ -107,9 +111,11 @@ static NSDictionary *sharedPublicKeys;
                                                            encoding:NSUTF8StringEncoding
                                                               error:NULL];
                                         [self cloneFromPath:[self requestDocumentPath:URL] toPath:[self requestTmpPath:URL]];
-                                        if (completionBlock) {
-                                            completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
-                                        }
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                            if (completionBlock) {
+                                                completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
+                                            }
+                                        });
                                     }
                                 }];
                             }
