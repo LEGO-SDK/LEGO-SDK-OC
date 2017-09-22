@@ -128,13 +128,27 @@ static NSDictionary *sharedPublicKeys;
 }
 
 + (void)cloneFromPath:(NSString *)fromPath toPath:(NSString *)toPath {
-    [[NSFileManager defaultManager] removeItemAtPath:toPath error:NULL];
-    [[NSFileManager defaultManager] createDirectoryAtPath:toPath withIntermediateDirectories:YES attributes:nil error:NULL];
-    for (NSString *currentPath in [[NSFileManager defaultManager] enumeratorAtPath:fromPath]) {
-        [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath] error:NULL];
-        [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithFormat:@"%@/%@", fromPath, currentPath]
-                                                toPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath]
-                                                 error:NULL];
+    if (fromPath == nil || toPath == nil) {
+        return;
+    }
+    static NSMutableDictionary *clonedPaths;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        clonedPaths = [NSMutableDictionary dictionary];
+    });
+    @synchronized([UIApplication sharedApplication]) {
+        if (clonedPaths[toPath] != nil) {
+            return;
+        }
+        [[NSFileManager defaultManager] removeItemAtPath:toPath error:NULL];
+        [[NSFileManager defaultManager] createDirectoryAtPath:toPath withIntermediateDirectories:YES attributes:nil error:NULL];
+        for (NSString *currentPath in [[NSFileManager defaultManager] enumeratorAtPath:fromPath]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath] error:NULL];
+            [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithFormat:@"%@/%@", fromPath, currentPath]
+                                                    toPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath]
+                                                     error:NULL];
+        }
+        clonedPaths[toPath] = @(1);
     }
 }
 
