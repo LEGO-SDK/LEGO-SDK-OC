@@ -101,7 +101,7 @@ Pod::Spec.new do |s|
     api.subspec 'WebView' do |webview|
       webview.subspec 'Pack' do |m|
         m.source_files = 'SDK/Modules/WebView/Pack/*.{h,m}'
-        m.dependency 'SSZipArchive'
+        m.dependency 'SSZipArchive', '1.8.1'
       end
       webview.subspec 'Skeleton' do |m|
         m.source_files = 'SDK/Modules/WebView/Skeleton/*.{h,m}'

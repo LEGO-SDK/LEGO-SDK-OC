@@ -47,8 +47,10 @@ static NSDictionary *sharedPublicKeys;
                                                           error:NULL];
     if (documentHash != nil) {
         [self cloneFromPath:[self requestDocumentPath:URL] toPath:[self requestTmpPath:URL]];
-        completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
-        [self updateFileServerWithURL:URL localHash:documentHash completionBlock:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
+            [self updateFileServerWithURL:URL localHash:documentHash completionBlock:nil];
+        });
     }
     else {
         NSString *bundleFile = [[NSBundle mainBundle] pathForResource:[URL lastPathComponent] ofType:@""];
@@ -65,8 +67,10 @@ static NSDictionary *sharedPublicKeys;
                             encoding:NSUTF8StringEncoding
                                error:NULL];
                     [self cloneFromPath:[self requestDocumentPath:URL] toPath:[self requestTmpPath:URL]];
-                    completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
-                    [self updateFileServerWithURL:URL localHash:md5 completionBlock: completionBlock];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
+                        [self updateFileServerWithURL:URL localHash:md5 completionBlock: completionBlock];
+                    });
                 }
             }];
         }
@@ -107,9 +111,11 @@ static NSDictionary *sharedPublicKeys;
                                                            encoding:NSUTF8StringEncoding
                                                               error:NULL];
                                         [self cloneFromPath:[self requestDocumentPath:URL] toPath:[self requestTmpPath:URL]];
-                                        if (completionBlock) {
-                                            completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
-                                        }
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                            if (completionBlock) {
+                                                completionBlock([[NSURL fileURLWithPath:[self requestTmpPath:URL]] absoluteString]);
+                                            }
+                                        });
                                     }
                                 }];
                             }
@@ -122,13 +128,27 @@ static NSDictionary *sharedPublicKeys;
 }
 
 + (void)cloneFromPath:(NSString *)fromPath toPath:(NSString *)toPath {
-    [[NSFileManager defaultManager] removeItemAtPath:toPath error:NULL];
-    [[NSFileManager defaultManager] createDirectoryAtPath:toPath withIntermediateDirectories:YES attributes:nil error:NULL];
-    for (NSString *currentPath in [[NSFileManager defaultManager] enumeratorAtPath:fromPath]) {
-        [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath] error:NULL];
-        [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithFormat:@"%@/%@", fromPath, currentPath]
-                                                toPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath]
-                                                 error:NULL];
+    if (fromPath == nil || toPath == nil) {
+        return;
+    }
+    static NSMutableDictionary *clonedPaths;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        clonedPaths = [NSMutableDictionary dictionary];
+    });
+    @synchronized([UIApplication sharedApplication]) {
+        if (clonedPaths[toPath] != nil) {
+            return;
+        }
+        [[NSFileManager defaultManager] removeItemAtPath:toPath error:NULL];
+        [[NSFileManager defaultManager] createDirectoryAtPath:toPath withIntermediateDirectories:YES attributes:nil error:NULL];
+        for (NSString *currentPath in [[NSFileManager defaultManager] enumeratorAtPath:fromPath]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath] error:NULL];
+            [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithFormat:@"%@/%@", fromPath, currentPath]
+                                                    toPath:[NSString stringWithFormat:@"%@/%@", toPath, currentPath]
+                                                     error:NULL];
+        }
+        clonedPaths[toPath] = @(1);
     }
 }
 
