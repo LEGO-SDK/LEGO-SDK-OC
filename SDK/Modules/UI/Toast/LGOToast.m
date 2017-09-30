@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSString *style;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) NSInteger timeout;
-
+@property (nonatomic, assign) BOOL masked;
 - (UIView *)toastView;
 
 @end
@@ -120,6 +120,11 @@ static NSTimer *timer;
                 window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
                 window.windowLevel = UIWindowLevelStatusBar + 1;
             }
+            if (self.request.masked) {
+                window.userInteractionEnabled = YES;
+            } else {
+                window.userInteractionEnabled = NO;
+            }
             [[window subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
             [window setRootViewController:[LGOToastMockViewController new]];
             [window addSubview:[self.request toastView]];
@@ -171,6 +176,7 @@ static NSTimer *timer;
     request.style = [dictionary[@"style"] isKindOfClass:[NSString class]] ? dictionary[@"style"] : @"";
     request.title = [dictionary[@"title"] isKindOfClass:[NSString class]] ? dictionary[@"title"] : @"";
     request.timeout = [dictionary[@"timeout"] isKindOfClass:[NSNumber class]] ? MIN(10, [dictionary[@"timeout"] integerValue]) : 0;
+    request.masked = [dictionary[@"masked"] isKindOfClass:[NSNumber class]] ? ((NSNumber *)dictionary[@"masked"]).boolValue : YES;
     LGOToastOperation *operation = [LGOToastOperation new];
     operation.request = request;
     return operation;
