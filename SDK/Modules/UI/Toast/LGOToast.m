@@ -52,7 +52,17 @@
         [toast addSubview:indicatorView];
     }
     if (self.title != nil) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 70.0, 120.0, 30.0)];
+        UILabel *label = [[UILabel alloc] init];
+        CGRect labelFrame;
+        if ([self.style isEqualToString:@"text"]) {
+            CGRect stringFrame = [self.title boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 64) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:16.0]} context:NULL];
+            label.numberOfLines = 0;
+            toast.frame = CGRectMake([UIScreen mainScreen].bounds.size.width / 2.0 - (stringFrame.size.width + 20) / 2.0, [UIScreen mainScreen].bounds.size.height / 2.0 - (stringFrame.size.height + 20) / 2.0, stringFrame.size.width + 20, stringFrame.size.height + 20);
+            labelFrame = CGRectMake(toast.frame.size.width / 2.0 - stringFrame.size.width / 2.0, toast.frame.size.height / 2.0 - stringFrame.size.height / 2.0, stringFrame.size.width, stringFrame.size.height);
+        } else {
+            labelFrame = CGRectMake(0.0, 70.0, 120.0, 30.0);
+        }
+        label.frame = labelFrame;
         label.textColor = [UIColor colorWithWhite:1.0 alpha:0.85];
         label.font = [UIFont boldSystemFontOfSize:16.0];
         label.textAlignment = NSTextAlignmentCenter;
