@@ -22,6 +22,8 @@ typedef void(^LGOBaseViewControllerHookBlock)();
 @property (nonatomic, readonly) UIView *webView;
 @property (nonatomic, copy) NSDictionary<NSString *, NSArray<LGOBaseViewControllerHookBlock> *> *hooks;
 
++ (void)openURL:(NSURL *)URL navigationController:(UINavigationController *)navigationController animated:(BOOL)animated;
+
 - (void)reloadSetting:(LGOPageRequest *)newSetting;
 
 - (void)addHook:(LGOBaseViewControllerHookBlock)hookBlock forMethod:(NSString *)forMethod;

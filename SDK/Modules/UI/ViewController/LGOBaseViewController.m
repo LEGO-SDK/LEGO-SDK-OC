@@ -270,4 +270,11 @@
 #pragma clang diagnostic pop
 }
 
++ (void)openURL:(NSURL *)URL navigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
+    if ([URL isKindOfClass:[NSURL class]] && [navigationController isKindOfClass:[UINavigationController class]]) {
+        LGOBaseViewController *baseViewController = [[LGOBaseViewController alloc] init];
+        baseViewController.url = URL;
+        [navigationController pushViewController:baseViewController animated:animated];
+    }
+}
 @end
