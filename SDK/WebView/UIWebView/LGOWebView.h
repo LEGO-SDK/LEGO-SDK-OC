@@ -10,4 +10,6 @@
 
 @interface LGOWebView : UIWebView
 
+@property (class, nonatomic, copy) void (^afterCreate)(LGOWebView *webView);
+
 @end

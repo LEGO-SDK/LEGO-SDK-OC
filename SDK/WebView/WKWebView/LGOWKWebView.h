@@ -18,4 +18,5 @@
 
 @property(nonatomic, strong) NSMutableDictionary *dataModel;
 
+@property (class, nonatomic, copy) void (^afterCreate)(LGOWKWebView *webView);
 @end

@@ -9,10 +9,12 @@
 #import "LGOJavaScriptUserContentController.h"
 #import "LGOWKWebView.h"
 
+
 @implementation LGOWKWebView
 
 static NSInteger webViewPoolSize;
 static NSArray *webViewPool;
+static void (^_afterCreate)(LGOWKWebView *webView);
 
 + (void)load {
     [self setPoolSize:2];
@@ -47,9 +49,20 @@ static NSArray *webViewPool;
     }
 }
 
++ (void)setAfterCreate:(void (^)(LGOWKWebView *))afterCreate {
+    if (_afterCreate != afterCreate) {
+        _afterCreate = afterCreate;
+    }
+}
+
++ (void (^)(LGOWKWebView *))afterCreate {
+    return _afterCreate;
+}
+
 - (void)dealloc {
     self.navigationDelegate = nil;
     self.UIDelegate = nil;
+    LGOWKWebView.afterCreate = nil;
 }
 
 + (WKWebViewConfiguration *)bridge_configuration {
@@ -70,6 +83,9 @@ static NSArray *webViewPool;
         _dataModel = [NSMutableDictionary new];
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
+        if (LGOWKWebView.afterCreate) {
+            LGOWKWebView.afterCreate(self);
+        }
     }
     return self;
 }
@@ -85,6 +101,9 @@ static NSArray *webViewPool;
         _dataModel = [NSMutableDictionary new];
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
+        if (LGOWKWebView.afterCreate) {
+            LGOWKWebView.afterCreate(self);
+        }
     }
     return self;
 }

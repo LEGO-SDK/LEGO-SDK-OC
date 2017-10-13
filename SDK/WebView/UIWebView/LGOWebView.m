@@ -11,6 +11,8 @@
 #import "LGOWebView.h"
 @import JavaScriptCore;
 
+static void (^_afterCreate)(LGOWebView *webView);
+
 @interface LGOWebView ()
 
 @property(nonatomic, strong) JSContext *context;
@@ -19,9 +21,20 @@
 
 @implementation LGOWebView
 
++ (void)setAfterCreate:(void (^)(LGOWebView *))afterCreate {
+    if (_afterCreate != afterCreate) {
+        _afterCreate = afterCreate;
+    }
+}
+
++ (void (^)(LGOWebView *))afterCreate {
+    return _afterCreate;
+}
+
 - (void)dealloc {
     self.delegate = nil;
     self.context.lgo_webView = nil;
+    LGOWebView.afterCreate = nil;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -33,6 +46,9 @@
         self.mediaPlaybackRequiresUserAction = NO;
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
+        if (LGOWebView.afterCreate) {
+            LGOWebView.afterCreate(self);
+        }
     }
     return self;
 }
@@ -46,6 +62,9 @@
         self.mediaPlaybackRequiresUserAction = NO;
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
+        if (LGOWebView.afterCreate) {
+            LGOWebView.afterCreate(self);
+        }
     }
     return self;
 }
