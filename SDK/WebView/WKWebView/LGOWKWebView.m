@@ -62,7 +62,6 @@ static void (^_afterCreate)(LGOWKWebView *webView);
 - (void)dealloc {
     self.navigationDelegate = nil;
     self.UIDelegate = nil;
-    LGOWKWebView.afterCreate = nil;
 }
 
 + (WKWebViewConfiguration *)bridge_configuration {

@@ -34,7 +34,6 @@ static void (^_afterCreate)(LGOWebView *webView);
 - (void)dealloc {
     self.delegate = nil;
     self.context.lgo_webView = nil;
-    LGOWebView.afterCreate = nil;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
