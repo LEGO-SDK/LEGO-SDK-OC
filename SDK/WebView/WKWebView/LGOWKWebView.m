@@ -82,11 +82,9 @@ static void (^_afterCreate)(LGOWKWebView *webView);
         _dataModel = [NSMutableDictionary new];
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (LGOWKWebView.afterCreate) {
-                LGOWKWebView.afterCreate(self);
-            }
-        });
+        if (LGOWKWebView.afterCreate) {
+            LGOWKWebView.afterCreate(self);
+        }
     }
     return self;
 }
@@ -102,11 +100,9 @@ static void (^_afterCreate)(LGOWKWebView *webView);
         _dataModel = [NSMutableDictionary new];
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (LGOWKWebView.afterCreate) {
-                LGOWKWebView.afterCreate(self);
-            }
-        });
+        if (LGOWKWebView.afterCreate) {
+            LGOWKWebView.afterCreate(self);
+        }
     }
     return self;
 }

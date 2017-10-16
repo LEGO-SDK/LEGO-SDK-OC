@@ -14,6 +14,7 @@
 #import "LGOBaseNavigationController.h"
 #import "LGOWKWebView.h"
 #import <WebKit/WebKit.h>
+#import "LGOWebView.h"
 
 @interface LGOBaseViewController ()<WKNavigationDelegate>
 
@@ -243,11 +244,21 @@
                 [(LGOJavaScriptUserContentController *)[[(WKWebView *)_webView configuration]
                                                         userContentController] addPrescripts];
             }
+            if ([_webView isKindOfClass:[LGOWKWebView class]]) {
+                if (LGOWKWebView.afterCreate) {
+                    LGOWKWebView.afterCreate((LGOWKWebView *)_webView);
+                }
+            }
         } else {
             _webView = NSClassFromString(@"LGOWebView")
             ? [[NSClassFromString(@"LGOWebView") alloc] initWithFrame:self.view.bounds]
             : [[UIWebView alloc] initWithFrame:self.view.bounds];
             [(UIWebView *)_webView setLgo_args:self.args];
+            if ([_webView isKindOfClass:[LGOWebView class]]) {
+                if (LGOWebView.afterCreate) {
+                    LGOWebView.afterCreate((LGOWebView *)_webView);
+                }
+            }
         }
     }
     return _webView;
