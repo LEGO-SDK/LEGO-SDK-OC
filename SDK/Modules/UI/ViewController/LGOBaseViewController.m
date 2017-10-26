@@ -141,10 +141,14 @@
         else {
             CGFloat topLength = 0.0;
             if (!self.setting.statusBarHidden) {
-                topLength += 20.0;
+                if (self.navigationController.navigationBar.translucent) {
+                    topLength += 20.0;
+                }
             }
             if (!self.setting.navigationBarHidden) {
-                topLength += self.navigationController.navigationBar.bounds.size.height;
+                if (self.navigationController.navigationBar.translucent) {
+                    topLength += self.navigationController.navigationBar.bounds.size.height;
+                }
             }
             CGFloat bottomLength = self.hidesBottomBarWhenPushed ? 0.0 : self.tabBarController.tabBar.bounds.size.height;
             self.webView.frame = CGRectMake(0.0,
