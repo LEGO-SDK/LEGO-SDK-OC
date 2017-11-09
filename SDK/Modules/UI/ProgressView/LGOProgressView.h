@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface LGOProgressView : NSObject
-
+@property (nonatomic, copy, class) NSString *customProgressViewClassName;
 @end

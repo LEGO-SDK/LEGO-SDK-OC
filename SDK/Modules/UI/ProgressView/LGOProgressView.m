@@ -15,16 +15,44 @@
 
 @property(nonatomic, strong) UIProgressView *progressView;
 @property(nonatomic, strong) NSTimer *hiddenTimer;
-
+@property(nonatomic, strong) UIView *customProgressView;
 @end
 
 @implementation LGOProgressView
 
+static NSString *_customProgressViewClassName;
+
++ (void)setCustomProgressViewClassName:(NSString *)className {
+    if (_customProgressViewClassName != className) {
+        _customProgressViewClassName = className;
+    }
+}
+
++ (NSString *)customProgressViewClassName {
+    return _customProgressViewClassName;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _progressView = [[UIProgressView alloc] init];
-        _progressView.trackTintColor = [UIColor clearColor];
+        if (LGOProgressView.customProgressViewClassName) {
+            Class CustomProgressViewClass = NSClassFromString(LGOProgressView.customProgressViewClassName);
+            if (CustomProgressViewClass) {
+                id customProgressView = [[CustomProgressViewClass alloc] init];
+                if ([customProgressView isKindOfClass:[UIView class]]) {
+                    _customProgressView = (UIView *)customProgressView;
+                } else {
+                    _progressView = [[UIProgressView alloc] init];
+                    _progressView.trackTintColor = [UIColor clearColor];
+                }
+            } else {
+                _progressView = [[UIProgressView alloc] init];
+                _progressView.trackTintColor = [UIColor clearColor];
+            }
+        } else {
+            _progressView = [[UIProgressView alloc] init];
+            _progressView.trackTintColor = [UIColor clearColor];
+        }
     }
     return self;
 }
@@ -43,11 +71,19 @@
 }
 
 - (void)hidesWithDelay {
-    [UIView animateWithDuration:0.30
-                     animations:^{
-                       [self.progressView setAlpha:0.0];
-                     }
-                     completion:nil];
+    if (self.progressView) {
+        [UIView animateWithDuration:0.30
+                         animations:^{
+                             [self.progressView setAlpha:0.0];
+                         }
+                         completion:nil];
+    } else if (self.customProgressView) {
+        [UIView animateWithDuration:0.30
+                         animations:^{
+                             [self.customProgressView setAlpha:0.0];
+                         }
+                         completion:nil];
+    }
 }
 
 @end
@@ -106,9 +142,15 @@
     if (self.lgo_progressView == nil) {
         self.lgo_progressView = [[LGOProgressView alloc] init];
     }
-    [self addSubview:self.lgo_progressView.progressView];
-    self.lgo_progressView.progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.lgo_progressView.progressView.frame = CGRectMake(0, 0, self.bounds.size.width, 1);
+    if (self.lgo_progressView.customProgressView) {
+        UIView *parentView = [[UIView alloc] initWithFrame:self.bounds];
+        [parentView addSubview:self.lgo_progressView.customProgressView];
+        [self addSubview:self.lgo_progressView.customProgressView];
+    } else {
+        [self addSubview:self.lgo_progressView.progressView];
+        self.lgo_progressView.progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.lgo_progressView.progressView.frame = CGRectMake(0, 0, self.bounds.size.width, 1);
+    }
 }
 
 - (void)lgo_progressViewDidChangeValueForKey:(NSString *)key {
