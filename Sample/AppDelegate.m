@@ -16,7 +16,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[LGOCore whiteList] addObject:@"raw.githubusercontent.com"];
+//    [[LGOCore whiteList] addObject:@"raw.githubusercontent.com"];
     return YES;
 }
 
