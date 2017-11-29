@@ -412,8 +412,10 @@ static void LGOReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRe
 @implementation LGODeviceReachability
 
 + (BOOL)LGODeviceUsingWifi {
-    LGOReachability *reachability = [LGOReachability reachabilityForLocalWiFi];
-    return reachability.isReachableViaWiFi;
+    if ([[LGOReachability reachabilityWithHostName:@"www.baidu.com"] currentReachabilityStatus] == ReachableViaWiFi) {
+        return YES;
+    }
+    return NO;
 }
 
 + (int)LGODeviceCellularType {
