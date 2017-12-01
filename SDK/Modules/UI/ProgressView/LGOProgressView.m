@@ -21,6 +21,7 @@
 @implementation LGOProgressView
 
 static NSString *_customProgressViewClassName;
+static void (^_progressDidChangeCallback)(double progress, LGOProgressView *lgo_progressView);
 
 + (void)setCustomProgressViewClassName:(NSString *)className {
     if (_customProgressViewClassName != className) {
@@ -30,6 +31,16 @@ static NSString *_customProgressViewClassName;
 
 + (NSString *)customProgressViewClassName {
     return _customProgressViewClassName;
+}
+
++ (void)setProgressDidChangeCallback:(void (^)(double, LGOProgressView *))progressDidChangeCallback {
+    if (_progressDidChangeCallback != progressDidChangeCallback) {
+        _progressDidChangeCallback = progressDidChangeCallback;
+    }
+}
+
++ (void (^)(double, LGOProgressView *))progressDidChangeCallback {
+    return _progressDidChangeCallback;
 }
 
 - (instancetype)init {
@@ -60,6 +71,7 @@ static NSString *_customProgressViewClassName;
 - (void)setProgress:(double)progress {
     [self.hiddenTimer invalidate];
     [self.progressView setAlpha:1.0];
+    [self.customProgressView setAlpha:1.0];
     [self.progressView setProgress:progress animated:YES];
     if (progress == 1.0) {
         self.hiddenTimer = [NSTimer scheduledTimerWithTimeInterval:0.80
@@ -78,11 +90,13 @@ static NSString *_customProgressViewClassName;
                          }
                          completion:nil];
     } else if (self.customProgressView) {
-        [UIView animateWithDuration:0.30
-                         animations:^{
-                             [self.customProgressView setAlpha:0.0];
-                         }
-                         completion:nil];
+        if (! LGOProgressView.progressDidChangeCallback) {
+            [UIView animateWithDuration:0.30
+                             animations:^{
+                                 [self.customProgressView setAlpha:0.0];
+                             }
+                             completion:nil];
+        }
     }
 }
 
@@ -143,8 +157,6 @@ static NSString *_customProgressViewClassName;
         self.lgo_progressView = [[LGOProgressView alloc] init];
     }
     if (self.lgo_progressView.customProgressView) {
-        UIView *parentView = [[UIView alloc] initWithFrame:self.bounds];
-        [parentView addSubview:self.lgo_progressView.customProgressView];
         [self addSubview:self.lgo_progressView.customProgressView];
     } else {
         [self addSubview:self.lgo_progressView.progressView];
@@ -157,6 +169,9 @@ static NSString *_customProgressViewClassName;
     [self lgo_progressViewDidChangeValueForKey:key];
     if ([key isEqualToString:@"estimatedProgress"] && self.lgo_progressView != nil) {
         [self.lgo_progressView setProgress:self.estimatedProgress];
+        if (LGOProgressView.progressDidChangeCallback) {
+            LGOProgressView.progressDidChangeCallback(self.estimatedProgress, self.lgo_progressView);
+        }
     }
 }
 
