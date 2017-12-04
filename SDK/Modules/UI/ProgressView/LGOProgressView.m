@@ -21,7 +21,7 @@
 @implementation LGOProgressView
 
 static NSString *_customProgressViewClassName;
-static void (^_progressDidChangeCallback)(double progress, LGOProgressView *lgo_progressView);
+static void (^_progressDidChangeCallback)(double progress, UIView *lgo_progressView);
 
 + (void)setCustomProgressViewClassName:(NSString *)className {
     if (_customProgressViewClassName != className) {
@@ -33,13 +33,13 @@ static void (^_progressDidChangeCallback)(double progress, LGOProgressView *lgo_
     return _customProgressViewClassName;
 }
 
-+ (void)setProgressDidChangeCallback:(void (^)(double, LGOProgressView *))progressDidChangeCallback {
++ (void)setProgressDidChangeCallback:(void (^)(double, UIView *))progressDidChangeCallback {
     if (_progressDidChangeCallback != progressDidChangeCallback) {
         _progressDidChangeCallback = progressDidChangeCallback;
     }
 }
 
-+ (void (^)(double, LGOProgressView *))progressDidChangeCallback {
++ (void (^)(double, UIView *))progressDidChangeCallback {
     return _progressDidChangeCallback;
 }
 
@@ -170,7 +170,7 @@ static void (^_progressDidChangeCallback)(double progress, LGOProgressView *lgo_
     if ([key isEqualToString:@"estimatedProgress"] && self.lgo_progressView != nil) {
         [self.lgo_progressView setProgress:self.estimatedProgress];
         if (LGOProgressView.progressDidChangeCallback) {
-            LGOProgressView.progressDidChangeCallback(self.estimatedProgress, self.lgo_progressView);
+            LGOProgressView.progressDidChangeCallback(self.estimatedProgress, self);
         }
     }
 }
