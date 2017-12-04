@@ -10,5 +10,5 @@
 
 @interface LGOProgressView : NSObject
 @property (nonatomic, copy, class) NSString *customProgressViewClassName;
-@property (nonatomic, copy, class) void (^progressDidChangeCallback)(double progress, LGOProgressView *lgo_progressView);
+@property (nonatomic, copy, class) void (^progressDidChangeCallback)(double progress, UIView *webView);
 @end

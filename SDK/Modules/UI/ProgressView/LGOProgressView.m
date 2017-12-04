@@ -170,7 +170,7 @@ static void (^_progressDidChangeCallback)(double progress, LGOProgressView *lgo_
     if ([key isEqualToString:@"estimatedProgress"] && self.lgo_progressView != nil) {
         [self.lgo_progressView setProgress:self.estimatedProgress];
         if (LGOProgressView.progressDidChangeCallback) {
-            LGOProgressView.progressDidChangeCallback(self.estimatedProgress, self.lgo_progressView);
+            LGOProgressView.progressDidChangeCallback(self.estimatedProgress, self);
         }
     }
 }
