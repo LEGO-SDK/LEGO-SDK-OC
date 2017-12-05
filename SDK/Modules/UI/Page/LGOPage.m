@@ -39,6 +39,7 @@
 
 @property (nonatomic, assign) BOOL showsIndicator;
 
+@property (nonatomic, assign) BOOL showProgressView;
 @end
 
 @implementation LGOPageRequest
@@ -144,6 +145,7 @@
             request.allowBounce = [item[@"allowBounce"] isKindOfClass:[NSNumber class]] ? [item[@"allowBounce"] boolValue] : YES;
             request.alwaysBounce = [item[@"alwaysBounce"] isKindOfClass:[NSNumber class]] ? [item[@"alwaysBounce"] boolValue] : NO;
             request.showsIndicator = [item[@"showsIndicator"] isKindOfClass:[NSNumber class]] ? [item[@"showsIndicator"] boolValue] : YES;
+            request.showProgressView = [item[@"showProgressView"] isKindOfClass:[NSNumber class]] ? [item[@"showProgressView"] boolValue] : YES;
             if ([NSURL URLWithString:request.urlPattern].host.length > 0 ||
                 [[NSURL URLWithString:request.urlPattern].scheme isEqualToString:@"file"] ||
                 request.urlPattern == nil) {

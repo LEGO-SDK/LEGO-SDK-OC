@@ -15,7 +15,7 @@
 #import "LGOWKWebView.h"
 #import <WebKit/WebKit.h>
 #import "LGOWebView.h"
-
+#import "LGOProgressView.h"
 @interface LGOBaseViewController ()<WKNavigationDelegate>
 
 @property (nonatomic, strong) UIView *webView;
@@ -79,6 +79,18 @@
 - (void)loadSetting {
     if (self.setting != nil) {
         self.title = self.setting.title;
+        UIProgressView __block *tempProgressView;
+        if (_webView) {
+            [_webView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass:[UIProgressView class]]) {
+                    tempProgressView = obj;
+                    *stop = YES;
+                }
+            }];
+        }
+        if (tempProgressView) {
+            tempProgressView.hidden = !self.setting.showProgressView;
+        }
         if ([self.webView isKindOfClass:[WKWebView class]]) {
             [(WKWebView *)self.webView scrollView].bounces = self.setting.allowBounce;
             [(WKWebView *)self.webView scrollView].alwaysBounceVertical = self.setting.alwaysBounce;
@@ -170,6 +182,15 @@
 - (void)setUrl:(NSURL *)url {
     _url = url;
     _setting = [[LGOPageStore sharedStore] requestItem:url];
+}
+
+- (void)setSetting:(LGOPageRequest *)setting {
+    _setting = setting;
+    if (_setting && _setting.showProgressView) {
+        LGOProgressView.customProgressViewClassName = nil;
+    } else {
+        LGOProgressView.customProgressViewClassName = @"UIView";
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

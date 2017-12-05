@@ -37,6 +37,7 @@
 
 @property (nonatomic, readonly) BOOL showsIndicator;
 
+@property (nonatomic, readonly) BOOL showProgressView;
 @end
 
 @interface LGOPage : LGOModule
