@@ -21,7 +21,6 @@
 @implementation LGOProgressView
 
 static NSString *_customProgressViewClassName;
-static void (^_progressDidChangeCallback)(double progress, UIView *lgo_progressView);
 
 + (void)setCustomProgressViewClassName:(NSString *)className {
     if (_customProgressViewClassName != className) {
@@ -31,16 +30,6 @@ static void (^_progressDidChangeCallback)(double progress, UIView *lgo_progressV
 
 + (NSString *)customProgressViewClassName {
     return _customProgressViewClassName;
-}
-
-+ (void)setProgressDidChangeCallback:(void (^)(double, UIView *))progressDidChangeCallback {
-    if (_progressDidChangeCallback != progressDidChangeCallback) {
-        _progressDidChangeCallback = progressDidChangeCallback;
-    }
-}
-
-+ (void (^)(double, UIView *))progressDidChangeCallback {
-    return _progressDidChangeCallback;
 }
 
 - (instancetype)init {
@@ -90,13 +79,12 @@ static void (^_progressDidChangeCallback)(double progress, UIView *lgo_progressV
                          }
                          completion:nil];
     } else if (self.customProgressView) {
-        if (! LGOProgressView.progressDidChangeCallback) {
-            [UIView animateWithDuration:0.30
-                             animations:^{
-                                 [self.customProgressView setAlpha:0.0];
-                             }
-                             completion:nil];
-        }
+        [UIView animateWithDuration:0.30
+                         animations:^{
+                             [self.customProgressView setAlpha:0.0];
+                         }
+                         completion:nil];
+        
     }
 }
 
@@ -169,9 +157,6 @@ static void (^_progressDidChangeCallback)(double progress, UIView *lgo_progressV
     [self lgo_progressViewDidChangeValueForKey:key];
     if ([key isEqualToString:@"estimatedProgress"] && self.lgo_progressView != nil) {
         [self.lgo_progressView setProgress:self.estimatedProgress];
-        if (LGOProgressView.progressDidChangeCallback) {
-            LGOProgressView.progressDidChangeCallback(self.estimatedProgress, self);
-        }
     }
 }
 
