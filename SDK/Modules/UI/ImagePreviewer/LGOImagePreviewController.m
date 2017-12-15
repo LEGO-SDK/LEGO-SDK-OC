@@ -145,6 +145,7 @@ static UIWindow *window;
 }
 
 - (void)showInNavigationController:(UINavigationController *)navigationController {
+    self.hidesBottomBarWhenPushed = YES;
     [navigationController pushViewController:self animated:YES];
 }
 
