@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LEGO-SDK"
-  s.version      = "1.0.3"
+  s.version      = "1.0.4"
   s.summary      = "LEGO-SDK is bridge via WebView and Native."
   s.description  = <<-DESC
                       LEGO-SDK is bridge via WebView and Native.
