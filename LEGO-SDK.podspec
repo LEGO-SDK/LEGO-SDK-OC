@@ -96,6 +96,7 @@ Pod::Spec.new do |s|
       end
       ui.subspec 'ViewController' do |m|
         m.source_files = 'SDK/Modules/UI/ViewController/*.{h,m}', 'SDK/Modules/UI/Page/*.{h,m}'
+        m.dependency 'LEGO-SDK/API/UI/ProgressView'
       end
     end
     api.subspec 'WebView' do |webview|
