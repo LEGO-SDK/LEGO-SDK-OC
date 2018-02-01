@@ -156,7 +156,9 @@
         if ([title isEqualToString:@"保存图片"]) {
             UIImage *image = self.imageView.image;
             if (image != nil) {
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+                if ([[NSBundle mainBundle].infoDictionary[@"NSPhotoLibraryAddUsageDescription"] isKindOfClass:[NSString class]]) {
+                    UIImageWriteToSavedPhotosAlbum(image, self, @selector(onSaveImage:didFinishSavingWithError:contextInfo:), nil);
+                }
             }
         } else if ([title isEqualToString:@"复制图片"]) {
             UIImage *image = self.imageView.image;
@@ -166,6 +168,26 @@
             }
         }
     }
+}
+
+- (void)onSaveImage:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    UILabel *toast = [[UILabel alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width - 200) / 2.0,
+                                                               [UIScreen mainScreen].bounds.size.height - 88.0,
+                                                               200,
+                                                               28)];
+    toast.layer.cornerRadius = 14;
+    toast.layer.masksToBounds = YES;
+    toast.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.75];
+    toast.textColor = [UIColor whiteColor];
+    toast.font = [UIFont boldSystemFontOfSize:14];
+    toast.textAlignment = NSTextAlignmentCenter;
+    toast.text = error != nil ? @"保存失败" : @"已保存至相册";
+    [[UIApplication sharedApplication].keyWindow addSubview:toast];
+    [UIView animateWithDuration:0.3 delay:2.0 options:kNilOptions animations:^{
+        [toast setAlpha:0.0];
+    } completion:^(BOOL finished) {
+        [toast removeFromSuperview];
+    }];
 }
 
 @end
