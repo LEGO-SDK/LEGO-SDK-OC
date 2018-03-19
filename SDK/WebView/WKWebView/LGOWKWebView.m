@@ -82,6 +82,9 @@ static void (^_afterCreate)(LGOWKWebView *webView);
         _dataModel = [NSMutableDictionary new];
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
+        if (@available(iOS 11.0, *)) {
+            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
         if (LGOWKWebView.afterCreate) {
             LGOWKWebView.afterCreate(self);
         }
@@ -100,6 +103,9 @@ static void (^_afterCreate)(LGOWKWebView *webView);
         _dataModel = [NSMutableDictionary new];
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
+        if (@available(iOS 11.0, *)) {
+            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
         if (LGOWKWebView.afterCreate) {
             LGOWKWebView.afterCreate(self);
         }

@@ -45,6 +45,9 @@ static void (^_afterCreate)(LGOWebView *webView);
         self.mediaPlaybackRequiresUserAction = NO;
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
+        if (@available(iOS 11.0, *)) {
+            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
         if (LGOWebView.afterCreate) {
             LGOWebView.afterCreate(self);
         }
@@ -61,6 +64,9 @@ static void (^_afterCreate)(LGOWebView *webView);
         self.mediaPlaybackRequiresUserAction = NO;
         self.scrollView.alwaysBounceHorizontal = NO;
         self.scrollView.alwaysBounceVertical = NO;
+        if (@available(iOS 11.0, *)) {
+            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
         if (LGOWebView.afterCreate) {
             LGOWebView.afterCreate(self);
         }
