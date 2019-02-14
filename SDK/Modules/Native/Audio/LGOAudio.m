@@ -84,10 +84,10 @@ typedef NS_OPTIONS(NSUInteger, LGOAudioType){
     if ([dictionary[@"type"] isEqualToString:@"vibrate"]) {
         request.audioType = LGOAudioTypeVibrate;
     }
-    if ([dictionary[@"type"] isEqualToString:@"FeedBack"] || [dictionary[@"type"] isEqualToString:@"FeedBack0"]) {
+    if ([dictionary[@"type"] isEqualToString:@"FeedBack0"]) {
         request.audioType = LGOAudioTypeFeedBack0;
     }
-    if ([dictionary[@"type"] isEqualToString:@"FeedBack1"]) {
+    if ([dictionary[@"type"] isEqualToString:@"FeedBack"] || [dictionary[@"type"] isEqualToString:@"FeedBack1"]) {
         request.audioType = LGOAudioTypeFeedBack1;
     }
     if ([dictionary[@"type"] isEqualToString:@"FeedBack2"]) {
