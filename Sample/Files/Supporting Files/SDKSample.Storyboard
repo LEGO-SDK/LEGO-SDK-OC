@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="P4R-Zd-hky">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="P4R-Zd-hky">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,10 +14,10 @@
             <objects>
                 <tableViewController id="dSZ-5b-eZ8" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="EoS-Ax-dnS">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="Q25-oZ-d8D">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="Q25-oZ-d8D">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -35,7 +34,7 @@
                                 <constraint firstItem="o7Z-he-iwA" firstAttribute="centerX" secondItem="Q25-oZ-d8D" secondAttribute="centerX" id="io3-Xz-mnK"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="qHZ-z1-Zvg">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="qHZ-z1-Zvg">
                             <rect key="frame" x="0.0" y="147" width="375" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -50,7 +49,7 @@
                                         <rect key="frame" x="0.0" y="72" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g96-jC-IUv" id="8zG-Bf-TG1">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="JavaScript" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUe-db-9MH">
@@ -103,15 +102,15 @@
             <objects>
                 <tableViewController id="o9g-i1-X6Z" customClass="SDKSampleJavaScriptListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="u15-Y3-83Q">
-                        <rect key="frame" x="0.0" y="64" width="600" height="1136"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1136"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="33j-gQ-bht">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="33j-gQ-bht">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by YY UED Center" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzX-mv-B0j">
-                                    <rect key="frame" x="217" y="14" width="166" height="16"/>
+                                    <rect key="frame" x="217" y="248.5" width="166" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.4549019608" green="0.47450980390000003" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -130,11 +129,11 @@
                                         <rect key="frame" x="0.0" y="72" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="168-jg-Ncq" id="AtM-Tu-CCj">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4o-QV-D4S">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.CanOpenURL"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -144,7 +143,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCT-80-jzk">
-                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="200" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.Check"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -154,25 +153,25 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDq-az-OwO">
-                                                    <rect key="frame" x="282" y="49" width="36" height="14"/>
+                                                    <rect key="frame" x="282" y="48.5" width="36" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DataModel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p64-YU-CQW">
-                                                    <rect key="frame" x="470" y="49" width="61" height="14"/>
+                                                    <rect key="frame" x="469.5" y="48.5" width="61" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CanOpenURL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQF-F2-h9T">
-                                                    <rect key="frame" x="62" y="49" width="77" height="14"/>
+                                                    <rect key="frame" x="62" y="48.5" width="76" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p8J-AL-t5o">
-                                                    <rect key="frame" x="400" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="400" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.DataModel"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -209,11 +208,11 @@
                                         <rect key="frame" x="0.0" y="147" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IJQ-8y-YFO" id="Erc-1Q-hPo">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOx-GG-Nlu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.Device"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -223,7 +222,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBJ-CK-j5d">
-                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="200" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.FileManager"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -233,25 +232,25 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FileManager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5x-3n-bLa">
-                                                    <rect key="frame" x="266" y="49" width="69" height="14"/>
+                                                    <rect key="frame" x="265.5" y="48.5" width="69" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HTTPRequest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMZ-1d-eWn">
-                                                    <rect key="frame" x="461" y="49" width="79" height="14"/>
+                                                    <rect key="frame" x="460.5" y="48.5" width="79" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PL-5c-idb">
-                                                    <rect key="frame" x="81" y="49" width="39" height="14"/>
+                                                    <rect key="frame" x="80.5" y="48.5" width="39" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUN-iA-dUJ">
-                                                    <rect key="frame" x="400" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="400" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.HTTPRequest"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -288,11 +287,11 @@
                                         <rect key="frame" x="0.0" y="222" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OHa-8h-Bzu" id="cU3-C1-hGa">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hK-aA-qxm">
-                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="200" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.Pasteboard"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -302,13 +301,13 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pasteboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZ3-Vc-aNq">
-                                                    <rect key="frame" x="268" y="49" width="65" height="14"/>
+                                                    <rect key="frame" x="267.5" y="48.5" width="65" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyQ-SR-q4L">
-                                                    <rect key="frame" x="400" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="400" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.UserDefaults"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -318,19 +317,19 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserDefaults" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCS-yC-F4g">
-                                                    <rect key="frame" x="463" y="49" width="74" height="14"/>
+                                                    <rect key="frame" x="463" y="48.5" width="74" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7a-Zd-uJd">
-                                                    <rect key="frame" x="68" y="49" width="65" height="14"/>
+                                                    <rect key="frame" x="67.5" y="48.5" width="65" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K2s-9G-ZW7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.Notification"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -367,27 +366,27 @@
                                         <rect key="frame" x="0.0" y="297" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aNg-fu-QEY" id="JzY-0R-59n">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2O-vm-mIp">
-                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
-                                                    <accessibility key="accessibilityConfiguration" label="AppLink.SSO"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2O-vm-mIp">
+                                                    <rect key="frame" x="200" y="0.0" width="200" height="74.5"/>
+                                                    <accessibility key="accessibilityConfiguration" label="Native.Audio"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" image="icon_nav_heart"/>
+                                                    <state key="normal" image="icon_nav_voice"/>
                                                     <connections>
                                                         <action selector="handleButtonTapped:" destination="o9g-i1-X6Z" eventType="touchUpInside" id="oe6-yx-RVH"/>
                                                     </connections>
                                                 </button>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pasteboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqW-r2-I0J">
-                                                    <rect key="frame" x="268" y="48" width="65" height="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqW-r2-I0J">
+                                                    <rect key="frame" x="283.5" y="48" width="33" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9aP-KU-97T">
-                                                    <rect key="frame" x="400" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="400" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="AppLink.Pay"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -403,13 +402,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfn-Kf-NnJ">
-                                                    <rect key="frame" x="90" y="48" width="21" height="15"/>
+                                                    <rect key="frame" x="89.5" y="48" width="21" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GvE-kD-MuR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="Native.Call"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -450,11 +449,11 @@
                                         <rect key="frame" x="0.0" y="400" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UW9-Z5-EXd" id="KoM-ms-zj3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRE-OZ-b9r">
-                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="200" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="UI.AlertView"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -464,13 +463,13 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AlertView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AcT-yn-Wek">
-                                                    <rect key="frame" x="273" y="49" width="55" height="14"/>
+                                                    <rect key="frame" x="272.5" y="48.5" width="55" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JW1-yB-AId">
-                                                    <rect key="frame" x="400" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="400" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="UI.ImagePreviewer"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -480,19 +479,19 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ImagePreviewer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cik-oT-LeA">
-                                                    <rect key="frame" x="455" y="49" width="90" height="14"/>
+                                                    <rect key="frame" x="455" y="48.5" width="90" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ActionSheet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8W6-ca-zWK">
-                                                    <rect key="frame" x="66" y="49" width="69" height="14"/>
+                                                    <rect key="frame" x="65.5" y="48.5" width="69" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vvh-wO-uNe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="UI.ActionSheet"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -529,11 +528,11 @@
                                         <rect key="frame" x="0.0" y="475" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dvx-Gs-9wX" id="p4B-js-0FR">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7T-AS-rmm">
-                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="200" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="UI.ViewController"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -555,7 +554,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5Z-Vd-lMg">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="UI.Refresh"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -565,7 +564,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cs9-lC-bM6">
-                                                    <rect key="frame" x="400" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="400" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="UI.Picker"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -575,7 +574,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Picker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHo-14-Ue6">
-                                                    <rect key="frame" x="482.5" y="48.5" width="35" height="15"/>
+                                                    <rect key="frame" x="482.5" y="48" width="35" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -612,11 +611,11 @@
                                         <rect key="frame" x="0.0" y="578" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hgd-ZZ-kp0" id="gNP-rG-Dvs">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OgA-fQ-2h9">
-                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="200" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="UI.AlertView"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -626,13 +625,13 @@
                                                     </connections>
                                                 </button>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AlertView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JU0-yd-ZAL">
-                                                    <rect key="frame" x="273" y="49" width="55" height="14"/>
+                                                    <rect key="frame" x="272.5" y="48.5" width="55" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bk1-hP-v1S">
-                                                    <rect key="frame" x="400" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="400" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="UI.ImagePreviewer"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -642,19 +641,19 @@
                                                     </connections>
                                                 </button>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ImagePreviewer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8A-Wd-JvZ">
-                                                    <rect key="frame" x="455" y="49" width="90" height="14"/>
+                                                    <rect key="frame" x="455" y="48.5" width="90" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="weui" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMr-fH-O2V">
-                                                    <rect key="frame" x="87.5" y="49" width="26" height="14"/>
+                                                    <rect key="frame" x="87" y="48.5" width="26" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PvB-21-Fkh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="weui"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -727,7 +726,7 @@
                 <navigationController id="P4R-Zd-hky" customClass="LGOBaseNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="abf-82-OtH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="IOG-Mh-mVb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
@@ -749,18 +748,19 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_nav_actionSheet" width="28" height="28"/>
-        <image name="icon_nav_call" width="24" height="24"/>
-        <image name="icon_nav_canOpenURL" width="23" height="23"/>
-        <image name="icon_nav_check" width="22" height="22"/>
-        <image name="icon_nav_datamodel" width="21" height="21"/>
-        <image name="icon_nav_device" width="21" height="21"/>
-        <image name="icon_nav_dialog" width="28" height="28"/>
-        <image name="icon_nav_heart" width="28" height="25"/>
-        <image name="icon_nav_httprequest" width="20" height="22"/>
+        <image name="icon_nav_actionSheet" width="56" height="56"/>
+        <image name="icon_nav_call" width="11.520000457763672" height="11.520000457763672"/>
+        <image name="icon_nav_canOpenURL" width="11.279999732971191" height="11.279999732971191"/>
+        <image name="icon_nav_check" width="10.800000190734863" height="10.800000190734863"/>
+        <image name="icon_nav_datamodel" width="10.319999694824219" height="10.319999694824219"/>
+        <image name="icon_nav_device" width="10.319999694824219" height="10.319999694824219"/>
+        <image name="icon_nav_dialog" width="56" height="56"/>
+        <image name="icon_nav_heart" width="13.439999580383301" height="12"/>
+        <image name="icon_nav_httprequest" width="9.8400001525878906" height="10.800000190734863"/>
         <image name="icon_nav_js" width="28" height="28"/>
-        <image name="icon_nav_notification" width="26" height="18"/>
-        <image name="icon_nav_pay" width="23" height="23"/>
-        <image name="icon_nav_userdefaults" width="22" height="22"/>
+        <image name="icon_nav_notification" width="12.720000267028809" height="8.6400003433227539"/>
+        <image name="icon_nav_pay" width="11.279999732971191" height="11.279999732971191"/>
+        <image name="icon_nav_userdefaults" width="10.800000190734863" height="10.560000419616699"/>
+        <image name="icon_nav_voice" width="8.880000114440918" height="11.520000457763672"/>
     </resources>
 </document>

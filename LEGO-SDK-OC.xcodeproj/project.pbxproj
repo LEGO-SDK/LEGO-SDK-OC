@@ -24,6 +24,8 @@
 		40608A3F1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A3E1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m */; };
 		40608A451D581ACA00219874 /* LGOImagePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A441D581ACA00219874 /* LGOImagePreviewController.m */; };
 		40608A481D5888FC00219874 /* LGODeviceReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A471D5888FC00219874 /* LGODeviceReachability.m */; };
+		71C09EE521FEE4FC00D20958 /* Native.Audio.html in Resources */ = {isa = PBXBuildFile; fileRef = 71C09EE421FEE48D00D20958 /* Native.Audio.html */; };
+		71C09EE921FEE7A000D20958 /* LGOAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 71C09EE821FEE7A000D20958 /* LGOAudio.m */; };
 		904EAF771F3B000E00E99FB2 /* LGOSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 904EAF761F3B000E00E99FB2 /* LGOSnapshot.m */; };
 		9050A4F81D484D2600306F9E /* LGOWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4F71D484D2600306F9E /* LGOWKWebView.m */; };
 		9050A4FB1D4850F700306F9E /* LGOJavaScriptUserContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9050A4FA1D4850F700306F9E /* LGOJavaScriptUserContentController.m */; };
@@ -139,6 +141,9 @@
 		40608A441D581ACA00219874 /* LGOImagePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOImagePreviewController.m; sourceTree = "<group>"; };
 		40608A461D5888FC00219874 /* LGODeviceReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGODeviceReachability.h; sourceTree = "<group>"; };
 		40608A471D5888FC00219874 /* LGODeviceReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGODeviceReachability.m; sourceTree = "<group>"; };
+		71C09EE421FEE48D00D20958 /* Native.Audio.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Native.Audio.html; sourceTree = "<group>"; };
+		71C09EE721FEE7A000D20958 /* LGOAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGOAudio.h; sourceTree = "<group>"; };
+		71C09EE821FEE7A000D20958 /* LGOAudio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGOAudio.m; sourceTree = "<group>"; };
 		7A12488A39AF61C14C802E57 /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
 		8CE4102F338A29E34675421B /* Pods-Sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.release.xcconfig"; sourceTree = "<group>"; };
 		904EAF751F3B000E00E99FB2 /* LGOSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOSnapshot.h; sourceTree = "<group>"; };
@@ -448,6 +453,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		71C09EE621FEE76F00D20958 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				71C09EE721FEE7A000D20958 /* LGOAudio.h */,
+				71C09EE821FEE7A000D20958 /* LGOAudio.m */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		906F11D11D5C7C2B001F64DF /* ModalController */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,6 +647,7 @@
 		90E8CD071D47341B005F4746 /* JavaScript */ = {
 			isa = PBXGroup;
 			children = (
+				71C09EE421FEE48D00D20958 /* Native.Audio.html */,
 				90E8CD081D47341B005F4746 /* Native.Call.html */,
 				90E8CD091D47341B005F4746 /* Native.CanOpenURL.html */,
 				90E8CD0A1D47341B005F4746 /* Native.Check.html */,
@@ -693,6 +708,7 @@
 		90E8CD611D4760BB005F4746 /* Native */ = {
 			isa = PBXGroup;
 			children = (
+				71C09EE621FEE76F00D20958 /* Audio */,
 				40608A081D51CC0F00219874 /* Notification */,
 				402EA9BB1D4B39B500E01F88 /* Call */,
 				90E8CD621D4760BB005F4746 /* Check */,
@@ -773,8 +789,6 @@
 				90E8CCC91D470892005F4746 /* Frameworks */,
 				90E8CCCA1D470892005F4746 /* Resources */,
 				90E8CCF41D4708C0005F4746 /* Embed Frameworks */,
-				A1ED2E77265429D6BF66B995 /* [CP] Embed Pods Frameworks */,
-				64A2A1D273A4444C7D4E6049 /* [CP] Copy Pods Resources */,
 				4A41CF737A2DD69FC9002B12 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -798,7 +812,7 @@
 				TargetAttributes = {
 					90E8CCCB1D470892005F4746 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 8M2FQ87SLP;
+						DevelopmentTeam = 7GPHW87L24;
 					};
 				};
 			};
@@ -838,6 +852,7 @@
 				90E8CCDB1D470892005F4746 /* Assets.xcassets in Resources */,
 				90E8CD281D47341B005F4746 /* Native.Pasteboard.html in Resources */,
 				90E8CD2B1D47341B005F4746 /* UI.AlertView.html in Resources */,
+				71C09EE521FEE4FC00D20958 /* Native.Audio.html in Resources */,
 				90E8CD311D47341B005F4746 /* UI.ViewController.html in Resources */,
 				90E8CD251D47341B005F4746 /* Native.FileManager.html in Resources */,
 				90F8D3E41D61CA7800CBEDB2 /* weui.zip in Resources */,
@@ -859,13 +874,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4A41CF737A2DD69FC9002B12 /* Embed Pods Frameworks */ = {
@@ -876,36 +894,6 @@
 			inputPaths = (
 			);
 			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sample/Pods-Sample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		64A2A1D273A4444C7D4E6049 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sample/Pods-Sample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A1ED2E77265429D6BF66B995 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -937,6 +925,7 @@
 				40608A0B1D51CC2800219874 /* LGONotification.m in Sources */,
 				406089FD1D5192E700219874 /* LGOPasteboard.m in Sources */,
 				90E8CD531D474353005F4746 /* LGOWatchDog.m in Sources */,
+				71C09EE921FEE7A000D20958 /* LGOAudio.m in Sources */,
 				906F11D01D5C5A3B001F64DF /* LGOWKWebView+DataModel.m in Sources */,
 				90E8CD4B1D473BB5005F4746 /* LGOCore.m in Sources */,
 				402EA9BE1D4B39B500E01F88 /* LGOCall.m in Sources */,
