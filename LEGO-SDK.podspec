@@ -26,6 +26,9 @@ Pod::Spec.new do |s|
   s.subspec 'API' do |api|
     api.dependency 'LEGO-SDK/Core'
     api.subspec 'Native' do |native|
+      native.subspec 'Audio' do |m|
+        m.source_files = 'SDK/Modules/Native/Audio/*.{h,m}'
+      end
       native.subspec 'Call' do |m|
         m.source_files = 'SDK/Modules/Native/Call/*.{h,m}'
       end
