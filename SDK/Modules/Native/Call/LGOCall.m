@@ -74,10 +74,16 @@
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {
     NSString *methodName =
-        [dictionary[@"selectorName"] isKindOfClass:[NSString class]] ? dictionary[@"selectorName"] : nil;
+        [dictionary[@"selectorName"] isKindOfClass:[NSString class]] ? dictionary[@"selectorName"] : dictionary[@"methodName"];
     NSDictionary *userInfo =
         [dictionary[@"userInfo"] isKindOfClass:[NSDictionary class]] ? dictionary[@"userInfo"] : nil;
     LGOCallRequest *request = [[LGOCallRequest alloc] initWithContext:context methodName:methodName userInfo:userInfo];
+    
+    if ([methodName isEqualToString:@"tel:"]) {
+        NSString *str = [[NSMutableString alloc] initWithFormat:@"tel://%@",userInfo[@"number"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }
+    
     LGOCallOperation *operation = [LGOCallOperation new];
     operation.request = request;
     return operation;
