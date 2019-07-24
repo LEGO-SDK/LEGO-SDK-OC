@@ -812,7 +812,7 @@
 				TargetAttributes = {
 					90E8CCCB1D470892005F4746 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 7GPHW87L24;
+						DevelopmentTeam = TD97KS79S9;
 					};
 				};
 			};
@@ -821,6 +821,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1072,11 +1073,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8M2FQ87SLP;
+				DEVELOPMENT_TEAM = TD97KS79S9;
 				INFOPLIST_FILE = Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yyued.legosdk.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1089,11 +1090,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8M2FQ87SLP;
+				DEVELOPMENT_TEAM = TD97KS79S9;
 				INFOPLIST_FILE = Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.legosdk.Sample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yyued.legosdk.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

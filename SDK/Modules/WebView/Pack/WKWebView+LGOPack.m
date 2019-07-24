@@ -43,7 +43,7 @@
         NSString *zipInnerPath = [request.URL.absoluteString rangeOfString:@"?"].location != NSNotFound ?
                                     [[request.URL.absoluteString componentsSeparatedByString:@"?"] lastObject] : nil;
         if (![LGOWatchDog checkURL:zipURL] || ![LGOWatchDog checkSSL:zipURL]) {
-            return [self lgo_PackLoadRequest:request];
+            return [self lgo_LoadRequest:request];
         }
         __block BOOL loaded = NO;
         [LGOPack createFileServerWithURL:zipURL progressBlock:^(double progress) {
@@ -55,15 +55,26 @@
             else {
                 finalPath = [finalPath stringByAppendingString:@"index.html"];
             }
-            [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
+            [self lgo_LoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:finalPath]]];
             loaded = YES;
         }];
         if (loaded) {
             return nil;
         }
-        return [self lgo_PackLoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+        return [self lgo_LoadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
     }
-    return [self lgo_PackLoadRequest:request];
+    return [self lgo_LoadRequest:request];
+}
+
+- (WKNavigation *)lgo_LoadRequest:(NSURLRequest *)request {
+    NSURL *fileURL = request.URL;
+    NSURL *folderURL = [fileURL URLByDeletingPathExtension];
+    
+    if ([fileURL.absoluteString hasPrefix:@"file:///"]) {
+        return [self loadFileURL:fileURL allowingReadAccessToURL:folderURL];
+    }else{
+        return [self lgo_PackLoadRequest:request];
+    }
 }
 #pragma clang diagnostic pop
 
