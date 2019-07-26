@@ -47,6 +47,17 @@ static NSDate *lastPush;
 - (LGOResponse *)pop {
     UIViewController *requestVC = [self.request.context requestViewController];
     if (requestVC != nil && requestVC.navigationController) {
+        if (self.request.args[@"customID"] != nil) {
+            for (UIViewController *vc in requestVC.navigationController.childViewControllers) {
+                if ([vc isKindOfClass:[LGOBaseViewController class]]) {
+                    LGOBaseViewController *lgoVC = (LGOBaseViewController *)vc;
+                    if (lgoVC.args[@"customID"]!= nil && [lgoVC.args[@"customID"]  isEqual:self.request.args[@"customID"]]) {
+                        [requestVC.navigationController popToViewController:lgoVC animated:self.request.animated];
+                        return [[LGOResponse new] accept:nil];
+                    }
+                }
+            }
+        }
         [requestVC.navigationController popViewControllerAnimated:self.request.animated];
         return [[LGOResponse new] accept:nil];
     } else {
