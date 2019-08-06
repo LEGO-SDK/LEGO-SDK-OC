@@ -48,6 +48,10 @@ static NSDate *lastPush;
     UIViewController *requestVC = [self.request.context requestViewController];
     if (requestVC != nil && requestVC.navigationController) {
         if (self.request.args[@"customID"] != nil) {
+            if ([self.request.args[@"customID"] isEqualToString:@"root"]) {
+                [requestVC.navigationController popToRootViewControllerAnimated:self.request.animated];
+                return [[LGOResponse new] accept:nil];
+            }
             for (UIViewController *vc in requestVC.navigationController.childViewControllers) {
                 if ([vc isKindOfClass:[LGOBaseViewController class]]) {
                     LGOBaseViewController *lgoVC = (LGOBaseViewController *)vc;
@@ -150,7 +154,7 @@ static NSDate *lastPush;
     request.path = [dictionary[@"path"] isKindOfClass:[NSString class]] ? dictionary[@"path"] : @"";
     request.animated = [dictionary[@"animated"] isKindOfClass:[NSNumber class]]
     ? ((NSNumber *)dictionary[@"animated"]).boolValue
-    : YES; 
+    : YES;
     request.args = [dictionary[@"args"] isKindOfClass:[NSDictionary class]] ? dictionary[@"args"] : @{};
     request.preloadToken = [dictionary[@"preloadToken"] isKindOfClass:[NSString class]] ? dictionary[@"preloadToken"] : nil;
     return [self buildWithRequest:request];
