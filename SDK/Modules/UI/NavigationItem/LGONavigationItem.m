@@ -35,9 +35,9 @@
 
 - (NSDictionary *)resData {
     return @{
-        @"leftTapped" : [NSNumber numberWithBool:self.leftTapped],
-        @"rightTapped" : [NSNumber numberWithBool:self.rightTapped]
-    };
+             @"leftTapped" : [NSNumber numberWithBool:self.leftTapped],
+             @"rightTapped" : [NSNumber numberWithBool:self.rightTapped]
+             };
 }
 
 @end
@@ -59,14 +59,14 @@ UInt16 LGONavigationItemOperationPinKey;
         return [[LGOResponse new] reject:[NSError errorWithDomain:@"UI.NavigationItem"
                                                              code:-2
                                                          userInfo:@{
-                                                             NSLocalizedDescriptionKey : @"ViewController not found."
-                                                         }]];
+                                                                    NSLocalizedDescriptionKey : @"ViewController not found."
+                                                                    }]];
     }
     if (self.request.title != nil) {
         viewController.title = self.request.title;
     }
     if (self.request.leftItem != nil) {
-        if ([self.request.leftItem rangeOfString:@".png"].location != NSNotFound) {
+        if ([self.request.leftItem rangeOfString:@".png"].location != NSNotFound || [self.request.leftItem isEqualToString:@"default"]) {
             NSURL *relativeURL = nil;
             UIView *webView = self.request.context.requestWebView;
             if (webView != nil && [webView isKindOfClass:[UIWebView class]]) {
@@ -134,7 +134,7 @@ UInt16 LGONavigationItemOperationPinKey;
 
 - (UIViewController *)requestViewController {
     UIView *view =
-        [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender : nil;
+    [self.request.context.sender isKindOfClass:[UIView class]] ? (UIView *)self.request.context.sender : nil;
     if (view != nil) {
         UIResponder *next = [view nextResponder];
         for (int count = 0; count < 100; count++) {
@@ -152,11 +152,30 @@ UInt16 LGONavigationItemOperationPinKey;
 
 - (void)imageBarButtonItem:(NSURL *)URL completionBlock:(void (^)(UIBarButtonItem *item))completionBlock {
     NSURLRequest *request =
-        [[NSURLRequest alloc] initWithURL:URL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:15.0];
+    [[NSURLRequest alloc] initWithURL:URL
+                          cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                      timeoutInterval:15.0];
     CGFloat scale = 2.0;
     if ([URL.absoluteString rangeOfString:@"@3x.png"].location != NSNotFound ||
         [URL.absoluteString rangeOfString:@"%403x"].location != NSNotFound) {
         scale = 3.0;
+    }
+    if ([URL.path isEqualToString:@"/default"]) {
+        NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"ico_back.png"];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        if (data == nil) {
+            return;
+        }
+        UIImage *image = [[UIImage alloc] initWithData:data];
+        if (image == nil) {
+            return;
+        }
+        UIBarButtonItem *item = [[UIBarButtonItem alloc]
+                                 initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                 style:UIBarButtonItemStylePlain
+                                 target:self
+                                 action:@selector(handleBarButtonItemTapped:)];
+        completionBlock(item);
     }
     if ([URL.scheme isEqualToString:@"file"]) {
         NSData *data = [NSData dataWithContentsOfURL:URL];
@@ -193,7 +212,7 @@ UInt16 LGONavigationItemOperationPinKey;
                                                             action:@selector(handleBarButtonItemTapped:)];
                                    completionBlock(item);
                                }];
-    }   
+    }
 }
 
 - (UIBarButtonItem *)textBarButtonItem:(NSString *)text {
