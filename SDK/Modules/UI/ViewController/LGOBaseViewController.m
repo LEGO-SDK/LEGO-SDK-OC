@@ -279,6 +279,10 @@
     return _webView;
 }
 
+- (void)popViewController {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - WKNavigationDelegate
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {

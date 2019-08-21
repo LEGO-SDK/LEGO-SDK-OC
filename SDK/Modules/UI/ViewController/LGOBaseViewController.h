@@ -34,4 +34,6 @@ typedef void(^LGOBaseViewControllerHookBlock)();
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation;
 
+- (void)popViewController;
+
 @end

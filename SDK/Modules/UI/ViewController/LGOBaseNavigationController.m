@@ -33,10 +33,12 @@
     self.navigationBar.translucent = YES;
     self.navigationBar.barTintColor = [UIColor whiteColor];
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationBar.subviews.firstObject.layer addSublayer:self.barTintLayer];
     [self.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
     [self.navigationBar addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
     [self.interactivePopGestureRecognizer addTarget:self action:@selector(onInteractivePopGestureRecognizer:)];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.navigationBar.subviews.firstObject.layer insertSublayer:self.barTintLayer atIndex:0];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
