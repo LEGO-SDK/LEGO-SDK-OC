@@ -150,6 +150,9 @@
             if (!self.setting.navigationBarHidden) {
                 if (self.navigationController.navigationBar.translucent) {
                     topLength += self.navigationController.navigationBar.bounds.size.height;
+                    if ([self isiPhoneX]) {
+                        topLength = 88;
+                    }
                 }
             }
             CGFloat bottomLength = self.hidesBottomBarWhenPushed ? 0.0 : self.tabBarController.tabBar.bounds.size.height;
@@ -167,6 +170,18 @@
                                         self.view.bounds.size.width,
                                         self.view.bounds.size.height - topLength - bottomLength);
     }
+}
+
+- (BOOL)isiPhoneX {
+    if (@available(iOS 11.0, *)) {
+        UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
+        // 获取底部安全区域高度，iPhone X 竖屏下为 34.0，横屏下为 21.0，其他类型设备都为 0
+        CGFloat bottomSafeInset = keyWindow.safeAreaInsets.bottom;
+        if (bottomSafeInset == 34.0f || bottomSafeInset == 21.0f) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)setUrl:(NSURL *)url {
