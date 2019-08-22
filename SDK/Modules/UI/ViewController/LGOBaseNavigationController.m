@@ -36,9 +36,6 @@
     [self.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
     [self.navigationBar addObserver:self forKeyPath:@"alpha" options:NSKeyValueObservingOptionNew context:nil];
     [self.interactivePopGestureRecognizer addTarget:self action:@selector(onInteractivePopGestureRecognizer:)];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.navigationBar.subviews.firstObject.layer insertSublayer:self.barTintLayer atIndex:0];
-    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -77,6 +74,13 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (object == self.navigationBar && [keyPath isEqualToString:@"bounds"]) {
+        if (self.navigationBar.subviews.count > 0) {
+            UIView *superView = self.navigationBar.subviews.firstObject;
+            if (superView.tag != 10086) {
+                superView.tag = 10086;
+                [superView.layer addSublayer:self.barTintLayer];
+            }
+        }
         self.barTintLayer.frame = self.barTintLayer.superlayer.bounds;
         for (CALayer *sublayer in self.barTintLayer.sublayers) {
             sublayer.frame = self.barTintLayer.bounds;
