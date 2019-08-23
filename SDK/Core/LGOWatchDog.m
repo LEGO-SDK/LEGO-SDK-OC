@@ -15,6 +15,9 @@
     if ([LGOCore.whiteList count] == 0) {
         return YES;
     }
+    if ([URL.absoluteString containsString:@"file:///"]) {
+        return YES;
+    }
     NSString *host = URL.host;
     if (host != nil) {
         for (NSString *whiteItem in [LGOCore.whiteList copy]) {
@@ -35,6 +38,9 @@
 
 + (BOOL)checkSSL:(NSURL *)URL {
     if ([LGOCore.requireSSL count] == 0) {
+        return YES;
+    }
+    if ([URL.absoluteString containsString:@"file:///"]) {
         return YES;
     }
     NSString *host = URL.host;
