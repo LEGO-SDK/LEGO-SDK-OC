@@ -16,6 +16,13 @@ static NSString *kStateActive = @"active";
 static NSString *kStateAppear = @"appear";
 static NSString *kStateDisappear = @"disappear";
 
+
+@interface LGOPageState()
+
+@property (nonatomic, weak) id<LGOPageStateProtocol> pageStateObserver;
+
+@end
+
 @interface LGOPageStateResponse : LGOResponse
 
 @property (nonatomic, copy) NSString *currentState;
@@ -75,20 +82,56 @@ static int kLGOPageStateOperationIdentifier;
                            callbackBlock([[[LGOPageStateResponse alloc] initWithCurrentState:kStateActive] accept:nil]);
                        }],
                        ];
+    
+//    - (void)pageDidLoad;
+//
+//    - (void)pageWillAppear;
+//    - (void)pageDidAppear;
+//
+//    - (void)pageWillDisappear;
+//    - (void)pageDidDisappear;
+//
+//    - (void)pageDealloc;
+
     [targetViewController addHook:^{
+        [[LGOPageState sharedInstance].pageStateObserver pageDidLoad];
+        callbackBlock([[[LGOPageStateResponse alloc] initWithCurrentState:kStateDisappear] accept:nil]);
+    } forMethod:@"viewDidLoad"];
+    
+    [targetViewController addHook:^{
+        [[LGOPageState sharedInstance].pageStateObserver pageDidAppear];
         callbackBlock([[[LGOPageStateResponse alloc] initWithCurrentState:kStateAppear] accept:nil]);
     } forMethod:@"viewDidAppear"];
     [targetViewController addHook:^{
+        [[LGOPageState sharedInstance].pageStateObserver pageDidDisappear];
         callbackBlock([[[LGOPageStateResponse alloc] initWithCurrentState:kStateDisappear] accept:nil]);
     } forMethod:@"viewDidDisappear"];
+    
+    [targetViewController addHook:^{
+        [[LGOPageState sharedInstance].pageStateObserver pageDealloc];
+        callbackBlock([[[LGOPageStateResponse alloc] initWithCurrentState:kStateDisappear] accept:nil]);
+    } forMethod:@"dealloc"];
 }
 
 @end
 
 @implementation LGOPageState
 
++ (LGOPageState *)sharedInstance {
+    static LGOPageState *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[[self class] alloc] init];
+    });
+    return sharedInstance;
+}
+
 + (void)load {
     [[LGOCore modules] addModuleWithName:@"UI.PageState" instance:[self new]];
+}
+
+- (void)registerPageStateObserver:(id<LGOPageStateProtocol>)pageStateObserver {
+    _pageStateObserver = pageStateObserver;
 }
 
 - (LGORequestable *)buildWithDictionary:(NSDictionary *)dictionary context:(LGORequestContext *)context {

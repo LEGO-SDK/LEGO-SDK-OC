@@ -10,8 +10,17 @@
 #import "SDKSampleJavaScriptListViewController.h"
 #import "LGOBaseViewController.h"
 #import "LGOPack.h"
+#import "LGOPageState.h"
+#import "SDKPageStateManager.h"
 
 @implementation SDKSampleJavaScriptListViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [[LGOPageState sharedInstance] registerPageStateObserver:[SDKPageStateManager shareInstance]];
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SDKSampleJavaScriptItemViewController *viewController = [[UIStoryboard storyboardWithName:@"SDKSample" bundle:nil]

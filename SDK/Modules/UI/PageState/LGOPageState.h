@@ -7,7 +7,12 @@
 //
 
 #import "LGOProtocols.h"
+#import "LGOPageStateProtocol.h"
 
 @interface LGOPageState : LGOModule
+
++ (LGOPageState *)sharedInstance;
+
+- (void)registerPageStateObserver:(id<LGOPageStateProtocol>)pageStateObserver;
 
 @end

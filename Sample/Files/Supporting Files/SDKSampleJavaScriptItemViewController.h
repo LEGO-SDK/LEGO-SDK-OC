@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import "LGOBaseViewController.h"
 
-@interface SDKSampleJavaScriptItemViewController : UIViewController
 
-@property(nonatomic, strong) WKWebView *webView;
+@interface SDKSampleJavaScriptItemViewController : LGOBaseViewController
+
+@property(nonatomic, strong) WKWebView *itemWebView;
 
 @property(nonatomic, copy) NSString *file;
 @property(nonatomic, copy) NSString *zipURL;

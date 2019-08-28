@@ -23,6 +23,10 @@
         message.moduleName = "UI.NavigationItem"
         message.requestParams = {title: "Hello"}
         message.call(null)
+        
+        JSMessage.newMessage("UI.PageState").call(function(meta, result){
+                                                  console.log(result.currentState);
+                                                  });
     }
 
     setTimeout(setTitle, 1000)
@@ -46,7 +50,12 @@
     function pop() {
         var message = JSMessage.newMessage()
         message.moduleName = "UI.NavigationController"
-        message.requestParams = {opt: "pop"}
+        message.requestParams = {
+            opt: "pop",
+            args: {
+                customID: 8888,
+            }
+        }
         message.call(null)
     }
 
@@ -83,11 +92,11 @@
         message.moduleName = "UI.NavigationController"
         message.requestParams = {
             opt: "push",
-            path: "https://github.com/index.html",
+            path: "http://legox.yy.com/assets/lab/zhangfuyuan/ddd/test1.html",
             statusBarHidden: true,
             navigationBarHidden: true,
             args: {
-                customID: 8888,
+                customID: 1,
             }
         }
         message.call(null)

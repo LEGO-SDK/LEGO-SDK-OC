@@ -24,6 +24,8 @@
 		40608A3F1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A3E1D575FE400219874 /* LGOImagePreviewZoomingScrollView.m */; };
 		40608A451D581ACA00219874 /* LGOImagePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A441D581ACA00219874 /* LGOImagePreviewController.m */; };
 		40608A481D5888FC00219874 /* LGODeviceReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 40608A471D5888FC00219874 /* LGODeviceReachability.m */; };
+		716E23D72316AA7E00721609 /* SDKPageStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 716E23D62316AA7E00721609 /* SDKPageStateManager.m */; };
+		716E23DA2316AEAB00721609 /* LGOBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 716E23D82316AEAA00721609 /* LGOBaseNavigationController.m */; };
 		71C09EE521FEE4FC00D20958 /* Native.Audio.html in Resources */ = {isa = PBXBuildFile; fileRef = 71C09EE421FEE48D00D20958 /* Native.Audio.html */; };
 		71C09EE921FEE7A000D20958 /* LGOAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 71C09EE821FEE7A000D20958 /* LGOAudio.m */; };
 		904EAF771F3B000E00E99FB2 /* LGOSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 904EAF761F3B000E00E99FB2 /* LGOSnapshot.m */; };
@@ -44,7 +46,6 @@
 		90A2D4F41E948777001596C7 /* LGOPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4F31E948777001596C7 /* LGOPage.m */; };
 		90A2D4F71E9489EC001596C7 /* LGOPageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4F61E9489EC001596C7 /* LGOPageStore.m */; };
 		90A2D4FA1E949214001596C7 /* LGOBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4F91E949214001596C7 /* LGOBaseViewController.m */; };
-		90A2D4FD1E949B22001596C7 /* LGOBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */; };
 		90A2D4FF1E949B50001596C7 /* SDKSample.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */; };
 		90ABC40E1EE795CC005C4CDB /* LGOPageState.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ABC40D1EE795CC005C4CDB /* LGOPageState.m */; };
 		90ABC4121EE7A271005C4CDB /* LGOToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ABC4111EE7A271005C4CDB /* LGOToast.m */; };
@@ -141,6 +142,11 @@
 		40608A441D581ACA00219874 /* LGOImagePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOImagePreviewController.m; sourceTree = "<group>"; };
 		40608A461D5888FC00219874 /* LGODeviceReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGODeviceReachability.h; sourceTree = "<group>"; };
 		40608A471D5888FC00219874 /* LGODeviceReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGODeviceReachability.m; sourceTree = "<group>"; };
+		716E23D12316875600721609 /* LGOPageStateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGOPageStateProtocol.h; sourceTree = "<group>"; };
+		716E23D52316AA7E00721609 /* SDKPageStateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDKPageStateManager.h; sourceTree = "<group>"; };
+		716E23D62316AA7E00721609 /* SDKPageStateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKPageStateManager.m; sourceTree = "<group>"; };
+		716E23D82316AEAA00721609 /* LGOBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOBaseNavigationController.m; sourceTree = "<group>"; };
+		716E23D92316AEAB00721609 /* LGOBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOBaseNavigationController.h; sourceTree = "<group>"; };
 		71C09EE421FEE48D00D20958 /* Native.Audio.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Native.Audio.html; sourceTree = "<group>"; };
 		71C09EE721FEE7A000D20958 /* LGOAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGOAudio.h; sourceTree = "<group>"; };
 		71C09EE821FEE7A000D20958 /* LGOAudio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGOAudio.m; sourceTree = "<group>"; };
@@ -181,8 +187,6 @@
 		90A2D4F61E9489EC001596C7 /* LGOPageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPageStore.m; sourceTree = "<group>"; };
 		90A2D4F81E949214001596C7 /* LGOBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOBaseViewController.h; sourceTree = "<group>"; };
 		90A2D4F91E949214001596C7 /* LGOBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOBaseViewController.m; sourceTree = "<group>"; };
-		90A2D4FB1E949B22001596C7 /* LGOBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOBaseNavigationController.h; sourceTree = "<group>"; };
-		90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOBaseNavigationController.m; sourceTree = "<group>"; };
 		90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SDKSample.storyboard; sourceTree = "<group>"; };
 		90ABC40C1EE795CC005C4CDB /* LGOPageState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGOPageState.h; sourceTree = "<group>"; };
 		90ABC40D1EE795CC005C4CDB /* LGOPageState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGOPageState.m; sourceTree = "<group>"; };
@@ -434,8 +438,8 @@
 			children = (
 				90A2D4F81E949214001596C7 /* LGOBaseViewController.h */,
 				90A2D4F91E949214001596C7 /* LGOBaseViewController.m */,
-				90A2D4FB1E949B22001596C7 /* LGOBaseNavigationController.h */,
-				90A2D4FC1E949B22001596C7 /* LGOBaseNavigationController.m */,
+				716E23D92316AEAB00721609 /* LGOBaseNavigationController.h */,
+				716E23D82316AEAA00721609 /* LGOBaseNavigationController.m */,
 				906F11F01D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.h */,
 				906F11F11D5DD31D001F64DF /* UIWebView+LGOViewControllerArgs.m */,
 				906F11F31D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.h */,
@@ -505,6 +509,7 @@
 			children = (
 				90ABC40C1EE795CC005C4CDB /* LGOPageState.h */,
 				90ABC40D1EE795CC005C4CDB /* LGOPageState.m */,
+				716E23D12316875600721609 /* LGOPageStateProtocol.h */,
 			);
 			path = PageState;
 			sourceTree = "<group>";
@@ -687,6 +692,8 @@
 			isa = PBXGroup;
 			children = (
 				90A2D4FE1E949B50001596C7 /* SDKSample.storyboard */,
+				716E23D52316AA7E00721609 /* SDKPageStateManager.h */,
+				716E23D62316AA7E00721609 /* SDKPageStateManager.m */,
 				90E8CD5A1D475293005F4746 /* SDKSampleJavaScriptListViewController.h */,
 				90E8CD5B1D475293005F4746 /* SDKSampleJavaScriptListViewController.m */,
 				90E8CD5D1D47532F005F4746 /* SDKSampleJavaScriptItemViewController.h */,
@@ -789,7 +796,6 @@
 				90E8CCC91D470892005F4746 /* Frameworks */,
 				90E8CCCA1D470892005F4746 /* Resources */,
 				90E8CCF41D4708C0005F4746 /* Embed Frameworks */,
-				4A41CF737A2DD69FC9002B12 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -887,21 +893,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4A41CF737A2DD69FC9002B12 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sample/Pods-Sample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -910,10 +901,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				40608A3C1D5759DC00219874 /* LGORefresh.m in Sources */,
-				90A2D4FD1E949B22001596C7 /* LGOBaseNavigationController.m in Sources */,
 				90E2365E1F2743D100DDFEAA /* LGOSkeleton.m in Sources */,
 				906F11DE1D5C7C2B001F64DF /* LGOModalController.m in Sources */,
 				90A2D4FA1E949214001596C7 /* LGOBaseViewController.m in Sources */,
+				716E23D72316AA7E00721609 /* SDKPageStateManager.m in Sources */,
 				90F8D3D71D6162CB00CBEDB2 /* LGOProgressView.m in Sources */,
 				906F11F51D5DD32B001F64DF /* WKWebView+LGOViewControllerArgs.m in Sources */,
 				40608A391D54A5FA00219874 /* LGOImagePreviewer.m in Sources */,
@@ -965,6 +956,7 @@
 				90A2D4F41E948777001596C7 /* LGOPage.m in Sources */,
 				90673F911D5C29C0009B9D9B /* LGOWebView+RefreshControl.m in Sources */,
 				40608A041D51C3D900219874 /* LGOOpenURL.m in Sources */,
+				716E23DA2316AEAB00721609 /* LGOBaseNavigationController.m in Sources */,
 				90F8D3DB1D61805E00CBEDB2 /* UIWebView+LGOAutoInject.m in Sources */,
 				906F11E21D5C7C2B001F64DF /* LGONavigationItem.m in Sources */,
 			);

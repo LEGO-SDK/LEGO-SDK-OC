@@ -198,6 +198,12 @@
     }
 }
 
+- (void)dealloc {
+    for (LGOBaseViewControllerHookBlock hookBlock in self.hooks[@"dealloc"]) {
+        hookBlock();
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.setting) {

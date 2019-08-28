@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="P4R-Zd-hky">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="P4R-Zd-hky">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,12 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="Q25-oZ-d8D">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Q25-oZ-d8D">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Powered by YY UED Center" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7Z-he-iwA">
-                                    <rect key="frame" x="217" y="14" width="166" height="16"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by YY UED Center" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7Z-he-iwA">
+                                    <rect key="frame" x="104.5" y="14" width="166" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.4549019608" green="0.47450980390000003" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -52,14 +52,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="JavaScript" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUe-db-9MH">
-                                                    <rect key="frame" x="70" y="48" width="60" height="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JavaScript" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUe-db-9MH">
+                                                    <rect key="frame" x="32.5" y="48" width="60" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QGG-KS-vn6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QGG-KS-vn6">
+                                                    <rect key="frame" x="0.0" y="0.0" width="125" height="74.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="AppLink.Share"/>
                                                     <color key="tintColor" red="0.0039215686269999999" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="-16" maxX="0.0" maxY="0.0"/>
@@ -95,7 +95,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SBM-JM-aca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="359"/>
+            <point key="canvasLocation" x="-522" y="359"/>
+        </scene>
+        <!--Sample Native View Controller-->
+        <scene sceneID="czS-fs-HhM">
+            <objects>
+                <viewController id="TJd-yO-Jgg" customClass="SDKSampleNativeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gZZ-jq-btT"/>
+                        <viewControllerLayoutGuide type="bottom" id="sjx-mg-5Io"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Es2-Gs-ofS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vKp-tA-3JO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-522" y="1125"/>
         </scene>
         <!--JavaScript-->
         <scene sceneID="MZ3-Td-6mC">
@@ -744,23 +762,23 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pw0-I8-img" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-864" y="359"/>
+            <point key="canvasLocation" x="-1455" y="358"/>
         </scene>
     </scenes>
     <resources>
-        <image name="icon_nav_actionSheet" width="56" height="56"/>
-        <image name="icon_nav_call" width="11.520000457763672" height="11.520000457763672"/>
-        <image name="icon_nav_canOpenURL" width="11.279999732971191" height="11.279999732971191"/>
-        <image name="icon_nav_check" width="10.800000190734863" height="10.800000190734863"/>
-        <image name="icon_nav_datamodel" width="10.319999694824219" height="10.319999694824219"/>
-        <image name="icon_nav_device" width="10.319999694824219" height="10.319999694824219"/>
-        <image name="icon_nav_dialog" width="56" height="56"/>
-        <image name="icon_nav_heart" width="13.439999580383301" height="12"/>
-        <image name="icon_nav_httprequest" width="9.8400001525878906" height="10.800000190734863"/>
+        <image name="icon_nav_actionSheet" width="28" height="28"/>
+        <image name="icon_nav_call" width="24" height="24"/>
+        <image name="icon_nav_canOpenURL" width="23.5" height="23.5"/>
+        <image name="icon_nav_check" width="22.5" height="22.5"/>
+        <image name="icon_nav_datamodel" width="21.5" height="21.5"/>
+        <image name="icon_nav_device" width="21.5" height="21.5"/>
+        <image name="icon_nav_dialog" width="28" height="28"/>
+        <image name="icon_nav_heart" width="28" height="25"/>
+        <image name="icon_nav_httprequest" width="20.5" height="22.5"/>
         <image name="icon_nav_js" width="28" height="28"/>
-        <image name="icon_nav_notification" width="12.720000267028809" height="8.6400003433227539"/>
-        <image name="icon_nav_pay" width="11.279999732971191" height="11.279999732971191"/>
-        <image name="icon_nav_userdefaults" width="10.800000190734863" height="10.560000419616699"/>
-        <image name="icon_nav_voice" width="8.880000114440918" height="11.520000457763672"/>
+        <image name="icon_nav_notification" width="26.5" height="18"/>
+        <image name="icon_nav_pay" width="23.5" height="23.5"/>
+        <image name="icon_nav_userdefaults" width="22.5" height="22"/>
+        <image name="icon_nav_voice" width="18.5" height="24"/>
     </resources>
 </document>

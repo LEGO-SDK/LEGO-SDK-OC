@@ -15,27 +15,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero];
-    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.webView.frame = self.view.bounds;
-    [self.view addSubview:self.webView];
+    self.itemWebView = [[WKWebView alloc] initWithFrame:CGRectZero];
+    self.itemWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.itemWebView.frame = self.view.bounds;
+    [self.view addSubview:self.itemWebView];
     [self configureTests];
 }
 
 - (void)configureTests {
     if (self.zipURL != nil) {
-        if ([self.webView isKindOfClass:[UIWebView class]]) {
-            [(UIWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.zipURL]]];
-        } else if ([self.webView isKindOfClass:[WKWebView class]]) {
-            [(WKWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.zipURL]]];
+        if ([self.itemWebView isKindOfClass:[UIWebView class]]) {
+            [(UIWebView *)self.itemWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.zipURL]]];
+        } else if ([self.itemWebView isKindOfClass:[WKWebView class]]) {
+            [(WKWebView *)self.itemWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.zipURL]]];
         }
     } else {
         NSString *filePath = [[NSBundle mainBundle] pathForResource:self.file ofType:@"html"];
 //        NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        if ([self.webView isKindOfClass:[UIWebView class]]) {
-            [(UIWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:filePath]]];
-        } else if ([self.webView isKindOfClass:[WKWebView class]]) {
-            [(WKWebView *)self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:filePath]]];
+        if ([self.itemWebView isKindOfClass:[UIWebView class]]) {
+            [(UIWebView *)self.itemWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:filePath]]];
+        } else if ([self.itemWebView isKindOfClass:[WKWebView class]]) {
+            [(WKWebView *)self.itemWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:filePath]]];
         }
         UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
         if (rootViewController) {
@@ -56,10 +56,10 @@
 }
 
 - (void)testDataModel {
-    if ([self.webView isKindOfClass:[UIWebView class]]) {
-        [(UIWebView *)self.webView updateDataModel:@"date" dataValue:[[NSDate new] description]];
-    } else if ([self.webView isKindOfClass:[WKWebView class]]) {
-        [(WKWebView *)self.webView updateDataModel:@"date" dataValue:[[NSDate new] description]];
+    if ([self.itemWebView isKindOfClass:[UIWebView class]]) {
+        [(UIWebView *)self.itemWebView updateDataModel:@"date" dataValue:[[NSDate new] description]];
+    } else if ([self.itemWebView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView *)self.itemWebView updateDataModel:@"date" dataValue:[[NSDate new] description]];
     }
 }
 
